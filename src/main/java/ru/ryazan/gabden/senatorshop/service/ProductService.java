@@ -1,4 +1,7 @@
 package ru.ryazan.gabden.senatorshop.service;
 
-public class ProductService {
+import ru.ryazan.gabden.senatorshop.domain.Product;
+
+public interface ProductService {
+    void save(Product product);
 }
