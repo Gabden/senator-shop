@@ -1,0 +1,10 @@
+ru\ryazan\senatorshop\core\repository\UserRepository.class
+ru\ryazan\senatorshop\core\service\ProductService.class
+ru\ryazan\senatorshop\core\domain\User.class
+ru\ryazan\senatorshop\core\domain\ProductCategory.class
+ru\ryazan\senatorshop\core\service\impl\ProductServiceImpl.class
+ru\ryazan\senatorshop\core\config\CoreConfig.class
+ru\ryazan\senatorshop\core\domain\Product.class
+ru\ryazan\senatorshop\core\repository\ProductRepository.class
+ru\ryazan\senatorshop\core\service\UserService.class
+ru\ryazan\senatorshop\core\service\impl\UserServiceImpl.class
