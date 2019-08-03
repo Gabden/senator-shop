@@ -32,8 +32,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(Product product) {
-        productRepository.saveAndFlush(product);
+    public void update(Optional<Product> product) {
+
+        productRepository.save(product.get());
     }
 
     @Override

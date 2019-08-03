@@ -1,12 +1,15 @@
 package ru.ryazan.senatorshop.core.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String productName;
     private String productCategory;
@@ -21,8 +24,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String productName, String productCategory, String productSubCategory, String productDescription, String productPrice, String productUnitInStock) {
-        this.id = id;
+    public Product(String productName, String productCategory, String productSubCategory, String productDescription, String productPrice, String productUnitInStock) {
         this.productName = productName;
         this.productCategory = productCategory;
         this.productSubCategory = productSubCategory;
