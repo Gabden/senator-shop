@@ -6,34 +6,30 @@
 <body>
 <header th:replace="fragments/navbar :: navbar">
 </header>
+
 <main role="main" class="mt-5">
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">All products</h1>
-                <p class="lead">Checkout all products available</p>
-                <table class="table table-stripped table-hover">
-                    <thead>
-                        <tr class="bg-success">
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="product : ${products}">
-                        <td><img src="#" alt="Image"></td>
-                        <td th:text="${product.productName}"></td>
-                        <td th:text="${product.productCategory}"></td>
-                        <td th:text="${product.productDescription}"></td>
-                        <td th:text="${product.productPrice}"></td>
-                        <td><a th:href="@{'/productList/product/' + ${product.id}}"><span class="fas fa-info-circle"> </span></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h1 class="title">Product detail</h1>
+                <p class="lead">Here is product detail information</p>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="#" alt="Image" style="width: 100%; height: 300px">
+                        </div>
+                        <div class="col-md-5">
+                            <h3>Product description</h3>
+                            <p>
+                                <strong>Name</strong> : <span th:text="${product.productName}"></span>
+                            </p>
+                            <p><strong>Description</strong> : <span th:text="${product.productDescription}"></span></p>
+                            <p><strong>Category</strong> : <span th:text="${product.productCategory}"></span></p>
+                            <p><strong>Price</strong> : <span th:text="${product.productPrice}"></span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- FOOTER -->
             <footer th:replace="fragments/footer :: footer">
