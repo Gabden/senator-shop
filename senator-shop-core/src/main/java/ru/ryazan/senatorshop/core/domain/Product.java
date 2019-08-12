@@ -16,6 +16,7 @@ public class Product {
     private String productSubCategory;
     private String productDescription;
     private String productPrice;
+    private String productUnitInStock;
 
     public Long getId() {
         return id;
@@ -85,7 +86,7 @@ public class Product {
         this.productUnitInStock = productUnitInStock;
     }
 
-    private String productUnitInStock;
+
 
     @Override
     public String toString() {
