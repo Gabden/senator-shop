@@ -30,7 +30,10 @@
                         <td th:text="${product.productCategory}"></td>
                         <td th:text="${product.productDescription}"></td>
                         <td th:text="${product.productPrice}"></td>
-                        <td><a th:href="@{'/productList/product/' + ${product.id}}"><span class="fas fa-info-circle"> </span></a></td>
+                        <td>
+                            <a th:href="@{'/productList/product/' + ${product.id}}"><span class="fas fa-info-circle"> </span></a>
+                            <a th:href="@{'/admin/productInventory/deleteProduct/' + ${product.id}}"><span class="fas fa-trash"> </span></a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

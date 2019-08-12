@@ -15,7 +15,7 @@
                 <p class="lead">Fill information to add product</p>
 
                 <div class="container">
-                    <form th:action="@{/admin/productInventory/addProduct}" th:object="${product}" method="post" class="form">
+                    <form th:action="@{/admin/productInventory/addProduct}" th:object="${product}" method="post" class="form" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" class="form-control" th:field="*{productName}">
@@ -34,6 +34,14 @@
 
                             <label for="unitInStock">UnitInStock</label>
                             <input type="text" id="unitInStock" class="form-control" th:field="*{productUnitInStock}">
+
+                            <div class="form-group">
+                                <label class="control-label" for="productImage">Upload image</label>
+                                <form action="/admin/productInventory/uploadImage" id="productImage" datatype="file" class="form">
+                                    <input type="file" name=imageFile>
+                                    <input type="submit" value="Upload">
+                                </form>
+                            </div>
 
                             <input type="submit" class="btn btn-dark mt-3">
 

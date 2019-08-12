@@ -51,6 +51,12 @@ public class MainController {
         return "redirect:/admin/productInventory";
     }
 
+    @RequestMapping(value = "/admin/productInventory/deleteProduct/{id}")
+    public String productInventoryDelete(@PathVariable Long id){
+        productService.deleteById(id);
+        return "redirect:/admin/productInventory";
+    }
+
     @RequestMapping("/productList")
     public String productList(Model model){
         model.addAttribute("products", productService.findAll());
