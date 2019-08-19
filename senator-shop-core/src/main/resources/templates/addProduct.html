@@ -37,9 +37,8 @@
 
                             <div class="form-group">
                                 <label class="control-label" for="productImage">Upload image</label>
-                                <form action="/admin/productInventory/uploadImage" id="productImage" datatype="file" class="form">
-                                    <input type="file" name=imageFile>
-                                    <input type="submit" value="Upload">
+                                <form th:action="@{/admin/productInventory/addProduct}" id="productImage" datatype="file" class="form">
+                                    <input type="file" name=imageFile th:field="*{productImage}">
                                 </form>
                             </div>
 
