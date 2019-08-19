@@ -57,7 +57,7 @@ public class MainController {
     public String productInventoryAdd(@ModelAttribute("product") Product product, HttpServletRequest request){
         productService.save(product);
         MultipartFile productImage = product.getProductImage();
-        String name = product.getId() + ".png";
+        String name = product.getId() + ".jpg";
         String rootDirectory = request.getSession().getServletContext().getRealPath("upload");
         path = Paths.get(rootDirectory + "\\" + product.getId() + ".png");
         File uploadRootDir = new File(rootDirectory);
