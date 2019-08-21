@@ -1,15 +1,18 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.ryazan.senatorshop.core.domain.User;
 import ru.ryazan.senatorshop.core.repository.UserRepository;
 import ru.ryazan.senatorshop.core.service.UserService;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+
 
     private UserRepository userRepository;
 

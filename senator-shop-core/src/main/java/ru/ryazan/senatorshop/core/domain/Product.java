@@ -1,8 +1,9 @@
 package ru.ryazan.senatorshop.core.domain;
 
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -14,19 +15,23 @@ public class Product {
     private String productCategory;
     private String productSubCategory;
     private String productDescription;
+
+    public Set<ProductImage> getProductImageSet() {
+        return productImageSet;
+    }
+
+    public void setProductImageSet(Set<ProductImage> productImageSet) {
+        this.productImageSet = productImageSet;
+    }
+
     private String productPrice;
     private String productUnitInStock;
 
-    @Transient
-    private MultipartFile productImage;
+    @OneToMany(mappedBy = "product",
+            cascade = CascadeType.ALL
+    )
+    private Set<ProductImage> productImageSet;
 
-    public MultipartFile getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(MultipartFile productImage) {
-        this.productImage = productImage;
-    }
 
     public Long getId() {
         return id;

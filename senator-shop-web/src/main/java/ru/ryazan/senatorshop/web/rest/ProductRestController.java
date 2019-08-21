@@ -3,7 +3,7 @@ package ru.ryazan.senatorshop.web.rest;
 import org.springframework.web.bind.annotation.*;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.service.ProductService;
-import ru.ryazan.senatorshop.web.exceptions.NotFoundException;
+import ru.ryazan.senatorshop.web.exception.MyFileNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +31,7 @@ public class ProductRestController {
     private Optional<Product> getProductById(@PathVariable Long id) {
         return Optional.ofNullable(productService.findById(id)
                 .filter(product -> product.getId().equals(id))
-                .orElseThrow(NotFoundException::new));
+                .orElseThrow(MyFileNotFoundException::new));
     }
 
     @PostMapping("admin/create")
