@@ -81,7 +81,7 @@ public class AdminController {
         DBFileStorageService.storeFile(file, product);
 
         productService.update(productFromDB);
-        return "redirect:/admin/productInventory";
+        return "redirect:/productList/product/" + id;
     }
 
     @RequestMapping(value = "/productInventory/deleteProduct/{id}")
