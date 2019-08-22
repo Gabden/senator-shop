@@ -12,6 +12,7 @@ import ru.ryazan.senatorshop.core.repository.ProductImageRepository;
 import ru.ryazan.senatorshop.core.service.ProductImageService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Service
 public class ProductImageServiceImpl implements ProductImageService {
@@ -45,7 +46,12 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
-    public ProductImage findProductImageByProduct(Product product) {
+    public ArrayList<ProductImage> findProductImageByProduct(Product product) {
         return dbFileRepository.findProductImageByProduct(product);
+    }
+
+    @Override
+    public void deleteOldPhoto(ArrayList<ProductImage> image) {
+        image.forEach(productImage -> dbFileRepository.delete(productImage));
     }
 }

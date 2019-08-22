@@ -10,6 +10,7 @@ import ru.ryazan.senatorshop.core.service.ProductImageService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -68,10 +69,19 @@ public class AdminController {
         return "edit-product";
     }
 
-    @RequestMapping(value = "/productInventory/updateProduct")
-    public String update(@ModelAttribute("product")Product product, Model model, HttpServletRequest request) {
+    @RequestMapping(value = "/productInventory/updateProduct/{id}", method = RequestMethod.POST)
+    public String update(@ModelAttribute("product")Product product, Model model, @RequestParam("file") MultipartFile file,
+             @PathVariable("id") Long id,
+             HttpServletRequest request) {
 
-        return "/admin/productInventory";
+        Optional<Product> productFromDB = Optional.of(product);
+        productFromDB.ifPresent(productNew ->productNew.setId(id));
+        ArrayList<ProductImage> image = DBFileStorageService.findProductImageByProduct(product);
+        DBFileStorageService.deleteOldPhoto(image);
+        DBFileStorageService.storeFile(file, product);
+
+        productService.update(productFromDB);
+        return "redirect:/admin/productInventory";
     }
 
     @RequestMapping(value = "/productInventory/deleteProduct/{id}")

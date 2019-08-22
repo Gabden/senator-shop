@@ -60,7 +60,9 @@ public class Product {
 
     public void setDataImg() {
         List<ProductImage> images = new ArrayList<>(productImageSet);
-        this.dataImg =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
+       if (images.size() != 0){
+           this.dataImg =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
+       }
     }
 
     public void setId(Long id) {

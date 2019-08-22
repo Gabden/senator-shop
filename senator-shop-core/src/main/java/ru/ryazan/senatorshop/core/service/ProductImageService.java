@@ -4,8 +4,12 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.ProductImage;
 
+import java.util.ArrayList;
+
 public interface ProductImageService {
     ProductImage storeFile(MultipartFile file, Product product);
     ProductImage getFile(Long fileId);
-    ProductImage findProductImageByProduct(Product product);
+    ArrayList<ProductImage> findProductImageByProduct(Product product);
+
+    void deleteOldPhoto(ArrayList<ProductImage> image);
 }
