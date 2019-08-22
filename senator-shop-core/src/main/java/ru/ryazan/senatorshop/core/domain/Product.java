@@ -2,8 +2,7 @@ package ru.ryazan.senatorshop.core.domain;
 
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Product {
@@ -27,6 +26,10 @@ public class Product {
     private String productPrice;
     private String productUnitInStock;
 
+    @Transient
+    private String dataImg;
+
+
     @OneToMany(mappedBy = "product",
             cascade = CascadeType.ALL
     )
@@ -47,6 +50,17 @@ public class Product {
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.productUnitInStock = productUnitInStock;
+    }
+
+
+    public String getDataImg() {
+        setDataImg();
+        return dataImg;
+    }
+
+    public void setDataImg() {
+        List<ProductImage> images = new ArrayList<>(productImageSet);
+        this.dataImg =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
     }
 
     public void setId(Long id) {

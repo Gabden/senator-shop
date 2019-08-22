@@ -1,7 +1,5 @@
 package ru.ryazan.senatorshop.web.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -14,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.ryazan.senatorshop.core.domain.ProductImage;
 import ru.ryazan.senatorshop.core.payload.UploadFileResponse;
 import ru.ryazan.senatorshop.core.service.ProductImageService;
-import ru.ryazan.senatorshop.core.service.ProductService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,26 +24,26 @@ public class DBFileController {
     @Autowired
     private ProductImageService DBFileStorageService;
 
-    @PostMapping("/uploadFileDB")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        ProductImage dbFile = DBFileStorageService.storeFile(file);
+//    @PostMapping("/uploadFileDB")
+//    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+//        ProductImage dbFile = DBFileStorageService.storeFile(file);
+//
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/downloadFile/")
+//                .path(dbFile.getId().toString())
+//                .toUriString();
+//
+//        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
+//                file.getContentType(), file.getSize());
+//    }
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(dbFile.getId().toString())
-                .toUriString();
-
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
-    }
-
-    @PostMapping("/uploadMultipleFilesDB")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-    }
+//    @PostMapping("/uploadMultipleFilesDB")
+//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//        return Arrays.asList(files)
+//                .stream()
+//                .map(file -> uploadFile(file))
+//                .collect(Collectors.toList());
+//    }
 
     @GetMapping("/downloadFileDB/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long fileId) {

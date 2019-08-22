@@ -22,6 +22,13 @@ public class ProductImage {
     @JoinColumn
     private Product product;
 
+    public ProductImage(String fileName, String contentType, byte[] bytes, Product product) {
+        this.fileName = fileName;
+        this.fileType = contentType;
+        this.fileData = bytes;
+        this.product = product;
+    }
+
     public Product getProduct() {
         return product;
     }

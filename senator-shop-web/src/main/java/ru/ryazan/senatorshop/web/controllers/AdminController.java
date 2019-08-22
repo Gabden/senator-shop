@@ -2,12 +2,11 @@ package ru.ryazan.senatorshop.web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.ProductImage;
+import ru.ryazan.senatorshop.core.service.ProductImageService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,11 @@ public class AdminController {
 
     private ProductService productService;
 
-    public AdminController(ProductService productService) {
+    private ProductImageService DBFileStorageService;
+
+    public AdminController(ProductService productService, ProductImageService DBFileStorageService) {
         this.productService = productService;
+        this.DBFileStorageService = DBFileStorageService;
     }
     @RequestMapping("")
     public String admin(Model model){
@@ -29,30 +31,34 @@ public class AdminController {
         model.addAttribute("text", "text from thymeleaf");
         List<ProductImage> images =new ArrayList<>();
         images.addAll(product.get().getProductImageSet());
-
         String imge =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
-        System.out.println(imge);
         model.addAttribute("image", imge);
         return "admin";
     }
     @RequestMapping("/productInventory")
     public String productInventory(Model model){
-        model.addAttribute("products", productService.findAll());
+        List<Product> allProducts = productService.findAll();
+
+        model.addAttribute("products", allProducts);
+
         return "product-inventory";
     }
 
     @RequestMapping("/productInventory/addProduct")
     public String adminAdd(Model model){
         Product product = new Product();
+        ProductImage image = new ProductImage();
         model.addAttribute("product", product);
+        model.addAttribute("image", image);
         return "addProduct";
     }
 
     @RequestMapping(value = "/productInventory/addProduct", method = RequestMethod.POST)
-    public String productInventoryAdd(@ModelAttribute("product") Product product, HttpServletRequest request){
+    public String productInventoryAdd(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,HttpServletRequest request){
         productService.save(product);
+        ProductImage dbFile = DBFileStorageService.storeFile(file, product);
 
-        return "redirect:/productInventory";
+        return "redirect:/admin/productInventory";
     }
 
     @RequestMapping(value = "/productInventory/updateProduct/{id}")
@@ -65,13 +71,13 @@ public class AdminController {
     @RequestMapping(value = "/productInventory/updateProduct")
     public String update(@ModelAttribute("product")Product product, Model model, HttpServletRequest request) {
 
-        return "productInventory";
+        return "/admin/productInventory";
     }
 
     @RequestMapping(value = "/productInventory/deleteProduct/{id}")
     public String productInventoryDelete(@PathVariable Long id){
         productService.deleteById(id);
-        return "redirect:/productInventory";
+        return "redirect:/admin/productInventory";
     }
 
 

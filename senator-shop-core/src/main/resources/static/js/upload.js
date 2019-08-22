@@ -19,7 +19,7 @@ function uploadSingleFile(file, storage) {
         xhr.open("POST", "/uploadFile");
         storeloc = 'Filesystem';
     } else if (storage == 'database'){
-        xhr.open("POST", "/uploadFileDB");
+        xhr.open("POST", "/addProduct");
         storeloc = 'Database';
     }
 

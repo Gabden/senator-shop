@@ -6,17 +6,3 @@
     color: red;
 }
 
-.table {
-    table-layout: fixed;
-    overflow: auto;
-}
-
-.table th {
-    text-align: center;
-    background: whitesmoke;
-    overflow: hidden;
-    display: block;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-}
-

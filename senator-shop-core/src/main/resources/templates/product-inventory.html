@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="product : ${products}">
-                        <td><img th:src="@{'/images/' + ${product.id} + '.jpg'}" alt="Image" width="200" height="200"></td>
+                        <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" width="200" height="200"></td>
                         <td th:text="${product.productName}"></td>
                         <td th:text="${product.productCategory}"></td>
                         <td th:text="${product.productDescription}"></td>
@@ -54,7 +54,7 @@
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/home.js"></script>
+<script src="../../js/upload.js" th:src="@{/js/upload.js}"></script>
 </body>
 
 </body>
