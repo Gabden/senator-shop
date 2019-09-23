@@ -25,9 +25,9 @@ public class AdminController {
         this.productService = productService;
         this.DBFileStorageService = DBFileStorageService;
     }
-    @RequestMapping("")
+    @RequestMapping({"","/"})
     public String admin(Model model){
-        Optional<Product> product = productService.findById(44L);
+        Optional<Product> product = productService.findById(56L);
         product.ifPresent(p -> System.out.println(p.getProductImageSet().isEmpty()));
         model.addAttribute("text", "text from thymeleaf");
         List<ProductImage> images =new ArrayList<>();
@@ -76,9 +76,12 @@ public class AdminController {
 
         Optional<Product> productFromDB = Optional.of(product);
         productFromDB.ifPresent(productNew ->productNew.setId(id));
+        System.out.println(productFromDB.toString());
         ArrayList<ProductImage> image = DBFileStorageService.findProductImageByProduct(product);
-        DBFileStorageService.deleteOldPhoto(image);
-        DBFileStorageService.storeFile(file, product);
+        if (!file.isEmpty()) {
+            DBFileStorageService.deleteOldPhoto(image);
+            DBFileStorageService.storeFile(file, product);
+        }
 
         productService.update(productFromDB);
         return "redirect:/productList/product/" + id;
