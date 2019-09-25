@@ -34,12 +34,12 @@ public class ProductRestController {
                 .orElseThrow(MyFileNotFoundException::new));
     }
 
-    @PostMapping("admin/create")
+    @PostMapping("/admin/create")
     public void createProduct(@RequestBody Product product){
         productService.save(product);
     }
 
-    @PutMapping("admin/update/{id}")
+    @PutMapping("/admin/update/{id}")
     public void updateProduct(@PathVariable Long id , @RequestBody Product product){
         Optional<Product> productFromDB;
         productFromDB = Optional.of(product);
@@ -47,12 +47,12 @@ public class ProductRestController {
         productService.update(productFromDB);
     }
 
-    @DeleteMapping("admin/delete")
+    @DeleteMapping("/admin/delete")
     public void deleteProduct(@RequestBody Product product){
         productService.delete(product);
     }
 
-    @DeleteMapping("admin/deleteById/{id}")
+    @DeleteMapping("/admin/deleteById/{id}")
     public void deleteProductById(@PathVariable Long id){
         Optional<Product> productFromDB = getProductById(id);
         productService.deleteById(id);
