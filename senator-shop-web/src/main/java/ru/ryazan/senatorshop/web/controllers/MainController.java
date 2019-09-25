@@ -30,6 +30,11 @@ public class MainController {
         return "uploadTest";
     }
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
 
 
     @RequestMapping("/productList")

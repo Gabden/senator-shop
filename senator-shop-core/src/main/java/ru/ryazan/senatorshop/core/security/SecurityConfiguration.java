@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.ryazan.senatorshop.core.domain.User;
 import ru.ryazan.senatorshop.core.service.UserService;
 
@@ -32,12 +33,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/productList").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/rest/**").hasRole("ADMIN")
+                    .antMatchers("/index").permitAll()
+                    .antMatchers("/productList").authenticated()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/rest/**").hasRole("ADMIN")
                 .and()
-                .httpBasic();
+                    .formLogin()
+                    .loginPage("/login").permitAll()
+                .and()
+                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+                .and()
+                .rememberMe().tokenValiditySeconds(604800);
     }
 
     @Bean
