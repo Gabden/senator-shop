@@ -20,7 +20,8 @@
                 </div>
             </section>
 
-            <section class="container">
+            <section class="container" ng-app="cartApp">
+                <div ng-controller="cartCtrl" ng-init="initCartId('${cartId}')">
 
                 <div class="a">
                     <a href="#" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>
@@ -34,22 +35,24 @@
                         <th>Total price</th>
                         <th>Action</th>
                     </tr>
-                    <tr>
-                        <td>ProductName</td>
-                        <td>ProductPrice</td>
-                        <td>ProductQuantity</td>
-                        <td>TotalPrice</td>
-                        <td>Remove</td>
+                    <tr ng-repeat="item in cart.cartItems">
+                        <td>{{item.product.productName}}</td>
+                        <td>{item.product.productPrice}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.totalPrice}}</td>
+                        <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.id)">
+                            <span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
                     <tr>
                         <th></th>
                         <th></th>
                         <th>Grand total</th>
-                        <th>grandTotal</th>
+                        <th>{{cart.grandTotal}}</th>
                         <th></th>
                     </tr>
                 </table>
-                <a href="#">Continue shopping</a>
+                <a href="#" class="btn btn-default">Continue shopping</a>
+                </div>
             </section>
         </div>
 
@@ -65,7 +68,7 @@
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/home.js"></script>
+<script src="../../js/controller.js" th:src="@{/js/controller.js}"></script>
 </body>
 
 </body>

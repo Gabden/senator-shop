@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest/cart")
+@RequestMapping("/restCart/cart")
+@CrossOrigin
 public class CartController {
     private CartService cartService;
     private ProductService productService;
@@ -29,6 +30,7 @@ public class CartController {
 
     @RequestMapping("/{cartId}")
     public Cart read(@PathVariable(value = "cartId")String cartId){
+
         return cartService.read(cartId);
     }
 
@@ -45,9 +47,9 @@ public class CartController {
     }
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void addItem(@PathVariable(value = "productId") Long productId, HttpServletRequest request){
         String sessionId = request.getSession(true).getId();
+        System.out.println(sessionId);
         Cart cart = cartService.read(sessionId);
         if (cart == null){
             cart = new Cart(sessionId);
@@ -61,7 +63,7 @@ public class CartController {
 
     }
 
-    @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/add/{productId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void removeItem(@PathVariable(value = "productId") Long productId, HttpServletRequest request){
         String sessionId = request.getSession(true).getId();
