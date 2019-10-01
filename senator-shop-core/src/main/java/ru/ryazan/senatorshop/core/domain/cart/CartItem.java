@@ -1,8 +1,10 @@
 package ru.ryazan.senatorshop.core.domain.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.ryazan.senatorshop.core.domain.Product;
 
 public class CartItem {
+    @JsonIgnore
     private Product product;
     private int quantity;
     private Integer totalPrice;

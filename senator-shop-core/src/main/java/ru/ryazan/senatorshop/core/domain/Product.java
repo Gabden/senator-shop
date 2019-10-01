@@ -1,6 +1,9 @@
 package ru.ryazan.senatorshop.core.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -14,7 +17,6 @@ public class Product {
     private String productCategory;
     private String productSubCategory;
     private String productDescription;
-
     public Set<ProductImage> getProductImageSet() {
         return productImageSet;
     }

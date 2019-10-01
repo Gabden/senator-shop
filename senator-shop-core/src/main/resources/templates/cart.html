@@ -21,7 +21,7 @@
             </section>
 
             <section class="container" ng-app="cartApp">
-                <div ng-controller="cartCtrl" ng-init="initCartId('${cartId}')">
+                <div ng-controller="cartCtrl" th:attr="ng-click='initCartId(\''+${cartId}+'\');'">
 
                 <div class="a">
                     <a href="#" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>
@@ -35,11 +35,11 @@
                         <th>Total price</th>
                         <th>Action</th>
                     </tr>
-                    <tr ng-repeat="item in cart.cartItems">
-                        <td>{{item.product.productName}}</td>
-                        <td>{item.product.productPrice}}</td>
-                        <td>{{item.quantity}}</td>
-                        <td>{{item.totalPrice}}</td>
+                    <tr th:each="item : ${cart}">
+                        <td th:text="${item.value.product.productName}">productName</td>
+                        <td th:text="${item.value.product.productPrice}">{item.productPrice}}</td>
+                        <td th:text="${item.value.quantity}">{{item.quantity}}</td>
+                        <td th:text="${item.value.totalPrice}">{{item.totalPrice}}</td>
                         <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.id)">
                             <span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>

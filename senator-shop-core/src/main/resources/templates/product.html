@@ -29,13 +29,15 @@
                             <p><strong>Category</strong> : <span th:text="${product.productCategory}"></span></p>
                             <p><strong>Price</strong> : <span th:text="${product.productPrice}"></span></p>
                             <br>
-                            <p ng-controller="cartCtrl">
+                            <p ng-controller="cartCtrl" th:attr="ng-click='initCartId(\''+${cartId}+'\');'">
 
                                         <a href="/productList" class="btn btn-primary">Back</a>
 
                             <a href="#" class="btn btn-warning btn-large"
-                               ng-click="addToCart('${product.id}')"><span
-                                    class="glyphicon glyphicon-shopping-cart"></span>Order Now</a>
+                               th:attr="ng-click='addToCart(\''+${product.id}+'\');'" >
+<!--                               ng-click="addToCart(\''+${product.id}+'\')"><span-->
+
+                                <span class="glyphicon glyphicon-shopping-cart"></span>Order Now</a>
 
                             <a href="/cart" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>
 

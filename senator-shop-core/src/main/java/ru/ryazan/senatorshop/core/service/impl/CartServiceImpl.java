@@ -20,6 +20,7 @@ public class CartServiceImpl implements CartService {
         if (listOfCarts.containsKey(cart.getCartId())){
             throw new IllegalArgumentException(String.format("Can not create a cart. A cart with the given id(%s)" + " already exists", cart.getCartId()));
         }
+        System.out.println("created cart with id: " + cart.getCartId());
         listOfCarts.put(cart.getCartId(), cart);
         return cart;
     }

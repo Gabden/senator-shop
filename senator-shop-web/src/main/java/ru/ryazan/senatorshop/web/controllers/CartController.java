@@ -30,8 +30,9 @@ public class CartController {
 
     @RequestMapping("/{cartId}")
     public Cart read(@PathVariable(value = "cartId")String cartId){
-
-        return cartService.read(cartId);
+        Cart read = cartService.read(cartId);
+        System.out.println("cart dont find: " + (read == null) + " id: " + cartId);
+        return read;
     }
 
     @RequestMapping(value = "/{cartId}", method = RequestMethod.PUT)
@@ -47,12 +48,14 @@ public class CartController {
     }
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void addItem(@PathVariable(value = "productId") Long productId, HttpServletRequest request){
         String sessionId = request.getSession(true).getId();
         System.out.println(sessionId);
         Cart cart = cartService.read(sessionId);
         if (cart == null){
             cart = new Cart(sessionId);
+            cartService.create(cart);
         }
         Optional<Product> product = productService.findById(productId);
         if (product.get() == null){
@@ -70,6 +73,7 @@ public class CartController {
         Cart cart = cartService.read(sessionId);
         if (cart == null){
             cart = new Cart(sessionId);
+
         }
         Optional<Product> product = productService.findById(productId);
         if (product.get() == null){
