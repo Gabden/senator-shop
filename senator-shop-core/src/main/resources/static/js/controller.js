@@ -7,11 +7,8 @@ cartApp.controller("cartCtrl", function ($scope, $http){
             method: 'GET',
             url: '/restCart/cart/' + cartId
         }).then(function (response){
-            console.log(response)
             $scope.cart=response;
-
         },function (error){
-
             console.log("Error when refreshCart request")
         });
         // $http.get('/rest/cart/'+$scope.cartId).success(function (data) {
@@ -19,17 +16,7 @@ cartApp.controller("cartCtrl", function ($scope, $http){
         // });
     };
 
-    $scope.clearCart = function () {
-        $http({
-            method: 'DELETE',
-            url: '\'/rest/cart/\'+$scope.cartId'
-        }).then(function (response){
-            $scope.refreshCart($scope.cartId)
-        },function (error){
-            console.log("Error when clearCart request")
-        });
-        // $http.delete('/rest/cart/'+$scope.cartId).success($scope.refreshCart($scope.cartId));
-    };
+
 
     $scope.initCartId = function (cartId) {
         $scope.cartId = cartId;
@@ -41,11 +28,9 @@ cartApp.controller("cartCtrl", function ($scope, $http){
             method: 'PUT',
             url: '/restCart/cart/add/' + productId
         }).then(function (response){
-            console.log($scope.cartId);
             $scope.refreshCart($scope.cartId);
             alert("Product successfully added to the cart!")
         },function (error){
-            console.log(productId);
             console.log("Error when AddToCart request")
         });
         // $http.put('/rest/cart/add/'+productId).success(function (data) {
@@ -57,16 +42,28 @@ cartApp.controller("cartCtrl", function ($scope, $http){
 
     $scope.removeFromCart = function (productId) {
         $http({
-            method: 'PUT',
-            url: '/rest/cart/remove/'+productId
+            method: 'DELETE',
+            url: '/restCart/cart/delete/' + productId
         }).then(function (response){
-            $scope.refreshCart($http.get('/restCart/cart/cartId'));
-            alert("Product successfully added to the cart!")
+            $scope.refreshCart($scope.cartId);
+            location.reload();
         },function (error){
             console.log("Error when RemoveFromCart request")
         });
         // $http.put('/rest/cart/remove/'+productId).success(function (data) {
         //     $scope.refreshCart($http.get('/eMusicStore/rest/cart/cartId'));
         // });
+    };
+    $scope.clearCart = function (cartId) {
+        $http({
+            method: 'DELETE',
+            url: '/restCart/cart/'+ cartId
+        }).then(function (response){
+            $scope.refreshCart($scope.cartId);
+            location.reload();
+        },function (error){
+            console.log("Error when clearCart request")
+        });
+        // $http.delete('/rest/cart/'+$scope.cartId).success($scope.refreshCart($scope.cartId));
     };
 });

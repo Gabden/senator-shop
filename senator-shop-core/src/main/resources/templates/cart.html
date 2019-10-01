@@ -24,7 +24,7 @@
                 <div ng-controller="cartCtrl" th:attr="ng-click='initCartId(\''+${cartId}+'\');'">
 
                 <div class="a">
-                    <a href="#" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>
+                    <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>
                 </div>
 
                 <table class="table table-hover">
@@ -40,14 +40,14 @@
                         <td th:text="${item.value.product.productPrice}">{item.productPrice}}</td>
                         <td th:text="${item.value.quantity}">{{item.quantity}}</td>
                         <td th:text="${item.value.totalPrice}">{{item.totalPrice}}</td>
-                        <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.product.id)">
+                        <td><a href="#" class="label label-danger" th:attr="ng-click='removeFromCart(\''+${item.value.product.id}+'\');'">
                             <span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
                     <tr>
                         <th></th>
                         <th></th>
                         <th>Grand total</th>
-                        <th>{{cart.grandTotal}}</th>
+                        <th th:text="${grandTotal}"></th>
                         <th></th>
                     </tr>
                 </table>

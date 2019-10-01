@@ -66,7 +66,7 @@ public class CartController {
 
     }
 
-    @RequestMapping(value = "/add/{productId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{productId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void removeItem(@PathVariable(value = "productId") Long productId, HttpServletRequest request){
         String sessionId = request.getSession(true).getId();
