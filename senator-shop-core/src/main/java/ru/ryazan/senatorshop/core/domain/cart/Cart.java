@@ -1,28 +1,54 @@
 package ru.ryazan.senatorshop.core.domain.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ru.ryazan.senatorshop.core.domain.Customer;
+import ru.ryazan.senatorshop.core.domain.User;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+@Entity
+public class Cart implements Serializable {
 
-public class Cart {
-    private String cartId;
+    private static final long serialVersionUID = 1154447935307492308L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long cartId;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Map<Long, CartItem> cartItems;
+
     private Integer grandTotal;
+
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "customerId")
+    private Customer customer;
 
     public Cart() {
         cartItems = new HashMap<>();
         grandTotal = 0;
     }
 
-    public Cart(String cartId) {
-        this();
+
+    public void setCartId(long cartId) {
         this.cartId = cartId;
     }
 
-    public String getCartId() {
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Long getCartId() {
         return cartId;
     }
 
-    public void setCartId(String cartId) {
+    public void setCartId(Long cartId) {
         this.cartId = cartId;
     }
 

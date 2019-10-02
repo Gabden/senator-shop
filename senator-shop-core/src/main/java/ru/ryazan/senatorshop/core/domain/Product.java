@@ -3,12 +3,16 @@ package ru.ryazan.senatorshop.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
+import ru.ryazan.senatorshop.core.domain.cart.CartItem;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class Product {
+public class Product implements Serializable {
+
+    private static final long serialVersionUID = -1530468945225710892L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,13 +25,9 @@ public class Product {
         return productImageSet;
     }
 
-    public void setProductImageSet(Set<ProductImage> productImageSet) {
-        this.productImageSet = productImageSet;
-    }
-
     private String productPrice;
-    private String productUnitInStock;
 
+    private String productUnitInStock;
     @Transient
     private String dataImg;
 
@@ -37,6 +37,14 @@ public class Product {
     )
     private Set<ProductImage> productImageSet;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<CartItem> cartItems;
+
+
+    public void setProductImageSet(Set<ProductImage> productImageSet) {
+        this.productImageSet = productImageSet;
+    }
 
     public Long getId() {
         return id;
@@ -54,6 +62,13 @@ public class Product {
         this.productUnitInStock = productUnitInStock;
     }
 
+    public List<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
 
     public String getDataImg() {
         setDataImg();

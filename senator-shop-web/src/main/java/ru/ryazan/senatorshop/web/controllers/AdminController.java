@@ -10,7 +10,6 @@ import ru.ryazan.senatorshop.core.service.ProductImageService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -56,7 +55,7 @@ public class AdminController {
 
     @RequestMapping(value = "/productInventory/addProduct", method = RequestMethod.POST)
     public String productInventoryAdd(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,HttpServletRequest request){
-        productService.save(product);
+        productService.addProduct(product);
         ProductImage dbFile = DBFileStorageService.storeFile(file, product);
 
         return "redirect:/admin/productInventory";
@@ -76,7 +75,6 @@ public class AdminController {
 
         Optional<Product> productFromDB = Optional.of(product);
         productFromDB.ifPresent(productNew ->productNew.setId(id));
-        System.out.println(productFromDB.toString());
         ArrayList<ProductImage> image = DBFileStorageService.findProductImageByProduct(product);
         if (!file.isEmpty()) {
             DBFileStorageService.deleteOldPhoto(image);

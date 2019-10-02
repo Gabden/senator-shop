@@ -3,7 +3,23 @@ package ru.ryazan.senatorshop.core.domain.cart;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.ryazan.senatorshop.core.domain.Product;
 
-public class CartItem {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+public class CartItem implements Serializable {
+    private static final long serialVersionUID = 7934178160948239055L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long cartItemId;
+
+    @ManyToOne
+    @JoinColumn(name = "cartId")
+    @JsonIgnore
+    private Cart cart;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
     @JsonIgnore
     private Product product;
     private int quantity;
@@ -16,6 +32,22 @@ public class CartItem {
         this.product = product;
         this.quantity = 1;
         this.totalPrice = Integer.parseInt(product.getProductPrice());
+    }
+
+    public Long getCartItemId() {
+        return cartItemId;
+    }
+
+    public void setCartItemId(Long cartItemId) {
+        this.cartItemId = cartItemId;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Product getProduct() {
@@ -35,7 +67,7 @@ public class CartItem {
     }
 
     public Integer getTotalPrice() {
-        return totalPrice;
+        return totalPrice * quantity;
     }
 
     public void setTotalPrice(Integer totalPrice) {

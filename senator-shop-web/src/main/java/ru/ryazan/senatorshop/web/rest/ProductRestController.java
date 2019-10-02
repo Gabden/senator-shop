@@ -36,7 +36,7 @@ public class ProductRestController {
 
     @PostMapping("/admin/create")
     public void createProduct(@RequestBody Product product){
-        productService.save(product);
+        productService.addProduct(product);
     }
 
     @PutMapping("/admin/update/{id}")

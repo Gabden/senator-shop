@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 
 @RestController
 public class DBFileController {
-
-
-    @Autowired
     private ProductImageService DBFileStorageService;
 
-//    @PostMapping("/uploadFileDB")
+    public DBFileController(ProductImageService DBFileStorageService) {
+        this.DBFileStorageService = DBFileStorageService;
+    }
+    //    @PostMapping("/uploadFileDB")
 //    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 //        ProductImage dbFile = DBFileStorageService.storeFile(file);
 //

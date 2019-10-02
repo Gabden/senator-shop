@@ -12,31 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Controller
-public class MainController {
+public class ProductController {
     private ProductService productService;
 
-    public MainController(ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
-
-    @RequestMapping({"","/", "/index"})
-    public String main(Model model){
-        model.addAttribute("text", "text from thymeleaf");
-        return "home";
-    }
-
-    @RequestMapping("/upload")
-    public String upload(Model model){
-        model.addAttribute("products", productService.findAll());
-        return "uploadTest";
-    }
-
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
-
-
 
     @RequestMapping("/productList")
     public String productList(Model model){
