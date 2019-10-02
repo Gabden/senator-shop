@@ -38,9 +38,7 @@ public class AdminController {
     @RequestMapping("/productInventory")
     public String productInventory(Model model){
         List<Product> allProducts = productService.findAll();
-
         model.addAttribute("products", allProducts);
-
         return "product-inventory";
     }
 
@@ -90,6 +88,14 @@ public class AdminController {
         productService.deleteById(id);
         return "redirect:/admin/productInventory";
     }
+
+    @RequestMapping("/customer")
+    public String customerManagement(Model model){
+        //to add customer services later
+        return "customerManagement";
+    }
+
+
 
 
 }

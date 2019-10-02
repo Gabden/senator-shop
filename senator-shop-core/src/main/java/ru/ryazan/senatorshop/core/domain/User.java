@@ -25,6 +25,8 @@ public class User {
 
     private String permissions = "";
 
+    private long customerId;
+
     public User() {
     }
 
