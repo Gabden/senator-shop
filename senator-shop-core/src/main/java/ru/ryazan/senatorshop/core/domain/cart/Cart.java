@@ -21,7 +21,7 @@ public class Cart implements Serializable {
 
     private Integer grandTotal;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JsonIgnore
     @JoinColumn(name = "customerId")
     private Customer customer;

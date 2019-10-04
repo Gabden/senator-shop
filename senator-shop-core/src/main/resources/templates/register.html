@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header :: header">
+</head>
+
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+
+<main role="main" class="mt-5">
+    <div class="container pt-5" id="wrapper">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="title">Register customer</h1>
+                <p class="lead">Fill information about yourself</p>
+
+                <div class="container">
+                    <form th:action="@{/register}" th:object="${customer}" method="post" class="form">
+                        <div class="form-group">
+
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" th:field="*{customerName}">
+
+                            <label for="mail">Email</label>
+                            <input type="email" id="mail" class="form-control" th:field="*{customerEmail}">
+
+                            <label for="phone">Phone</label>
+                            <input type="text" id="phone" class="form-control" th:field="*{customerPhone}">
+
+                            <label for="password">Password</label>
+                            <input type="password" id="password" class="form-control" th:field="*{customerPassword}">
+
+                            <h2>Billing</h2>
+                            <label for="streetName">streetName</label>
+                            <input type="text" id="streetName" class="form-control" th:field="*{billingAddress.streetName}">
+
+                            <label for="apartmentNumber">apartmentNumber</label>
+                            <input type="text" id="apartmentNumber" class="form-control" th:field="*{billingAddress.apartmentNumber}">
+
+                            <label for="city">city</label>
+                            <input type="text" id="city" class="form-control" th:field="*{billingAddress.city}">
+
+                            <label for="country">country</label>
+                            <input type="text" id="country" class="form-control" th:field="*{billingAddress.country}">
+
+                            <label for="zipCode">zipCode</label>
+                            <input type="text" id="zipCode" class="form-control" th:field="*{billingAddress.zipCode}">
+
+                            <h2>Shipping</h2>
+                            <label for="streetNameS">streetName</label>
+                            <input type="text" id="streetNameS" class="form-control" th:field="*{shippingAddress.streetName}">
+
+                            <label for="apartmentNumberS">apartmentNumber</label>
+                            <input type="text" id="apartmentNumberS" class="form-control" th:field="*{shippingAddress.apartmentNumber}">
+
+                            <label for="cityS">city</label>
+                            <input type="text" id="cityS" class="form-control" th:field="*{shippingAddress.city}">
+
+                            <label for="countryS">country</label>
+                            <input type="text" id="countryS" class="form-control" th:field="*{shippingAddress.country}">
+
+                            <label for="zipCodeS">zipCode</label>
+                            <input type="text" id="zipCodeS" class="form-control" th:field="*{shippingAddress.zipCode}">
+
+
+                            <input type="submit" class="btn btn-dark mt-3">
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- FOOTER -->
+            <footer th:replace="fragments/footer :: footer">
+            </footer>
+        </div>
+
+    </div><!-- /.container wrapper -->
+
+
+</main>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="../../js/upload.js" th:src="@{/js/upload.js}"></script>
+</body>
+
+</body>
+</html>

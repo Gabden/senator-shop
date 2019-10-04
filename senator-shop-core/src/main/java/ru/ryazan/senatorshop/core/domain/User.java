@@ -47,6 +47,14 @@ public class User {
         this.active = 1;
     }
 
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
+    }
+
     public int getActive() {
         return active;
     }

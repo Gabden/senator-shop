@@ -17,7 +17,7 @@ public class ShippingAddress implements Serializable {
     private String city;
     private String country;
     private String zipCode;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Customer customer;
 
     public ShippingAddress() {

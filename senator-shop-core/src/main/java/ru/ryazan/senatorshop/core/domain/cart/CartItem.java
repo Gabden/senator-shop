@@ -13,7 +13,7 @@ public class CartItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long cartItemId;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "cartId")
     @JsonIgnore
     private Cart cart;

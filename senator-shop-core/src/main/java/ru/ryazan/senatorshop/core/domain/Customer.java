@@ -21,15 +21,15 @@ public class Customer implements Serializable {
     private String customerPhone;
     private boolean enabled;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "billingAddressId")
     private BillingAddress billingAddress;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "shippingAddressId")
     private ShippingAddress shippingAddress;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "cartId")
     @JsonIgnore
     private Cart cart;
