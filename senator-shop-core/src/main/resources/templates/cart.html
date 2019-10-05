@@ -21,7 +21,7 @@
             </section>
 
             <section class="container" ng-app="cartApp">
-                <div ng-controller="cartCtrl" th:attr="ng-click='initCartId(\''+${cartId}+'\');'">
+                <div ng-controller="cartCtrl" th:attr="ng-init='initCartId(\''+${cartId}+'\');'">
 
                 <div class="a">
                     <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>

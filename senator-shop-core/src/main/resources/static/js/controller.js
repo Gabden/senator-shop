@@ -7,7 +7,8 @@ cartApp.controller("cartCtrl", function ($scope, $http){
             method: 'GET',
             url: '/restCart/cart/' + cartId
         }).then(function (response){
-            $scope.cart=response;
+            console.log(response.data);
+            $scope.cart=response.data;
         },function (error){
             console.log("Error when refreshCart request")
         });
@@ -20,6 +21,7 @@ cartApp.controller("cartCtrl", function ($scope, $http){
 
     $scope.initCartId = function (cartId) {
         $scope.cartId = cartId;
+        console.log(cartId);
         $scope.refreshCart(cartId);
     };
 
@@ -28,7 +30,7 @@ cartApp.controller("cartCtrl", function ($scope, $http){
             method: 'PUT',
             url: '/restCart/cart/add/' + productId
         }).then(function (response){
-            $scope.refreshCart($scope.cartId);
+
             alert("Product successfully added to the cart!")
         },function (error){
             console.log("Error when AddToCart request")
@@ -59,6 +61,7 @@ cartApp.controller("cartCtrl", function ($scope, $http){
             method: 'DELETE',
             url: '/restCart/cart/'+ cartId
         }).then(function (response){
+            console.log(response)
             $scope.refreshCart($scope.cartId);
             location.reload();
         },function (error){

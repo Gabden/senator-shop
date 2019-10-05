@@ -53,7 +53,7 @@ public class CartController {
             if (item.getProduct().getId().equals(productId)){
                 item.setQuantity(item.getQuantity() + 1);
                 cartItemService.addItem(item);
-
+                return;
             }
         }
         CartItem cartItem = new CartItem();
@@ -66,9 +66,17 @@ public class CartController {
 
     @RequestMapping(value = "/delete/{productId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeItem(@PathVariable(value = "productId") Long productId){
+    public void removeItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails){
+        Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+        Cart cart = customer.getCart();
+        List<CartItem> cartItems =  cart.getCartItems();
+        for (CartItem item: cartItems){
+            if (item.getProduct().getId().equals(productId)){
+                cartItemService.deleteById(item.getCartItemId());
 
-        cartItemService.deleteCartItemByProductId(productId);
+            }
+        }
+
     }
 
     @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)

@@ -29,7 +29,7 @@
                             <p><strong>Category</strong> : <span th:text="${product.productCategory}"></span></p>
                             <p><strong>Price</strong> : <span th:text="${product.productPrice}"></span></p>
                             <br>
-                            <p ng-controller="cartCtrl" th:attr="ng-click='initCartId(\''+${cartId}+'\');'">
+                            <p ng-controller="cartCtrl">
 
                                         <a href="/productList" class="btn btn-primary">Back</a>
 

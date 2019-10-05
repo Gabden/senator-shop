@@ -37,7 +37,7 @@ public class Product implements Serializable {
     )
     private Set<ProductImage> productImageSet;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<CartItem> cartItems;
 

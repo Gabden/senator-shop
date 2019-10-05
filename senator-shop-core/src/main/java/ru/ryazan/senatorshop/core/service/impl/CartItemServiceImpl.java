@@ -43,7 +43,7 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public void deleteAll(Cart cart) {
         for(CartItem item: cart.getCartItems()){
-            delete(item);
+            deleteById(item.getCartItemId());
         }
     }
 
