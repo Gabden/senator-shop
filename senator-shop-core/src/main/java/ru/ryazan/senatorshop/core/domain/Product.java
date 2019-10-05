@@ -21,6 +21,7 @@ public class Product implements Serializable {
     private String productCategory;
     private String productSubCategory;
     private String productDescription;
+
     public Set<ProductImage> getProductImageSet() {
         return productImageSet;
     }
@@ -35,6 +36,7 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product",
             cascade = CascadeType.ALL
     )
+    @JsonIgnore
     private Set<ProductImage> productImageSet;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true, fetch = FetchType.LAZY)

@@ -1,9 +1,10 @@
 package ru.ryazan.senatorshop.core.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class ProductImage {
+public class ProductImage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
