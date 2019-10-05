@@ -5,8 +5,8 @@ import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.repository.CartRepository;
 import ru.ryazan.senatorshop.core.service.CartService;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -34,8 +34,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart read(Long id) {
-        return listOfCarts.get(id);
+    public Optional<Cart> read(Long id) {
+        return cartRepository.findById(id);
     }
 
     @Override

@@ -36,4 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer findCustomerByCustomerNameAndCustomerEmail(String name, String mail) {
         return customerRepository.findCustomerByCustomerNameAndCustomerEmail(name, mail);
     }
+
+    @Override
+    public Customer findCustomerByCustomerName(String name) {
+        return customerRepository.findCustomerByCustomerName(name);
+    }
 }

@@ -36,11 +36,11 @@
                         <th>Action</th>
                     </tr>
                     <tr th:each="item : ${cart}">
-                        <td th:text="${item.value.product.productName}">productName</td>
-                        <td th:text="${item.value.product.productPrice}">{item.productPrice}}</td>
-                        <td th:text="${item.value.quantity}">{{item.quantity}}</td>
-                        <td th:text="${item.value.totalPrice}">{{item.totalPrice}}</td>
-                        <td><a href="#" class="label label-danger" th:attr="ng-click='removeFromCart(\''+${item.value.product.id}+'\');'">
+                        <td th:text="${item.product.productName}">productName</td>
+                        <td th:text="${item.product.productPrice}">{item.productPrice}}</td>
+                        <td th:text="${item.quantity}">{{item.quantity}}</td>
+                        <td th:text="${item.totalPrice}">{{item.totalPrice}}</td>
+                        <td><a href="#" class="label label-danger" th:attr="ng-click='removeFromCart(\''+${item.product.id}+'\');'">
                             <span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
                     <tr>

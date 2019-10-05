@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.ryazan.senatorshop.core.domain.Product;
+import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 import ru.ryazan.senatorshop.web.exception.MyFileNotFoundException;
 
@@ -30,8 +31,6 @@ public class ProductController {
         Optional<Product> productFromDB = Optional.ofNullable(productService.findById(id)
                 .filter(product -> product.getId().equals(id))
                 .orElseThrow(MyFileNotFoundException::new));
-        String sessionId = request.getSession(true).getId();
-        model.addAttribute("cartId", sessionId);
         model.addAttribute("product", productFromDB.get());
         return "product";
     }

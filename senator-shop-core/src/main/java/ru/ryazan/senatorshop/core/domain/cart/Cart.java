@@ -7,6 +7,7 @@ import ru.ryazan.senatorshop.core.domain.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Entity
 public class Cart implements Serializable {
@@ -17,7 +18,7 @@ public class Cart implements Serializable {
     private long cartId;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Map<Long, CartItem> cartItems;
+    private List<CartItem> cartItems;
 
     private Integer grandTotal;
 
@@ -27,7 +28,6 @@ public class Cart implements Serializable {
     private Customer customer;
 
     public Cart() {
-        cartItems = new HashMap<>();
         grandTotal = 0;
     }
 
@@ -52,11 +52,11 @@ public class Cart implements Serializable {
         this.cartId = cartId;
     }
 
-    public Map<Long, CartItem> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(Map<Long, CartItem> cartItems) {
+    public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 
@@ -68,29 +68,5 @@ public class Cart implements Serializable {
         this.grandTotal = grandTotal;
     }
 
-    public void addCartItem(CartItem item) {
-        Long productId = item.getProduct().getId();
-        if (cartItems.containsKey(productId)) {
-            CartItem existingItem = cartItems.get(productId);
-            existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
-            cartItems.put(productId, existingItem);
-        } else {
-            cartItems.put(productId, item);
-        }
 
-        updateGrandTotal();
-    }
-
-    public void removeCartItem(CartItem item){
-        Long productId = item.getProduct().getId();
-        cartItems.remove(productId);
-        updateGrandTotal();
-    }
-
-    private void updateGrandTotal() {
-        grandTotal = 0;
-        for (CartItem item : cartItems.values()){
-            grandTotal += item.getTotalPrice();
-        }
-    }
 }

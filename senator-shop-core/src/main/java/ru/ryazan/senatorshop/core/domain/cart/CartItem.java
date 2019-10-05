@@ -31,7 +31,7 @@ public class CartItem implements Serializable {
     public CartItem(Product product) {
         this.product = product;
         this.quantity = 1;
-        this.totalPrice = Integer.parseInt(product.getProductPrice());
+        this.totalPrice = 0;
     }
 
     public Long getCartItemId() {
@@ -67,7 +67,7 @@ public class CartItem implements Serializable {
     }
 
     public Integer getTotalPrice() {
-        return totalPrice * quantity;
+        return Integer.parseInt(product.getProductPrice()) * quantity;
     }
 
     public void setTotalPrice(Integer totalPrice) {
