@@ -19,11 +19,11 @@
         <transition to="collectCustomerInfo"/>
     </action-state>
 
-    <view-state id="collectCustomerInfo" view="collectCustomerInfo" model="order">
-        <transition on="customerInfoCollected" to="customerShippingDetail"/>
+    <view-state id="collectCustomerInfo" view="collectCustomerInfo.html" model="order">
+        <transition on="customerInfoCollected" to="collectShippingDetail"/>
     </view-state>
 
-    <view-state id="collectShippingDetail" view="collectShippingDetail" model="order">
+    <view-state id="collectShippingDetail" view="collectShippingDetail.html" model="order">
         <transition on="shippingDetailCollected" to="orderConfirmation"/>
         <transition on="backToCollectCustomerInfo" to="collectCustomerInfo"/>
     </view-state>

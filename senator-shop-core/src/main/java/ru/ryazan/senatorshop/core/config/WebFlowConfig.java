@@ -32,7 +32,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder() //
                 .setBasePath("classpath:flows") //
-                .addFlowLocationPattern("/resources/checkout-flow.xml") //
+                .addFlowLocationPattern("/resources/flows/checkout-flow.xml") //
                 .setFlowBuilderServices(this.flowBuilderServices()) //
                 .build();
     }

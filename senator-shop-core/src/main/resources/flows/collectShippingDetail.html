@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header :: header">
+</head>
+
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+
+<main role="main" class="mt-5">
+    <div class="container pt-5" id="wrapper">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="title">Shipping</h1>
+                <p class="lead">Shipping details</p>
+
+                <div class="container">
+                    <form method="post" class="form form-horizontal">
+                        <div class="form-group">
+                            <h2>Shipping</h2>
+                            <label for="streetNameS">streetName</label>
+                            <input type="text" id="streetNameS" class="form-control" th:text="*{cart.customer.shippingAddress.streetName}">
+
+                            <label for="apartmentNumberS">apartmentNumber</label>
+                            <input type="text" id="apartmentNumberS" class="form-control" th:text="*{cart.customer.shippingAddress.apartmentNumber}">
+
+                            <label for="cityS">city</label>
+                            <input type="text" id="cityS" class="form-control" th:text="*{cart.customer.shippingAddress.city}">
+
+                            <label for="countryS">country</label>
+                            <input type="text" id="countryS" class="form-control" th:text="*{cart.customer.shippingAddress.country}">
+
+                            <label for="zipCodeS">zipCode</label>
+                            <input type="text" id="zipCodeS" class="form-control" th:text="*{cart.customer.shippingAddress.zipCode}">
+                            <input type="hidden" name="_flowExecutionKey">
+
+                            <button class="btn btn-default" name="_eventId_backToCollectCustomerInfo">Back</button>
+                            <input type="submit" class="btn btn-dark mt-3" value="Next" name="_eventId_shippingDetailCollected">
+                            <button class="btn btn-default" name="_eventId_cancel">Cancel</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- FOOTER -->
+            <footer th:replace="fragments/footer :: footer">
+            </footer>
+        </div>
+
+    </div><!-- /.container wrapper -->
+
+
+</main>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="../../js/upload.js" th:src="@{/js/upload.js}"></script>
+</body>
+
+</body>
+</html>
