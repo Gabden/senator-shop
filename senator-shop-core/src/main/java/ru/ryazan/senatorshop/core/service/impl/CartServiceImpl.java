@@ -2,6 +2,7 @@ package ru.ryazan.senatorshop.core.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
+import ru.ryazan.senatorshop.core.domain.cart.CartItem;
 import ru.ryazan.senatorshop.core.repository.CartRepository;
 import ru.ryazan.senatorshop.core.service.CartService;
 
@@ -16,16 +17,13 @@ public class CartServiceImpl implements CartService {
 
     public CartServiceImpl(CartRepository cartRepository) {
         this.cartRepository = cartRepository;
-
     }
 
 
 
     @Override
     public Cart create(Cart cart) {
-
         cartRepository.save(cart);
-
         return cart;
     }
 
@@ -36,7 +34,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void update(Cart cart) {
-
+        int grandTotal = 0;
+        for (CartItem item : cart.getCartItems()){
+            grandTotal += item.getTotalPrice();
+        }
+        cart.setGrandTotal(grandTotal);
+        cartRepository.save(cart);
     }
 
     @Override
