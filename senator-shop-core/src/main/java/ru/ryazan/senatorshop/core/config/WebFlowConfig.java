@@ -1,8 +1,12 @@
 package ru.ryazan.senatorshop.core.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.format.Formatter;
+import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
@@ -18,6 +22,8 @@ import org.thymeleaf.spring5.webflow.view.FlowAjaxThymeleafView;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class WebFlowConfig extends AbstractFlowConfiguration {
@@ -32,7 +38,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder() //
                 .setBasePath("classpath:flows") //
-                .addFlowLocationPattern("/resources/flows/checkout-flow.xml") //
+                .addFlowLocationPattern("/**/*-flow.xml") //
                 .setFlowBuilderServices(this.flowBuilderServices()) //
                 .build();
     }
@@ -43,6 +49,24 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
                 .build();
     }
 
+    @Bean
+    @Autowired
+    public FlowHandlerAdapter flowHandlerAdapter(FlowExecutor flowExecutor) {
+        FlowHandlerAdapter flowHandlerAdapter = new FlowHandlerAdapter();
+        flowHandlerAdapter.setFlowExecutor(flowExecutor);
+
+        return flowHandlerAdapter;
+    }
+
+    @Bean
+    @Autowired
+    public FlowHandlerMapping flowHandlerMapping(FlowDefinitionRegistry flowDefinitionRegistry) {
+        FlowHandlerMapping flowHandlerMapping = new FlowHandlerMapping();
+        flowHandlerMapping.setFlowRegistry(flowDefinitionRegistry);
+        flowHandlerMapping.setOrder(0);
+
+        return flowHandlerMapping;
+    }
     @Bean
     public FlowBuilderServices flowBuilderServices() {
         return getFlowBuilderServicesBuilder() //

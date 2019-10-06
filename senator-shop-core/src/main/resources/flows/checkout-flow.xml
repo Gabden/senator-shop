@@ -15,7 +15,7 @@
     <!-- is the start state -->
     <action-state id="addCartToOrder">
         <evaluate expression="cartServiceImpl.validate(requestParameters.cartId)" result="order.cart"/>
-        <transition to="InvalidCartException" on-exception="java.io.IOException"/>
+        <transition to="invalidCartWarning" on-exception="java.io.IOException"/>
         <transition to="collectCustomerInfo"/>
     </action-state>
 
@@ -48,7 +48,7 @@
         <transition to="endState"/>
     </view-state>
 
-    <end-state id="cancelCheckout" view="checkoutCanceled"/>
+    <end-state id="cancelCheckout" view="checkoutCanceled.html"/>
 
     <global-transitions>
         <transition on="cancel" to="cancelCheckout"/>
