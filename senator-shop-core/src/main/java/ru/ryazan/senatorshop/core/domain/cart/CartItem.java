@@ -13,12 +13,12 @@ public class CartItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long cartItemId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "cartId")
     @JsonIgnore
     private Cart cart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id")
     @JsonIgnore
     private Product product;

@@ -1,6 +1,7 @@
 package ru.ryazan.senatorshop.web.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.ryazan.senatorshop.core.domain.Customer;
@@ -23,7 +24,7 @@ public class OrderController {
     }
 
     @RequestMapping("/{cartId}")
-    public String order(@PathVariable("cartId") Long id){
+    public String order(@PathVariable("cartId") Long id, ModelMap modelMap){
         CustomerOrder order = new CustomerOrder();
         Optional<Cart> cart = cartService.read(id);
         cart.ifPresent(order::setCart);
@@ -31,6 +32,7 @@ public class OrderController {
         order.setBillingAddress(customer.getBillingAddress());
         order.setShippingAddress(customer.getShippingAddress());
         customerOrderService.createOrder(order);
+        modelMap.addAttribute("cart", cart.get());
         return "redirect:/checkout?cartId=" + id;
 
     }

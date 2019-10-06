@@ -22,6 +22,7 @@ import org.thymeleaf.spring5.webflow.view.FlowAjaxThymeleafView;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,8 +38,9 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder() //
-                .setBasePath("classpath:flows") //
-                .addFlowLocationPattern("/**/*-flow.xml") //
+                .setBasePath("classpath:flows")
+                .addFlowLocation("/checkout-flow.xml","checkout")//
+//                .addFlowLocationPattern("/**/*-flow.xml","checkout",new HashMap<String, Object>())
                 .setFlowBuilderServices(this.flowBuilderServices()) //
                 .build();
     }

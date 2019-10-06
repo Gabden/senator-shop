@@ -6,11 +6,8 @@
 
     <var name="order" class="ru.ryazan.senatorshop.core.domain.CustomerOrder" />
 
-    <!-- returning and adding inside flow registerModel instance -->
-    <on-start>
-        <evaluate expression="registerHandler.init()"
-                  result="flowScope.registerModel" />
-    </on-start>
+
+
 
     <!-- is the start state -->
     <action-state id="addCartToOrder">
@@ -19,36 +16,36 @@
         <transition to="collectCustomerInfo"/>
     </action-state>
 
-    <view-state id="collectCustomerInfo" view="collectCustomerInfo.html" model="order">
+    <view-state id="collectCustomerInfo" view="/flows/collectCustomerInfo.html" model="order">
         <transition on="customerInfoCollected" to="collectShippingDetail"/>
     </view-state>
 
-    <view-state id="collectShippingDetail" view="collectShippingDetail.html" model="order">
+    <view-state id="collectShippingDetail" view="/flows/collectShippingDetail.html" model="order">
         <transition on="shippingDetailCollected" to="orderConfirmation"/>
         <transition on="backToCollectCustomerInfo" to="collectCustomerInfo"/>
     </view-state>
 
-    <view-state id="orderConfirmation">
+    <view-state id="orderConfirmation" view="/flows/orderConfirmation.html">
         <transition on="orderConfirmed" to="processOrder"/>
         <transition on="backToCollectShippingDetail" to="collectShippingDetail"/>
     </view-state>
 
-    <action-state id="processOrder">
-        <evaluate expression="cartItemServiceImpl.deleteAll(requestParameters.cartId)"/>
+    <action-state id="processOrder" >
+        <evaluate expression="cartItemServiceImpl.deleteAll(order.cart)"/>
         <transition to="thankCustomer"/>
     </action-state>
 
-    <view-state id="thankCustomer" model="order">
+    <view-state id="thankCustomer" view="/flows/thankCustomer.html" model="order">
         <transition to="endState"/>
     </view-state>
 
     <end-state id="endState"/>
 
-    <view-state id="invalidCartWarning" model="order">
+    <view-state id="invalidCartWarning" view="/flows/invalidCartWarning.html" model="order">
         <transition to="endState"/>
     </view-state>
 
-    <end-state id="cancelCheckout" view="checkoutCanceled.html"/>
+    <end-state id="cancelCheckout" view="/flows/checkoutCanceled.html"/>
 
     <global-transitions>
         <transition on="cancel" to="cancelCheckout"/>

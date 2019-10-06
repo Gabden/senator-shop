@@ -16,20 +16,20 @@ public class CustomerOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long customerOrderId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "cartId")
     @JsonIgnore
     private Cart cart;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "billingAddressId")
     private BillingAddress billingAddress;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "shippingAddressId")
     private ShippingAddress shippingAddress;
 

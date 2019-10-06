@@ -19,7 +19,7 @@ public class ProductImage implements Serializable {
     @Column(name = "file_data")
     private byte[] fileData;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private Product product;
 

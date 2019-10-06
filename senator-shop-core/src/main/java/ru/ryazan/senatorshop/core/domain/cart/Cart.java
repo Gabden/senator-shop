@@ -17,12 +17,12 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long cartId;
 
-    @OneToMany(mappedBy = "cart", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<CartItem> cartItems;
 
     private Integer grandTotal;
 
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JsonIgnore
     @JoinColumn(name = "customerId")
     private Customer customer;

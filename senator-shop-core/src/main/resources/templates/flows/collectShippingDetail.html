@@ -20,19 +20,19 @@
                         <div class="form-group">
                             <h2>Shipping</h2>
                             <label for="streetNameS">streetName</label>
-                            <input type="text" id="streetNameS" class="form-control" th:text="*{cart.customer.shippingAddress.streetName}">
+                            <input type="text" id="streetNameS" class="form-control" th:text="*{order.cart.customer.shippingAddress.streetName}">
 
                             <label for="apartmentNumberS">apartmentNumber</label>
-                            <input type="text" id="apartmentNumberS" class="form-control" th:text="*{cart.customer.shippingAddress.apartmentNumber}">
+                            <input type="text" id="apartmentNumberS" class="form-control" th:text="*{order.cart.customer.shippingAddress.apartmentNumber}">
 
                             <label for="cityS">city</label>
-                            <input type="text" id="cityS" class="form-control" th:text="*{cart.customer.shippingAddress.city}">
+                            <input type="text" id="cityS" class="form-control" th:text="*{order.cart.customer.shippingAddress.city}">
 
                             <label for="countryS">country</label>
-                            <input type="text" id="countryS" class="form-control" th:text="*{cart.customer.shippingAddress.country}">
+                            <input type="text" id="countryS" class="form-control" th:text="*{order.cart.customer.shippingAddress.country}">
 
                             <label for="zipCodeS">zipCode</label>
-                            <input type="text" id="zipCodeS" class="form-control" th:text="*{cart.customer.shippingAddress.zipCode}">
+                            <input type="text" id="zipCodeS" class="form-control" th:text="*{order.cart.customer.shippingAddress.zipCode}">
                             <input type="hidden" name="_flowExecutionKey">
 
                             <button class="btn btn-default" name="_eventId_backToCollectCustomerInfo">Back</button>

@@ -20,30 +20,30 @@
                         <div class="form-group">
 
                             <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" th:text="*{cart.customer.customerName}">
+                            <input type="text" id="name" class="form-control" th:text="*{order.cart.customer.customerName}">
 
                             <label for="mail">Email</label>
-                            <input type="email" id="mail" class="form-control" th:text="*{cart.customer.customerEmail}">
+                            <input type="email" id="mail" class="form-control" th:text="*{order.cart.customer.customerEmail}">
 
                             <label for="phone">Phone</label>
-                            <input type="text" id="phone" class="form-control" th:text="*{cart.customer.customerPhone}">
+                            <input type="text" id="phone" class="form-control" th:text="*{order.cart.customer.customerPhone}">
 
 
                             <h2>Billing</h2>
                             <label for="streetName">streetName</label>
-                            <input type="text" id="streetName" class="form-control" th:text="*{cart.customer.billingAddress.streetName}">
+                            <input type="text" id="streetName" class="form-control" th:text="*{order.cart.customer.billingAddress.streetName}">
 
                             <label for="apartmentNumber">apartmentNumber</label>
-                            <input type="text" id="apartmentNumber" class="form-control" th:text="*{cart.customer.billingAddress.apartmentNumber}">
+                            <input type="text" id="apartmentNumber" class="form-control" th:text="*{order.cart.customer.billingAddress.apartmentNumber}">
 
                             <label for="city">city</label>
-                            <input type="text" id="city" class="form-control" th:text="*{cart.customer.billingAddress.city}">
+                            <input type="text" id="city" class="form-control" th:text="*{order.cart.customer.billingAddress.city}">
 
                             <label for="country">country</label>
-                            <input type="text" id="country" class="form-control" th:text="*{cart.customer.billingAddress.country}">
+                            <input type="text" id="country" class="form-control" th:text="*{order.cart.customer.billingAddress.country}">
 
                             <label for="zipCode">zipCode</label>
-                            <input type="text" id="zipCode" class="form-control" th:text="*{billingAddress.zipCode}">
+                            <input type="text" id="zipCode" class="form-control" th:text="*{order.cart.customer.billingAddress.zipCode}">
 
 <!--                            <h2>Shipping</h2>-->
 <!--                            <label for="streetNameS">streetName</label>-->

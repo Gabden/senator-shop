@@ -41,12 +41,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart validate(Long cartId) throws IOException {
-        Cart cart = cartRepository.getOne(cartId);
-        if (cart == null || cart.getCartItems().size() == 0){
+        Optional<Cart> cart = cartRepository.findById(cartId);
+        if (!cart.isPresent() | cart.get().getCartItems().size() == 0){
             throw new IOException(cartId + "");
         }
-        update(cart);
-        return cart;
+        update(cart.get());
+        return cart.get();
     }
 
     @Override
