@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
-import org.springframework.core.convert.support.DefaultConversionService;
-import org.springframework.format.Formatter;
-import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
@@ -16,14 +13,15 @@ import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
+import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.webflow.view.AjaxThymeleafViewResolver;
 import org.thymeleaf.spring5.webflow.view.FlowAjaxThymeleafView;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Configuration
@@ -118,7 +116,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
         templateResolver.setPrefix("templates/");
         templateResolver.setCacheable(false);
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("HTML");
         templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
@@ -128,6 +126,9 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(this.templateResolver());
+        Set<IDialect> dialects = new LinkedHashSet<>(2);
+        dialects.add(new SpringSecurityDialect());
+        templateEngine.setAdditionalDialects(dialects);
         return templateEngine;
     }
 }

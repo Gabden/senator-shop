@@ -6,9 +6,6 @@
 
     <var name="order" class="ru.ryazan.senatorshop.core.domain.CustomerOrder" />
 
-
-
-
     <!-- is the start state -->
     <action-state id="addCartToOrder">
         <evaluate expression="cartServiceImpl.validate(requestParameters.cartId)" result="order.cart"/>
