@@ -5,6 +5,7 @@ import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.repository.CartRepository;
 import ru.ryazan.senatorshop.core.service.CartService;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,16 +19,11 @@ public class CartServiceImpl implements CartService {
 
     }
 
-//    public CartServiceImpl() {
-//        listOfCarts = new HashMap<>();
-//    }
+
 
     @Override
     public Cart create(Cart cart) {
-//        if (listOfCarts.containsKey(cart.getCartId())){
-//            throw new IllegalArgumentException(String.format("Can not create a cart. A cart with the given id(%s)" + " already exists", cart.getCartId()));
-//        }
-//        listOfCarts.put(cart.getCartId(), cart);
+
         cartRepository.save(cart);
 
         return cart;
@@ -39,19 +35,22 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void update(Long id, Cart cart) {
-        if (!listOfCarts.containsKey(cart.getCartId())){
-            throw new IllegalArgumentException(String.format("Can not update the cart. The cart with the given id(%s)" + " does not exists", cart.getCartId()));
-        }
+    public void update(Cart cart) {
 
-        listOfCarts.put(id, cart);
+    }
+
+    @Override
+    public Cart validate(Long cartId) throws IOException {
+        Cart cart = cartRepository.getOne(cartId);
+        if (cart == null || cart.getCartItems().size() == 0){
+            throw new IOException(cartId + "");
+        }
+        update(cart);
+        return cart;
     }
 
     @Override
     public void delete(Long id) {
-        if (!listOfCarts.containsKey(id)){
-            throw new IllegalArgumentException(String.format("Can not delete the cart. The cart with the given id(%s)" + " does not exists", id));
-        }
-        listOfCarts.remove(id);
+
     }
 }

@@ -1,5 +1,6 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
+import org.springframework.stereotype.Service;
 import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
@@ -8,7 +9,7 @@ import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerOrderService;
 
 import java.util.Optional;
-
+@Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
     private CustomerOrderRepository customerOrderRepository;
     private CartService cartService;

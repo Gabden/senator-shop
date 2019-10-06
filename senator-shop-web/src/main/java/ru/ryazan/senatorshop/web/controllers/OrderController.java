@@ -7,6 +7,7 @@ import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.service.CartService;
+import ru.ryazan.senatorshop.core.service.CustomerOrderService;
 
 import java.util.Optional;
 
@@ -14,12 +15,14 @@ import java.util.Optional;
 @RequestMapping("/order")
 public class OrderController {
     private CartService cartService;
+    private CustomerOrderService customerOrderService;
 
-    public OrderController(CartService cartService) {
+    public OrderController(CartService cartService, CustomerOrderService customerOrderService) {
         this.cartService = cartService;
+        this.customerOrderService = customerOrderService;
     }
 
-    @RequestMapping("/{cartId")
+    @RequestMapping("/{cartId}")
     public String order(@PathVariable("cartId") Long id){
         CustomerOrder order = new CustomerOrder();
         Optional<Cart> cart = cartService.read(id);
@@ -27,7 +30,7 @@ public class OrderController {
         Customer customer = cart.get().getCustomer();
         order.setBillingAddress(customer.getBillingAddress());
         order.setShippingAddress(customer.getShippingAddress());
-        customerOrderService.save(order);
+        customerOrderService.createOrder(order);
         return "redirect:/checkout?cartId=" + id;
 
     }
