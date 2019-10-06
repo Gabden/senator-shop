@@ -31,6 +31,7 @@ public class OrderController {
         Customer customer = cart.get().getCustomer();
         order.setBillingAddress(customer.getBillingAddress());
         order.setShippingAddress(customer.getShippingAddress());
+        order.setCustomer(customer);
         customerOrderService.createOrder(order);
         modelMap.addAttribute("cart", cart.get());
         return "redirect:/checkout?cartId=" + id;
