@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
 >
 <head th:replace="fragments/header :: header">
 </head>
@@ -11,17 +11,26 @@
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">Administrator page</h1>
-                <p class="lead">This is administration page</p>
-                <p>Here u can change, create, delete and see the inventory</p>
-                <h3>
-                    <a href="/admin/productInventory">Product Inventory</a>
-                </h3>
-
-                <p>Here u can change, create, delete and see the customers</p>
-                <h3>
-                    <a href="/admin/customers">Customers Management</a>
-                </h3>
+                <h1 class="title">Customer Management Paga</h1>
+                <p class="lead">This is customer management page</p>
+                <table class="table table-stripped table-hover">
+                    <thead>
+                    <tr class="bg-success">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Enabled</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="customer : ${customers}">
+                        <td th:text="${customer.customerName}"></td>
+                        <td th:text="${customer.customerEmail}"></td>
+                        <td th:text="${customer.customerPhone}"></td>
+                        <td th:text="${customer.enabled}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <!-- FOOTER -->
             <footer th:replace="fragments/footer :: footer">

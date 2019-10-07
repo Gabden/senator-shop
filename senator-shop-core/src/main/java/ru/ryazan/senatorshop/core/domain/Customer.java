@@ -6,6 +6,8 @@ import ru.ryazan.senatorshop.core.domain.address.ShippingAddress;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 @Entity
 public class Customer implements Serializable {
@@ -15,9 +17,18 @@ public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
+
+    @NotNull(message = "Name must not be null")
+    @Size(min=2, max=40)
     private String customerName;
+
+    @NotNull(message = "Email must not be null")
+    @Size(min=2, max=40)
     private String customerEmail;
+    @NotNull(message = "Password must not be null")
     private String customerPassword;
+
+    @NotNull(message = "Phone must not be null")
     private String customerPhone;
     private boolean enabled;
 

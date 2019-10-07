@@ -3,6 +3,7 @@ package ru.ryazan.senatorshop.web.controllers;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,9 @@ import ru.ryazan.senatorshop.core.domain.address.BillingAddress;
 import ru.ryazan.senatorshop.core.domain.address.ShippingAddress;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.service.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class RegisterController {
@@ -31,6 +35,8 @@ public class RegisterController {
         this.passwordEncoder = passwordEncoder;
     }
 
+
+
     @RequestMapping(value = "/register")
     public String register(Model model){
         Customer customer = new Customer();
@@ -43,7 +49,22 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPost(@ModelAttribute("customer")Customer customer, Model model){
+    public String registerPost(@Valid @ModelAttribute("customer")Customer customer, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            System.out.println("BINDING RESULT ERROR");
+            return "register";
+        }
+        List<Customer> customers = customerService.getAllCustomers();
+        for (Customer csmr : customers){
+            if (customer.getCustomerEmail().equals(csmr.getCustomerEmail())){
+                model.addAttribute("emailMsg", "Email already exists");
+                return "register";
+            }
+            if (customer.getCustomerName().equals(csmr.getCustomerName())){
+                model.addAttribute("nameMsg", "Username already exists");
+                return "register";
+            }
+        }
         User user = new User();
         user.setUsername(customer.getCustomerName());
         user.setEmail(customer.getCustomerEmail());

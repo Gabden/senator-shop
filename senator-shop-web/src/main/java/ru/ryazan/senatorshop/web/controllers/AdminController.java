@@ -4,25 +4,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.ProductImage;
+import ru.ryazan.senatorshop.core.service.CustomerService;
 import ru.ryazan.senatorshop.core.service.ProductImageService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     private ProductService productService;
-
     private ProductImageService DBFileStorageService;
+    private CustomerService customerService;
 
-    public AdminController(ProductService productService, ProductImageService DBFileStorageService) {
+    public AdminController(ProductService productService, ProductImageService DBFileStorageService, CustomerService customerService) {
         this.productService = productService;
         this.DBFileStorageService = DBFileStorageService;
+        this.customerService = customerService;
     }
     @RequestMapping({"","/"})
     public String admin(Model model){
@@ -89,9 +95,10 @@ public class AdminController {
         return "redirect:/admin/productInventory";
     }
 
-    @RequestMapping("/customer")
+    @RequestMapping("/customers")
     public String customerManagement(Model model){
-        //to add customer services later
+        List<Customer> customers = customerService.getAllCustomers();
+        model.addAttribute("customers", customers);
         return "customerManagement";
     }
 

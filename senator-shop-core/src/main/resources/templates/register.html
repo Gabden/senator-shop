@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments/header :: header">
 </head>
 
@@ -19,17 +19,21 @@
                     <form th:action="@{/register}" th:object="${customer}" method="post" class="form">
                         <div class="form-group">
 
-                            <label for="name">Name</label>
+                            <label for="name">Name</label> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="text-primary">Name Error</span>
+                            <span class="text-primary text-large" th:text="${nameMsg}"></span>
                             <input type="text" id="name" class="form-control" th:field="*{customerName}">
 
-                            <label for="mail">Email</label>
+
+                            <label for="mail">Email</label><span th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}" class="text-primary">Name Error</span>
+                            <span class="text-primary" th:text="${emailMsg}"></span>
+
                             <input type="email" id="mail" class="form-control" th:field="*{customerEmail}">
 
                             <label for="phone">Phone</label>
                             <input type="text" id="phone" class="form-control" th:field="*{customerPhone}">
 
                             <label for="password">Password</label>
-                            <input type="password" id="password" class="form-control" th:field="*{customerPassword}">
+                            <input type="password" id="password" class="form-control" th:field="*{customerPassword}" >
 
                             <h2>Billing</h2>
                             <label for="streetName">streetName</label>
