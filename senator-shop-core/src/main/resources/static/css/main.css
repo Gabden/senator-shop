@@ -43,8 +43,8 @@ a:focus {
     left: -250px;
     height: 100vh;
     z-index: 999;
-    background: #343a40;
-    color: #fff;
+    background: white;
+    color: #343a40;
     transition: all 0.3s;
     overflow-y: scroll;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
@@ -59,7 +59,7 @@ a:focus {
     height: 35px;
     line-height: 35px;
     text-align: center;
-    background: #333333 ;
+    background: white ;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -70,8 +70,8 @@ a:focus {
 }
 
 #dismiss:hover {
-    background: #fff;
-    color: #343a40;
+    background: whitesmoke;
+    color: #dc3545;
 }
 
 .overlay {
@@ -93,7 +93,7 @@ a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #343a40;
+
 }
 
 #sidebar ul.components {
@@ -102,12 +102,12 @@ a:focus {
 }
 
 #sidebar ul p {
-    color: #fff;
+    color: #343a40;
     padding: 10px;
 }
 #sidebar ul p:hover {
-    color: #343a40;
-    background: #fff;
+    color: #dc3545;
+    background: whitesmoke;
 }
 
 #sidebar ul li a {
@@ -117,14 +117,14 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #343a40;
-    background: #fff;
+    color: #dc3545;
+    background: whitesmoke;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #343a40!important;
+    color: #343a40;
+
 }
 
 a[data-toggle="collapse"] {
@@ -142,7 +142,6 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em ;
     padding-left: 30px ;
-    background: #343a40;
 }
 
 ul.CTAs {
@@ -164,8 +163,8 @@ a.download {
 
 a.article,
 a.article:hover {
-    background: #343a40;
-    color: #fff ;
+    background: whitesmoke;
+    color: #dc3545;
 }
 
 .rem15 {
@@ -182,6 +181,6 @@ a.article:hover {
     transform: translateX(23%);
 }
 #enterOrReg:hover {
-    background: #343a40;
-    color: #fff ;
+    background: whitesmoke;
+    color: #dc3545;
 }
