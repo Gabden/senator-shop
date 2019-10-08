@@ -19,7 +19,7 @@
                     <form th:action="@{/register}" th:object="${customer}" method="post" class="form">
                         <div class="form-group">
 
-                            <label for="name">Name</label> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="text-primary">Name Error</span>
+                            <label for="name">Name</label> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</span>
                             <span class="text-primary text-large" th:text="${nameMsg}"></span>
                             <input type="text" id="name" class="form-control" th:field="*{customerName}">
 

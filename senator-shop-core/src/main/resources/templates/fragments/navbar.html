@@ -1,39 +1,108 @@
 <header th:fragment="navbar">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Carousel</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/productList">Product List</a>
-                </li>
-                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/customer/cart" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/register">Register</a>
-                </li>
-            </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
 
-            <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">
-                <span sec:authentication="name" class="mx-2"></span>
-                <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
-            </form>
-            <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/login}">
-                <button class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>
-            </form>
+    <nav class="navbar navbar-expand-md navbar-light">
+        <button id="sidebarCollapse" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon mr-auto"></span>
+        </button>
+        <a href="#" class="navbar-brand text-black ml-auto">
+            <img class="d-inline-block align-center logo"  th:src="@{/images/senator-logo2.svg}" width="75" height="75" alt="senAtor logo">
+        </a>
+        <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search"></span></a>
+        <a class="rem15" href="#"><span class="fas fa-shopping-cart"></span></a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li class="nav-item active">-->
+<!--                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/productList">Product List</a>-->
+<!--                </li>-->
+<!--                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">-->
+<!--                    <a class="nav-link" href="/admin">Admin</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a href="/customer/cart" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link " href="/register">Register</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <form class="form-inline mt-2 mt-md-0">-->
+<!--                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--            </form>-->
+
+<!--            <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">-->
+<!--                <span sec:authentication="name" class="mx-2"></span>-->
+<!--                <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>-->
+<!--            </form>-->
+<!--            <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/login}">-->
+<!--                <button class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>-->
+<!--            </form>-->
         </div>
     </nav>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <div class="sidebar-header">
+                <h5 class="text-center">SEN<span class="bigA">A</span>TOR</h5>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p class="text-center"> Войти / Регистрация</p>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="overlay"></div>
+
+    </div>
 </header>
