@@ -2,6 +2,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
+    font-size: 14px;
 }
 
 p {
@@ -53,6 +54,9 @@ a:focus {
 #sidebar.active {
     left: 0;
 }
+#chevron {
+    padding-top: 4px;
+}
 
 #dismiss {
     width: 35px;
@@ -70,7 +74,7 @@ a:focus {
 }
 
 #dismiss:hover {
-    background: whitesmoke;
+    
     color: #dc3545;
 }
 
@@ -92,12 +96,11 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
+    padding: 10px;
 
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
 
 }
 
@@ -107,18 +110,17 @@ a:focus {
 }
 #sidebar ul p:hover {
     color: #dc3545;
-    background: whitesmoke;
+    
 }
 
 #sidebar ul li a {
-    padding: 10px;
     font-size: 1.1em;
     display: block;
 }
 
 #sidebar ul li a:hover {
     color: #dc3545;
-    background: whitesmoke;
+    
 }
 
 #sidebar ul li.active>a,
@@ -129,6 +131,9 @@ a[aria-expanded="true"] {
 
 a[data-toggle="collapse"] {
     position: relative;
+}
+.hover-red:hover {
+    color: #dc3545;
 }
 
 .dropdown-toggle::after {
@@ -163,7 +168,7 @@ a.download {
 
 a.article,
 a.article:hover {
-    background: whitesmoke;
+    
     color: #dc3545;
 }
 
@@ -181,6 +186,30 @@ a.article:hover {
     transform: translateX(23%);
 }
 #enterOrReg:hover {
-    background: whitesmoke;
+    
     color: #dc3545;
+}
+
+#cart-badge {
+    font-size: 50%;
+    transform: translateX(-10px);
+}
+.rem15:hover {
+    color: rgb(119,119,119);
+}
+#olive-option {
+    padding-left: 18px;
+}
+
+hr {
+    width: 60vh;
+}
+
+.mlvh-4 {
+    margin-left: 3.5vh;
+}
+
+.allproducts {
+    font-size: 1em!important;
+    padding: 8px;
 }

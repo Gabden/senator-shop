@@ -3,6 +3,9 @@ $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
+    $('#products-all').on('click', function () {
+        $('#chevron').toggleClass('fa-chevron-right').toggleClass('fa-chevron-down');
+    });
 
     $('#dismiss, .overlay').on('click', function () {
         $('#sidebar').removeClass('active');

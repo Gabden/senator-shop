@@ -1,6 +1,6 @@
 <header th:fragment="navbar">
 
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <button id="sidebarCollapse" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon mr-auto"></span>
         </button>
@@ -8,7 +8,7 @@
             <img class="d-inline-block align-center logo"  th:src="@{/images/senator-logo2.svg}" width="75" height="75" alt="senAtor logo">
         </a>
         <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search"></span></a>
-        <a class="rem15" href="#"><span class="fas fa-shopping-cart"></span></a>
+        <a class="rem15" href="#"><span class="fas fa-shopping-cart"><span id="cart-badge" class="badge badge-pill badge-danger">1</span></span></a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <!--            <ul class="navbar-nav mr-auto">-->
 <!--                <li class="nav-item active">-->
@@ -49,38 +49,63 @@
                 <i class="fas fa-arrow-left"></i>
             </div>
 
-            <div class="sidebar-header border-bottom border-dark">
+            <div class="sidebar-header">
                 <h5 class="text-center">SEN<span class="bigA">A</span>TOR  <i class="ml-2 fas fa-wine-glass-alt text-danger"></i></h5>
+                <hr class="bg-light">
             </div>
 
             <ul class="list-unstyled components">
-                <p id="enterOrReg" class="text-center"><a href="#">Вход или регистрация</a> </p>
-                <li class="border-top border-dark my-4">
-                    <a href="#" class="pt-4">Начало</a>
+                <div class="text-muted mlvh-4" style="font-size: 0.7rem;">Личный кабинет</div>
+                <div class="mlvh-4 mt-3 hover-red">
+                    <a href="/login">Вход</a>
+                </div>
+
+                <div class="mlvh-4 mt-3 hover-red">
+                    <a href="/register">Регистрация</a>
+                </div>
+
+                <hr class="bg-light">
+                <div class="text-muted mlvh-4" style="font-size: 0.7rem;">О нас</div>
+                <li>
+                    <a href="#" class="mlvh-4 my-3">Начало</a>
                 </li>
-                <li class="my-4">
-                    <a href="#" class="">Магазин</a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="my-4">Все товары</a>
+                <li >
+                    <div id="products-all">
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class=" mlvh-4" >Все товары <span id="chevron" class="fas fa-chevron-right float-right mr-4 py-auto"></span></a>
+                    </div>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li class="ml-4 border-top border-dark">
-                            <a href="#">Акции</a>
+                        <li>
+                            <hr class="bg-light mt-3">
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-percent text-danger mr-3"></i>Акции</a>
+                            <hr class="bg-light">
                         </li>
-                        <li class="ml-4 border-top border-dark">
-                            <a href="#">Алкоголь</a>
+                        <li>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-wine-bottle text-danger mr-3"></i>Алкоголь</a>
+                            <hr class="bg-light">
                         </li>
-                        <li class="ml-4 border-top border-dark">
-                            <a href="#">Оливковое масло</a>
+                        <li>
+                            <a href="#" class="pl-4 mlvh-4 allproducts"><img th:src="@{/images/olive-oil.png}" width="23" alt="olive oil" class="mr-2">Оливковое масло</a>
+                            <hr class="bg-light">
                         </li>
-                        <li class="ml-4 border-top border-dark">
-                            <a href="#">Посуда</a>
+                        <li>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-glass-cheers text-danger mr-3"></i>Посуда</a>
+                            <hr class="bg-light">
                         </li>
-                        <li class="ml-4 border-top border-bottom border-dark">
-                            <a href="#">Аксессуары</a>
+                        <li>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-utensils text-danger mr-3"></i> Аксессуары</a>
+                            <hr class="bg-light">
                         </li>
                     </ul>
+                    <a href="#" class="mlvh-4 my-3">Магазин</a>
                 </li>
-                <li class="my-4">
-                    <a href="#">События</a>
+                <li>
+                    <a href="#" class="mlvh-4">События</a>
+                    <hr class="bg-light">
+                </li>
+                <li>
+                    <div class="text-muted mlvh-4 mb-3" style="font-size: 0.7rem;">Бизнес</div>
+                    <a href="#" class="mlvh-4">Корпоративным клиентам</a>
+                    <hr class="bg-light">
                 </li>
             </ul>
         </nav>
