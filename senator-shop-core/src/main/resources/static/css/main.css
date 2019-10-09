@@ -213,3 +213,12 @@ hr {
     font-size: 1em!important;
     padding: 8px;
 }
+
+@media (min-width: 768px) {
+    #main-logo {
+        margin-left: 40vw;
+    }
+    .search-cart-buttons {
+        margin-left: 30vw;
+    }
+}
