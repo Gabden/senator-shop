@@ -6,8 +6,13 @@
 <body>
 <header th:replace="fragments/navbar :: navbar">
 </header>
-
-<main role="main">
+<div class="input-group d-none my-3 w-75 mx-auto" id="search-input">
+    <input type="text" class="form-control">
+    <div class="input-group-append">
+        <a href="#" class="input-group-text"><span class="fas fa-search"></span></a>
+    </div>
+</div>
+<main role="main" id="main" class="mt-3">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -85,14 +90,8 @@
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 
-
-        <!-- START THE FEATURETTES -->
-
-    
-        <!-- /END THE FEATURETTES -->
-
     </div><!-- /.container -->
-
+    <div id="overlay"></div>
 </main>
     <footer th:replace="fragments/footer :: footer">
     </footer>

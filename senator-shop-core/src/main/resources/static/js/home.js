@@ -18,6 +18,15 @@ $(document).ready(function () {
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
+    $('#search-button').on('click', function () {
+        $('#search-input').toggleClass('d-none');
+
+    });
+    $('#overlay').on('click', function () {
+        $('#search-input').toggleClass('d-none');
+
+    });
+
     $('#current-year').text(new Date().getFullYear())
 });
 //---------------------------------------

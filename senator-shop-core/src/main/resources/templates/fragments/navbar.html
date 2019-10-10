@@ -1,6 +1,6 @@
 <header th:fragment="navbar">
 
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm">
         <button id="sidebarCollapse" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon mr-auto"></span>
         </button>
@@ -8,7 +8,7 @@
             <img class="d-inline-block align-center logo"  th:src="@{/images/senator-logo2.svg}" width="75" height="75" alt="senAtor logo" id="main-logo">
         </a>
         <div class="search-cart-buttons">
-            <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search"></span></a>
+            <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search" id="search-button"></span></a>
             <a class="rem15" href="#"><span class="fas fa-shopping-cart"><span id="cart-badge" class="badge badge-pill badge-danger">1</span></span></a>
         </div>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -86,7 +86,11 @@
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class="pl-3 mlvh-4 allproducts" style="margin-left: 4.5vh;"><img th:src="@{/images/olive-oil.png}" width="20" alt="olive oil" class="mr-2"/><span class="ml-2">Оливковое масло</span></a>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-tint text-danger mr-3"></i>Безалкогольные напитки</a>
+                            <hr class="bg-light">
+                        </li>
+                        <li>
+                            <a href="#" class="pl-3 mlvh-4 allproducts" style="margin-left: 4.5vw;"><img th:src="@{/images/olive-oil.png}" width="20" alt="olive oil" class="mr-2"/><span class="ml-2">Оливковое масло</span></a>
                             <hr class="bg-light">
                         </li>
                         <li>
