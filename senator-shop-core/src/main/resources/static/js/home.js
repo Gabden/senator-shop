@@ -21,6 +21,9 @@ $(document).ready(function () {
     $('#search-button').on('click', function () {
         $('#search-input').toggleClass('d-none');
 
+    }); $('#close-search').on('click', function () {
+        $('#search-input').toggleClass('d-none');
+
     });
     $('#overlay').on('click', function () {
         $('#search-input').toggleClass('d-none');
