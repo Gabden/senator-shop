@@ -2,13 +2,10 @@ package ru.ryazan.senatorshop.core.domain.cart;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.ryazan.senatorshop.core.domain.Customer;
-import ru.ryazan.senatorshop.core.domain.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 @Entity
 public class Cart implements Serializable {
 
@@ -21,6 +18,7 @@ public class Cart implements Serializable {
     private List<CartItem> cartItems;
 
     private Integer grandTotal;
+    private String sessionId;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JsonIgnore
@@ -68,5 +66,11 @@ public class Cart implements Serializable {
         this.grandTotal = grandTotal;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
 
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 }

@@ -12,6 +12,7 @@ import ru.ryazan.senatorshop.core.domain.cart.CartItem;
 import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Controller
@@ -27,10 +28,14 @@ public class CustomerCartController {
     }
 
     @RequestMapping
-    public String getCustomerCart ( @AuthenticationPrincipal UserDetails userDetails){
-        Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
-        long cartId = customer.getCart().getCartId();
-        return "redirect:/customer/cart/" + cartId;
+    public String getCustomerCart (@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+        if (userDetails != null){
+            Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+            long cartId = customer.getCart().getCartId();
+            return "redirect:/customer/cart/" + cartId;
+        }
+        String sessionId = request.getSession().getId();
+        return "redirect:/customer/cart/session/" + sessionId;
     }
 
     @RequestMapping("/{cartId}")
@@ -38,7 +43,21 @@ public class CustomerCartController {
         Optional<Cart> cart = cartService.read(id);
         int grandTotal = 0;
 
-        cart.get();
+        model.addAttribute("cart", cart.get().getCartItems());
+        for (CartItem value : cart.get().getCartItems()) {
+            grandTotal += value.getTotalPrice();
+        }
+
+        model.addAttribute("grandTotal", grandTotal);
+        model.addAttribute("cartId", id);
+        return "cart";
+    }
+    @RequestMapping("session/{sessionId}")
+    public String getCartRedirectWithSession(@PathVariable("sessionId") String id, Model model, HttpServletRequest request){
+        String sessionId = request.getSession().getId();
+        Optional<Cart> cart = cartService.readBySessionId(sessionId);
+        int grandTotal = 0;
+
         model.addAttribute("cart", cart.get().getCartItems());
         for (CartItem value : cart.get().getCartItems()) {
             grandTotal += value.getTotalPrice();

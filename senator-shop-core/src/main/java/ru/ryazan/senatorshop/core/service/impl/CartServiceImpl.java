@@ -7,6 +7,7 @@ import ru.ryazan.senatorshop.core.repository.CartRepository;
 import ru.ryazan.senatorshop.core.service.CartService;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,6 +34,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public Optional<Cart> readBySessionId(String sessionId) {
+        return cartRepository.findCartBySessionId(sessionId);
+    }
+
+    @Override
+    public List<Cart> findAllBySessionIdIsNotNull() {
+        return cartRepository.findAllBySessionIdIsNotNull();
+    }
+
+    @Override
     public void update(Cart cart) {
         int grandTotal = 0;
         for (CartItem item : cart.getCartItems()){
@@ -54,6 +65,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void delete(Long id) {
-
+        cartRepository.deleteById(id);
     }
 }

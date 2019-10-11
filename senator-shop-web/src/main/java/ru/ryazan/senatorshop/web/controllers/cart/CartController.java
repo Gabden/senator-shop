@@ -14,10 +14,9 @@ import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Period;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/restCart/cart")
@@ -39,36 +38,104 @@ public class CartController {
     public Cart read(@PathVariable(value = "cartId")Long cartId){
         return cartService.read(cartId).get();
     }
+    @RequestMapping("/ajax")
+    public Cart read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails){
+        String sessionId = request.getSession().getId();
+        Optional<Cart> cartFromSessionId = cartService.readBySessionId(sessionId);
+        if (userDetails == null){
+            Optional<Cart> cart = cartService.readBySessionId(sessionId);
+            if (cart.isPresent()){
+               return cart.get();
+            } else {
+                Cart cartNew = new Cart();
+                cartNew.setCartItems(new ArrayList<>());
+                cartNew.setSessionId(sessionId);
+                cartService.create(cartNew);
+                return cartNew;
+            }
+        }else {
+            Cart cartFromAuthUser = customerService.findCustomerByCustomerName(userDetails.getUsername()).getCart();
+
+            List<CartItem> summaryListItems = new ArrayList<>(cartFromAuthUser.getCartItems());
+            if (cartFromSessionId.isPresent()){
+                if (cartFromSessionId.get().getCartItems().size() > 0){
+                    summaryListItems.addAll(cartFromSessionId.get().getCartItems());
+                    cartFromAuthUser.setCartItems(summaryListItems);
+                    cartService.update(cartFromAuthUser);
+                    cartItemService.deleteAll(cartFromSessionId.get());
+                }
+            }
+
+            return cartFromAuthUser;
+        }
+    }
+
+    @RequestMapping("bySession/{sessionId}")
+    public Cart readBySessionId(@PathVariable(value = "sessionId")String sessionId){
+        Optional<Cart> cart = cartService.readBySessionId(sessionId);
+        if (!cart.isPresent()){
+            Cart newCart = new Cart();
+            newCart.setSessionId(sessionId);
+            return newCart;
+        }else {
+            return cart.get();
+        }
+    }
 
 
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails){
-        Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
-        Cart cart = customer.getCart();
+    public void addItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
         Optional<Product> product = productService.findById(productId);
-        List<CartItem> cartItems =  cart.getCartItems();
-        for (CartItem item: cartItems){
-            if (item.getProduct().getId().equals(productId)){
-                item.setQuantity(item.getQuantity() + 1);
-                cartItemService.addItem(item);
-                return;
+        if (userDetails != null){
+            Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+            Cart cart = customer.getCart();
+            List<CartItem> cartItems =  cart.getCartItems();
+            for (CartItem item: cartItems){
+                if (item.getProduct().getId().equals(productId)){
+                    item.setQuantity(item.getQuantity() + 1);
+                    cartItemService.addItem(item);
+                    return;
+                }
             }
+            CartItem cartItem = new CartItem();
+            cartItem.setProduct(product.get());
+            cartItem.setQuantity(1);
+            cartItem.setCart(cart);
+            cartItemService.addItem(cartItem);
+        } else {
+            String sessionId = request.getSession().getId();
+            Optional<Cart> cart = cartService.readBySessionId(sessionId);
+            List<CartItem> cartItems =  cart.get().getCartItems();
+            for (CartItem item: cartItems){
+                if (item.getProduct().getId().equals(productId)){
+                    item.setQuantity(item.getQuantity() + 1);
+                    cartItemService.addItem(item);
+                    return;
+                }
+            }
+            CartItem cartItem = new CartItem();
+            cartItem.setProduct(product.get());
+            cartItem.setQuantity(1);
+            cartItem.setCart(cart.get());
+            cartItemService.addItem(cartItem);
+
         }
-        CartItem cartItem = new CartItem();
-        cartItem.setProduct(product.get());
-        cartItem.setQuantity(1);
-        cartItem.setCart(cart);
-        cartItemService.addItem(cartItem);
 
     }
 
     @RequestMapping(value = "/delete/{productId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails){
-        Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
-        Cart cart = customer.getCart();
+    public void removeItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+        Cart cart = null;
+        String sessionId = request.getSession().getId();
+        if (userDetails != null){
+            Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+            cart = customer.getCart();
+        } else {
+            cart = cartService.readBySessionId(sessionId).get();
+        }
         List<CartItem> cartItems =  cart.getCartItems();
         for (CartItem item: cartItems){
             if (item.getProduct().getId().equals(productId)){
@@ -79,11 +146,27 @@ public class CartController {
 
     }
 
-    @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/ajax/clearCart", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeAllItems(@PathVariable(value = "cartId") Long cartId){
-       Optional<Cart> cart = cartService.read(cartId);
-        cart.ifPresent(value -> cartItemService.deleteAll(value));
+    public void removeAllItems(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+        String sessionId = request.getSession().getId();
+        if (userDetails != null){
+            Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+            Cart cart = customer.getCart();
+            cartItemService.deleteAll(cart);
+        } else {
+            Optional<Cart> cart = cartService.readBySessionId(sessionId);
+            cart.ifPresent(value -> cartItemService.deleteAll(value));
+        }
+    }
+
+    @RequestMapping(value = "/ajax/clearCartTemp", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void removeAllTempCart(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
+        List<Cart> cartsTemp = cartService.findAllBySessionIdIsNotNull();
+        if (cartsTemp != null && cartsTemp.size() > 0) {
+            cartsTemp.forEach(cart -> cartService.delete(cart.getCartId()));
+        }
     }
 //    @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
 //    @ResponseStatus(value = HttpStatus.NO_CONTENT)

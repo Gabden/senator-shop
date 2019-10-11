@@ -1,5 +1,16 @@
 var cartApp = angular.module ("cartApp", []);
 
+$( document ).ready(function() {
+    $.ajax({
+        url: '/restCart/cart/ajax',
+        success: function(data){
+            console.log(data);
+            $('#cart-badge').text(data.cartItems.length)
+        }
+    });
+
+
+});
 cartApp.controller("cartCtrl", function ($scope, $http){
 
     $scope.refreshCart = function (cartId) {
@@ -56,13 +67,11 @@ cartApp.controller("cartCtrl", function ($scope, $http){
         //     $scope.refreshCart($http.get('/eMusicStore/rest/cart/cartId'));
         // });
     };
-    $scope.clearCart = function (cartId) {
+    $scope.clearCart = function () {
         $http({
             method: 'DELETE',
-            url: '/restCart/cart/'+ cartId
+            url: '/restCart/cart/ajax/clearCart'
         }).then(function (response){
-            console.log(response)
-            $scope.refreshCart($scope.cartId);
             location.reload();
         },function (error){
             console.log("Error when clearCart request")
