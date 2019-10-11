@@ -34,7 +34,7 @@ public class CustomerCartController {
             long cartId = customer.getCart().getCartId();
             return "redirect:/customer/cart/" + cartId;
         }
-        String sessionId = request.getSession().getId();
+        String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         return "redirect:/customer/cart/session/" + sessionId;
     }
 
@@ -54,14 +54,16 @@ public class CustomerCartController {
     }
     @RequestMapping("session/{sessionId}")
     public String getCartRedirectWithSession(@PathVariable("sessionId") String id, Model model, HttpServletRequest request){
-        String sessionId = request.getSession().getId();
+        String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         Optional<Cart> cart = cartService.readBySessionId(sessionId);
         int grandTotal = 0;
 
-        model.addAttribute("cart", cart.get().getCartItems());
-        for (CartItem value : cart.get().getCartItems()) {
-            grandTotal += value.getTotalPrice();
-        }
+        if (cart.isPresent()){
+            model.addAttribute("cart", cart.get().getCartItems());
+            for (CartItem value2 : cart.get().getCartItems()) {
+                grandTotal += value2.getTotalPrice();
+        }}
+
 
         model.addAttribute("grandTotal", grandTotal);
         model.addAttribute("cartId", id);

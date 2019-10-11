@@ -1,8 +1,6 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
 import org.springframework.stereotype.Service;
-import ru.ryazan.senatorshop.core.domain.CustomerOrder;
-import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
 import ru.ryazan.senatorshop.core.repository.CartItemRepository;
@@ -26,6 +24,11 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public Optional<CartItem> findById(Long id) {
         return cartItemRepository.findById(id);
+    }
+
+    @Override
+    public void update(CartItem item) {
+        cartItemRepository.save(item);
     }
 
     @Override

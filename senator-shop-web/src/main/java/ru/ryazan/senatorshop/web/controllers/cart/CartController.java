@@ -40,7 +40,7 @@ public class CartController {
     }
     @RequestMapping("/ajax")
     public Cart read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails){
-        String sessionId = request.getSession().getId();
+        String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         Optional<Cart> cartFromSessionId = cartService.readBySessionId(sessionId);
         if (userDetails == null){
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
@@ -59,10 +59,18 @@ public class CartController {
             List<CartItem> summaryListItems = new ArrayList<>(cartFromAuthUser.getCartItems());
             if (cartFromSessionId.isPresent()){
                 if (cartFromSessionId.get().getCartItems().size() > 0){
-                    summaryListItems.addAll(cartFromSessionId.get().getCartItems());
-                    cartFromAuthUser.setCartItems(summaryListItems);
-                    cartService.update(cartFromAuthUser);
-                    cartItemService.deleteAll(cartFromSessionId.get());
+                   OUTTER: for (CartItem item: cartFromSessionId.get().getCartItems()){
+                        for (CartItem userItem : summaryListItems){
+                            if (item.getProduct().getId().equals(userItem.getProduct().getId())){
+                                userItem.setQuantity(userItem.getQuantity() + item.getQuantity());
+                                cartItemService.update(userItem);
+                                continue OUTTER;
+                            }
+                        }
+                            item.setCart(cartFromAuthUser);
+                            cartItemService.addItem(item);
+                    }
+
                 }
             }
 
@@ -105,7 +113,7 @@ public class CartController {
             cartItem.setCart(cart);
             cartItemService.addItem(cartItem);
         } else {
-            String sessionId = request.getSession().getId();
+            String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
             List<CartItem> cartItems =  cart.get().getCartItems();
             for (CartItem item: cartItems){
@@ -129,7 +137,7 @@ public class CartController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void removeItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
         Cart cart = null;
-        String sessionId = request.getSession().getId();
+        String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         if (userDetails != null){
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             cart = customer.getCart();
@@ -149,7 +157,7 @@ public class CartController {
     @RequestMapping(value = "/ajax/clearCart", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void removeAllItems(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
-        String sessionId = request.getSession().getId();
+        String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         if (userDetails != null){
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             Cart cart = customer.getCart();
