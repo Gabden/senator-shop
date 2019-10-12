@@ -9,7 +9,7 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 <main role="main" id="main" class="mt-3">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="container carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -35,37 +35,36 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+<!--    НОВИНКИ-->
+    <div class="container">
+
+    </div>
 
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing">
 
-        <!-- Three columns of text below the carousel -->
-        <div class="row">
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2>Heading</h2>
-                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
+        <h3 class="text-center" style="font-family: 'Alegreya', serif;">SEN<span class="bigA">A</span>TOR — магазин элитного вина и подарков <i class="ml-2 fas fa-wine-glass-alt text-danger"></i></h3>
+        <p class="text-justify">На сайте представлена информация об ассортименте магазина Сенатор. Возможность купить элитные вина, шампанское, крепкий алкоголь, воду.
+       Консультации опытного сомелье. Гарантия подлинности: сертификаты на всю продукцию по запросу.
+       Все материалы, размещенные на сайте, носят информационный характер и не являются рекламой.</p>
+
+        <p><img th:src="@{'images/bag.png'}" class="" alt="...">
+            Более 1000 элитных товаров</p>
+        <p><img th:src="@{'/images/sale.png'}" alt="">
+            Скидки и акции</p>
+        <p><img th:src="@{'images/consult.png'}" alt="">
+            Бесплатные консультации</p>
+        <p><img th:src="@{'images/care.png'}" alt="">
+            Внимание и забота о клиентах</p>
 
     </div><!-- /.container -->
+    <div class="container">
+        <h3>Мы соберем к вашему приходу коллекцию</h3>
+        <p>Консультации по телефону:</p>
+        <p>+7(910)-123-45-78</p>
+    </div>
+
     <div id="overlay"></div>
 </main>
     <footer th:replace="fragments/footer :: footer">
