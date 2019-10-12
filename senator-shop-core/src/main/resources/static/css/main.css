@@ -221,4 +221,19 @@ hr {
     .search-cart-buttons {
         margin-left: 30vw;
     }
+    .carousel-item > img {
+        overflow: hidden;
+        width: 100%;
+    }
 }
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 16rem;
+        background-size:cover;
+    }
+    .carousel-item > img {
+        height: 100%;
+        width: 100vw;
+    }
+}
+
