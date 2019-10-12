@@ -230,6 +230,10 @@ hr {
         width: 100%;
     }
 }
+#catalog-md{
+    height: 55px;
+    padding: 8px;
+}
 @media (max-width: 768px) {
     .carousel-item {
         height: 16rem;
