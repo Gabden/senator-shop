@@ -214,9 +214,13 @@ hr {
     padding: 8px;
 }
 
+.alegreya {
+    font-family: 'Alegreya', serif;
+}
+
 @media (min-width: 768px) {
     #main-logo {
-        margin-left: 40vw;
+        margin-left: 25vw;
     }
     .search-cart-buttons {
         margin-left: 30vw;
@@ -233,7 +237,7 @@ hr {
     }
     .carousel-item > img {
         height: 100%;
-        width: 100vw;
+        width: 100%;
     }
 }
 

@@ -1,13 +1,18 @@
 <header th:fragment="navbar">
 
-    <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm w-100">
         <button id="sidebarCollapse" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon mr-auto"></span>
         </button>
-        <a href="#" class="navbar-brand text-black">
-            <img class="d-inline-block align-center logo"  th:src="@{/images/senator-logo2.svg}" width="75" height="75" alt="senAtor logo" id="main-logo">
-        </a>
-        <div class="search-cart-buttons">
+        <div class="d-none d-md-inline" style="white-space: nowrap; padding-left: 6vw;">
+            <a href="#"><i class="fas fa-user mr-2 rem15"></i>Личный кабинет</a>
+        </div>
+        <div class="" id="main-logo">
+            <a href="#" class="navbar-brand text-black" >
+                <img class="d-inline-block align-center logo"  th:src="@{/images/senator-logo2.svg}" width="75" height="75" alt="senAtor logo" >
+            </a>
+        </div>
+        <div class="search-cart-buttons" style="white-space: nowrap">
             <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search" id="search-button"></span></a>
             <a class="rem15" href="#"><span class="fas fa-shopping-cart"><span id="cart-badge" class="badge badge-pill badge-danger"></span></span></a>
         </div>
@@ -43,6 +48,9 @@
 <!--            </form>-->
         </div>
     </nav>
+    <div class="" id="catalog-md">
+
+    </div>
 
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -119,5 +127,6 @@
         </nav>
 
         <div class="overlay"></div>
+    </div>
     </div>
 </header>
