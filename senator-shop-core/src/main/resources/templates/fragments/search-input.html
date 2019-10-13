@@ -1,9 +1,43 @@
 <div th:fragment="search">
-    <div class="input-group d-none my-3 w-75 mx-auto" id="search-input">
-        <input type="text" class="form-control">
-        <div class="input-group-append">
-            <a href="#" class="input-group-text"><span class="fas fa-search"></span></a>
+    <div class="input-group d-none my-3 w-75 mx-4 mx-sm-auto w-25" id="search-input">
+<!--        <form action="#" class="form-inline">-->
+<!--            <div class="input-group-append">-->
+<!--                <select class="form-control">-->
+<!--                    <option>Все товары</option>-->
+<!--                    <option>Алкоголь</option>-->
+<!--                    <option>Оливковое масло</option>-->
+<!--                    <option>Посуда</option>-->
+<!--                    <option>Подарки</option>-->
+<!--                </select>-->
+<!--                -->
+<!--                -->
+<!--            </div>-->
+<!--        </form>-->
+<!--        <a href="#" class="input-group-text ml-4" id="close-search"><i class="fas fa-times d-inline"></i></a>-->
+<!--    </div>-->
+    <form class="no-gutters">
+        <div class="flex-row d-inline-flex">
+            <div class="col-3 p-0">
+                <select class="form-control   fsize-07">
+                    <option>Все товары</option>
+                    <option>Алкоголь</option>
+                    <option>Напитки</option>
+                    <option>Оливковое масло</option>
+                    <option>Посуда</option>
+                    <option>Подарки</option>
+                </select>
+            </div>
+            <div class="col p-0">
+                <input type="text" class="form-control d-inline fsize-07" style="width: 50vw">
+            </div>
+
+                <a href="#" class="input-group-text"><span class="fas fa-search"></span></a>
+
+
+                <a href="#" class="input-group-text ml-2" id="close-search"><i class="fas fa-times"></i></a>
+
+
         </div>
-        <a href="#" class="input-group-text ml-4" id="close-search"><i class="fas fa-times"></i></a>
+    </form>
     </div>
 </div>
