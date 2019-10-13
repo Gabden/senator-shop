@@ -39,7 +39,10 @@ cartApp.controller("cartCtrl", function ($scope, $http){
     $scope.addToCart = function (productId) {
         $http({
             method: 'PUT',
-            url: '/restCart/cart/add/' + productId
+            url: '/restCart/cart/add/' + productId,
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            }
         }).then(function (response){
 
             alert("Product successfully added to the cart!")

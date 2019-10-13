@@ -106,6 +106,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
         viewResolver.setViewClass(FlowAjaxThymeleafView.class);
         viewResolver.setTemplateEngine(this.templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setContentType("text/html; charset=UTF-8");;
         return viewResolver;
     }
 
