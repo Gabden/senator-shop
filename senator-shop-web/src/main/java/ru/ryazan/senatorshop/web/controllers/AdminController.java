@@ -59,6 +59,7 @@ public class AdminController {
 
     @RequestMapping(value = "/productInventory/addProduct", method = RequestMethod.POST)
     public String productInventoryAdd(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file,HttpServletRequest request){
+        System.out.println(product.getProductName());
         productService.addProduct(product);
         ProductImage dbFile = DBFileStorageService.storeFile(file, product);
 

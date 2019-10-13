@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments/header :: header">
 </head>
 
@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="product : ${products}">
-                        <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" width="200" height="200"></td>
+                        <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" width="75" height="200"></td>
                         <td th:text="${product.productName}"></td>
                         <td th:text="${product.productCategory}"></td>
                         <td th:text="${product.productDescription}"></td>
