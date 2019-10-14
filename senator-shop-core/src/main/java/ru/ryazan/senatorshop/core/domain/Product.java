@@ -2,12 +2,14 @@ package ru.ryazan.senatorshop.core.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Fetch;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Product implements Serializable {
@@ -17,10 +19,34 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String productName;
-    private String productCategory;
-    private String productSubCategory;
+
+    private String productNameEng;
+
+    private String productCountry;
+
+    private String productRegion;
+
+    private String productAlcoholDegree;
+
+    private String productAlcoholColor;
+
+    private String productAlcoholSugar;
+
+    private String productAlcoholTemperature;
+
+    private String productAlcoholSort;
+    private String productManufacturer;
+
+    @Column(length = 1500)
     private String productDescription;
+
+
+    private String productMature;
+
+    private String productTaste;
+
 
     public Set<ProductImage> getProductImageSet() {
         return productImageSet;
@@ -29,6 +55,7 @@ public class Product implements Serializable {
     private String productPrice;
 
     private String productUnitInStock;
+
     @Transient
     private String dataImg;
 
@@ -55,14 +82,6 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String productName, String productCategory, String productSubCategory, String productDescription, String productPrice, String productUnitInStock) {
-        this.productName = productName;
-        this.productCategory = productCategory;
-        this.productSubCategory = productSubCategory;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
-        this.productUnitInStock = productUnitInStock;
-    }
 
     public List<CartItem> getCartItems() {
         return cartItems;
@@ -84,6 +103,94 @@ public class Product implements Serializable {
        }
     }
 
+    public String getProductNameEng() {
+        return productNameEng;
+    }
+
+    public void setProductNameEng(String productNameEng) {
+        this.productNameEng = productNameEng;
+    }
+
+    public String getProductCountry() {
+        return productCountry;
+    }
+
+    public void setProductCountry(String productCountry) {
+        this.productCountry = productCountry;
+    }
+
+    public String getProductRegion() {
+        return productRegion;
+    }
+
+    public void setProductRegion(String productRegion) {
+        this.productRegion = productRegion;
+    }
+
+    public String getProductAlcoholDegree() {
+        return productAlcoholDegree;
+    }
+
+    public void setProductAlcoholDegree(String productAlcoholDegree) {
+        this.productAlcoholDegree = productAlcoholDegree;
+    }
+
+    public String getProductAlcoholColor() {
+        return productAlcoholColor;
+    }
+
+    public void setProductAlcoholColor(String productAlcoholColor) {
+        this.productAlcoholColor = productAlcoholColor;
+    }
+
+    public String getProductAlcoholSugar() {
+        return productAlcoholSugar;
+    }
+
+    public void setProductAlcoholSugar(String productAlcoholSugar) {
+        this.productAlcoholSugar = productAlcoholSugar;
+    }
+
+    public String getProductAlcoholTemperature() {
+        return productAlcoholTemperature;
+    }
+
+    public void setProductAlcoholTemperature(String productAlcoholTemperature) {
+        this.productAlcoholTemperature = productAlcoholTemperature;
+    }
+
+    public String getProductAlcoholSort() {
+        return productAlcoholSort;
+    }
+
+    public void setProductAlcoholSort(String productAlcoholSort) {
+        this.productAlcoholSort = productAlcoholSort;
+    }
+
+    public String getProductManufacturer() {
+        return productManufacturer;
+    }
+
+    public void setProductManufacturer(String productManufacturer) {
+        this.productManufacturer = productManufacturer;
+    }
+
+    public String getProductMature() {
+        return productMature;
+    }
+
+    public void setProductMature(String productMature) {
+        this.productMature = productMature;
+    }
+
+    public String getProductTaste() {
+        return productTaste;
+    }
+
+    public void setProductTaste(String productTaste) {
+        this.productTaste = productTaste;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -94,22 +201,6 @@ public class Product implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public String getProductCategory() {
-        return productCategory;
-    }
-
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
-    }
-
-    public String getProductSubCategory() {
-        return productSubCategory;
-    }
-
-    public void setProductSubCategory(String productSubCategory) {
-        this.productSubCategory = productSubCategory;
     }
 
     public String getProductDescription() {
@@ -143,8 +234,6 @@ public class Product implements Serializable {
         return "Product{" +
                 "id=" + id +
                 ", productName='" + productName + '\'' +
-                ", productCategory='" + productCategory + '\'' +
-                ", productSubCategory='" + productSubCategory + '\'' +
                 ", productDescription='" + productDescription + '\'' +
                 ", productPrice='" + productPrice + '\'' +
                 ", productUnitInStock='" + productUnitInStock + '\'' +

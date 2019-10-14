@@ -9,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
+
 @Entity
 public class Customer implements Serializable {
 
@@ -45,7 +47,18 @@ public class Customer implements Serializable {
     @JsonIgnore
     private Cart cart;
 
+    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    private List<Favorites> favorites;
+
     public Customer() {
+    }
+
+    public List<Favorites> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorites> favorites) {
+        this.favorites = favorites;
     }
 
     public Long getCustomerId() {

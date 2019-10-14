@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments/header :: header">
 </head>
 
@@ -21,11 +21,9 @@
                             <label for="name">Name</label>
                             <input type="text" id="name" class="form-control" th:field="*{productName}">
 
-                            <label for="category">Category</label>
-                            <input type="text" id="category" class="form-control" th:field="*{productCategory}">
 
-                            <label for="subcategory">Subcategory</label>
-                            <input type="text" id="subcategory" class="form-control" th:field="*{productSubCategory}">
+
+
 
                             <label for="description">Description</label>
                             <input type="text" id="description" class="form-control" th:field="*{productDescription}">

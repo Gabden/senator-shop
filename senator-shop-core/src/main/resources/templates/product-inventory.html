@@ -28,7 +28,6 @@
                     <tr th:each="product : ${products}">
                         <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" width="75" height="200"></td>
                         <td th:text="${product.productName}"></td>
-                        <td th:text="${product.productCategory}"></td>
                         <td th:text="${product.productDescription}"></td>
                         <td th:text="${product.productPrice}"></td>
                         <td>
