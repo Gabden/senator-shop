@@ -18,14 +18,18 @@
                 <div class="container">
                     <form th:action="@{'/admin/productInventory/updateProduct/' + ${product.id}}" th:object="${product}" method="post" class="form" enctype="multipart/form-data">
                             <div class="form-group ">
+
+                                <input type="hidden" id="id" class="form-control" th:field="${product.id}" >
+
+
                                 <label for="name">Название</label>
-                                <input type="text" id="name" class="form-control" th:value="*{productName}" placeholder="Имя товара">
+                                <input type="text" id="name" class="form-control" th:field="${product.productName}"  placeholder="Имя товара">
 
                                 <div class="input-group my-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Категория</label>
                                     </div>
-                                    <select class="custom-select" id="inputGroupSelect01" th:value="*{productCategory}">
+                                    <select class="custom-select" id="inputGroupSelect01" th:field="${product.productCategory}"  >
                                         <option value="" selected>Выберите...</option>
                                         <option value="alcohol">Алкоголь</option>
                                         <option value="drinks">Напитки</option>
@@ -36,46 +40,46 @@
                                 </div>
 
                                 <label for="description" >Описание</label>
-                                <textarea type="text" id="description" class="form-control mb-3" th:value="*{productDescription}"></textarea>
+                                <textarea type="text" id="description" class="form-control mb-3" th:field="${product.productDescription}"  ></textarea>
 
                                 <label for="price" >Цена</label>
-                                <input type="text" id="price" class="form-control mb-3" th:value="*{productPrice}">
+                                <input type="text" id="price" class="form-control mb-3" th:field="${product.productPrice}" >
 
                                 <label for="unitInStock" >Количество</label>
-                                <input type="text" id="unitInStock" class="form-control mb-3" th:value="*{productUnitInStock}">
+                                <input type="text" id="unitInStock" class="form-control mb-3" th:field="${product.productUnitInStock}"  >
 
 
 
                                 <label for="country" >Страна производитель</label>
-                                <input type="text" id="country" class="form-control" th:value="*{productCountry}">
+                                <input type="text" id="country" class="form-control" th:field="${product.productCountry}"   >
 
                                 <label for="region" >Регион производителя</label>
-                                <input type="text" id="region" class="form-control" th:value="*{productRegion}">
+                                <input type="text" id="region" class="form-control" th:field="${product.productRegion}"  >
 
 
                                 <label for="productAlcoholDegree" >Содержание спирта</label>
-                                <input type="text" id="productAlcoholDegree" class="form-control mb-3" th:value="*{productAlcoholDegree}">
+                                <input type="text" id="productAlcoholDegree" class="form-control mb-3" th:field="${product.productAlcoholDegree}"  >
 
                                 <label for="productAlcoholColor" >Тип (красное, белое, игристое и тд)</label>
-                                <input type="text" id="productAlcoholColor" class="form-control mb-3" th:value="*{productAlcoholColor}">
+                                <input type="text" id="productAlcoholColor" class="form-control mb-3" th:field="${product.productAlcoholColor}"  >
 
                                 <label for="productAlcoholSugar" >Сахар (сухое, полусухое и т.д.)</label>
-                                <input type="text" id="productAlcoholSugar" class="form-control mb-3" th:value="*{productAlcoholSugar}">
+                                <input type="text" id="productAlcoholSugar" class="form-control mb-3" th:field="${product.productAlcoholSugar}"  >
 
                                 <label for="productAlcoholTemperature" >Температура подачи</label>
-                                <input type="text" id="productAlcoholTemperature" class="form-control mb-3" th:value="*{productAlcoholTemperature}">
+                                <input type="text" id="productAlcoholTemperature" class="form-control mb-3" th:field="${product.productAlcoholTemperature}"  >
 
                                 <label for="productAlcoholSort" >Сорт винограда или тип сырья</label>
-                                <input type="text" id="productAlcoholSort" class="form-control mb-3" th:value="*{productAlcoholSort}">
+                                <input type="text" id="productAlcoholSort" class="form-control mb-3" th:field="${product.productAlcoholSort}"  >
 
                                 <label for="productManufacturer" >Фирма производитель</label>
-                                <input type="text" id="productManufacturer" class="form-control mb-3" th:value="*{productManufacturer}">
+                                <input type="text" id="productManufacturer" class="form-control mb-3" th:field="${product.productManufacturer}"  >
 
                                 <label for="productMature" >Выдержка</label>
-                                <input type="text" id="productMature" class="form-control mb-3" th:value="*{productMature}">
+                                <input type="text" id="productMature" class="form-control mb-3" th:field="${product.productMature}"  >
 
                                 <label for="productTaste" >Короткое описание вкуса</label>
-                                <input type="text" id="productTaste" class="form-control mb-3" th:value="*{productTaste}">
+                                <input type="text" id="productTaste" class="form-control mb-3" th:field="${product.productTaste}"  >
 
                                 <div class="upload-content mb-3">
                                     <div class="single-upload ">

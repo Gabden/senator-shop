@@ -66,7 +66,7 @@ public class Product implements Serializable {
     @JsonIgnore
     private Set<ProductImage> productImageSet;
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true)
+    @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<CartItem> cartItems;
 
@@ -95,7 +95,13 @@ public class Product implements Serializable {
     }
 
     public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
+        if (this.cartItems == null) {
+            this.cartItems = cartItems;
+        } else {
+            this.cartItems.retainAll(cartItems);
+            this.cartItems.addAll(cartItems);
+        }
+
     }
 
     public String getDataImg() {
@@ -225,6 +231,7 @@ public class Product implements Serializable {
     public void setProductUnitInStock(String productUnitInStock) {
         this.productUnitInStock = productUnitInStock;
     }
+
 
 
 
