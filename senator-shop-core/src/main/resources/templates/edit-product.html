@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments/header :: header">
 </head>
 
@@ -12,83 +12,113 @@
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">Add product</h1>
-                <p class="lead">Fill information to add product</p>
+                <h1 class="title">Обновление информации о товаре</h1>
+                <p class="lead">Внести измения и сохранить</p>
 
                 <div class="container">
-                    <form th:action="@{'/admin/productInventory/updateProduct/' + ${product.id}}" method="post" class="form" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="id">Name</label>
-                            <input type="hidden" id="id" class="form-control" th:field="${product.id}" th:value="${product.id}">
+                    <form th:action="@{'/admin/productInventory/updateProduct/' + ${product.id}}" th:object="${product}" method="post" class="form" enctype="multipart/form-data">
+                            <div class="form-group ">
+                                <label for="name">Название</label>
+                                <input type="text" id="name" class="form-control" th:value="*{productName}" placeholder="Имя товара">
 
-                            <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" th:field="${product.productName}" th:value="${product.productName}">
-
-                            <label for="category">Category</label>
-                            <input type="text" id="category" class="form-control" th:field="${product.productCategory}" th:value="${product.productCategory}">
-
-                            <label for="subcategory">Subcategory</label>
-                            <input type="text" id="subcategory" class="form-control" th:field="${product.productSubCategory}" th:value="${product.productSubCategory}">
-
-                            <label for="description">Description</label>
-                            <input type="text" id="description" class="form-control" th:field="${product.productDescription}" th:value="${product.productDescription}">
-
-                            <label for="price">Price</label>
-                            <input type="text" id="price" class="form-control" th:field="${product.productPrice}" th:value="${product.productPrice}">
-
-                            <label for="unitInStock">UnitInStock</label>
-                            <input type="text" id="unitInStock" class="form-control" th:field="${product.productUnitInStock}" th:value="${product.productUnitInStock}">
-
-                            <!--                            <div class="form-group">-->
-                            <!--                                <label class="control-label" for="productImage">Upload image</label>-->
-                            <!--                                <form th:action="@{/admin/productInventory/addProduct}"  id="productImage" datatype="file" class="form">-->
-                            <!--                                    <input type="file" name=imageFile >-->
-                            <!--                                </form>-->
-                            <!--                            </div>-->
-
-                            <div class="upload-content">
-                                <div class="single-upload">
-                                    <h3>Upload Single File</h3>
-                                    <form id="singleUploadForm" name="singleUploadForm">
-                                        <input id="singleFileUploadInput" type="file" name="file" class="file-input"/>
-                                        <button type="submit" class="primary submit-btn">Submit</button>
-                                        <input type="radio" name="storage-single" id="rs1" value="database" checked> Database<br>
-                                        <input type="radio" name="storage-single" id="rs2" value="filesys"> Filesystem<br>
-                                    </form>
-                                    <div class="upload-response">
-                                        <div id="singleFileUploadError"></div>
-                                        <div id="singleFileUploadSuccess"></div>
+                                <div class="input-group my-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Категория</label>
                                     </div>
+                                    <select class="custom-select" id="inputGroupSelect01" th:value="*{productCategory}">
+                                        <option value="" selected>Выберите...</option>
+                                        <option value="alcohol">Алкоголь</option>
+                                        <option value="drinks">Напитки</option>
+                                        <option value="oil">Оливковое масло</option>
+                                        <option value="dishes">Посуда</option>
+                                        <option value="gifts">Подарки</option>
+                                    </select>
                                 </div>
-<!--                                <div class="multiple-upload">-->
-<!--                                    <h3>Upload Multiple Files</h3>-->
-<!--                                    <form id="multipleUploadForm" name="multipleUploadForm">-->
-<!--                                        <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required />-->
-<!--                                        <button type="submit" class="primary submit-btn">Submit</button>-->
-<!--                                        <input type="radio" name="storage-multi" id="rm1" value="database" checked> Database<br>-->
-<!--                                        <input type="radio" name="storage-multi" id="rm2" value="filesys"> Filesystem<br>-->
-<!--                                    </form>-->
-<!--                                    <div class="upload-response">-->
-<!--                                        <div id="multipleFileUploadError"></div>-->
-<!--                                        <div id="multipleFileUploadSuccess"></div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+
+                                <label for="description" >Описание</label>
+                                <textarea type="text" id="description" class="form-control mb-3" th:value="*{productDescription}"></textarea>
+
+                                <label for="price" >Цена</label>
+                                <input type="text" id="price" class="form-control mb-3" th:value="*{productPrice}">
+
+                                <label for="unitInStock" >Количество</label>
+                                <input type="text" id="unitInStock" class="form-control mb-3" th:value="*{productUnitInStock}">
+
+
+
+                                <label for="country" >Страна производитель</label>
+                                <input type="text" id="country" class="form-control" th:value="*{productCountry}">
+
+                                <label for="region" >Регион производителя</label>
+                                <input type="text" id="region" class="form-control" th:value="*{productRegion}">
+
+
+                                <label for="productAlcoholDegree" >Содержание спирта</label>
+                                <input type="text" id="productAlcoholDegree" class="form-control mb-3" th:value="*{productAlcoholDegree}">
+
+                                <label for="productAlcoholColor" >Тип (красное, белое, игристое и тд)</label>
+                                <input type="text" id="productAlcoholColor" class="form-control mb-3" th:value="*{productAlcoholColor}">
+
+                                <label for="productAlcoholSugar" >Сахар (сухое, полусухое и т.д.)</label>
+                                <input type="text" id="productAlcoholSugar" class="form-control mb-3" th:value="*{productAlcoholSugar}">
+
+                                <label for="productAlcoholTemperature" >Температура подачи</label>
+                                <input type="text" id="productAlcoholTemperature" class="form-control mb-3" th:value="*{productAlcoholTemperature}">
+
+                                <label for="productAlcoholSort" >Сорт винограда или тип сырья</label>
+                                <input type="text" id="productAlcoholSort" class="form-control mb-3" th:value="*{productAlcoholSort}">
+
+                                <label for="productManufacturer" >Фирма производитель</label>
+                                <input type="text" id="productManufacturer" class="form-control mb-3" th:value="*{productManufacturer}">
+
+                                <label for="productMature" >Выдержка</label>
+                                <input type="text" id="productMature" class="form-control mb-3" th:value="*{productMature}">
+
+                                <label for="productTaste" >Короткое описание вкуса</label>
+                                <input type="text" id="productTaste" class="form-control mb-3" th:value="*{productTaste}">
+
+                                <div class="upload-content mb-3">
+                                    <div class="single-upload ">
+                                        <h3>Загрузить изображение</h3>
+                                        <form id="singleUploadForm" name="singleUploadForm">
+                                            <input id="singleFileUploadInput" type="file" name="file" class="file-input " />
+                                            <input type="radio" name="storage-single" id="rs1" value="database" checked> Database<br>
+                                        </form>
+                                        <div class="upload-response">
+                                            <div id="singleFileUploadError"></div>
+                                            <div id="singleFileUploadSuccess"></div>
+                                        </div>
+                                    </div>
+                                    <!--                                <div class="multiple-upload">-->
+                                    <!--                                    <h3>Upload Multiple Files</h3>-->
+                                    <!--                                    <form id="multipleUploadForm" name="multipleUploadForm">-->
+                                    <!--                                        <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required />-->
+                                    <!--                                        <button type="submit" class="primary submit-btn">Submit</button>-->
+                                    <!--                                        <input type="radio" name="storage-multi" id="rm1" value="database" checked> Database<br>-->
+                                    <!--                                        <input type="radio" name="storage-multi" id="rm2" value="filesys"> Filesystem<br>-->
+                                    <!--                                    </form>-->
+                                    <!--                                    <div class="upload-response">-->
+                                    <!--                                        <div id="multipleFileUploadError"></div>-->
+                                    <!--                                        <div id="multipleFileUploadSuccess"></div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                </div>
+
+
+                                <input type="submit" class="btn btn-dark my-3" value="Сохранить">
+
                             </div>
-
-                            <input type="submit" class="btn btn-dark mt-3">
-
-                        </div>
-                    </form>
+                        </form>
                 </div>
             </div>
             <!-- FOOTER -->
-            <footer th:replace="fragments/footer :: footer">
-            </footer>
+
         </div>
 
     </div><!-- /.container wrapper -->
 
-
+    <footer th:replace="fragments/footer :: footer">
+    </footer>
 </main>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>

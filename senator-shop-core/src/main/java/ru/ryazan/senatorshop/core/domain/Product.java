@@ -22,7 +22,7 @@ public class Product implements Serializable {
 
     private String productName;
 
-    private String productNameEng;
+    private String productCategory;
 
     private String productCountry;
 
@@ -82,6 +82,13 @@ public class Product implements Serializable {
     public Product() {
     }
 
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
 
     public List<CartItem> getCartItems() {
         return cartItems;
@@ -101,14 +108,6 @@ public class Product implements Serializable {
        if (images.size() != 0){
            this.dataImg =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
        }
-    }
-
-    public String getProductNameEng() {
-        return productNameEng;
-    }
-
-    public void setProductNameEng(String productNameEng) {
-        this.productNameEng = productNameEng;
     }
 
     public String getProductCountry() {

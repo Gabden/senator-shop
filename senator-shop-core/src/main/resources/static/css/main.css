@@ -251,6 +251,10 @@ hr {
     }
 }
 
+div label {
+    font-weight: bold;
+}
+
 /*horizontal scroll */
 /* The heart of the matter */
 .testimonial-group > .row {
@@ -266,4 +270,5 @@ hr {
 .col-sm-4:nth-child(3n+1) { background: #c69; }
 .col-sm-4:nth-child(3n+2) { background: #9c6; }
 .col-sm-4:nth-child(3n+3) { background: #69c; }
+
 
