@@ -297,9 +297,7 @@ div label {
     border-radius: 50%;
     background-clip: padding-box;
 }
-div {
-    text-align: center;
-}
+
 .minus:hover{
     background-color: #717fe0 !important;
 }
@@ -316,7 +314,7 @@ input{
     border: 0;
     width: 2%;
 }
-input::-webkit-outer-spin-button,
+nput::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;

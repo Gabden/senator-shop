@@ -1,51 +1,34 @@
 <header th:fragment="navbar">
 
     <nav class="navbar navbar-expand-md navbar-light shadow-sm w-100">
-        <button id="sidebarCollapse" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button id="sidebarCollapse" class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon mr-auto"></span>
         </button>
         <div class="d-none d-md-inline" style="white-space: nowrap; padding-left: 6vw;">
-            <a href="#"><i class="fas fa-user mr-2 rem15"></i>Личный кабинет</a>
+            <a sec:authorize="!isAuthenticated()" href="#"><i class="fas fa-user mr-2 rem15"></i>Личный кабинет</a>
+            <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" form-method="post"
+                  th:action="@{/logout}">
+                <span sec:authentication="name" class="mx-2"></span>
+                <br>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin" class="btn-sm btn-secondary my-2">Администрирование</a>
+                <button class="btn btn-outline-secondary my-2 my-sm-0 btn-sm" type="submit">Logout</button>
+            </form>
         </div>
         <div class="" id="main-logo">
-            <a href="#" class="navbar-brand text-black" >
-                <img class="d-inline-block align-center logo"  th:src="@{/images/senator-logo2.svg}" width="75" height="75" alt="senAtor logo" >
+            <a href="#" class="navbar-brand text-black">
+                <img class="d-inline-block align-center logo" th:src="@{/images/senator-logo2.svg}" width="75"
+                     height="75" alt="senAtor logo">
             </a>
         </div>
         <div class="search-cart-buttons" style="white-space: nowrap">
             <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search" id="search-button"></span></a>
-            <a class="rem15" href="#"><span class="fas fa-shopping-cart"><span id="cart-badge" class="badge badge-pill badge-danger"></span></span></a>
+            <a class="rem15" href="#"><span class="fas fa-shopping-cart"><span id="cart-badge"
+                                                                               class="badge badge-pill badge-danger"></span></span></a>
         </div>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <!--            <ul class="navbar-nav mr-auto">-->
-<!--                <li class="nav-item active">-->
-<!--                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="/productList">Product List</a>-->
-<!--                </li>-->
-<!--                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">-->
-<!--                    <a class="nav-link" href="/admin">Admin</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a href="/customer/cart" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link " href="/register">Register</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--            <form class="form-inline mt-2 mt-md-0">-->
-<!--                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--            </form>-->
 
-<!--            <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">-->
-<!--                <span sec:authentication="name" class="mx-2"></span>-->
-<!--                <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>-->
-<!--            </form>-->
-<!--            <form sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/login}">-->
-<!--                <button class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>-->
-<!--            </form>-->
         </div>
     </nav>
     <div class="d-none d-md-flex bg-dark mt-3" style="white-space: nowrap;">
@@ -69,9 +52,9 @@
                 <a href="#" class=" btn text-white  ">Подарки</a>
             </div>
 
-<!--            <a href="#" class="w-25  text-white border-right px-2">Виски</a>-->
-<!--            <a href="#" class="w-25  text-white border-right px-2">Водка</a>-->
-<!--            <a href="#" class="w-25  text-white border-right px-2">Подарки</a>-->
+            <!--            <a href="#" class="w-25  text-white border-right px-2">Виски</a>-->
+            <!--            <a href="#" class="w-25  text-white border-right px-2">Водка</a>-->
+            <!--            <a href="#" class="w-25  text-white border-right px-2">Подарки</a>-->
         </div>
 
     </div>
@@ -84,18 +67,28 @@
             </div>
 
             <div class="sidebar-header">
-                <h5 class="text-center" style="font-family: 'Alegreya', serif;">SEN<span class="bigA">A</span>TOR  <i class="ml-2 fas fa-wine-glass-alt text-danger"></i></h5>
+                <h5 class="text-center" style="font-family: 'Alegreya', serif;">SEN<span class="bigA">A</span>TOR <i
+                        class="ml-2 fas fa-wine-glass-alt text-danger"></i></h5>
                 <hr class="bg-light">
             </div>
 
             <ul class="list-unstyled components">
                 <div class="text-muted mlvh-4" style="font-size: 0.7rem;">Личный кабинет</div>
                 <div class="mlvh-4 mt-3 hover-red">
-                    <a href="/login">Вход</a>
+                    <a sec:authorize="!isAuthenticated()" href="/login">Вход</a>
+                    <form sec:authorize="isAuthenticated()" class="form my-2 my-lg-0" form-method="post"
+                          th:action="@{/logout}">
+                        <span sec:authentication="name" class="mx-2 my-3"></span>
+                        <br>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin" class="btn-sm btn-secondary">Администрирование</a>
+                        <br>
+                        <button class="btn btn-outline-secondary my-2 my-sm-0 btn-sm" type="submit">Logout</button>
+                    </form>
+
                 </div>
 
                 <div class="mlvh-4 mt-3 hover-red">
-                    <a href="/register">Регистрация</a>
+                    <a sec:authorize="!isAuthenticated()" href="/register">Регистрация</a>
                 </div>
 
                 <hr class="bg-light">
@@ -103,9 +96,10 @@
                 <li>
                     <a href="#" class="mlvh-4 my-3">Начало</a>
                 </li>
-                <li >
+                <li>
                     <div id="products-all">
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class=" mlvh-4" >Все товары <span id="chevron" class="fas fa-chevron-right float-right mr-4 py-auto"></span></a>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class=" mlvh-4">Все товары
+                            <span id="chevron" class="fas fa-chevron-right float-right mr-4 py-auto"></span></a>
                     </div>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
@@ -114,7 +108,8 @@
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-wine-bottle text-danger mr-3"></i>Алкоголь</a>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i
+                                    class="fas fa-wine-bottle text-danger mr-3"></i>Алкоголь</a>
                             <hr class="bg-light">
                         </li>
                         <li>
@@ -122,15 +117,19 @@
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class="pl-3 mlvh-4 allproducts" style="margin-left: 4.5vw;"><img th:src="@{/images/olive-oil.png}" width="20" alt="olive oil" class="mr-2"/><span class="ml-2">Оливковое масло</span></a>
+                            <a href="#" class="pl-3 mlvh-4 allproducts" style="margin-left: 4.5vw;"><img
+                                    th:src="@{/images/olive-oil.png}" width="20" alt="olive oil" class="mr-2"/><span
+                                    class="ml-2">Оливковое масло</span></a>
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-glass-cheers text-danger mr-3"></i>Посуда</a>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i
+                                    class="fas fa-glass-cheers text-danger mr-3"></i>Посуда</a>
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-gift text-danger mr-3"></i> Подарки</a>
+                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-gift text-danger mr-3"></i>
+                                Подарки</a>
                             <hr class="bg-light">
                         </li>
                     </ul>
