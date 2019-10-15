@@ -34,4 +34,9 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("/reserve")
+    public String reserve(){
+        return "reserve";
+    }
+
 }

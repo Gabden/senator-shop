@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+>
+<head th:replace="fragments/header :: header"></head>
+</head>
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+<div th:insert="fragments/search-input :: search">
+</div>
+<main role="main" id="main" class="mt-3">
+    <div class="container">
+        <div class="order">
+            <h3 class="h1 mb-3">Порядок резервирования товара</h3>
+            <div class="mb-3 text-left">
+                <span><i class="fas fa-search text-danger mr-2 mr-md-4 pr-4"></i>Выберите интересующий товар</span>
+            </div>
+            <div class="mb-3 text-left">
+                <span><i class="fas fa-cart-plus text-danger mr-2 mr-md-4 pr-4"></i>Добавьте товар в корзину</span>
+               </div>
+            <div class="mb-3 text-left">
+                <span><i class="fas fa-store text-danger mr-2 mr-md-4 pr-4"></i>Перейдите в корзину и оформите резерв</span>
+                </div>
+            <div class="mb-3 text-left">
+                <span><i class="fas fa-phone-volume text-danger mr-2 mr-md-4 pr-4 pl-2"></i>Дождитесь звонка от менеджера</span>
+                </div>
+            <div class="mb-3 text-left">
+            <span><i class="fas fa-luggage-cart text-danger mr-2 mr-md-4pr-4"></i>Заберите зарезервированные товары</span>
+            </div>
+            <div class="mb-3 text-left">
+                <span><i class="fas fa-credit-card text-danger mr-2 mr-md-4 pr-4"></i>Оплатите покупку</span>
+            </div>
+
+        </div>
+        <p>ВНИМАНИЕ! Мы не осуществляем доставку и не принимаем онлайн-платежи,
+            так как это запрещено законом Российской Федерации (Постановление Правительства РФ от 27.09.2007 г. №612, ред. от 04.10.2012).</p>
+    </div>
+
+    <div id="overlay"></div>
+</main>
+<footer th:replace="fragments/footer :: footer">
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/home.js"></script>
+</body>
+
+</html>
