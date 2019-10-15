@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
 >
-<head th:replace="fragments/header :: header"> </head>
+<head th:replace="fragments/header :: header"></head>
 </head>
 <body>
 <header th:replace="fragments/navbar :: navbar">
@@ -35,7 +35,7 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-<!--    НОВИНКИ horizontal scroll-->
+    <!--    НОВИНКИ horizontal scroll-->
 
     <div class="container testimonial-group">
         <h3 class="text-center text-md-left" style="font-family: 'Alegreya', serif;">НОВИНКИ </h3>
@@ -54,7 +54,7 @@
 
     <div class="container marketing">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 text-left">
                 <h3 class="text-center" style="font-family: 'Alegreya', serif;">SEN<span class="bigA">A</span>TOR — магазин элитного вина и подарков <i class="ml-2 fas fa-wine-glass-alt text-danger"></i></h3>
                 <p class="text-justify">На сайте представлена информация об ассортименте магазина Сенатор. Возможность купить элитные вина, шампанское, крепкий алкоголь, воду.
                     Консультации опытного сомелье. Гарантия подлинности: сертификаты на всю продукцию по запросу.
@@ -71,29 +71,38 @@
 
             </div>
             <div class="d-none d-md-block col-md-6">
-                <img  th:src="@{'images/photo-wine.jpg'}" class="img-fluid" alt="..." style="width: 100%;height: 100%">
+                <img th:src="@{'images/photo-wine.jpg'}" class="img-fluid" alt="..." style="width: 100%;height: 100%">
             </div>
         </div>
 
     </div><!-- /.container -->
     <div class="container mt-3">
-        <h3  style="font-family: 'Alegreya', serif;">Мы соберем коллекцию к вашему приходу</h3>
-        <p class="mb-2"><span class="font-weight-bold text-dark" style="font-family: 'Alegreya', serif;">Консультации по телефону: <span class="text-dark" >+7(910)-123-45-78</span> <br>
-        </span> Наш винный консультант (сомелье) поможет подобрать вино к столу или в подарок. А также ответит на любой ваш вопрос по винам.</p>
+        <h3 style="font-family: 'Alegreya', serif;">Мы соберем коллекцию к вашему приходу</h3>
+        <p class="mb-2"><span class="font-weight-bold text-dark" style="font-family: 'Alegreya', serif;">Консультации по телефону: <span
+                class="text-dark">+7(910)-123-45-78</span> <br>
+        </span> Наш винный консультант (сомелье) поможет подобрать вино к столу или в подарок. А также ответит на любой
+            ваш вопрос по винам.</p>
 
     </div>
 
     <div id="overlay"></div>
 </main>
-    <footer th:replace="fragments/footer :: footer">
-    </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<footer th:replace="fragments/footer :: footer">
+</footer>
+<div th:replace="fragments/modal :: modal"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
-       ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="js/controller.js"></script>
 <script src="js/home.js"></script>

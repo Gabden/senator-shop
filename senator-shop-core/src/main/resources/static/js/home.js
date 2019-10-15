@@ -31,5 +31,27 @@ $(document).ready(function () {
     });
 
     $('#current-year').text(new Date().getFullYear())
+
+    $('.count').prop('disabled', true);
+    $(document).on('click','.plus',function(){
+        $('.count').val(parseInt($('.count').val()) + 1 );
+    });
+    $(document).on('click','.minus',function(){
+        $('.count').val(parseInt($('.count').val()) - 1 );
+        if ($('.count').val() == 0) {
+            $('.count').val(1);
+        }
+    });
+
+    //modal
+    $('#exampleModalCenter').modal({
+        backdrop: 'static'
+    })
+
 });
 //---------------------------------------
+
+// counter
+$(document).ready(function(){
+
+});

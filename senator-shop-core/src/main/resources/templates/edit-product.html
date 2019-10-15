@@ -12,10 +12,11 @@
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">Обновление информации о товаре</h1>
-                <p class="lead">Внести измения и сохранить</p>
+
 
                 <div class="container">
+                    <h1 class="title">Обновление информации о товаре</h1>
+                    <p class="lead">Внести измения и сохранить</p>
                     <form th:action="@{'/admin/productInventory/updateProduct/' + ${product.id}}" th:object="${product}" method="post" class="form" enctype="multipart/form-data">
                             <div class="form-group ">
 
@@ -51,10 +52,10 @@
 
 
                                 <label for="country" >Страна производитель</label>
-                                <input type="text" id="country" class="form-control" th:field="${product.productCountry}"   >
+                                <input type="text" id="country" class="form-control mb-3" th:field="${product.productCountry}"   >
 
                                 <label for="region" >Регион производителя</label>
-                                <input type="text" id="region" class="form-control" th:field="${product.productRegion}"  >
+                                <input type="text" id="region" class="form-control mb-3" th:field="${product.productRegion}"  >
 
 
                                 <label for="productAlcoholDegree" >Содержание спирта</label>
