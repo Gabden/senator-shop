@@ -9,6 +9,5 @@ public interface CustomerService {
     void addCustomer(Customer customer);
     Optional<Customer> getCustomerById(Long id);
     List<Customer> getAllCustomers();
-    Customer findCustomerByCustomerNameAndCustomerEmail(String name, String mail);
     Customer findCustomerByCustomerName(String name);
 }

@@ -37,18 +37,31 @@
     </div>
     <!--    НОВИНКИ horizontal scroll-->
 
-    <div class="container testimonial-group">
-        <h3 class="text-center text-md-left" style="font-family: 'Alegreya', serif;">НОВИНКИ </h3>
-        <div class="row text-center flex-nowrap flex-md-wrap">
-            <div class="col-6 col-sm-4 col-md-2">1</div>
-            <div class="col-6 col-sm-4 col-md-2">2</div>
-            <div class="col-6 col-sm-4 col-md-2">3</div>
-            <div class="col-6 col-sm-4 col-md-2">4</div>
-            <div class="col-6 col-sm-4 col-md-2">5</div>
-            <div class="col-6 col-sm-4 col-md-2">6</div>
-            <div class="col-6 col-sm-4 col-md-2">7</div>
-            <div class="col-6 col-sm-4 col-md-2">8</div>
-            <div class="col-6 col-sm-4 col-md-2">9</div>
+    <div class="container testimonial-group text-center">
+        <h3 class="text-center text-md-left mx-auto" style="font-family: 'Alegreya', serif;">НОВИНКИ </h3>
+        <div class="row text-center flex-nowrap flex-md-wrap mx-0">
+            <div th:each="product : ${products}" class="col-7 col-sm-8 col-md-3">
+                <div class="card no-gutters my-2 " style="width: 18rem;height: 30rem; font-size: 1rem">
+                    <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3" alt="..." width="60" height="250">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.id}">Card title</h5>
+                        <p class="card-text">
+                            <span th:text="${product.productVolume}"></span>
+                            <span th:text="${product.productCountry}"></span>
+                            <span th:text="${product.productAlcoholDegree}"></span>
+                        </p>
+
+                    </div>
+                    <div class="card-footer">
+<!--                        <div class="qty d-inline" style="margin-right: 50%">-->
+<!--                            <span class="minus bg-dark"><span>-</span></span>-->
+<!--                            <input type="number" class="count" name="qty" value="1">-->
+<!--                            <span class="plus bg-dark">+</span>-->
+<!--                        </div>-->
+                        <a href="#" class="btn btn-outline-success" style="margin-left: 50%">Добавить</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -84,6 +97,8 @@
                     class="text-dark">+7(4912)-28-19-37</span><br>
         </span> Наш винный консультант (сомелье) поможет подобрать вино к столу или в подарок. А также ответит на любой
             ваш вопрос по винам.</p>
+        <p>В соответствии с рекомендациями ФС РАР от 25.06.18 уведомляем: алкогольная продукция может быть приобретена непосредственно в магазине Сенатор.
+            ООО «Сенатор», ИНН: 7713790026, лицензия: 77РПА0010390 от 05.11.2014 действует с 05.11.2014 по 04.11.2019, г. Рязань, ул.Свободы, д.24а</p>
 
     </div>
 

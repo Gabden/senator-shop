@@ -29,7 +29,6 @@ public class SenatorShopApplication implements ApplicationRunner {
         if (user == null){
             User newAdmin = new User();
             newAdmin.setActive(1);
-            newAdmin.setEmail("gabden5545@gmail.com");
             newAdmin.setRoles("ADMIN");
             newAdmin.setUsername("admin");
             newAdmin.setPassword(passwordEncoder.encode("123"));

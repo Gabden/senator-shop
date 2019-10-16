@@ -24,11 +24,13 @@ public class Customer implements Serializable {
     @Size(min=2, max=40)
     private String customerName;
 
-    @NotNull(message = "Email must not be null")
-    @Size(min=2, max=40)
-    private String customerEmail;
+
     @NotNull(message = "Password must not be null")
     private String customerPassword;
+
+    @NotNull(message = "Password must not be null")
+    @Transient
+    private String customerPasswordAccept;
 
     @NotNull(message = "Phone must not be null")
     private String customerPhone;
@@ -50,7 +52,35 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
     private List<Favorites> favorites;
 
+    private String FIOfirst;
+    private String FIOmiddle;
+    private String FIOlast;
+
     public Customer() {
+    }
+
+    public String getFIOfirst() {
+        return FIOfirst;
+    }
+
+    public void setFIOfirst(String FIOfirst) {
+        this.FIOfirst = FIOfirst;
+    }
+
+    public String getFIOmiddle() {
+        return FIOmiddle;
+    }
+
+    public void setFIOmiddle(String FIOmiddle) {
+        this.FIOmiddle = FIOmiddle;
+    }
+
+    public String getFIOlast() {
+        return FIOlast;
+    }
+
+    public void setFIOlast(String FIOlast) {
+        this.FIOlast = FIOlast;
     }
 
     public List<Favorites> getFavorites() {
@@ -77,12 +107,12 @@ public class Customer implements Serializable {
         this.customerName = customerName;
     }
 
-    public String getCustomerEmail() {
-        return customerEmail;
+    public String getCustomerPasswordAccept() {
+        return customerPasswordAccept;
     }
 
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
+    public void setCustomerPasswordAccept(String customerPasswordAccept) {
+        this.customerPasswordAccept = customerPasswordAccept;
     }
 
     public String getCustomerPassword() {

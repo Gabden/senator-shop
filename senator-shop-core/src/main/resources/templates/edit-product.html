@@ -49,7 +49,8 @@
                                 <label for="unitInStock" >Количество</label>
                                 <input type="text" id="unitInStock" class="form-control mb-3" th:field="${product.productUnitInStock}"  >
 
-
+                                <label for="volume" >Объем</label>
+                                <input type="text" id="volume" class="form-control mb-3" th:field="*{productVolume}">
 
                                 <label for="country" >Страна производитель</label>
                                 <input type="text" id="country" class="form-control mb-3" th:field="${product.productCountry}"   >

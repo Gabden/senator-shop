@@ -40,10 +40,7 @@ public class RegisterController {
     @RequestMapping(value = "/register")
     public String register(Model model){
         Customer customer = new Customer();
-        BillingAddress billingAddress = new BillingAddress();
-        ShippingAddress shippingAddress = new ShippingAddress();
-        customer.setBillingAddress(billingAddress);
-        customer.setShippingAddress(shippingAddress);
+
         model.addAttribute("customer", customer);
         return "register";
     }
@@ -54,20 +51,19 @@ public class RegisterController {
             System.out.println("BINDING RESULT ERROR");
             return "register";
         }
+        if (!customer.getCustomerPassword().equals(customer.getCustomerPasswordAccept())){
+            model.addAttribute("nameMsg", "Пароли не совпадают");
+            return "register";
+        }
         List<Customer> customers = customerService.getAllCustomers();
         for (Customer csmr : customers){
-            if (customer.getCustomerEmail().equals(csmr.getCustomerEmail())){
-                model.addAttribute("emailMsg", "Email already exists");
-                return "register";
-            }
             if (customer.getCustomerName().equals(csmr.getCustomerName())){
-                model.addAttribute("nameMsg", "Username already exists");
+                model.addAttribute("nameMsg", "Пользователь с такой почтой существует");
                 return "register";
             }
         }
         User user = new User();
         user.setUsername(customer.getCustomerName());
-        user.setEmail(customer.getCustomerEmail());
         user.setPassword(passwordEncoder.encode(customer.getCustomerPassword()));
         user.setRoles("USER");
         user.setActive(1);
@@ -78,10 +74,22 @@ public class RegisterController {
 
         customer.setEnabled(true);
         customerService.addCustomer(customer);
-        Customer newCustomer = customerService.findCustomerByCustomerNameAndCustomerEmail(customer.getCustomerName(), customer.getCustomerEmail());
+        Customer newCustomer = customerService.findCustomerByCustomerName(customer.getCustomerName());
         user.setCustomerId(newCustomer.getCustomerId());
-        System.out.println("Billing : " + customer.getBillingAddress());
-        System.out.println("Shipping : " + customer.getShippingAddress());
+        BillingAddress billingAddress = new BillingAddress();
+        billingAddress.setCountry("Россия");
+        billingAddress.setZipCode("390000");
+        billingAddress.setCity("Рязань");
+        billingAddress.setStreetName("ул.Садовая д.24а");
+        billingAddress.setApartmentNumber("1");
+        ShippingAddress shippingAddress = new ShippingAddress();
+        shippingAddress.setCountry("Россия");
+        shippingAddress.setZipCode("390000");
+        shippingAddress.setCity("Рязань");
+        shippingAddress.setStreetName("ул.Садовая д.24а");
+        shippingAddress.setApartmentNumber("1");
+        customer.setBillingAddress(billingAddress);
+        customer.setShippingAddress(shippingAddress);
         billingAddressService.addBillingAddress(customer.getBillingAddress());
         shippingAddressService.addShippingAddressBilling(customer.getShippingAddress());
         userService.save(user);

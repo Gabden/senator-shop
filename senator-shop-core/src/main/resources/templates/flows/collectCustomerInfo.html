@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head th:replace="fragments/header :: header">
 </head>
 
@@ -22,8 +22,6 @@
                             <label for="name">Name</label>
                             <input type="text" id="name" class="form-control" th:text="*{order.cart.customer.customerName}">
 
-                            <label for="mail">Email</label>
-                            <input type="email" id="mail" class="form-control" th:text="*{order.cart.customer.customerEmail}">
 
                             <label for="phone">Phone</label>
                             <input type="text" id="phone" class="form-control" th:text="*{order.cart.customer.customerPhone}">

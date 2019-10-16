@@ -42,6 +42,7 @@ public class Product implements Serializable {
     @Column(length = 1500)
     private String productDescription;
 
+    private String productVolume;
 
     private String productMature;
 
@@ -130,6 +131,14 @@ public class Product implements Serializable {
 
     public void setProductRegion(String productRegion) {
         this.productRegion = productRegion;
+    }
+
+    public String getProductVolume() {
+        return productVolume;
+    }
+
+    public void setProductVolume(String productVolume) {
+        this.productVolume = productVolume;
     }
 
     public String getProductAlcoholDegree() {

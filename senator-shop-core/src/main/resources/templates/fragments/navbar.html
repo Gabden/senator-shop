@@ -78,7 +78,7 @@
                     <a sec:authorize="!isAuthenticated()" href="/login">Вход</a>
                     <form sec:authorize="isAuthenticated()" class="form my-2 my-lg-0" form-method="post"
                           th:action="@{/logout}">
-                        <span sec:authentication="name" class="mx-2 my-3"></span>
+                        <span sec:authentication="name" class="mx-2 mb-2 d-inline-block"></span>
                         <br>
                         <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin" class="btn-sm btn-secondary">Администрирование</a>
                         <br>

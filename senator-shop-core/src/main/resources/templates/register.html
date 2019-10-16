@@ -12,75 +12,56 @@
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">Register customer</h1>
-                <p class="lead">Fill information about yourself</p>
+                <h1 class="title text-center">Регистрация</h1>
+                <p class="lead text-center">Необходимо заполнить поля с информацией о себе</p>
+                <p class="alert alert-danger  text-center container mx-3" role="alert" th:text="${nameMsg}"></p>
 
                 <div class="container">
                     <form th:action="@{/register}" th:object="${customer}" method="post" class="form">
                         <div class="form-group">
+                            <div class="d-flex">
+                                <div class="col">
+                                    <label for="name">Электронная почта <span class="text-danger">*</span></label> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</span>
 
-                            <label for="name">Name</label> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</span>
-                            <span class="text-primary text-large" th:text="${nameMsg}"></span>
-                            <input type="text" id="name" class="form-control" th:field="*{customerName}">
-
-
-                            <label for="mail">Email</label><span th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}" class="text-primary">Name Error</span>
-                            <span class="text-primary" th:text="${emailMsg}"></span>
-
-                            <input type="email" id="mail" class="form-control" th:field="*{customerEmail}">
-
-                            <label for="phone">Phone</label>
-                            <input type="text" id="phone" class="form-control" th:field="*{customerPhone}">
-
-                            <label for="password">Password</label>
-                            <input type="password" id="password" class="form-control" th:field="*{customerPassword}" >
-
-                            <h2>Billing</h2>
-                            <label for="streetName">streetName</label>
-                            <input type="text" id="streetName" class="form-control" th:field="*{billingAddress.streetName}">
-
-                            <label for="apartmentNumber">apartmentNumber</label>
-                            <input type="text" id="apartmentNumber" class="form-control" th:field="*{billingAddress.apartmentNumber}">
-
-                            <label for="city">city</label>
-                            <input type="text" id="city" class="form-control" th:field="*{billingAddress.city}">
-
-                            <label for="country">country</label>
-                            <input type="text" id="country" class="form-control" th:field="*{billingAddress.country}">
-
-                            <label for="zipCode">zipCode</label>
-                            <input type="text" id="zipCode" class="form-control" th:field="*{billingAddress.zipCode}">
-
-                            <h2>Shipping</h2>
-                            <label for="streetNameS">streetName</label>
-                            <input type="text" id="streetNameS" class="form-control" th:field="*{shippingAddress.streetName}">
-
-                            <label for="apartmentNumberS">apartmentNumber</label>
-                            <input type="text" id="apartmentNumberS" class="form-control" th:field="*{shippingAddress.apartmentNumber}">
-
-                            <label for="cityS">city</label>
-                            <input type="text" id="cityS" class="form-control" th:field="*{shippingAddress.city}">
-
-                            <label for="countryS">country</label>
-                            <input type="text" id="countryS" class="form-control" th:field="*{shippingAddress.country}">
-
-                            <label for="zipCodeS">zipCode</label>
-                            <input type="text" id="zipCodeS" class="form-control" th:field="*{shippingAddress.zipCode}">
+                                    <input type="email" id="name" class="form-control mb-3" th:field="*{customerName}">
 
 
-                            <input type="submit" class="btn btn-dark mt-3">
+                                    <label for="password">Пароль <span class="text-danger ">*</span></label>
+                                    <input type="password" id="password" class="form-control mb-3" th:field="*{customerPassword}" >
+
+                                    <label for="passwordAccept">Подтвердите пароль <span class="text-danger">*</span></label>
+                                    <input type="password" id="passwordAccept" class="form-control mb-3" th:field="*{customerPasswordAccept}" >
+
+                                    <label for="phone">Телефон</label>
+                                    <input type="text" id="phone" class="form-control mb-3" th:field="*{customerPhone}">
+                                </div>
+
+                                <div class="col">
+                                    <label for="FIOfirst">Фамилия</label>
+                                    <input type="text" id="FIOfirst" class="form-control mb-3" th:field="*{FIOlast}">
+
+                                    <label for="FIOlastname">Имя</label>
+                                    <input type="text" id="FIOlastname" class="form-control mb-3" th:field="*{FIOfirst}">
+
+                                    <label for="FIOlastname">Отчество</label>
+                                    <input type="text" id="FIOmiddle" class="form-control mb-3" th:field="*{FIOmiddle}">
+                                </div>
+                            </div>
+
+
+                            <input type="submit" class="btn btn-dark my-3 ml-3">
 
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- FOOTER -->
-            <footer th:replace="fragments/footer :: footer">
-            </footer>
+
         </div>
 
     </div><!-- /.container wrapper -->
-
+    <!-- FOOTER -->
+    <footer th:replace="fragments/footer :: footer">
+    </footer>
 
 </main>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

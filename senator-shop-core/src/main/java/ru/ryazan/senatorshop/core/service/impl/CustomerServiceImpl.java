@@ -32,10 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll();
     }
 
-    @Override
-    public Customer findCustomerByCustomerNameAndCustomerEmail(String name, String mail) {
-        return customerRepository.findCustomerByCustomerNameAndCustomerEmail(name, mail);
-    }
 
     @Override
     public Customer findCustomerByCustomerName(String name) {
