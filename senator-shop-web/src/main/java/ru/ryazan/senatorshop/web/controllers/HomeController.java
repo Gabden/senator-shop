@@ -39,4 +39,9 @@ public class HomeController {
         return "reserve";
     }
 
+    @RequestMapping("/rules")
+    public String rules(){
+        return "rules";
+    }
+
 }
