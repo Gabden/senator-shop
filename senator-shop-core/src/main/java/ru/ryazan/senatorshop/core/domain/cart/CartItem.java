@@ -23,6 +23,7 @@ public class CartItem implements Serializable {
     @JsonIgnore
     private Product product;
     private int quantity;
+    @JsonIgnore
     private Integer totalPrice;
 
     public CartItem() {

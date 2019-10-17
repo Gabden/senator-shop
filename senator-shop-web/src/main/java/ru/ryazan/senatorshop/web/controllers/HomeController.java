@@ -33,6 +33,10 @@ public class HomeController {
     public String login(){
         return "login";
     }
+    @RequestMapping("/about")
+    public String about(){
+        return "about";
+    }
 
     @RequestMapping("/reserve")
     public String reserve(){

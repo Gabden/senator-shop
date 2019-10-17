@@ -39,7 +39,7 @@
 
     <div class="container container-fluid testimonial-group text-center">
         <h3 class="text-center text-md-left mx-auto" style="font-family: 'Alegreya', serif;">НОВИНКИ </h3>
-        <div class="row text-center flex-nowrap flex-md-wrap mx-0">
+        <div class="row text-center flex-nowrap flex-md-wrap mx-0 justify-content-md-center">
             <div th:each="product : ${products}" class="col-sm-4 col-md-3 p-1 product-card-size">
                 <div class="card card-block card-primary card-inverse no-gutters mx-0 " style="width: auto;height: 30rem; font-size: 1rem">
                     <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3" alt="..." width="60" height="250">
@@ -58,7 +58,8 @@
 <!--                            <input type="number" class="count" name="qty" value="1">-->
 <!--                            <span class="plus bg-dark">+</span>-->
 <!--                        </div>-->
-                        <a href="#" class="" style="margin-left: 50%"><i class="fas fa-cart-arrow-down text-success" style="font-size: 1.5rem"></i></a>
+                        <span class="border border-primary rounded-circle pb-2 pt-1 mb-3">a-a</span>
+                        <a href="#" class="" style="margin-left: 75%"><i class="fas fa-cart-arrow-down text-success" style="font-size: 1.5rem"></i></a>
                     </div>
                 </div>
             </div>

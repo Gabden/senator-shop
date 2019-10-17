@@ -1,6 +1,7 @@
 var cartApp = angular.module ("cartApp", []);
 
 $( document ).ready(function() {
+    $(".alert").hide();
     $.ajax({
         url: '/restCart/cart/ajax',
         success: function(data){
@@ -16,10 +17,10 @@ cartApp.controller("cartCtrl", function ($scope, $http){
     $scope.refreshCart = function (cartId) {
         $http({
             method: 'GET',
-            url: '/restCart/cart/' + cartId
+            url:'/restCart/cart/' + cartId
         }).then(function (response){
-            console.log(response.data);
-            $scope.cart=response.data;
+            console.log(response);
+            $('#cart-badge').text(data.cartItems.length)
         },function (error){
             console.log("Error when refreshCart request")
         });
@@ -28,7 +29,17 @@ cartApp.controller("cartCtrl", function ($scope, $http){
         // });
     };
 
-
+    $scope.refreshCartBadge = function () {
+        $http({
+            method: 'GET',
+            url:'/restCart/cart/ajax'
+        }).then(function (response){
+            console.log(response.data.cartItems.length);
+            $('#cart-badge').text(response.data.cartItems.length)
+        },function (error){
+            console.log("Error when refreshCart request")
+        });
+    }
 
     $scope.initCartId = function (cartId) {
         $scope.cartId = cartId;
@@ -44,8 +55,11 @@ cartApp.controller("cartCtrl", function ($scope, $http){
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             }
         }).then(function (response){
+            $scope.refreshCartBadge();
+            $(".alert").fadeTo(2000, 500).slideUp(500, function() {
+                $(".alert").slideUp(500);})
 
-            alert("Product successfully added to the cart!")
+
         },function (error){
             console.log("Error when AddToCart request")
         });

@@ -38,6 +38,7 @@ public class CartController {
     public Cart read(@PathVariable(value = "cartId")Long cartId){
         return cartService.read(cartId).get();
     }
+
     @RequestMapping("/ajax")
     public Cart read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails){
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
