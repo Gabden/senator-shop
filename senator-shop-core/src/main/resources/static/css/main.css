@@ -219,21 +219,7 @@ hr {
     font-family: 'Alegreya', serif;
 }
 
-@media (min-width: 768px) {
-    #main-logo {
-        margin-left: 25vw;
-    }
-    .search-cart-buttons {
-        margin-left: 30vw;
-    }
-    .carousel-item > img {
-        overflow: hidden;
-        width: 100%;
-    }
-    .order {
-        font-size: 1.9rem;
-    }
-}
+
 #catalog-md{
     height: 55px;
     padding: 8px;
@@ -241,7 +227,11 @@ hr {
 #search-input{
     white-space: nowrap;
 }
-@media (max-width: 768px) {
+.product-card-size {
+    min-width: 40vw;
+}
+
+@media (max-width: 576px) {
     .carousel-item {
         height: 16rem;
         background-size:cover;
@@ -256,7 +246,69 @@ hr {
     .order {
         font-size: 1.3rem;
     }
+    .product-card-size {
+        min-width: 40vw !important;
+    }
 }
+
+
+@media (min-width: 576px) {
+    .carousel-item {
+        height: 16rem;
+        background-size:cover;
+    }
+    .carousel-item > img {
+        height: 100%;
+        width: 100%;
+    }
+    .fsize-07 {
+        font-size: 0.7rem;
+    }
+    .order {
+        font-size: 1.3rem;
+    }
+    .product-card-size {
+        min-width: 40vw !important;
+    }
+
+}
+
+
+@media (min-width: 768px) {
+    #main-logo {
+        margin-left: 25vw;
+    }
+    .search-cart-buttons {
+        margin-left: 30vw;
+    }
+    .carousel-item > img {
+        overflow: hidden;
+        width: 100%;
+    }
+    .order {
+        font-size: 1.9rem;
+    }
+    .product-card-size {
+        min-width: 25vw !important;
+        max-width: 35vw !important;
+    }
+
+}
+
+
+@media (min-width: 992px) {
+
+}
+
+
+@media (min-width: 1200px) {
+    .product-card-size {
+        min-width: 15vw !important;
+        max-width: 20vw !important;
+    }
+}
+
+
 
 div label {
     font-weight: bold;
@@ -269,12 +321,5 @@ div label {
 .testimonial-group > .row {
     overflow-x: auto;
 }
-
-
-/* Decorations */
-
-.col-sm-4:nth-child(3n+1) { background: #c69; }
-.col-sm-4:nth-child(3n+2) { background: #9c6; }
-.col-sm-4:nth-child(3n+3) { background: #69c; }
 
 
