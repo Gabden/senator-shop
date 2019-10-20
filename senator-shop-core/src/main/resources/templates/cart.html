@@ -8,14 +8,14 @@
 <header th:replace="fragments/navbar :: navbar">
 </header>
 
-<main role="main" class="mt-5">
+<main role="main" class="my-5">
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <section>
                 <div class="jumbotron">
                     <div class="container">
                         <h1>Корзина</h1>
-                        <p>Все товары добавленные в корзине</p>
+                        <p>Все товары добавленные в корзину</p>
                     </div>
                 </div>
             </section>
@@ -38,7 +38,14 @@
                     </tr>
                     <tr th:each="item : ${cart}">
                         <td><img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="40" height="150"></td>
-                        <td th:text="${item.product.productName}">productName</td>
+                        <td>
+                            <div class="d-flex text-justify my-auto">
+                                <div class="col-12 col-md-10" style="font-size: 1.2rem">
+                                    <span th:text="${item.product.productName}"></span>
+                                </div>
+                            </div>
+
+                        </td>
                         <td th:text="${item.product.productPrice}">{item.productPrice}}</td>
                         <td th:text="${item.quantity}">{{item.quantity}}</td>
                         <td th:text="${item.totalPrice}">{{item.totalPrice}}</td>
@@ -48,13 +55,13 @@
                     <tr>
                         <th></th>
                         <th></th>
+                        <th></th>
                         <th>Итого</th>
                         <th th:text="${grandTotal}"></th>
                         <th></th>
                     </tr>
                 </table>
-                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning">Checkout</a>
-                <a th:href="${flowExecutionUrl}" class="btn btn-primary">Checkout</a>
+                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning">Оформить резерв</a>
                 </div>
             </section>
         </div>
