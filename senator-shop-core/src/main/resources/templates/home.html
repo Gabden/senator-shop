@@ -37,14 +37,14 @@
     </div>
     <!--    НОВИНКИ horizontal scroll-->
 
-    <div class="container container-fluid testimonial-group text-center">
+    <div class="container container-fluid testimonial-group text-center mb-4">
         <h3 class="text-center text-md-left mx-auto" style="font-family: 'Alegreya', serif;">НОВИНКИ </h3>
         <div class="row text-center flex-nowrap flex-md-wrap mx-0 justify-content-md-center">
             <div th:each="product : ${products}" class="col-sm-4 col-md-3 p-1 product-card-size">
                 <div class="card card-block card-primary card-inverse no-gutters mx-0 " style="width: auto;height: 30rem; font-size: 1rem">
                     <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3" alt="..." width="60" height="250">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${product.id}">Card title</h5>
+                        <h5 class="card-title" th:text="${product.productName}">Card title</h5>
                         <p class="card-text">
                             <span th:text="${product.productVolume}"></span>
                             <span th:text="${product.productCountry}"></span>
@@ -52,19 +52,15 @@
                         </p>
 
                     </div>
-                    <div class="card-footer d-flex">
+                    <div class="d-flex mb-3">
 <!--                        <div class="qty d-inline" style="margin-right: 50%">-->
 <!--                            <span class="minus bg-dark"><span>-</span></span>-->
 <!--                            <input type="number" class="count" name="qty" value="1">-->
 <!--                            <span class="plus bg-dark">+</span>-->
 <!--                        </div>-->
-                            <div class = "circle border border-dark rounded-circle pt-1">&mdash;</div>
-                            <div class="pt-1  border-dark" style="width: 2rem; background-color: white; font-size: 1.2rem">1
-                            </div>
-                            <div class = "circle border border-dark rounded-circle" style="font-size: 1.4rem">+</div>
 
-                            <div class="ml-auto">
-                                <a href="#" ><i class="fas fa-cart-arrow-down text-success p-1" style="font-size: 1.5rem"></i></a>
+                            <div class="col-12">
+                                <a href="#" class="btn btn-warning w-100">В корзину <i class="fas fa-cart-arrow-down-1" style="font-size: 1.5rem"></i></a>
                             </div>
                         </div>
 

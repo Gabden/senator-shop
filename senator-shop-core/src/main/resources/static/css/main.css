@@ -249,6 +249,12 @@ hr {
     .product-card-size {
         min-width: 40vw !important;
     }
+    .card-title{
+        font-size: 1rem;
+    }
+    .card-text{
+        font-size: 0.8rem;
+    }
 }
 
 
@@ -297,6 +303,9 @@ hr {
 
 
 @media (min-width: 992px) {
+    .card-title{
+        font-size: 1.15rem;
+    }
 
 }
 
