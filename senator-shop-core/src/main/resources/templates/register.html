@@ -14,15 +14,15 @@
             <div class="page-header">
                 <h1 class="title text-center">Регистрация</h1>
                 <p class="lead text-center">Необходимо заполнить поля с информацией о себе</p>
-                <p class="alert alert-danger  text-center container mx-3" role="alert" th:text="${nameMsg}"></p>
+                <p class=" alert-danger  text-center container mx-3" role="alert" th:text="${nameMsg}"></p>
 
                 <div class="container">
                     <form th:action="@{/register}" th:object="${customer}" method="post" class="form">
                         <div class="form-group">
                             <div class="d-flex">
                                 <div class="col">
-                                    <label for="name">Электронная почта <span class="text-danger">*</span></label> <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</span>
-
+                                    <p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</p>
+                                    <label for="name">Электронная почта <span class="text-danger">*</span></label>
                                     <input type="email" id="name" class="form-control mb-3" th:field="*{customerName}">
 
 

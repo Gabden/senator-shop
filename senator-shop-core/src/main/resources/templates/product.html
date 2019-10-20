@@ -8,42 +8,103 @@
 <header th:replace="fragments/navbar :: navbar">
 </header>
 
-<main role="main" class="mt-5">
+<main role="main" class="my-5">
     <div th:replace="fragments/add-item-alert :: alert">
     </div>
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">Product detail</h1>
-                <p class="lead">Here is product detail information</p>
+                <h1 class="title" th:text="${product.productName}">Товар</h1>
+                <p class="lead" th:text="${product.productManufacturer}">Здесь представлена информация о товаре</p>
 
-                <div class="container" ng-app="cartApp">
-                    <div class="row">
+                <div class="container text-justify">
+                    <div class="row justify-content-around">
+
+                        <!-- Left side of product-->
                         <div class="col-md-2">
-                            <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" class="img-thumbnail">
+                            <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" class="img-thumbnail" style="margin-left: 40%">
                         </div>
-                        <div class="col-md-5">
-                            <h3>Product description</h3>
-                            <p>
-                                <strong>Name</strong> : <span th:text="${product.productName}"></span>
-                            </p>
-                            <p><strong>Description</strong> : <span th:text="${product.productDescription}"></span></p>
-                            <p><strong>Category</strong> : <span th:text="${product.productCategory}"></span></p>
-                            <p><strong>Price</strong> : <span th:text="${product.productPrice}"></span></p>
-                            <br>
-                            <p ng-controller="cartCtrl">
+                        <!-- Right side of product-->
+                        <div class="col-md-6">
+                            <div class="d-flex flex-column">
+                                <div class="col">
+                                    <p class="lean mb-0">Описание</p>
+                                    <p class="text-dark"><span th:text="${product.productDescription}"></span></p>
+                                </div>
+                                <div class="col">
+                                    <p class="lean mb-0">Характеристика</p>
+                                    <p class="text-dark"><span th:text="${product.productTaste}"></span></p>
+                                </div>
+                                <div class="col" style="font-size: 0.7rem">
+                                    <div class="row">
+                                        <div class="col-4 " th:if="${product.productVolume} != null">
+                                            <p class="lean mb-0">Обьем</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productVolume}"></span></p>
+                                        </div>
+                                        <div class="col-4 " th:if="${product.productCountry} != null">
+                                            <p class="lean mb-0">Страна</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productCountry}"></span></p>
+                                        </div>
+                                        <div class="col-4 " th:if="${product.productRegion} != null">
+                                            <p class="lean mb-0">Регион</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productRegion}"></span></p>
+                                        </div>
+                                        <div class="col-4 " th:if="${product.productAlcoholDegree} != null">
+                                            <p class="lean mb-0">Алкоголь</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholDegree}"></span></p>
+                                        </div>
+                                        <div class="col-4 " th:if="${product.productAlcoholColor} != null">
+                                            <p class="lean mb-0">Цвет</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholColor}"></span></p>
+                                        </div>
+                                        <div class="col-4 " th:if="${product.productAlcoholSugar} != null">
+                                            <p class="lean mb-0">Сахар</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholSugar}"></span></p>
+                                        </div>
+                                        <div class="col-4" th:if="${product.productAlcoholTemperature} != null">
+                                            <p class="lean mb-0">Температура</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholTemperature}"></span></p>
+                                        </div>
+                                        <div class="col-4 text-nowrap" th:if="${product.productAlcoholSort} != null">
+                                            <p class="lean mb-0">Сорт</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholSort}"></span></p>
+                                        </div>
+                                        <div class="col-4 text-nowrap" th:if="${product.productManufacturer} != null">
+                                            <p class="lean mb-0">Производитель</p>
+                                            <p class="text-dark border-light-gray"><span th:text="${product.productManufacturer}"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <p class="lean mb-0 text-center">Количество</p>
+                                    <select class="form-control text-center" id="quantityFromSelect" style="width: 24%; margin-left: 39%">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6+</option>
+                                    </select>
+                                    <div class="" style="height: 15px"></div>
+                                </div>
+                                <div class="col" ng-app="cartApp">
+                                    <div class="row flex-column justify-content-between" ng-controller="cartCtrl">
+                                        <div style="margin-left: 5%">
+                                            <a href="#" class="btn btn-warning btn-large w-100"
+                                               th:attr="ng-click='addToCart(\''+${product.id}+'\');'" >
+                                                <!--                               ng-click="addToCart(\''+${product.id}+'\')"><span-->
+                                                Добавить</a>
+                                        </div>
+                                        <div class="" style="height: 15px"></div>
+                                        <div style="margin-left: 5%">
+                                            <a href="/customer/cart" class="btn btn-success w-100"><span class="glyphicon glyphicon-hand-right"></span>Перейти в <i class="fas fa-shopping-cart"></i> </a>
+                                        </div>
 
-                                        <a href="/productList" class="btn btn-primary">Back</a>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <a href="#" class="btn btn-warning btn-large"
-                               th:attr="ng-click='addToCart(\''+${product.id}+'\');'" >
-<!--                               ng-click="addToCart(\''+${product.id}+'\')"><span-->
 
-                                <span class="glyphicon glyphicon-shopping-cart"></span>Order Now</a>
-
-                            <a href="/customer/cart" class="btn btn-success"><span class="glyphicon glyphicon-hand-right"></span>View Cart</a>
-
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -52,11 +113,10 @@
         </div>
 
     </div><!-- /.container wrapper -->
-
-    <footer th:replace="fragments/footer :: footer">
-    </footer>
-
 </main>
+
+<footer th:replace="fragments/footer :: footer">
+</footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script

@@ -7,6 +7,7 @@ import ru.ryazan.senatorshop.core.domain.cart.Cart;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Entity
 public class CustomerOrder implements Serializable {
@@ -33,7 +34,20 @@ public class CustomerOrder implements Serializable {
     @JoinColumn(name = "shippingAddressId")
     private ShippingAddress shippingAddress;
 
+
+    private Timestamp timestamp;
+
+
+
     public CustomerOrder() {
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public long getCustomerOrderId() {
@@ -75,4 +89,7 @@ public class CustomerOrder implements Serializable {
     public void setShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
+
+
+
 }

@@ -329,4 +329,8 @@ div label {
     border: 1px solid #343a40;
 }
 
+.border-light-gray {
+    border-bottom: 1px solid #999;
+}
+
 
