@@ -14,14 +14,8 @@
             <section>
                 <div class="jumbotron">
                     <div class="container">
-                        <h1>Cart</h1>
-                        <p>All the selected products in your shopping cart</p>
-
-                        <div class="qty mt-5">
-                            <span class="minus bg-dark"><span>-</span></span>
-                            <input type="number" class="count" name="qty" value="1">
-                            <span class="plus bg-dark">+</span>
-                        </div>
+                        <h1>Корзина</h1>
+                        <p>Все товары добавленные в корзине</p>
                     </div>
                 </div>
             </section>
@@ -29,49 +23,51 @@
             <section class="container" ng-app="cartApp">
                 <div ng-controller="cartCtrl" th:attr="ng-init='initCartId(\''+${cartId}+'\');'">
 
-                <div class="a">
-                    <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>
-                </div>
+<!--                <div class="a">-->
+<!--                    <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>-->
+<!--                </div>-->
 
                 <table class="table table-hover">
                     <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total price</th>
-                        <th>Action</th>
+                        <th></th>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                        <th></th>
                     </tr>
                     <tr th:each="item : ${cart}">
+                        <td><img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="40" height="150"></td>
                         <td th:text="${item.product.productName}">productName</td>
                         <td th:text="${item.product.productPrice}">{item.productPrice}}</td>
                         <td th:text="${item.quantity}">{{item.quantity}}</td>
                         <td th:text="${item.totalPrice}">{{item.totalPrice}}</td>
                         <td><a href="#" class="label label-danger" th:attr="ng-click='removeFromCart(\''+${item.product.id}+'\');'">
-                            <span class="glyphicon glyphicon-remove"></span>remove</a></td>
+                            <i class="fas fa-times text-danger"></i></a></td>
                     </tr>
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>Grand total</th>
+                        <th>Итого</th>
                         <th th:text="${grandTotal}"></th>
                         <th></th>
                     </tr>
                 </table>
-                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-primary">Checkout</a>
+                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning">Checkout</a>
                 <a th:href="${flowExecutionUrl}" class="btn btn-primary">Checkout</a>
-                <a href="#" class="btn btn-default">Continue shopping</a>
                 </div>
             </section>
         </div>
 
 
             <!-- FOOTER -->
-            <footer th:replace="fragments/footer :: footer">
-            </footer>
+
     </div><!-- /.container wrapper -->
 
 
 </main>
+<footer th:replace="fragments/footer :: footer">
+</footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script
