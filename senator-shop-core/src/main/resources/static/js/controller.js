@@ -5,7 +5,6 @@ $( document ).ready(function() {
     $.ajax({
         url: '/restCart/cart/ajax',
         success: function(data){
-            console.log(data);
             $('#cart-badge').text(data.cartItems.length)
         }
     });
@@ -13,6 +12,11 @@ $( document ).ready(function() {
 
 });
 cartApp.controller("cartCtrl", function ($scope, $http){
+
+    $("#quantityInCart").bind("change paste keyup", function() {
+        var id = $("#productId").val();
+        $scope.refreshQuantity(id);
+    });
 
     $scope.refreshCart = function (cartId) {
         $http({
@@ -34,7 +38,6 @@ cartApp.controller("cartCtrl", function ($scope, $http){
             method: 'GET',
             url:'/restCart/cart/ajax'
         }).then(function (response){
-            console.log(response.data.cartItems.length);
             $('#cart-badge').text(response.data.cartItems.length)
         },function (error){
             console.log("Error when refreshCart request")
@@ -43,14 +46,30 @@ cartApp.controller("cartCtrl", function ($scope, $http){
 
     $scope.initCartId = function (cartId) {
         $scope.cartId = cartId;
-        console.log(cartId);
         $scope.refreshCart(cartId);
+    };
+
+    $scope.refreshQuantity = function(productId){
+        $http({
+            method: 'PUT',
+            url: '/restCart/cart/refreshQuantity/' + productId + '?quantity=' + $('#quantityInCart').val(),
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            }
+        }).then(function (response){
+            location.reload();
+            console.log("Количество обновлено")
+
+        },function (error){
+            console.log('/restCart/cart/add/' + productId + '?quantity=' + $('#quantityInCart').val());
+            console.log(error)
+        });
     };
 
     $scope.addToCart = function (productId) {
         $http({
             method: 'PUT',
-            url: '/restCart/cart/add/' + productId,
+            url: '/restCart/cart/add/' + productId + '?quantity=' + $('#quantityFromSelect').val(),
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             }
@@ -61,7 +80,8 @@ cartApp.controller("cartCtrl", function ($scope, $http){
 
 
         },function (error){
-            console.log("Error when AddToCart request")
+            console.log('/restCart/cart/add/' + productId + '?quantity=' + $('#quantityFromSelect').val());
+            console.log(error)
         });
         // $http.put('/rest/cart/add/'+productId).success(function (data) {
         //

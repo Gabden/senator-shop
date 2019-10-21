@@ -61,7 +61,7 @@ public class CustomerCartController {
         if (cart.isPresent()){
             model.addAttribute("cart", cart.get().getCartItems());
             for (CartItem value2 : cart.get().getCartItems()) {
-                grandTotal += value2.getTotalPrice() * value2.getQuantity();
+                grandTotal += value2.getTotalPrice();
         }}
 
 
