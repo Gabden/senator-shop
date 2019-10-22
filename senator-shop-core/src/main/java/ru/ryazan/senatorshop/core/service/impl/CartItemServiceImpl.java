@@ -1,11 +1,13 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
 import org.springframework.stereotype.Service;
+import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
 import ru.ryazan.senatorshop.core.repository.CartItemRepository;
 import ru.ryazan.senatorshop.core.service.CartItemService;
 import ru.ryazan.senatorshop.core.service.CartService;
+import ru.ryazan.senatorshop.core.service.CustomerService;
 
 import java.util.Optional;
 
@@ -13,10 +15,12 @@ import java.util.Optional;
 public class CartItemServiceImpl implements CartItemService {
     private CartItemRepository cartItemRepository;
     private CartService cartService;
+    private CustomerService customerService;
 
-    public CartItemServiceImpl(CartItemRepository cartItemRepository, CartService cartService) {
+    public CartItemServiceImpl(CartItemRepository cartItemRepository, CartService cartService, CustomerService customerService) {
         this.cartItemRepository = cartItemRepository;
         this.cartService = cartService;
+        this.customerService = customerService;
     }
 
 
@@ -59,6 +63,17 @@ public class CartItemServiceImpl implements CartItemService {
         for(CartItem item: cart.getCartItems()){
             deleteById(item.getCartItemId());
         }
+    }
+
+    @Override
+    public void replaceCarts(Cart cart){
+        Customer customer = cart.getCustomer();
+        customer.setCustomerPasswordAccept(customer.getCustomerPassword());
+        Cart newCart = new Cart();
+        newCart.setCustomer(customer);
+        customer.setCart(newCart);
+        customerService.addCustomer(customer);
+        cartService.create(cart);
     }
 
 

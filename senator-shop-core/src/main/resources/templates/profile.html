@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+>
+<head th:replace="fragments/header :: header">
+</head>
+
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+
+<main role="main" class="mt-5">
+    <div class="container pt-5" id="wrapper">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="title text-center">Личный кабинет</h1>
+                <p class="lead text-center">Здесь представлена информация о вашей учетной записи</p>
+
+                <div class="container">
+                    <form th:action="@{/updateProfile}" th:object="${customer}" method="post" class="form">
+                        <div class="form-group">
+                            <div class="d-flex">
+                                <div class="col">
+                                    <label for="name">Электронная почта <span class="text-danger">*</span></label>
+                                    <input type="email" id="name" class="form-control mb-3" th:field="*{customerName}">
+
+
+                                    <input type="hidden" id="password" class="form-control mb-3"
+                                           th:field="*{customerPassword}">
+
+                                    <input type="hidden" id="customerPasswordAccept" class="form-control mb-3"
+                                           th:field="*{customerPasswordAccept}">
+
+                                    <label for="phone">Телефон</label>
+                                    <input type="text" id="phone" class="form-control mb-3" th:field="*{customerPhone}">
+                                </div>
+
+                                <div class="col">
+                                    <label for="FIOfirst">Фамилия</label>
+                                    <input type="text" id="FIOfirst" class="form-control mb-3" th:field="*{FIOlast}">
+
+                                    <label for="FIOlastname">Имя</label>
+                                    <input type="text" id="FIOlastname" class="form-control mb-3"
+                                           th:field="*{FIOfirst}">
+
+                                    <label for="FIOlastname">Отчество</label>
+                                    <input type="text" id="FIOmiddle" class="form-control mb-3" th:field="*{FIOmiddle}">
+                                </div>
+                            </div>
+
+
+                            <input type="submit" class="btn btn-dark my-3 ml-3" value="Сохранить">
+
+                        </div>
+                    </form>
+
+                    <div th:each="order, i : ${customer.customerOrder}" class="my-3">
+
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-outline-dark" type="button" data-toggle="collapse"
+                                                data-target="#collapseOne" aria-expanded="true"
+                                                aria-controls="collapseOne">
+                                            Заказ &#8470; [[${order.customerOrderId}]] от [[${order.timestamp}]]
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseOne" class="collapse " aria-labelledby="headingOne"
+                                     data-parent="#accordionExample" style="border-bottom: 1px solid rgba(0, 0, 0, 0.125); ">
+                                    <div class="card-body p-0">
+                                        <table class="table table-hover">
+                                            <tr id="tableHeaderHistory" style="border-top: none">
+                                                <th></th>
+                                                <th>Товар</th>
+                                                <th>Цена</th>
+                                                <th>Количество</th>
+                                                <th>Сумма</th>
+
+                                            </tr>
+                                            <tr>
+                                                <div th:each="cartItem : ${order.cart.cartItems}">
+                                                    <td><img
+                                                            th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"
+                                                            class="mx-auto pt-3" alt="..." width="40" height="150"></td>
+                                                    <td>
+                                                        <div class="d-flex text-justify my-auto">
+                                                            <div class="col-12 col-md-10" style="font-size: 1.2rem">
+                                                                <span th:text="${cartItem.product.productName}" id="productNameHistory"></span>
+                                                                <!--                                            <span th:text="${i}"></span>-->
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                    <td th:text="${cartItem.product.productPrice}">
+                                                        {item.productPrice}}
+                                                    </td>
+
+                                                    <td th:text="${cartItem.quantity}" class="text-center"></td>
+                                                    <td th:text="${cartItem.totalPrice}">{{item.totalPrice}}</td>
+
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Итого</th>
+                                                <th th:text="${order.cart.grandTotal}"></th>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div><!-- /.container wrapper -->
+    <!-- FOOTER -->
+    <footer th:replace="fragments/footer :: footer">
+    </footer>
+
+</main>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="../../js/upload.js" th:src="@{/js/upload.js}"></script>
+</body>
+
+</body>
+</html>

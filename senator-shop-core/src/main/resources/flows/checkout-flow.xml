@@ -28,7 +28,7 @@
     </view-state>
 
     <action-state id="processOrder" >
-        <evaluate expression="cartItemServiceImpl.deleteAll(order.cart)"/>
+        <evaluate expression="cartItemServiceImpl.replaceCarts(order.cart)"/>
         <transition to="thankCustomer"/>
     </action-state>
 

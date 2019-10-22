@@ -1,5 +1,7 @@
 package ru.ryazan.senatorshop.web.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,30 @@ public class RegisterController {
         this.passwordEncoder = passwordEncoder;
     }
 
+
+    @RequestMapping("/profile")
+    public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        if (userDetails == null){
+            return "home";
+        } else {
+            Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+            model.addAttribute("customer", customer);
+            return "profile";
+        }
+    }
+    @RequestMapping(value = "/updateProfile" , method = RequestMethod.POST)
+    public String updateProfile(@ModelAttribute(name = "customer") Customer customer){
+        Customer oldCustomer = customerService.findCustomerByCustomerName(customer.getCustomerName());
+        oldCustomer.setCustomerName(customer.getCustomerName());
+        oldCustomer.setCustomerPhone(customer.getCustomerPhone());
+        oldCustomer.setFIOfirst(customer.getFIOfirst());
+        oldCustomer.setFIOlast(customer.getFIOlast());
+        oldCustomer.setFIOmiddle(customer.getFIOmiddle());
+        oldCustomer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
+        oldCustomer.setCustomerPasswordAccept(passwordEncoder.encode(customer.getCustomerPasswordAccept()));
+        customerService.addCustomer(oldCustomer);
+        return "redirect:/profile";
+    }
 
 
     @RequestMapping(value = "/register")

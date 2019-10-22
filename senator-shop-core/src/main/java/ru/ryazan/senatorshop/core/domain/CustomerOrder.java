@@ -22,7 +22,7 @@ public class CustomerOrder implements Serializable {
     @JsonIgnore
     private Cart cart;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
 
@@ -89,6 +89,7 @@ public class CustomerOrder implements Serializable {
     public void setShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
+
 
 
 

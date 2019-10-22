@@ -255,6 +255,12 @@ hr {
     .card-text{
         font-size: 0.8rem;
     }
+    #productNameHistory {
+        font-size: 0.8rem;
+    }
+    #tableHeaderHistory {
+        font-size: 0.7rem;
+     }
 }
 
 
@@ -340,6 +346,10 @@ div label {
 
 .border-light-gray {
     border-bottom: 1px solid #999;
+}
+
+.accordion>.card .card-header {
+    margin-bottom: 0;
 }
 
 

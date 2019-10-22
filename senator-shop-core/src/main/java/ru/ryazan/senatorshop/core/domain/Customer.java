@@ -28,7 +28,7 @@ public class Customer implements Serializable {
     @NotNull(message = "Password must not be null")
     private String customerPassword;
 
-    @NotNull(message = "Password must not be null")
+
     @Transient
     private String customerPasswordAccept;
 
@@ -51,6 +51,9 @@ public class Customer implements Serializable {
 
     @OneToMany(mappedBy = "customer", orphanRemoval = true)
     private List<Favorites> favorites;
+
+    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    private List<CustomerOrder> customerOrder;
 
     private String FIOfirst;
     private String FIOmiddle;
@@ -109,6 +112,14 @@ public class Customer implements Serializable {
 
     public String getCustomerPasswordAccept() {
         return customerPasswordAccept;
+    }
+
+    public List<CustomerOrder> getCustomerOrder() {
+        return customerOrder;
+    }
+
+    public void setCustomerOrder(List<CustomerOrder> customerOrder) {
+        this.customerOrder = customerOrder;
     }
 
     public void setCustomerPasswordAccept(String customerPasswordAccept) {
