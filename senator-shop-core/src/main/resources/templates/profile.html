@@ -53,7 +53,9 @@
                         </div>
                     </form>
 
-                    <div th:each="order, i : ${customer.customerOrder}" class="my-3">
+                    <h3 class="text-center">Мои заказы</h3>
+                    <hr>
+                    <div th:each="order, i : ${orders}" class="my-3">
 
                         <div class="accordion" id="accordionExample">
                             <div class="card">
@@ -79,8 +81,8 @@
                                                 <th>Сумма</th>
 
                                             </tr>
-                                            <tr>
-                                                <div th:each="cartItem : ${order.cart.cartItems}">
+
+                                                <tr th:each="cartItem : ${order.cart.cartItems}">
                                                     <td><img
                                                             th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"
                                                             class="mx-auto pt-3" alt="..." width="40" height="150"></td>
@@ -100,8 +102,8 @@
                                                     <td th:text="${cartItem.quantity}" class="text-center"></td>
                                                     <td th:text="${cartItem.totalPrice}">{{item.totalPrice}}</td>
 
-                                                </div>
-                                            </tr>
+                                                </tr>
+
                                             <tr>
                                                 <th></th>
                                                 <th></th>
@@ -115,7 +117,26 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> <!-- my03 -->
+
+                    <nav aria-label="Page navigation example ">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"  th:class="${orders.getNumber() == 0} ? 'disabled page-item' : 'page-item'">
+                                <a class="page-link" th:href="@{/user-profile(page=${orders.getNumber() - 1})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="pageNumber : ${pageNumbers}"  th:class="${pageNumber==orders.getNumber() + 1} ? 'active page-item' : 'page-item'">
+                                <a class="page-link" href="#" th:text=${pageNumber} th:href="@{/user-profile(page=${pageNumber -1})}"
+                                ></a></li>
+
+                            <li th:class="${orders.getNumber() == orders.getTotalPages() - 1} ? 'disabled page-item' : 'page-item'">
+                                <a class="page-link" th:href="@{/user-profile(page=${orders.getNumber() + 1})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
 
 
                     </div>

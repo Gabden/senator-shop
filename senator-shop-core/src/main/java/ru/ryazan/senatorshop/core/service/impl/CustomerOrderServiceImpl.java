@@ -1,6 +1,9 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
@@ -34,5 +37,15 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
             }
         }
         return total;
+    }
+
+    @Override
+    public Page<CustomerOrder> findAllByCustomer(Customer customer, Pageable pageable) {
+        return customerOrderRepository.findAllByCustomer(customer, pageable);
+    }
+
+    @Override
+    public Page<CustomerOrder> findAll(Pageable pageable) {
+        return customerOrderRepository.findAll(pageable);
     }
 }

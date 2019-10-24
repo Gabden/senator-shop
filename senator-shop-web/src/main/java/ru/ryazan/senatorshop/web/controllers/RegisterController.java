@@ -1,5 +1,9 @@
 package ru.ryazan.senatorshop.web.controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryazan.senatorshop.core.domain.Customer;
+import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.User;
 import ru.ryazan.senatorshop.core.domain.address.BillingAddress;
 import ru.ryazan.senatorshop.core.domain.address.ShippingAddress;
@@ -18,6 +24,8 @@ import ru.ryazan.senatorshop.core.service.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class RegisterController {
@@ -27,24 +35,41 @@ public class RegisterController {
     private BillingAddressService billingAddressService;
     private ShippingAddressService shippingAddressService;
     private PasswordEncoder passwordEncoder;
+    private CustomerOrderService customerOrderService;
 
-    public RegisterController(CustomerService customerService, UserService userService, CartService cartService, BillingAddressService billingAddressService, ShippingAddressService shippingAddressService, PasswordEncoder passwordEncoder) {
+    public RegisterController(CustomerOrderService customerOrderService, CustomerService customerService, UserService userService, CartService cartService, BillingAddressService billingAddressService, ShippingAddressService shippingAddressService, PasswordEncoder passwordEncoder) {
         this.customerService = customerService;
         this.userService = userService;
         this.cartService = cartService;
         this.billingAddressService = billingAddressService;
         this.shippingAddressService = shippingAddressService;
         this.passwordEncoder = passwordEncoder;
+        this.customerOrderService = customerOrderService;
     }
 
-
     @RequestMapping("/profile")
-    public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model){
+    public String startProfile(){
+        return "redirect:/user-profile?page=0";
+    }
+    @RequestMapping("/user-profile")
+    public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model, @RequestParam(name = "page") int page){
         if (userDetails == null){
             return "home";
         } else {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             model.addAttribute("customer", customer);
+            Pageable firstPageWithTwoElements = PageRequest.of(page, 5, Sort.by("customerOrderId").descending());
+            Page<CustomerOrder> orderByCustomer = customerOrderService.findAllByCustomer(customer, firstPageWithTwoElements);
+            model.addAttribute("orders", orderByCustomer);
+            model.addAttribute("url", "/user-profile");
+            int totalPages = orderByCustomer.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
+            }
+
             return "profile";
         }
     }
