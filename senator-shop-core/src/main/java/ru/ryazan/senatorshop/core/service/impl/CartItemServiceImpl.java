@@ -66,7 +66,7 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public void replaceCarts(Cart cart){
+    public boolean replaceCarts(Cart cart){
         Customer customer = cart.getCustomer();
         customer.setCustomerPasswordAccept(customer.getCustomerPassword());
         Cart newCart = new Cart();
@@ -74,6 +74,7 @@ public class CartItemServiceImpl implements CartItemService {
         customer.setCart(newCart);
         customerService.addCustomer(customer);
         cartService.create(cart);
+        return true;
     }
 
 

@@ -29,10 +29,13 @@
 
     <action-state id="processOrder" >
         <evaluate expression="cartItemServiceImpl.replaceCarts(order.cart)"/>
-        <transition to="thankCustomer"/>
+        <transition to="thankCustomer">
+            <evaluate expression="customerOrderServiceImpl.sendEmailToAdmin(order.cart)"/>
+        </transition>
     </action-state>
 
     <view-state id="thankCustomer" view="/flows/thankCustomer.html" model="order">
+
         <transition to="endState"/>
     </view-state>
 

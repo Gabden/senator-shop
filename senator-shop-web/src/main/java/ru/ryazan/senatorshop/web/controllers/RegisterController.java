@@ -57,12 +57,12 @@ public class RegisterController {
             return "home";
         } else {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
-            model.addAttribute("customer", customer);
+
             Pageable firstPageWithTwoElements = PageRequest.of(page, 5, Sort.by("customerOrderId").descending());
             Page<CustomerOrder> orderByCustomer = customerOrderService.findAllByCustomer(customer, firstPageWithTwoElements);
-            model.addAttribute("orders", orderByCustomer);
-            model.addAttribute("url", "/user-profile");
+
             int totalPages = orderByCustomer.getTotalPages();
+
             if (totalPages > 0) {
                 List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                         .boxed()
@@ -70,6 +70,9 @@ public class RegisterController {
                 model.addAttribute("pageNumbers", pageNumbers);
             }
 
+            model.addAttribute("customer", customer);
+            model.addAttribute("orders", orderByCustomer);
+            model.addAttribute("url", "/user-profile");
             return "profile";
         }
     }
