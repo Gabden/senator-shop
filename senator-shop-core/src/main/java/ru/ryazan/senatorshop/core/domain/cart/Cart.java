@@ -14,7 +14,7 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long cartId;
 
-    @OneToMany(mappedBy = "cart", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cart", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
 
     private Integer grandTotal;

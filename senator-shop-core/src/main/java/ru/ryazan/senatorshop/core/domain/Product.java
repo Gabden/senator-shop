@@ -39,7 +39,7 @@ public class Product implements Serializable {
     private String productAlcoholSort;
     private String productManufacturer;
 
-    @Column(length = 1500)
+    @Column(length = 5000)
     private String productDescription;
 
     private String productVolume;

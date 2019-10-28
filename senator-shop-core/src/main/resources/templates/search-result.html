@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+>
+<head th:replace="fragments/header :: header">
+</head>
+
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+<div th:insert="fragments/search-input :: search">
+</div>
+<div class="container my-4">
+    <div class="row">
+        <!--Search filter -->
+        <div class="col-3" style="margin-top: 15vh">
+            <!-- Страна -->
+            <div class="text-center p-2 border border-bottom-dark" style="font-weight: bold">
+                Фильтр
+            </div>
+            <button class="btn btn-secondary border border-bottom-dark d-block w-100  p-3" data-toggle="collapse"
+            data-target="#collapse-btn-1">Страна</button>
+            <div class="collapse mb-4" id="collapse-btn-1">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Франция">
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Испания" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Италия" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="США" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Новый свет" disabled>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Страна -->
+
+            <!-- Регион -->
+            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
+                    data-target="#collapse-btn-5">Регион</button>
+            <div class="collapse mb-4" id="collapse-btn-5">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Бордо">
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Санджовезе" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Кастилья" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Риоха" disabled>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Регион -->
+
+            <!-- Цвет -->
+            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
+                    data-target="#collapse-btn-2">Цвет</button>
+            <div class="collapse mb-4" id="collapse-btn-2">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Красное">
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Белое" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Розовое" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Игристое" disabled>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Цвет -->
+
+            <!-- Сахар -->
+            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
+                    data-target="#collapse-btn-3">Сахар</button>
+            <div class="collapse mb-4" id="collapse-btn-3">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Сухое">
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="П/сухое" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="П/сладкое" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Сладкое" disabled>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Сахар -->
+
+            <!-- Сорт -->
+            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
+                    data-target="#collapse-btn-4">Сорт</button>
+            <div class="collapse mb-4" id="collapse-btn-4">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Merlot/Мерло">
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Pinot noir/Пино нуар" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Cabernet Sauvignon/Каберне-Совиньон" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Syrah/Сира" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Chardonnay/Шардонэе" disabled>
+                        </div>
+
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Riesling/Рислинг" disabled>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Сорт -->
+            <button class="btn btn-info w-100">Применить</button>
+
+        </div>
+        <!--Search result -->
+        <div class="col-9">
+            <div th:replace="fragments/horizontal-scroll-products :: products">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footer">
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

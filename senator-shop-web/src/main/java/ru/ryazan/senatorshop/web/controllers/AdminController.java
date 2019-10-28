@@ -13,7 +13,6 @@ import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,13 +31,6 @@ public class AdminController {
     }
     @RequestMapping({"","/"})
     public String admin(Model model){
-        Optional<Product> product = productService.findById(56L);
-        product.ifPresent(p -> System.out.println(p.getProductImageSet().isEmpty()));
-        model.addAttribute("text", "text from thymeleaf");
-        List<ProductImage> images =new ArrayList<>();
-        images.addAll(product.get().getProductImageSet());
-        String imge =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
-        model.addAttribute("image", imge);
         return "admin";
     }
     @RequestMapping("/productInventory")
