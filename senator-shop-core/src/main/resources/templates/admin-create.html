@@ -10,31 +10,10 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 
-<main role="main" class="mt-5">
-    <div class="container pt-5" id="wrapper">
-        <div class="container">
-            <section>
-                <div class="jumbotron">
-                    <div class="container">
-                        <h1>Регистрация прошла успешно</h1>
-                    </div>
-                </div>
-            </section>
-
-            <section class="container" ng-app="cartApp">
-                <div >
-
-                    <a href="/login" class="btn btn-default my-3">Войти</a>
-                </div>
-            </section>
-        </div>
-
-
-        <!-- FOOTER -->
-
-    </div><!-- /.container wrapper -->
-
-
+<main role="main" class="my-5">
+    <div class="container">
+        <h1 th:text="${msg}"></h1>
+    </div>
 </main>
 <footer th:replace="fragments/footer :: footer">
 </footer>

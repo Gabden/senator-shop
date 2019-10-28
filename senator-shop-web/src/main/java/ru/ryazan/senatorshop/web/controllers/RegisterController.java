@@ -116,10 +116,31 @@ public class RegisterController {
                 return "register";
             }
         }
+        createUser(customer, "USER");
+
+        return "registrationSuccess";
+    }
+
+    @RequestMapping("/create-admin")
+    public String createAdmin(Model model){
+        User oldUser = userService.findUserByUsername("admin");
+        if (oldUser == null){
+            Customer customer = new Customer();
+            customer.setCustomerName("admin");
+            customer.setCustomerPassword(passwordEncoder.encode("123"));
+            customer.setCustomerPhone("8991050778");
+            createUser(customer, "ADMIN");
+            model.addAttribute("msg","Учетная запись администратора создана успешно");
+            return "admin-create";
+        }
+        model.addAttribute("msg","Учетная запись администратора уже существует");
+        return "admin-create";
+    }
+    private void createUser(Customer customer, String role){
         User user = new User();
         user.setUsername(customer.getCustomerName());
-        user.setPassword(passwordEncoder.encode(customer.getCustomerPassword()));
-        user.setRoles("USER");
+        user.setPassword(customer.getCustomerPassword());
+        user.setRoles(role);
         user.setActive(1);
         Cart cart = new Cart();
         cart.setCustomer(customer);
@@ -147,8 +168,6 @@ public class RegisterController {
         billingAddressService.addBillingAddress(customer.getBillingAddress());
         shippingAddressService.addShippingAddressBilling(customer.getShippingAddress());
         userService.save(user);
-
-        return "registrationSuccess";
     }
 
 }

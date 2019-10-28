@@ -25,14 +25,14 @@
                                 <div class="col">
                                     <p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</p>
                                     <label for="name">Электронная почта <span class="text-danger">*</span></label>
-                                    <input type="email" id="name" class="form-control mb-3" th:field="*{customerName}">
+                                    <input type="email" id="name" class="form-control mb-3" th:field="*{customerName}" required>
 
 
                                     <label for="password">Пароль <span class="text-danger ">*</span></label>
-                                    <input type="password" id="password" class="form-control mb-3" th:field="*{customerPassword}" >
+                                    <input type="password" id="password" class="form-control mb-3" th:field="*{customerPassword}" required>
 
                                     <label for="passwordAccept">Подтвердите пароль <span class="text-danger">*</span></label>
-                                    <input type="password" id="passwordAccept" class="form-control mb-3" th:field="*{customerPasswordAccept}" >
+                                    <input type="password" id="passwordAccept" class="form-control mb-3" th:field="*{customerPasswordAccept}" required>
 
                                     <label for="phone">Телефон</label>
                                     <input type="text" id="phone" class="form-control mb-3" th:field="*{customerPhone}">

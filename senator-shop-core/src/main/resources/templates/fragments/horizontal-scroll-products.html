@@ -4,8 +4,8 @@
             <div class="card card-block card-primary card-inverse no-gutters mx-0 " style="width: auto;height: 30rem; font-size: 1rem">
                 <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3" alt="..." width="60" height="250">
                 <div class="card-body">
-                    <a class="card-title" th:text="${product.productName}" th:href="@{'/productList/product/' + ${product.id}}"></a>
-                    <p class="card-text">
+                    <a class="card-title" th:text="${product.productName}" th:href="@{'/productList/product/' + ${product.id}}" style="font-size: 0.9rem"></a>
+                    <p class="card-text" style="font-size: 0.7rem">
                         <span th:text="${product.productVolume}"></span>
                         <span th:text="${product.productCountry}"></span>
                         <span th:text="${product.productAlcoholDegree}"></span>
