@@ -2,21 +2,23 @@
     <div class="input-group d-none my-3 w-75 mx-4 mx-sm-auto w-25" id="search-input">
     <form class="no-gutters">
         <div class="flex-row d-inline-flex">
+            <form action="/search">
             <div class="col-3 p-0">
                 <select class="form-control fsize-07" name="category">
-                    <option>Все товары</option>
-                    <option>Алкоголь</option>
-                    <option>Напитки</option>
-                    <option>Оливковое масло</option>
-                    <option>Посуда</option>
-                    <option>Подарки</option>
+                    <option value="all">Все товары</option>
+                    <option value="alcohol">Алкоголь</option>
+                    <option value="drinks">Напитки</option>
+                    <option value="oil">Оливковое масло</option>
+                    <option value="dishes">Посуда</option>
+                    <option value="gifts">Подарки</option>
                 </select>
             </div>
             <div class="col p-0">
-                <input type="text" class="form-control d-inline fsize-07" style="width: 50vw">
+                <input type="text" class="form-control d-inline fsize-07" style="width: 50vw" name="description">
             </div>
-                <a href="#" class="input-group-text"><span class="fas fa-search"></span></a>
+                <button type="submit" class="input-group-text"><span class="fas fa-search"></span></button>
                 <a href="#" class="input-group-text ml-2" id="close-search"><i class="fas fa-times"></i></a>
+            </form>
         </div>
     </form>
     </div>

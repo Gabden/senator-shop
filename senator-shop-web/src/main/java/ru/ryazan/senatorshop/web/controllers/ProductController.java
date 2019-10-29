@@ -1,9 +1,13 @@
 package ru.ryazan.senatorshop.web.controllers;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.service.ProductService;
@@ -21,8 +25,9 @@ public class ProductController {
     }
 
     @RequestMapping("/productList")
-    public String productList(Model model){
-        model.addAttribute("products", productService.findAll());
+    public String productList(@RequestParam(name = "page", defaultValue = "0")int page, Model model){
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
+        model.addAttribute("products", productService.findAll(pageable));
         return "product-list";
     }
 

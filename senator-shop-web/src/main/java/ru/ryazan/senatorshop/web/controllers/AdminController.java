@@ -1,5 +1,9 @@
 package ru.ryazan.senatorshop.web.controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +38,9 @@ public class AdminController {
         return "admin";
     }
     @RequestMapping("/productInventory")
-    public String productInventory(Model model){
-        List<Product> allProducts = productService.findAll();
+    public String productInventory(@RequestParam(name = "page", defaultValue = "0")int page, Model model){
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
+        Page<Product> allProducts = productService.findAll(pageable);
         model.addAttribute("products", allProducts);
         return "product-inventory";
     }

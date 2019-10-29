@@ -1,12 +1,13 @@
 package ru.ryazan.senatorshop.core.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.ryazan.senatorshop.core.domain.Product;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
-    List<Product> findAll();
+    Page<Product> findAll(Pageable pageable);
     Optional<Product> findById(Long id);
     void addProduct(Product product);
     void update(Optional<Product> product);

@@ -1,12 +1,15 @@
 package ru.ryazan.senatorshop.web.controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.service.ProductService;
-
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -17,16 +20,11 @@ public class HomeController {
     }
 
     @RequestMapping({"","/", "/index"})
-    public String main(Model model){
-        List<Product> products = productService.findAll();
+    public String main(@RequestParam(name = "page", defaultValue = "0")int page, Model model){
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
+        Page<Product> products = productService.findAll(pageable);
         model.addAttribute("products", products);
         return "home";
-    }
-
-    @RequestMapping("/upload")
-    public String upload(Model model){
-        model.addAttribute("products", productService.findAll());
-        return "uploadTest";
     }
 
     @RequestMapping("/login")

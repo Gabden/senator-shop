@@ -5,7 +5,6 @@ import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.service.ProductService;
 import ru.ryazan.senatorshop.web.exception.MyFileNotFoundException;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,10 +17,6 @@ public class ProductRestController {
         this.productService = productService;
     }
 
-    @GetMapping("/getAll")
-    public List<Product> findAll (){
-        return productService.findAll();
-    }
 
     @GetMapping("/get/{id}")
     public Optional<Product> findById (@PathVariable Long id){

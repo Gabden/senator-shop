@@ -1,4 +1,5 @@
 <div class="container container-fluid testimonial-group text-center mb-4" th:fragment="products">
+    <nav th:replace="fragments/pagination :: pagination"></nav>
     <div class="row text-center flex-nowrap flex-md-wrap mx-0 justify-content-md-center">
         <div th:each="product : ${products}" class="col-sm-4 col-md-3 p-1 product-card-size">
             <div class="card card-block card-primary card-inverse no-gutters mx-0 " style="width: auto;height: 30rem; font-size: 1rem">
@@ -22,4 +23,5 @@
             </div>
         </div>
     </div>
+    <nav th:replace="fragments/pagination :: pagination"></nav>
 </div>
