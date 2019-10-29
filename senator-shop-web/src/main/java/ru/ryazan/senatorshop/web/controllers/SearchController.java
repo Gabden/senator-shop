@@ -1,9 +1,6 @@
 package ru.ryazan.senatorshop.web.controllers;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +21,25 @@ public class SearchController {
     }
 
     @RequestMapping("/search")
-    public String search(@RequestParam(name = "category", required = false) String category, @RequestParam(name = "description", required = false) String description
-                         ,@RequestParam(name = "page", defaultValue = "0")int page,Model model){
+    public String search(@RequestParam(name = "category", defaultValue = "all") String category,
+                         @RequestParam(name = "description", required = false) String description,
+                         @RequestParam(name = "page", defaultValue = "0")int page,Model model){
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
-        Page<Product> products = productService.findAll(pageable);
+        Page<Product> products;
+        List<Product> filteredList;
+        if (category.equals("all")){
+           products = productService.findAll(pageable);
+        } else {
+            products = productService.findByproductCategory(category,pageable);
+        }
+
+
+        if(description != null){
+            filteredList = products.stream().filter(product ->
+                    (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
+                            || (product.getProductName().toLowerCase().contains(description.toLowerCase()))) .collect(Collectors.toList());
+            products = new PageImpl<>(filteredList, pageable, filteredList.size());
+        }
 
         int totalPages = products.getTotalPages();
 
