@@ -9,6 +9,8 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 <main role="main" id="main" class="mt-3">
+    <div th:replace="fragments/add-item-alert :: alert">
+    </div>
     <div id="carouselExampleIndicators" class="container carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

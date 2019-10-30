@@ -67,9 +67,19 @@ cartApp.controller("cartCtrl", function ($scope, $http){
     };
 
     $scope.addToCart = function (productId) {
+        var url;
+        var quantity = $('#quantityFromSelect').val();
+        console.log(productId);
+        if (quantity){
+            url = '/restCart/cart/add/' + productId + '?quantity=' + quantity
+
+        } else {
+            url = '/restCart/cart/add/' + productId + '?quantity=1'
+        }
+        console.log(url);
         $http({
             method: 'PUT',
-            url: '/restCart/cart/add/' + productId + '?quantity=' + $('#quantityFromSelect').val(),
+            url: url,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             }
