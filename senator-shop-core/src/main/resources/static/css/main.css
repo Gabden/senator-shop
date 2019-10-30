@@ -247,13 +247,16 @@ hr {
         font-size: 1.3rem;
     }
     .product-card-size {
-        min-width: 40vw !important;
+        min-width: 45vw !important;
     }
     .card-title{
-        font-size: 1rem;
+        font-size: 0.7rem!important;
     }
     .card-text{
-        font-size: 0.8rem;
+        font-size: 0.6rem!important;
+    }
+    .btn{
+        font-size: 0.8rem!important;
     }
     #productNameHistory {
         font-size: 0.8rem;

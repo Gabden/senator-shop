@@ -25,7 +25,7 @@
         <div class="search-cart-buttons" style="white-space: nowrap">
             <a class="rem15 float-left mr-4 ml-auto" href="#"><span class="fas fa-search" id="search-button"></span></a>
             <a class="rem15" href="/customer/cart"><span class="fas fa-shopping-cart"><span id="cart-badge"
-                                                                               class="badge badge-pill badge-danger"></span></span></a>
+                                                                                            class="badge badge-pill badge-danger"></span></span></a>
         </div>
         <div class="collapse navbar-collapse" id="navbarCollapse">
 
@@ -34,22 +34,22 @@
     <div class="d-none d-md-flex bg-dark mt-3" style="white-space: nowrap;">
         <div class="container text-center" id="catalog-md">
             <div class="d-inline" style="height: 100%;">
-                <a href="#" class="btn btn-danger text-white ">Все товары</a>
+                <a href="/search?category=all" class="btn btn-danger text-white ">Все товары</a>
             </div>
             <div class="d-inline" style="height: 100%;">
-                <a href="#" class=" btn  text-white  ">Алкоголь</a>
+                <a href="/search?category=alcohol" class=" btn  text-white  ">Алкоголь</a>
             </div>
             <div class="d-inline" style="height: 100%;">
-                <a href="#" class=" btn text-white  ">Напитки</a>
+                <a href="/search?category=drinks" class=" btn text-white  ">Напитки</a>
             </div>
             <div class="d-inline" style="height: 100%;">
-                <a href="#" class=" btn text-white  ">Оливковое масло</a>
+                <a href="/search?category=oil" class=" btn text-white  ">Оливковое масло</a>
             </div>
             <div class="d-inline" style="height: 100%;">
-                <a href="#" class=" btn text-white  ">Посуда</a>
+                <a href="/search?category=dishes" class=" btn text-white  ">Посуда</a>
             </div>
             <div class="d-inline" style="height: 100%;">
-                <a href="#" class=" btn text-white  ">Подарки</a>
+                <a href="/search?category=gifts" class=" btn text-white  ">Подарки</a>
             </div>
 
             <!--            <a href="#" class="w-25  text-white border-right px-2">Виски</a>-->
@@ -94,7 +94,7 @@
                 <hr class="bg-light">
                 <div class="text-muted mlvh-4" style="font-size: 0.7rem;">О нас</div>
                 <li>
-                    <a href="#" class="mlvh-4 my-3">Начало</a>
+                    <a href="/" class="mlvh-4 my-3">Начало</a>
                 </li>
                 <li>
                     <div id="products-all">
@@ -108,27 +108,27 @@
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i
+                            <a href="/search?category=alcohol" class=" pl-4 mlvh-4 allproducts"><i
                                     class="fas fa-wine-bottle text-danger mr-3"></i>Алкоголь</a>
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-tint text-danger mr-3"></i>Напитки</a>
+                            <a href="/search?category=drinks" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-tint text-danger mr-3"></i>Напитки</a>
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class="pl-3 mlvh-4 allproducts" style="margin-left: 4.5vw;"><img
+                            <a href="/search?category=oil" class="pl-3 mlvh-4 allproducts" style="margin-left: 4.5vw;"><img
                                     th:src="@{/images/olive-oil.png}" width="20" alt="olive oil" class="mr-2"/><span
                                     class="ml-2">Оливковое масло</span></a>
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i
+                            <a href="/search?category=dishes" class=" pl-4 mlvh-4 allproducts"><i
                                     class="fas fa-glass-cheers text-danger mr-3"></i>Посуда</a>
                             <hr class="bg-light">
                         </li>
                         <li>
-                            <a href="#" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-gift text-danger mr-3"></i>
+                            <a href="/search?category=gifts" class=" pl-4 mlvh-4 allproducts"><i class="fas fa-gift text-danger mr-3"></i>
                                 Подарки</a>
                             <hr class="bg-light">
                         </li>
