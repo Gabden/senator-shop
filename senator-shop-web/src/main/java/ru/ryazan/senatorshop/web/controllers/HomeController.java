@@ -66,4 +66,9 @@ public class HomeController {
         return "for-business";
     }
 
+    @RequestMapping("/confidential")
+    public String confidential(){
+        return "confidential";
+    }
+
 }
