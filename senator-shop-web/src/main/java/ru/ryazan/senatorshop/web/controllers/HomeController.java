@@ -61,4 +61,9 @@ public class HomeController {
         return "rules";
     }
 
+    @RequestMapping("/business")
+    public String business(){
+        return "for-business";
+    }
+
 }

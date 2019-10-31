@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+>
+<head th:replace="fragments/header :: header"></head>
+</head>
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+<div th:insert="fragments/search-input :: search">
+</div>
+<main role="main" id="main" class="mt-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row">
+
+                        <img th:src="@{/images/corporate.jpg}" alt="logo" class="img img-fluid mx-auto" width="900">
+                    </div>
+                </div>
+
+                <h2 class="mt-3">Корпоративным клиентам</h2>
+                <p class="text-justify">Приближается праздник, не знаете что подарить? Только не с нами! В нашем магазине
+                    только качественные подарки и сертифицированная алкогольная продукция премиальных брендов!</p>
+                <p class="text-justify">Наши персональные менеджеры помогут подобрать подарки под ваши задачи и бюджет,
+                    мы оперативно подготовим заказ с полным комплектом документов.</p>
+                <div class="mt-3">
+                    <h4>Персональные менеджеры</h4>
+                    <p class="text-justify">
+                        Мы назначаем персонального менеджера нашим клиентам. Он поможет сделать выбор, проконсультирует, подберет бизнес-подарки — поймет, что вам нужно и проконтролирует формирование и отгрузку заказа.
+                        На нашем сайте легко сделать выбор и самостоятельно — удобный поиск и хорошее описание напитков и подарков, качественные фотографии.
+                    </p>
+                </div>
+                <div class="mt-3">
+                    <h4>Гарантии качества</h4>
+                    <p class="text-justify">
+                        Все напитки сертифицированы и имеют гарантию подлинности, официально завезены в Россию. Благодаря оптимальным условиям хранения напитки сохраняют все свои вкусовые качества и органолептические свойства.
+                        По запросу мы предоставляем сертификаты соответствия на всю продукцию.
+                    </p>
+                </div>
+                <div class="mt-3">
+                    <h4>Оплата и документы</h4>
+                    <p>Мы подготовим полный пакет бухгалтерских документов. Цены включают НДС.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+<footer th:replace="fragments/footer :: footer">
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/home.js"></script>
+</body>
+
+</html>
