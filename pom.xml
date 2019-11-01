@@ -25,6 +25,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <startClass>ru.ryazan.senatorshop.web.SenatorShopApplication</startClass>
     </properties>
 
     <dependencies>
