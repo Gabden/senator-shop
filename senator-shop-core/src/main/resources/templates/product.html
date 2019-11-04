@@ -77,7 +77,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col" th:if="${#numbers.formatInteger(product.productUnitInStock,5)} != 0">
                                     <p class="lean mb-0 text-center">Количество</p>
                                     <select class="form-control text-center" id="quantityFromSelect" style="width: 24%; margin-left: 39%">
                                         <option>1</option>
@@ -93,9 +93,10 @@
                                     <div class="row flex-column justify-content-between" ng-controller="cartCtrl">
                                         <div style="margin-left: 5%">
                                             <a href="#" class="btn btn-warning btn-large w-100"
-                                               th:attr="ng-click='addToCart(\''+${product.id}+'\');'" >
+                                               th:attr="ng-click='addToCart(\''+${product.id}+'\');'" th:if="${#numbers.formatInteger(product.productUnitInStock,5)} != 0">
                                                 <!--                               ng-click="addToCart(\''+${product.id}+'\')"><span-->
                                                 Добавить в <i class="fas fa-shopping-cart"></i></a>
+                                            <a class="btn btn-warning btn-large w-100" th:unless="${#numbers.formatInteger(product.productUnitInStock,5)} != 0">Товар отсутствует</a>
                                         </div>
                                         <div class="" style="height: 15px"></div>
                                         <div style="margin-left: 5%">
