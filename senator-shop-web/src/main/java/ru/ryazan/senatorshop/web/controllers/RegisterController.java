@@ -153,13 +153,13 @@ public class RegisterController {
         user.setCustomerId(newCustomer.getCustomerId());
         BillingAddress billingAddress = new BillingAddress();
         billingAddress.setCountry("Россия");
-        billingAddress.setZipCode("390000");
+        billingAddress.setZipCode("390006");
         billingAddress.setCity("Рязань");
         billingAddress.setStreetName("ул.Садовая д.24а");
         billingAddress.setApartmentNumber("1");
         ShippingAddress shippingAddress = new ShippingAddress();
         shippingAddress.setCountry("Россия");
-        shippingAddress.setZipCode("390000");
+        shippingAddress.setZipCode("390006");
         shippingAddress.setCity("Рязань");
         shippingAddress.setStreetName("ул.Садовая д.24а");
         shippingAddress.setApartmentNumber("1");

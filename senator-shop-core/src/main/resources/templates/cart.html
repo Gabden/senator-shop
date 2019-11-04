@@ -10,13 +10,18 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 <main role="main" class="my-5">
-    <div class="container pt-5" id="wrapper">
+    <div class="container" id="wrapper">
         <div class="container">
             <section>
                 <div class="jumbotron">
                     <div class="container">
-                        <h1>Корзина</h1>
-                        <p>Все товары добавленные в корзину</p>
+                        <div th:if="${cart.size() != 0}">
+                            <h1 >Корзина</h1>
+                            <p>Все товары добавленные в корзину</p>
+                        </div>
+                        <h1 th:unless="${cart.size() != 0}">Корзина пуста</h1>
+
+
                     </div>
                 </div>
             </section>
@@ -28,7 +33,7 @@
 <!--                    <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>-->
 <!--                </div>-->
 
-                <table class="table table-hover">
+                <table class="table table-hover"  style="font-size: 0.7rem" th:if="${cart.size() != 0}">
                     <tr>
                         <th></th>
                         <th>Товар</th>
@@ -43,7 +48,7 @@
                         <td>
                             <div class="d-flex text-justify my-auto">
                                 <div class="col-12 col-md-10" style="font-size: 1.2rem">
-                                    <span th:text="${item.product.productName}"></span>
+                                    <span th:text="${item.product.productName}" style="font-size: 0.7rem"></span>
                                     <input type="hidden" th:value="*{cart[__${i.index}__].product.id}" id="productId"></input>
                                 </div>
                             </div>
@@ -71,7 +76,7 @@
                         <th></th>
                     </tr>
                 </table>
-                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning">Оформить резерв</a>
+                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning" th:if="${cart.size() != 0}">Оформить резерв</a>
                 </div>
             </section>
         </div>
