@@ -96,8 +96,17 @@
                                         </tr>
 
                                         <tr>
-                                            <th></th>
-                                            <th></th>
+                                            <th>
+                                               Статус заказа
+                                            </th>
+                                            <th>
+                                                <div th:if="${order.status} == 'created'">
+                                                    <span class="text-danger">Оформлен</span>
+                                                </div>
+                                                <div th:unless="${order.status} == 'created'">
+                                                    <span class="text-success">Подтвержден</span>
+                                                </div>
+                                            </th>
                                             <th></th>
                                             <th>Итого</th>
                                             <th th:text="${order.cart.grandTotal}"></th>

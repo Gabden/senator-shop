@@ -37,9 +37,21 @@ public class CustomerOrder implements Serializable {
 
     private Timestamp timestamp;
 
+    //can be created or confirmed
+    private String status;
+
 
 
     public CustomerOrder() {
+        this.status = "created";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Timestamp getTimestamp() {
