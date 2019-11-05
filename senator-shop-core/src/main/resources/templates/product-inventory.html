@@ -10,54 +10,103 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 <main role="main" class="mt-5">
-    <div class="container pt-5" id="wrapper">
+    <div class="container" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">All products</h1>
-                <p class="lead">Checkout all products available</p>
-                <table class="table table-stripped table-hover">
-                    <thead>
-                    <tr class="bg-success">
-                        <th>Photo</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="product : ${products}">
-                        <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" width="75" height="200"></td>
-                        <td th:text="${product.productName}"></td>
-                        <td th:text="${product.productDescription}"></td>
-                        <td th:text="${product.productPrice}"></td>
-                        <td>
-                            <a th:href="@{'/productList/product/' + ${product.id}}"><span class="fas fa-info-circle"> </span></a>
-                            <a th:href="@{'/admin/productInventory/deleteProduct/' + ${product.id}}"><span class="fas fa-trash"> </span></a>
-                            <a th:href="@{'/admin/productInventory/updateProduct/' + ${product.id}}"><span class="fas fa-pen-square"> </span></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h1 class="title text-center">Страница администрирования товаров</h1>
+                <p class="lead text-center">Здесь вы можете создать, удалить или отредактировать товар</p>
 
-                <a href="/admin/productInventory/addProduct" class="btn btn-primary">Add product</a>
+                <div class="my-3">
+                    <a href="/admin/productInventory/addProduct" class="btn btn-primary">Создать товар</a>
+                </div>
+                <div class="my-3">
+                    <form action="/admin/searchById">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Поиск товара по ID</span>
+                            </div>
+                            <input type="number" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="id">
+                            <div class="input-group-prepend">
+                                <button type="submit" class="input-group-text" id="basic-addon1">Найти</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="my-3">
+                    <form action="/admin/searchByDescription">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Поиск товара ключевым словам</span>
+                            </div>
+                            <input type="text" class="form-control"  aria-describedby="basic-addon3" name="description">
+                            <div class="input-group-prepend">
+                                <button type="submit" class="input-group-text">Найти</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div th:if="${orders.getTotalPages() > 0}">
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
+                        <table class="table table-stripped table-hover mt-3">
+                            <thead>
+                            <tr class="bg-secondary">
+                                <th>Фото</th>
+                                <th>Название</th>
+                                <th>Описание</th>
+                                <th>Цена</th>
+                                <th>Администрирование</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="product : ${products}">
+                                <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image"
+                                         width="60" height="250"></td>
+                                <td th:text="${product.productName}"></td>
+                                <td th:text="${product.productDescription}"></td>
+                                <td th:text="${product.productPrice}"></td>
+                                <td class="text-center" style="font-size: 1.5rem">
+                                    <a th:href="@{'/productList/product/' + ${product.id}}"><span
+                                            class="fas fa-info-circle"> </span></a>
+                                    <br>
+                                    <a th:href="@{'/admin/productInventory/updateProduct/' + ${product.id}}"><span
+                                            class="fas fa-pen-square"> </span></a>
+                                    <br>
+                                    <a th:href="@{'/admin/productInventory/deleteProduct/' + ${product.id}}"><span
+                                            class="fas fa-trash text-danger"> </span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                <div th:if="${orders.getTotalPages() > 0}">
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
+
+
+                </div>
+                <!-- FOOTER -->
+
             </div>
-            <!-- FOOTER -->
 
-        </div>
-
-    </div><!-- /.container wrapper -->
+        </div><!-- /.container wrapper -->
 
 
 </main>
 <footer th:replace="fragments/footer :: footer">
 </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="../../js/upload.js" th:src="@{/js/upload.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script src="../../js/controller.js" th:src="@{/js/controller.js}"></script>
 <script src="../../js/home.js" th:src="@{/js/home.js}"></script>
 </body>

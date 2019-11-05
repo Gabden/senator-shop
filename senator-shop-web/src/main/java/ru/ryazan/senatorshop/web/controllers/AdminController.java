@@ -1,9 +1,6 @@
 package ru.ryazan.senatorshop.web.controllers;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +14,11 @@ import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/admin")
@@ -39,9 +39,71 @@ public class AdminController {
     }
     @RequestMapping("/productInventory")
     public String productInventory(@RequestParam(name = "page", defaultValue = "0")int page, Model model){
-        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
+        Pageable pageable = PageRequest.of(page, 7, Sort.by("id").descending());
         Page<Product> allProducts = productService.findAll(pageable);
+        int totalPages = allProducts.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         model.addAttribute("products", allProducts);
+        model.addAttribute("orders", allProducts);
+        model.addAttribute("url", "/admin/productInventory");
+        return "product-inventory";
+    }
+
+    @RequestMapping("/searchById")
+    public String productInventory(@RequestParam(name = "id", required = false)long id,@RequestParam(name = "description", required = false)String description,
+                                   @RequestParam(name = "page", defaultValue = "0")int page,Model model) {
+        if (id > 0) {
+            Optional<Product> product = productService.findById(id);
+            if (product.isPresent()) {
+                model.addAttribute("products", Collections.singletonList(product.get()));
+                return "product-inventory";
+            }
+        } else {
+            model.addAttribute("products", new ArrayList<>());
+            model.addAttribute("msg", "По вашему запросу ничего не найдено");
+            return "product-inventory";
+        }
+        return "product-inventory";
+    }
+
+    @RequestMapping("/searchByDescription")
+    public String search(@RequestParam(name = "category", defaultValue = "all") String category,
+                         @RequestParam(name = "description", required = false) String description,
+                         @RequestParam(name = "page", defaultValue = "0")int page,Model model){
+        Pageable pageable = PageRequest.of(page, 7, Sort.by("id").descending());
+        Page<Product> products;
+        List<Product> filteredList;
+        if (category.equals("all")){
+            products = productService.findAll(pageable);
+        } else {
+            products = productService.findByproductCategory(category,pageable);
+        }
+
+        if(description != null){
+            filteredList = products.stream().filter(product ->
+                    (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
+                            || (product.getProductName().toLowerCase().contains(description.toLowerCase()))) .collect(Collectors.toList());
+            products = new PageImpl<>(filteredList, pageable, filteredList.size());
+        }
+
+        int totalPages = products.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("orders", products);
+        model.addAttribute("url", "/search");
+        model.addAttribute("products", products);
         return "product-inventory";
     }
 
