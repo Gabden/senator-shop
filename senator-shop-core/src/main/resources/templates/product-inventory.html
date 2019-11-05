@@ -47,7 +47,7 @@
                     </form>
                 </div>
 
-                <div th:if="${orders.getTotalPages() > 0}">
+                <div th:if="${orders} != null">
                     <nav th:replace="fragments/pagination :: pagination"></nav>
                 </div>
                         <table class="table table-stripped table-hover mt-3">
@@ -81,7 +81,7 @@
                             </tr>
                             </tbody>
                         </table>
-                <div th:if="${orders.getTotalPages() > 0}">
+                <div th:if="${orders} != null">
                     <nav th:replace="fragments/pagination :: pagination"></nav>
                 </div>
 

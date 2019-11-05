@@ -62,6 +62,7 @@ public class AdminController {
             Optional<Product> product = productService.findById(id);
             if (product.isPresent()) {
                 model.addAttribute("products", Collections.singletonList(product.get()));
+                model.addAttribute("url", "/searchById");
                 return "product-inventory";
             }
         } else {
