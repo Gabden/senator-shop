@@ -1,11 +1,12 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.repository.CustomerRepository;
 import ru.ryazan.senatorshop.core.service.CustomerService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,8 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+    public Page<Customer> getAllCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
 
@@ -37,4 +38,11 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer findCustomerByCustomerName(String name) {
         return customerRepository.findCustomerByCustomerName(name);
     }
+
+    @Override
+    public Page<Customer> findCustomersByCustomerPhone(String phone, Pageable pageable) {
+        return customerRepository.findCustomersByCustomerPhone(phone, pageable);
+    }
+
+
 }

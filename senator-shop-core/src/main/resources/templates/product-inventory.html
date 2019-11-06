@@ -23,9 +23,9 @@
                     <form action="/admin/searchById">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Поиск товара по ID</span>
+                                <span class="input-group-text">Поиск по ID</span>
                             </div>
-                            <input type="number" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="id">
+                            <input type="number" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="id" required>
                             <div class="input-group-prepend">
                                 <button type="submit" class="input-group-text" id="basic-addon1">Найти</button>
                             </div>
@@ -36,8 +36,15 @@
                 <div class="my-3">
                     <form action="/admin/searchByDescription">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Поиск товара ключевым словам</span>
+                            <div class="input-group-prepend" style="height: 100%">
+                                <select class="form-control fsize-07" name="category" style="font-size: 1rem;">
+                                    <option value="all">Все товары</option>
+                                    <option value="alcohol">Алкоголь</option>
+                                    <option value="drinks">Напитки</option>
+                                    <option value="oil">Оливковое масло</option>
+                                    <option value="dishes">Посуда</option>
+                                    <option value="gifts">Подарки</option>
+                                </select>
                             </div>
                             <input type="text" class="form-control"  aria-describedby="basic-addon3" name="description">
                             <div class="input-group-prepend">
@@ -52,7 +59,8 @@
                 </div>
                         <table class="table table-stripped table-hover mt-3">
                             <thead>
-                            <tr class="bg-secondary">
+                            <tr class="bg-secondary text-center">
+                                <th>Id</th>
                                 <th>Фото</th>
                                 <th>Название</th>
                                 <th>Описание</th>
@@ -62,7 +70,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="product : ${products}">
+                            <tr th:each="product : ${products}" class="text-center">
+                                <td th:text="${product.id}"></td>
                                 <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image"
                                          width="60" height="250"></td>
                                 <td th:text="${product.productName}"></td>
@@ -97,16 +106,14 @@
 </main>
 <footer th:replace="fragments/footer :: footer">
 </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="../../js/controller.js" th:src="@{/js/controller.js}"></script>
 <script src="../../js/home.js" th:src="@{/js/home.js}"></script>
 </body>

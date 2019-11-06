@@ -62,7 +62,7 @@ public class AdminController {
             Optional<Product> product = productService.findById(id);
             if (product.isPresent()) {
                 model.addAttribute("products", Collections.singletonList(product.get()));
-                model.addAttribute("url", "/searchById");
+                model.addAttribute("url", "/admin/searchById");
                 return "product-inventory";
             }
         } else {
@@ -103,7 +103,7 @@ public class AdminController {
         }
 
         model.addAttribute("orders", products);
-        model.addAttribute("url", "/search");
+        model.addAttribute("url", "/admin/searchByDescription");
         model.addAttribute("products", products);
         return "product-inventory";
     }
@@ -157,12 +157,89 @@ public class AdminController {
     }
 
     @RequestMapping("/customers")
-    public String customerManagement(Model model){
-        List<Customer> customers = customerService.getAllCustomers();
+    public String customerManagement(@RequestParam(name = "page", defaultValue = "0")int page,Model model){
+        Pageable pageable = PageRequest.of(page, 7, Sort.by("customerId").descending());
+        Page<Customer> customers = customerService.getAllCustomers(pageable);
+
+        int totalPages = customers.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        model.addAttribute("customers", customers);
+        model.addAttribute("orders", customers);
+        model.addAttribute("url", "/admin/customers");
+
+        return "customerManagement";
+    }
+
+    @RequestMapping("/searchUserById")
+    public String searchUser(@RequestParam(name = "id", required = true)long id,@RequestParam(name = "description", required = false)String description,
+                                   @RequestParam(name = "page", defaultValue = "0")int page,Model model) {
+        if (id > 0) {
+            Optional<Customer> customer = customerService.getCustomerById(id);
+            if (customer.isPresent()) {
+                model.addAttribute("customers", Collections.singletonList(customer.get()));
+                model.addAttribute("url", "/admin/searchUserById");
+                return "customerManagement";
+            }
+        } else {
+            model.addAttribute("customers", new ArrayList<>());
+            model.addAttribute("msg", "По вашему запросу ничего не найдено");
+            return "customerManagement";
+        }
+        return "customerManagement";
+    }
+
+
+    @RequestMapping("/searchUserByPhone")
+    public String searchUser(@RequestParam(name = "phone", required = true)String phone,
+                             @RequestParam(name = "page", defaultValue = "0")int page,Model model) {
+        Pageable pageable = PageRequest.of(page, 7, Sort.by("customerId").descending());
+        List<Customer> filteredList = new ArrayList<>();
+        Page<Customer> customers = customerService.getAllCustomers(pageable);
+        customers.stream().filter(customer -> customer.getCustomerPhone().contains(phone)).forEach(filteredList::add);
+        customers = new PageImpl<>(filteredList, pageable, filteredList.size());
+        int totalPages = customers.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("orders", customers);
+        model.addAttribute("url", "/admin/searchUserByPhone");
         model.addAttribute("customers", customers);
         return "customerManagement";
     }
 
+    @RequestMapping("/searchUserByMail")
+    public String searchUserByMail(@RequestParam(name = "email", required = true)String email,
+                             @RequestParam(name = "page", defaultValue = "0")int page,Model model) {
+        Pageable pageable = PageRequest.of(page, 7, Sort.by("customerId").descending());
+        List<Customer> filteredList = new ArrayList<>();
+        Page<Customer> customers = customerService.getAllCustomers(pageable);
+        customers.stream().filter(customer -> customer.getCustomerName().contains(email)).forEach(filteredList::add);
+        customers = new PageImpl<>(filteredList, pageable, filteredList.size());
+        int totalPages = customers.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        model.addAttribute("orders", customers);
+        model.addAttribute("url", "/admin/searchUserByMail");
+        model.addAttribute("customers", customers);
+        return "customerManagement";
+    }
 
 
 

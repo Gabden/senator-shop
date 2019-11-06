@@ -109,7 +109,8 @@ public class RegisterController {
             model.addAttribute("nameMsg", "Пароли не совпадают");
             return "register";
         }
-        List<Customer> customers = customerService.getAllCustomers();
+        Pageable pageable = PageRequest.of(0, 10000, Sort.by("customerId").descending());
+        Page<Customer> customers = customerService.getAllCustomers(pageable);
         for (Customer csmr : customers){
             if (customer.getCustomerName().equals(csmr.getCustomerName())){
                 model.addAttribute("nameMsg", "Пользователь с такой почтой существует");
