@@ -140,7 +140,7 @@ public class RegisterController {
     private void createUser(Customer customer, String role){
         User user = new User();
         user.setUsername(customer.getCustomerName());
-        user.setPassword(customer.getCustomerPassword());
+        user.setPassword(passwordEncoder.encode(customer.getCustomerPassword()));
         user.setRoles(role);
         user.setActive(1);
         Cart cart = new Cart();

@@ -67,7 +67,7 @@ public class Product implements Serializable {
     @JsonIgnore
     private Set<ProductImage> productImageSet;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CartItem> cartItems;
 

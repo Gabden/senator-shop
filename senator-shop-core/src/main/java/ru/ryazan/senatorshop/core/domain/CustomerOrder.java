@@ -17,7 +17,7 @@ public class CustomerOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long customerOrderId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cartId")
     @JsonIgnore
     private Cart cart;

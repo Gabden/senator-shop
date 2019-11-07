@@ -49,10 +49,10 @@ public class Customer implements Serializable {
     @JsonIgnore
     private Cart cart;
 
-    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Favorites> favorites;
 
-    @OneToMany(mappedBy = "customer", orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<CustomerOrder> customerOrder;
 
     private String FIOfirst;
