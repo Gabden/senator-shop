@@ -9,7 +9,9 @@ $( document ).ready(function() {
         }
     });
 
-    $('#phone').mask('+7(000)000-0000');
+    if(document.getElementById('phone')){
+        $('#phone').mask('+7(000)000-0000');
+    }
 
 });
 cartApp.controller("cartCtrl", function ($scope, $http){

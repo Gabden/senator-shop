@@ -77,13 +77,11 @@
                         <td th:text="${customer.customerName}"></td>
                         <td th:text="${customer.customerPhone}"></td>
                         <td class="text-center" style="font-size: 1.5rem">
-                            <a th:href="@{'/customerList/customer/' + ${customer.customerId}}"><span
-                                    class="fas fa-info-circle"> </span></a>
-                            <br>
-                            <a th:href="@{'/admin/customerInventory/updatecustomer/' + ${customer.customerId}}"><span
+
+                            <a th:href="@{'/admin/user-profile/' + ${customer.customerId}} + '?page=0'"><span
                                     class="fas fa-pen-square"> </span></a>
                             <br>
-                            <a th:href="@{'/admin/customerInventory/deletecustomer/' + ${customer.customerId}}"><span
+                            <a href="#"><span
                                     class="fas fa-trash text-danger"> </span></a>
                         </td>
                     </tr>

@@ -1,13 +1,16 @@
 package ru.ryazan.senatorshop.web.controllers;
 
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ryazan.senatorshop.core.domain.Customer;
+import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.ProductImage;
+import ru.ryazan.senatorshop.core.service.CustomerOrderService;
 import ru.ryazan.senatorshop.core.service.CustomerService;
 import ru.ryazan.senatorshop.core.service.ProductImageService;
 import ru.ryazan.senatorshop.core.service.ProductService;
@@ -27,11 +30,16 @@ public class AdminController {
     private ProductService productService;
     private ProductImageService DBFileStorageService;
     private CustomerService customerService;
+    private CustomerOrderService customerOrderService;
+    private PasswordEncoder passwordEncoder;
 
-    public AdminController(ProductService productService, ProductImageService DBFileStorageService, CustomerService customerService) {
+    public AdminController(ProductService productService, ProductImageService DBFileStorageService
+                           ,PasswordEncoder passwordEncoder,CustomerService customerService, CustomerOrderService customerOrderService) {
         this.productService = productService;
         this.DBFileStorageService = DBFileStorageService;
         this.customerService = customerService;
+        this.passwordEncoder = passwordEncoder;
+        this.customerOrderService = customerOrderService;
     }
     @RequestMapping({"","/"})
     public String admin(Model model){
@@ -241,6 +249,49 @@ public class AdminController {
         return "customerManagement";
     }
 
+
+    // USER PROFILE EDIT
+    @RequestMapping("/user-profile/{id}")
+    public String profile(@PathVariable(name = "id") long id, Model model, @RequestParam(name = "page") int page){
+
+            Optional<Customer> customer = customerService.getCustomerById(id);
+
+            Pageable firstPageWithTwoElements = PageRequest.of(page, 5, Sort.by("customerOrderId").descending());
+            Page<CustomerOrder> orderByCustomer = customerOrderService.findAllByCustomer(customer.get(), firstPageWithTwoElements);
+
+            int totalPages = orderByCustomer.getTotalPages();
+
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
+            }
+
+            model.addAttribute("customer", customer.get());
+            model.addAttribute("orders", orderByCustomer);
+            model.addAttribute("url", "/admin/user-profile");
+            return "admin/admin-customer-profile-edit";
+
+    }
+    @RequestMapping(value = "/updateProfile" , method = RequestMethod.POST)
+    public String updateProfile(@ModelAttribute(name = "customer") Customer customer){
+        Optional<Customer> oldCustomer = customerService.getCustomerById(customer.getCustomerId());
+        if (oldCustomer.isPresent()){
+
+            oldCustomer.get().setCustomerName(customer.getCustomerName());
+            oldCustomer.get().setCustomerPhone(customer.getCustomerPhone());
+            oldCustomer.get().setFIOfirst(customer.getFIOfirst());
+            oldCustomer.get().setFIOlast(customer.getFIOlast());
+            oldCustomer.get().setFIOmiddle(customer.getFIOmiddle());
+            oldCustomer.get().setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
+            oldCustomer.get().setCustomerPasswordAccept(passwordEncoder.encode(customer.getCustomerPasswordAccept()));
+            customerService.addCustomer(oldCustomer.get());
+        }
+        return "redirect:/admin/customers";
+    }
+
+    // USER PROFILE EDIT
 
 
 }

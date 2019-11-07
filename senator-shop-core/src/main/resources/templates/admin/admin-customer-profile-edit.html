@@ -13,11 +13,11 @@
     <div class="container pt-5" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title text-center">Личный кабинет</h1>
-                <p class="lead text-center">Здесь представлена информация о вашей учетной записи</p>
+                <h1 class="title text-center">Администрирование учетной записи с почтой = [[${customer.customerName}]]</h1>
+                <p class="lead text-center">Здесь представлена информация об учетной записи с id = [[${customer.customerId}]]</p>
 
                 <div class="container">
-                    <form th:action="@{/updateProfile}" th:object="${customer}" method="post" class="form">
+                    <form th:action="@{/admin/updateProfile}" th:object="${customer}" method="post" class="form">
                         <div class="form-group">
                             <div class="d-flex">
                                 <div class="col">
@@ -32,7 +32,6 @@
 
                                     <input type="hidden" id="customerPasswordAccept" class="form-control mb-3"
                                            th:field="*{customerPasswordAccept}">
-
 
                                     <label for="phone">Телефон</label>
                                     <input type="text" id="phone" class="form-control mb-3" th:field="*{customerPhone}">
@@ -57,7 +56,7 @@
                         </div>
                     </form>
 
-                    <h3 class="text-center">Мои заказы</h3>
+                    <h3 class="text-center">Заказы</h3>
                     <hr>
 
                     <div th:each="order, i : ${orders}" class="my-3">
@@ -101,7 +100,7 @@
 
                                         <tr>
                                             <th>
-                                               Статус заказа
+                                                Статус заказа
                                             </th>
                                             <th>
                                                 <div th:if="${order.status} == 'confirmed'">
@@ -121,15 +120,15 @@
                             </div>
                         </div>
 
-                        </div> <!-- my03 -->
+                    </div> <!-- my03 -->
 
-                        <nav th:replace="fragments/pagination :: pagination"></nav>
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
 
-                    </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
 
     </div><!-- /.container wrapper -->
     <!-- FOOTER -->

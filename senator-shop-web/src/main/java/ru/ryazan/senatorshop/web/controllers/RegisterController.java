@@ -24,6 +24,7 @@ import ru.ryazan.senatorshop.core.service.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -56,6 +57,7 @@ public class RegisterController {
         if (userDetails == null){
             return "home";
         } else {
+
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
 
             Pageable firstPageWithTwoElements = PageRequest.of(page, 5, Sort.by("customerOrderId").descending());
@@ -78,16 +80,18 @@ public class RegisterController {
     }
     @RequestMapping(value = "/updateProfile" , method = RequestMethod.POST)
     public String updateProfile(@ModelAttribute(name = "customer") Customer customer){
-        Customer oldCustomer = customerService.findCustomerByCustomerName(customer.getCustomerName());
-        oldCustomer.setCustomerName(customer.getCustomerName());
-        oldCustomer.setCustomerPhone(customer.getCustomerPhone());
-        oldCustomer.setFIOfirst(customer.getFIOfirst());
-        oldCustomer.setFIOlast(customer.getFIOlast());
-        oldCustomer.setFIOmiddle(customer.getFIOmiddle());
-        oldCustomer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
-        oldCustomer.setCustomerPasswordAccept(passwordEncoder.encode(customer.getCustomerPasswordAccept()));
-        customerService.addCustomer(oldCustomer);
-        return "redirect:/profile";
+        Optional<Customer> oldCustomer = customerService.getCustomerById(customer.getCustomerId());
+        if (oldCustomer.isPresent()){
+            oldCustomer.get().setCustomerName(customer.getCustomerName());
+            oldCustomer.get().setCustomerPhone(customer.getCustomerPhone());
+            oldCustomer.get().setFIOfirst(customer.getFIOfirst());
+            oldCustomer.get().setFIOlast(customer.getFIOlast());
+            oldCustomer.get().setFIOmiddle(customer.getFIOmiddle());
+            oldCustomer.get().setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
+            oldCustomer.get().setCustomerPasswordAccept(passwordEncoder.encode(customer.getCustomerPasswordAccept()));
+            customerService.addCustomer(oldCustomer.get());
+        }
+        return "home";
     }
 
 
@@ -116,6 +120,15 @@ public class RegisterController {
                 model.addAttribute("nameMsg", "Пользователь с такой почтой существует");
                 return "register";
             }
+        }
+        if (customer.getFIOfirst() == null){
+            customer.setFIOfirst("noname");
+        }
+        if (customer.getFIOmiddle() == null){
+            customer.setFIOmiddle("noname");
+        }
+        if (customer.getFIOlast() == null){
+            customer.setFIOlast("noname");
         }
         createUser(customer, "USER");
 
