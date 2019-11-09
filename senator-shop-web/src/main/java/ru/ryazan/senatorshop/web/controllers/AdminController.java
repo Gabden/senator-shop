@@ -275,7 +275,6 @@ public class AdminController {
     public String updateProfile(@ModelAttribute(name = "customer") Customer customer){
         Optional<Customer> oldCustomer = customerService.getCustomerById(customer.getCustomerId());
         if (oldCustomer.isPresent()){
-
             oldCustomer.get().setCustomerName(customer.getCustomerName());
             oldCustomer.get().setCustomerPhone(customer.getCustomerPhone());
             oldCustomer.get().setFIOfirst(customer.getFIOfirst());

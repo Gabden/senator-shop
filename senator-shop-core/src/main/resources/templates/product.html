@@ -39,39 +39,39 @@
                                 </div>
                                 <div class="col" style="font-size: 0.7rem">
                                     <div class="row">
-                                        <div class="col-4 " th:if="${product.productVolume} != null">
+                                        <div class="col-4 " th:if="${product.productVolume != null && #strings.length(product.productVolume) > 0}">
                                             <p class="lean mb-0">Обьем</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productVolume}"></span></p>
                                         </div>
-                                        <div class="col-4 " th:if="${product.productCountry} != null">
+                                        <div class="col-4 " th:if="${product.productCountry != null && #strings.length(product.productCountry) > 0}">
                                             <p class="lean mb-0">Страна</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productCountry}"></span></p>
                                         </div>
-                                        <div class="col-4 " th:if="${product.productRegion} != null">
+                                        <div class="col-4 " th:if="${product.productRegion != null && #strings.length(product.productRegion) > 0} ">
                                             <p class="lean mb-0">Регион</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productRegion}"></span></p>
                                         </div>
-                                        <div class="col-4 " th:if="${product.productAlcoholDegree} != null">
+                                        <div class="col-4 " th:if="${product.productAlcoholDegree != null && #strings.length(product.productAlcoholDegree) > 0}">
                                             <p class="lean mb-0">Алкоголь</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholDegree}"></span></p>
                                         </div>
-                                        <div class="col-4 " th:if="${product.productAlcoholColor} != null">
+                                        <div class="col-4 " th:if="${product.productAlcoholColor != null && #strings.length(product.productAlcoholColor) > 0}">
                                             <p class="lean mb-0">Цвет</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholColor}"></span></p>
                                         </div>
-                                        <div class="col-4 " th:if="${product.productAlcoholSugar} != null">
+                                        <div class="col-4 " th:if="${product.productAlcoholSugar != null && #strings.length(product.productAlcoholSugar) > 0}">
                                             <p class="lean mb-0">Сахар</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholSugar}"></span></p>
                                         </div>
-                                        <div class="col-4" th:if="${product.productAlcoholTemperature} != null">
+                                        <div class="col-4" th:if="${product.productAlcoholTemperature != null && #strings.length(product.productAlcoholTemperature) > 0}">
                                             <p class="lean mb-0">Температура</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholTemperature}"></span></p>
                                         </div>
-                                        <div class="col-4 text-nowrap" th:if="${product.productAlcoholSort} != null">
+                                        <div class="col-4 text-nowrap" th:if="${product.productAlcoholSort != null && #strings.length(product.productAlcoholSort) > 0}">
                                             <p class="lean mb-0">Сорт</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productAlcoholSort}"></span></p>
                                         </div>
-                                        <div class="col-4 text-nowrap" th:if="${product.productManufacturer} != null">
+                                        <div class="col-4 text-nowrap" th:if="${product.productManufacturer != null && #strings.length(product.productManufacturer) > 0}">
                                             <p class="lean mb-0">Производитель</p>
                                             <p class="text-dark border-light-gray"><span th:text="${product.productManufacturer}"></span></p>
                                         </div>
