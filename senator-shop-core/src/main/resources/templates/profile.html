@@ -122,8 +122,12 @@
                         </div>
 
                         </div> <!-- my03 -->
-
-                        <nav th:replace="fragments/pagination :: pagination"></nav>
+                        <div th:if="${orders.getTotalElements()} > 0">
+                            <nav th:replace="fragments/pagination :: pagination"></nav>
+                        </div>
+                    <div th:unless="${orders.getTotalElements()} > 0">
+                        <p class="text-center h4">Вы не делали заказов</p>
+                    </div>
 
                     </div>
                 </div>

@@ -6,14 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.ryazan.senatorshop.core.domain.Customer;
-import ru.ryazan.senatorshop.core.domain.CustomerOrder;
-import ru.ryazan.senatorshop.core.domain.Product;
-import ru.ryazan.senatorshop.core.domain.ProductImage;
-import ru.ryazan.senatorshop.core.service.CustomerOrderService;
-import ru.ryazan.senatorshop.core.service.CustomerService;
-import ru.ryazan.senatorshop.core.service.ProductImageService;
-import ru.ryazan.senatorshop.core.service.ProductService;
+import ru.ryazan.senatorshop.core.domain.*;
+import ru.ryazan.senatorshop.core.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -32,14 +26,17 @@ public class AdminController {
     private CustomerService customerService;
     private CustomerOrderService customerOrderService;
     private PasswordEncoder passwordEncoder;
+    private UserService userService;
 
     public AdminController(ProductService productService, ProductImageService DBFileStorageService
-                           ,PasswordEncoder passwordEncoder,CustomerService customerService, CustomerOrderService customerOrderService) {
+                           ,PasswordEncoder passwordEncoder,CustomerService customerService,
+                            UserService userService,CustomerOrderService customerOrderService) {
         this.productService = productService;
         this.DBFileStorageService = DBFileStorageService;
         this.customerService = customerService;
         this.passwordEncoder = passwordEncoder;
         this.customerOrderService = customerOrderService;
+        this.userService = userService;
     }
     @RequestMapping({"","/"})
     public String admin(Model model){
@@ -286,6 +283,11 @@ public class AdminController {
             oldCustomer.get().setFIOmiddle(customer.getFIOmiddle());
             oldCustomer.get().setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
             oldCustomer.get().setCustomerPasswordAccept(passwordEncoder.encode(customer.getCustomerPasswordAccept()));
+            if (!customer.getCustomerName().equals(oldCustomer.get().getCustomerName())){
+                User user = userService.findUserByUsername(oldCustomer.get().getCustomerName());
+                user.setUsername(customer.getCustomerName());
+                userService.save(user);
+            }
             customerService.addCustomer(oldCustomer.get());
         }
         return "redirect:/admin/customers";

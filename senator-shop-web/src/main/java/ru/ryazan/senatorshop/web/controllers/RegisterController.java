@@ -79,7 +79,7 @@ public class RegisterController {
         }
     }
     @RequestMapping(value = "/updateProfile" , method = RequestMethod.POST)
-    public String updateProfile(@ModelAttribute(name = "customer") Customer customer){
+    public String updateProfile(@ModelAttribute(name = "customer") Customer customer, @AuthenticationPrincipal UserDetails userDetails){
         Optional<Customer> oldCustomer = customerService.getCustomerById(customer.getCustomerId());
         if (oldCustomer.isPresent()){
             oldCustomer.get().setCustomerName(customer.getCustomerName());
@@ -89,9 +89,17 @@ public class RegisterController {
             oldCustomer.get().setFIOmiddle(customer.getFIOmiddle());
             oldCustomer.get().setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
             oldCustomer.get().setCustomerPasswordAccept(passwordEncoder.encode(customer.getCustomerPasswordAccept()));
-            customerService.addCustomer(oldCustomer.get());
+            if (!customer.getCustomerName().equals(userDetails.getUsername())){
+                User user = userService.findUserByUsername(userDetails.getUsername());
+                user.setUsername(customer.getCustomerName());
+                userService.save(user);
+                customerService.addCustomer(oldCustomer.get());
+                return "redirect:/logout";
+            } else {
+                customerService.addCustomer(oldCustomer.get());
+            }
         }
-        return "home";
+        return "redirect:/logout";
     }
 
 
