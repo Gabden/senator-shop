@@ -5,6 +5,7 @@
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
     <var name="order" class="ru.ryazan.senatorshop.core.domain.CustomerOrder" />
+    <var name="customer" class="ru.ryazan.senatorshop.core.domain.Customer" />
 
     <!-- is the start state -->
     <action-state id="addCartToOrder">

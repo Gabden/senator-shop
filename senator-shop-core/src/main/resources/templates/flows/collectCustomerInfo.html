@@ -13,19 +13,20 @@
     <div class="container" id="wrapper">
         <div class="container">
             <div class="page-header">
-                <h1 class="title">Заказ</h1>
-                <p class="lead">Провертье детали заказа</p>
+                <h1 class="title text-center">Заказ</h1>
+                <p class="lead text-center">Провертье детали заказа*</p>
+
 
                 <div class="container">
                     <form method="post" class="form form-horizontal">
                         <div class="form-group">
 
                             <label for="name">Электронная почта</label>
-                            <input type="text" id="name" class="form-control" th:value="*{order.cart.customer.customerName}">
+                            <input type="text" id="name" class="form-control" th:value="*{order.cart.customer.customerName}" disabled>
 
 
                             <label for="phone">Телефон</label>
-                            <input type="text" id="phone" class="form-control" th:value="*{order.cart.customer.customerPhone}">
+                            <input type="text" id="phone" class="form-control" th:value="*{order.cart.customer.customerPhone}" disabled>
 
 
 <!--                            <h2>Billing</h2>-->
@@ -70,12 +71,11 @@
                     </form>
                 </div>
             </div>
-            <!-- FOOTER -->
 
+            <p class="lead pl-3" style="font-size: 0.9rem">*Для изменения деталей вернитесь в личный кабинет</p>
         </div>
 
     </div><!-- /.container wrapper -->
-
 
 </main>
 <footer th:replace="fragments/footer :: footer">
