@@ -39,6 +39,17 @@ public class EmailServiceImpl implements EmailService{
 
     }
 
+    @Override
+    public void sendRestoreMail(String mail, String password) {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(mail);
+        msg.setSubject("Восстановление пароля на сайте senator-wine.ru");
+        String message = "Для вас создан новый пароль : " + password + "\n Вы его можете сменить в личном кабинете на сайте";
+        msg.setText(message);
+
+        javaMailSender.send(msg);
+    }
+
     public void sendEmailWithAttachment() throws MessagingException, IOException {
 
         MimeMessage msg = javaMailSender.createMimeMessage();
