@@ -44,9 +44,16 @@ $(document).ready(function () {
     });
 
     //modal
-    $('#exampleModalCenter').modal({
-        backdrop: 'static'
-    })
+
+    if (sessionStorage.getItem("story") !== 'true') {
+        // sessionStorage.setItem('key', 'value'); pair
+        sessionStorage.setItem("story", "true");
+        // Calling the bootstrap modal
+        $('#exampleModalCenter').modal({
+            backdrop: 'static'
+        })
+    }
+
 
 });
 //---------------------------------------

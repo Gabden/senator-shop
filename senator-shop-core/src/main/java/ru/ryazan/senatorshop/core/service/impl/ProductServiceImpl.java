@@ -1,13 +1,16 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.repository.ProductRepository;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -24,7 +27,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findByproductCategory(String category, Pageable pageable) {
-        return productRepository.findByproductCategory(category, pageable);
+        Page<Product> products = productRepository.findAll(pageable);
+        List<Product> filteredList = products.stream().filter(product -> product.getProductCategory().contains(category)).collect(Collectors.toList());
+        products = new PageImpl<>(filteredList, pageable, filteredList.size());
+        return products;
     }
 
     @Override
