@@ -30,8 +30,8 @@ public class CoreConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("gabden5545@gmail.com");
-        mailSender.setPassword("f3l1a3s3h7");
+        mailSender.setUsername("");
+        mailSender.setPassword("");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

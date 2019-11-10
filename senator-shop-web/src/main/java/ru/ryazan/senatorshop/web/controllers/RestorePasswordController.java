@@ -1,5 +1,7 @@
 package ru.ryazan.senatorshop.web.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,6 +49,40 @@ public class RestorePasswordController {
             return "changer-password/success-new-password";
         }
     }
+
+    @RequestMapping("/change-password")
+    public String changePassword() {
+        return "changer-password/enter-new-password";
+    }
+
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+    public String changePasswordExec(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(name = "old") String old,
+                                     @RequestParam(name = "newpwd") String newpwd, @RequestParam(name = "newConfirm") String confirm, Model model) {
+
+        if (!passwordEncoder.matches(old, userDetails.getPassword())){
+            model.addAttribute("message", "Введеный пароль не совпадает с текущим");
+            return "changer-password/enter-new-password";
+        }
+        if (!newpwd.equals(confirm)){
+            model.addAttribute("message", "Новые пароли не совпадают");
+            return "changer-password/enter-new-password";
+        }
+
+        User user = userService.findUserByUsername(userDetails.getUsername());
+        if (user == null){
+            model.addAttribute("message", "Пользователь с такой почтой не найден");
+            return "changer-password/enter-new-password";
+        } else {
+            user.setPassword(passwordEncoder.encode(newpwd));
+            userService.save(user);
+            Customer customer = customerService.findCustomerByCustomerName(user.getUsername());
+            customer.setCustomerPassword(passwordEncoder.encode(newpwd));
+            customerService.addCustomer(customer);
+            emailService.sendRestoreMail(user.getUsername(), newpwd);
+            return "changer-password/success-new-password";
+        }
+    }
+
 
     private String getAlphaNumericString(int n)
     {
