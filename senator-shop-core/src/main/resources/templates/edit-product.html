@@ -30,14 +30,48 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Категория</label>
                                     </div>
-                                    <select class="custom-select" id="inputGroupSelect01" th:field="${product.productCategory}"  >
-                                        <option value="" selected>Выберите...</option>
-                                        <option value="alcohol">Алкоголь</option>
-                                        <option value="drinks">Напитки</option>
-                                        <option value="oil">Оливковое масло</option>
-                                        <option value="dishes">Посуда</option>
-                                        <option value="gifts">Подарки</option>
-                                    </select>
+                                    <!--                                <select class="custom-select" id="inputGroupSelect01" th:field="*{productCategory}">-->
+                                    <!--                                    <option value="" selected>Выберите...</option>-->
+                                    <!--                                    <option value="alcohol">Алкоголь</option>-->
+                                    <!--                                    <option value="drinks">Напитки</option>-->
+                                    <!--                                    <option value="oil">Оливковое масло</option>-->
+                                    <!--                                    <option value="dishes">Посуда</option>-->
+                                    <!--                                    <option value="gifts">Подарки</option>-->
+                                    <!--                                </select>-->
+                                    <div id="inputGroupSelect01" class="ml-4">
+
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="alcohol" id="defaultCheck1" th:checked="${#strings.contains(product.productCategory, 'alcohol')}" th:field="*{productCategory}">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                Алкоголь
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="drinks" id="defaultCheck2" th:checked="${#strings.contains(product.productCategory, 'drinks')}" th:field="*{productCategory}">
+                                            <label class="form-check-label" for="defaultCheck2">
+                                                Напитки
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="oil" id="defaultCheck3" th:checked="${#strings.contains(product.productCategory, 'oil')}" th:field="*{productCategory}">
+                                            <label class="form-check-label" for="defaultCheck3">
+                                                Оливковое масло
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="dishes" id="defaultCheck4" th:checked="${#strings.contains(product.productCategory, 'dishes')}" th:field="*{productCategory}">
+                                            <label class="form-check-label" for="defaultCheck4">
+                                                Посуда
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="gifts" id="defaultCheck5" th:checked="${#strings.contains(product.productCategory, 'gifts')}" th:field="*{productCategory}">
+                                            <label class="form-check-label" for="defaultCheck5">
+                                                Подарки
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <label for="description" >Описание</label>
