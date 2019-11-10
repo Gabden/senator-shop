@@ -66,14 +66,12 @@
                                 <th>Описание</th>
                                 <th>Цена</th>
                                 <th>Администрирование</th>
-                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="product : ${products}" class="text-center">
                                 <td th:text="${product.id}"></td>
-                                <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image"
-                                         width="60" height="250"></td>
+                                <td><img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" height="250"></td>
                                 <td th:text="${product.productName}"></td>
                                 <td th:text="${product.productDescription}"></td>
                                 <td th:text="${product.productPrice}"></td>

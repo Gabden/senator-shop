@@ -29,6 +29,9 @@
                                 <div class="input-group my-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">Категория</label>
+                                        <label class="input-group-text" for="inputGroupSelect01">
+                                            <span th:text="'Текущее значение  :  ' + ${product.productCategory}"></span>
+                                        </label>
                                     </div>
                                     <!--                                <select class="custom-select" id="inputGroupSelect01" th:field="*{productCategory}">-->
                                     <!--                                    <option value="" selected>Выберите...</option>-->
@@ -50,7 +53,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="drinks" id="defaultCheck2" th:checked="${#strings.contains(product.productCategory, 'drinks')}" th:field="*{productCategory}">
                                             <label class="form-check-label" for="defaultCheck2">
-                                                Напитки
+                                                Напитки <br>
                                             </label>
                                         </div>
                                         <div class="form-check">

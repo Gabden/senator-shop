@@ -264,6 +264,10 @@ hr {
     #tableHeaderHistory {
         font-size: 0.7rem;
      }
+
+    .product--img_width {
+        max-width: 4rem;
+    }
 }
 
 

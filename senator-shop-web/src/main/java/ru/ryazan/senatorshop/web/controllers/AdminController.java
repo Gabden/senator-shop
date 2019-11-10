@@ -294,5 +294,57 @@ public class AdminController {
 
     // USER PROFILE EDIT
 
+    // ORDER EDIT
+    @RequestMapping("/customerOrder")
+    public String customerOrdersManagement(@RequestParam(name = "page", defaultValue = "0")int page,Model model){
+        Pageable pageable = PageRequest.of(page, 7, Sort.by("customerOrderId").descending());
+        Page<CustomerOrder> customerOrders = customerOrderService.findAll(pageable);
+
+        int totalPages = customerOrders.getTotalPages();
+
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        model.addAttribute("customerOrders", customerOrders);
+        model.addAttribute("orders", customerOrders);
+        model.addAttribute("url", "/admin/customerOrder");
+
+        return "admin/admin-orders";
+    }
+
+    @RequestMapping(value = "/customerOrder", method = RequestMethod.POST)
+    public String customerOrder(@RequestParam(name = "id") long id, Model model){
+
+        if (id > 0) {
+            Optional<CustomerOrder> customerOrder = customerOrderService.findById(id);
+            if (customerOrder.isPresent()) {
+                model.addAttribute("customerOrders", Collections.singletonList(customerOrder.get()));
+                model.addAttribute("url", "/admin/customerOrder");
+                return "admin/admin-orders";
+            }
+        } else {
+            model.addAttribute("products", new ArrayList<>());
+            model.addAttribute("msg", "По вашему запросу ничего не найдено");
+            return "admin/admin-orders";
+        }
+        return "admin/admin-orders";
+
+    }
+
+
+
+
+
+
+
+
+
+
+    // ORDER EDIT
+
+
 
 }

@@ -37,7 +37,7 @@ public class CustomerOrder implements Serializable {
 
     private Timestamp timestamp;
 
-    //can be created or confirmed
+    //can be created or confirmed or canceled
     private String status;
 
 

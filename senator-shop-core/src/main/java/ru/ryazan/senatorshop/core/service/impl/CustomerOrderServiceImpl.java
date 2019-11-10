@@ -70,4 +70,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
         System.out.println("Done");
     }
+
+    @Override
+    public Optional<CustomerOrder> findById(long id) {
+        return customerOrderRepository.findById(id);
+    }
 }
