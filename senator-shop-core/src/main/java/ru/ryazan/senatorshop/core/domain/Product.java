@@ -24,6 +24,8 @@ public class Product implements Serializable {
 
     private String productCategory;
 
+    private String productType;
+
     private String productCountry;
 
     private String productRegion;
@@ -147,6 +149,14 @@ public class Product implements Serializable {
 
     public void setProductAlcoholDegree(String productAlcoholDegree) {
         this.productAlcoholDegree = productAlcoholDegree;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public String getProductAlcoholColor() {
