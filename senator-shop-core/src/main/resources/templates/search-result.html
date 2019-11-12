@@ -19,55 +19,51 @@
             <div class="text-center p-2 border border-bottom-dark" style="font-weight: bold">
                 Фильтр
             </div>
-            <!-- Вид товара -->
+            <!-- Категория -->
             <button class="btn btn-secondary border border-bottom-dark d-block w-100  p-3" data-toggle="collapse"
-                    data-target="#collapse-btn-1">Страна</button>
-            <div class="collapse mb-4" id="collapse-btn-1">
+                    data-target="#category">Категория</button>
+            <div class="collapse " id="category">
                 <div class="card">
                     <div class="card-body p-1">
                         <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="all" id="filter-all" checked>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Франция">
+                            <input type="text" class="form-control" aria-label="Text input with checkbox"  value="Все товары" disabled>
                         </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
+                        <div class="input-group mb-1" id="filter-alcohol-wrapper">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="alcohol" id="filter-alcohol">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Испания" disabled>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Алкоголь" disabled>
                         </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
+                        <div class="input-group mb-1" id="filter-drinks-wrapper">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="drinks" id="filter-drinks">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Италия" disabled>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Напитки" disabled>
                         </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
+                        <div class="input-group mb-1" id="filter-oil-wrapper">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="oil" id="filter-oil">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="США" disabled>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Растительные масла" disabled>
                         </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
-                                </div>
+                        <div class="input-group mb-1" id="filter-dishes-wrapper">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="dishes" id="filter-dishes">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Новый свет" disabled>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Посуда" disabled>
+                        </div>
+                        <div class="input-group" id="filter-gifts-wrapper">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="gifts" id="filter-gifts">
+                            </div>
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Подарки" disabled>
                         </div>
 
                     </div>
@@ -365,5 +361,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="js/controller.js"></script>
 <script src="js/home.js"></script>
+<script src="js/search-filter.js"></script>
 </body>
 </html>
