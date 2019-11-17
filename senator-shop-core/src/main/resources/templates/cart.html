@@ -44,11 +44,11 @@
                     </tr>
                     <tr th:each="item, i : ${cart}">
 
-                        <td><img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="40" height="150"></td>
+                        <td><img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="80" height="150"></td>
                         <td>
                             <div class="d-flex text-justify my-auto">
                                 <div class="col-12 col-md-10" style="font-size: 1.2rem">
-                                    <span th:text="${item.product.productName}" style="font-size: 0.7rem"></span>
+                                    <a th:href="@{'/productList/product/' + ${cart[__${i.index}__].product.id}}" th:text="${item.product.productName}" style="font-size: 0.7rem"></a>
                                     <input type="hidden" th:value="*{cart[__${i.index}__].product.id}" id="productId"></input>
                                 </div>
                             </div>
