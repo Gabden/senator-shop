@@ -9,4 +9,5 @@ public interface SaleEventsService {
     List<SalesEvents> findAll();
     Optional<SalesEvents> findById(Long id);
     void deleteById(Long id);
+    void save(SalesEvents events);
 }

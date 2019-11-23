@@ -20,6 +20,7 @@
                 <div th:if="${orders} != null">
                     <nav th:replace="fragments/pagination :: pagination"></nav>
                 </div>
+                <a href="/admin/sales/create" class="btn btn-primary my-2">Создать</a>
                 <table class="table table-stripped table-hover mt-3">
                     <thead>
                     <tr class="bg-secondary text-center">
@@ -37,7 +38,7 @@
 
                         <td class="text-center" style="font-size: 1.5rem">
 
-                            <a th:href="@{'/admin/orderInventory/deleteorder/' + ${order.customerOrderId}}"><span
+                            <a th:href="@{'/admin/sales/delete/' + ${sale.id}}"><span
                                     class="fas fa-trash text-danger"> </span></a>
                         </td>
                     </tr>

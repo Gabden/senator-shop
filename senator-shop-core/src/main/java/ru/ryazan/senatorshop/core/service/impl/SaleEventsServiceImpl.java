@@ -29,4 +29,9 @@ public class SaleEventsServiceImpl implements SaleEventsService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public void save(SalesEvents events) {
+        repository.save(events);
+    }
 }
