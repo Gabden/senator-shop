@@ -18,6 +18,7 @@ public class LifeEvents implements Serializable {
 
     private String nameOfEvent;
 
+    @Column(name="description_of_event",columnDefinition="LONGTEXT")
     private String descriptionOfEvent;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)

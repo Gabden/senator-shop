@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html xmlns:th="www.thymeleaf.org"
+>
+<head th:replace="fragments/header :: header">
 </head>
-<body>
 
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+<div th:insert="fragments/search-input :: search">
+</div>
+<main role="main" class="mt-5">
+    <div class="container" id="wrapper">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="title text-center">Страница администрирования мероприятий</h1>
+                <p class="lead text-center">Здесь вы можете создать, удалить или отредактировать мероприятие</p>
+
+
+                <div th:if="${orders} != null">
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
+                <a href="/admin/events/create" class="btn btn-primary my-2">Создать</a>
+                <table class="table table-stripped table-hover mt-3">
+                    <thead>
+                    <tr class="bg-secondary text-center">
+                        <th>Id</th>
+                        <th>Название</th>
+                        <th>Администрирование</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${events}" class="text-center">
+                        <td th:text="${event.id}"></td>
+<!--                        <td>-->
+<!--                            <img th:src="@{'data:image/jpg;base64,' + ${sale.dataImg}}" class="mx-auto pt-3 product&#45;&#45;img_width" alt="..." height="250">-->
+<!--                        </td>-->
+                        <td th:text="${event.nameOfEvent}"></td>
+                        <td class="text-center" style="font-size: 1.5rem">
+
+                            <a th:href="@{'/admin/events/delete/' + ${event.id}}"><span
+                                    class="fas fa-trash text-danger"> </span></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${orders} != null">
+                    <nav th:replace="fragments/pagination :: pagination"></nav>
+                </div>
+
+
+            </div>
+            <!-- FOOTER -->
+
+        </div>
+
+    </div><!-- /.container wrapper -->
+
+
+</main>
+<footer th:replace="fragments/footer :: footer">
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../js/controller.js" th:src="@{/js/controller.js}"></script>
+<script src="../../js/home.js" th:src="@{/js/home.js}"></script>
 </body>
 </html>
