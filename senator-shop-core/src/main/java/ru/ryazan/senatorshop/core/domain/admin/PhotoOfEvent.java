@@ -1,6 +1,8 @@
 package ru.ryazan.senatorshop.core.domain.admin;
 
 import javax.persistence.*;
+import java.util.Base64;
+
 @Entity
 public class PhotoOfEvent {
     @Id
@@ -20,6 +22,9 @@ public class PhotoOfEvent {
     @ManyToOne
     @JoinColumn(name = "life_events_id")
     private LifeEvents lifeEvents;
+
+    @Transient
+    private String dataImg;
 
     public PhotoOfEvent() {
     }
@@ -75,5 +80,15 @@ public class PhotoOfEvent {
 
     public void setLifeEvents(LifeEvents lifeEvents) {
         this.lifeEvents = lifeEvents;
+    }
+    public String getDataImg() {
+        setDataImg();
+        return dataImg;
+    }
+
+    private void setDataImg() {
+        if (fileData != null && fileData.length > 0){
+            this.dataImg =  Base64.getEncoder().encodeToString(fileData);
+        }
     }
 }

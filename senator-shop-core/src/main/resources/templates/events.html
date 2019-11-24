@@ -12,14 +12,13 @@
 <main role="main" class="my-5">
     <div class="container" id="wrapper">
         <div class="row" th:each="event : ${events}">
-            <div class="mx-auto">
+            <div class="mx-auto my-2 col-12 text-center">
                 <h3 th:text="${event.nameOfEvent}">Name</h3>
             </div>
-            <div th:each="photo : ${'photo-' + [__${event.id}__]}">
-
-                 <img th:src="@{'data:image/jpg;base64,' + ${photo}}" class="mx-auto pt-3" alt="..." height="250">
+            <div th:each="photo : ${photos__${event.id}__}" class="col-4">
+                 <img th:src="@{'data:image/jpg;base64,' + ${photo.dataImg}}" class="mx-auto pt-3 img img-fluid" alt="...">
             </div>
-            <div>
+            <div class="col-12 mx-auto mt-3">
                 <p th:text="${event.descriptionOfEvent}" class="text-justify">Description</p>
             </div>
             <hr>

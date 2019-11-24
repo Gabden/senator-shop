@@ -89,11 +89,9 @@ public class HomeController {
     @RequestMapping("/events")
     public String events(Model model){
         List<LifeEvents> events = lifeEventsService.findAll();
-        System.out.println(events.get(0).getPhotos().size());
         events.forEach(event -> {
             List<PhotoOfEvent> photoOfEvents = photoOfEventService.findAllByLifeEvents_Id(event.getId());
-            System.out.println(photoOfEvents.size());
-            String modelKey = "photos-" + event.getId();
+            String modelKey = "photos" + event.getId().toString();
             model.addAttribute(modelKey, photoOfEvents);
         });
         model.addAttribute("events", events);
