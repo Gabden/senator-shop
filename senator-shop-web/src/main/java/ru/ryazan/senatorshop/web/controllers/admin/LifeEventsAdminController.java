@@ -10,10 +10,9 @@ import ru.ryazan.senatorshop.core.service.LifeEventsService;
 import ru.ryazan.senatorshop.core.service.PhotoOfEventService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -44,7 +43,7 @@ public class LifeEventsAdminController {
     public String createNewEvent(@ModelAttribute("event")LifeEvents event, @RequestParam("files") MultipartFile[] files){
         lifeEventsService.save(event);
         LifeEvents newEvent = lifeEventsService.findByNameOfEvent(event.getNameOfEvent());
-        Set<PhotoOfEvent> photoOfEventSet = new HashSet<>();
+        List<PhotoOfEvent> photoOfEventSet = new ArrayList<>();
         Arrays.stream(files).forEach(file -> {
             PhotoOfEvent photoOfEvent = new PhotoOfEvent();
             try {

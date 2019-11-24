@@ -21,8 +21,8 @@ public class LifeEvents implements Serializable {
     @Column(name="description_of_event",columnDefinition="LONGTEXT")
     private String descriptionOfEvent;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private Set<PhotoOfEvent> photos;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PhotoOfEvent> photos = new ArrayList<>();
 
     @Transient
     private Set<String> listOfDataImg;
@@ -30,13 +30,13 @@ public class LifeEvents implements Serializable {
     public LifeEvents() {
     }
 
-    public LifeEvents(String nameOfEvent, String descriptionOfEvent, Set<PhotoOfEvent> photos) {
+    public LifeEvents(String nameOfEvent, String descriptionOfEvent, List<PhotoOfEvent> photos) {
         this.nameOfEvent = nameOfEvent;
         this.descriptionOfEvent = descriptionOfEvent;
         this.photos = photos;
     }
 
-    public List<String> listOfDataImg() {
+    public List<String> getListOfDataImg() {
         setDataImg();
         return setDataImg();
     }
@@ -76,11 +76,11 @@ public class LifeEvents implements Serializable {
         this.descriptionOfEvent = descriptionOfEvent;
     }
 
-    public Set<PhotoOfEvent> getPhotos() {
+    public List<PhotoOfEvent> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(Set<PhotoOfEvent> photos) {
+    public void setPhotos(List<PhotoOfEvent> photos) {
         this.photos = photos;
     }
 

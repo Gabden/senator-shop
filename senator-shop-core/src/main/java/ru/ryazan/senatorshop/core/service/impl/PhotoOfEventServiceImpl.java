@@ -29,4 +29,14 @@ public class PhotoOfEventServiceImpl implements PhotoOfEventService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public List<PhotoOfEvent> findByLifeEvents_Id(Long id) {
+        return repository.findByLifeEvents_Id(id);
+    }
+
+    @Override
+    public List<PhotoOfEvent> findAllByLifeEvents_Id(Long id) {
+        return repository.findAllByLifeEvents_Id(id);
+    }
 }

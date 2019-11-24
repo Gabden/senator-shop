@@ -18,8 +18,8 @@ public class PhotoOfEvent {
     private byte[] fileData;
 
     @ManyToOne
-    @JoinColumn
-    private LifeEvents LifeEvents;
+    @JoinColumn(name = "life_events_id")
+    private LifeEvents lifeEvents;
 
     public PhotoOfEvent() {
     }
@@ -28,7 +28,7 @@ public class PhotoOfEvent {
         this.fileName = fileName;
         this.fileType = contentType;
         this.fileData = bytes;
-        this.LifeEvents = LifeEvents;
+        this.lifeEvents = LifeEvents;
     }
 
     public PhotoOfEvent(String fileName, String fileType, byte[] fileData) {
@@ -70,10 +70,10 @@ public class PhotoOfEvent {
     }
 
     public LifeEvents getLifeEvents() {
-        return LifeEvents;
+        return lifeEvents;
     }
 
     public void setLifeEvents(LifeEvents lifeEvents) {
-        LifeEvents = lifeEvents;
+        this.lifeEvents = lifeEvents;
     }
 }
