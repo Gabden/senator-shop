@@ -80,9 +80,17 @@
                                         </tr>
 
                                         <tr th:each="cartItem : ${order.cart.cartItems}">
-                                            <td><img
-                                                    th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"
-                                                    class="mx-auto pt-3" alt="..." width="40" height="150"></td>
+                                            <td>
+                                                <div  th:if="${cartItem.product.dataImg != null && #strings.length(cartItem.product.dataImg) > 0}">
+                                                    <img th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                                </div>
+                                                <div  th:if="${(cartItem.product.dataImg == null || #strings.length(cartItem.product.dataImg) == 0) && #strings.length(cartItem.product.imageUrl) > 0 }">
+                                                    <img th:src="${cartItem.product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                                </div>
+<!--                                                <img-->
+<!--                                                    th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"-->
+<!--                                                    class="mx-auto pt-3" alt="..." width="40" height="150">-->
+                                            </td>
                                             <td>
                                                 <div class="d-flex text-justify my-auto">
                                                     <div class="col-12 col-md-10" style="font-size: 1.2rem">

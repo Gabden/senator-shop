@@ -77,13 +77,13 @@
                             <textarea type="text" id="description" class="form-control mb-3" th:field="*{productDescription}"></textarea>
 
                             <label for="price" >Цена</label>
-                            <input type="text" id="price" class="form-control mb-3" th:field="*{productPrice}">
+                            <input type="number" id="price" class="form-control mb-3" th:field="*{productPrice}">
 
                             <label for="volume" >Объем</label>
                             <input type="text" id="volume" class="form-control mb-3" th:field="*{productVolume}">
 
                             <label for="unitInStock" >Количество</label>
-                            <input type="text" id="unitInStock" class="form-control mb-3" th:field="*{productUnitInStock}">
+                            <input type="number" id="unitInStock" class="form-control mb-3" th:field="*{productUnitInStock}">
 
 
 
@@ -117,6 +117,9 @@
 
                             <label for="productTaste" >Короткое описание вкуса</label>
                             <input type="text" id="productTaste" class="form-control mb-3" th:field="*{productTaste}">
+
+                            <label for="productImageUrl" >Ссылка на изображение товара</label>
+                            <input type="text" id="productImageUrl" class="form-control mb-3" th:field="*{imageUrl}">
 
                             <div class="upload-content mb-3">
                                 <div class="single-upload ">

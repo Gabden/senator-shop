@@ -44,7 +44,15 @@
                     </tr>
                     <tr th:each="item, i : ${cart}">
 
-                        <td><img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="80" height="150"></td>
+                        <td>
+                            <div  th:if="${item.product.dataImg != null && #strings.length(item.product.dataImg) > 0}">
+                                <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                            </div>
+                            <div  th:if="${(item.product.dataImg == null || #strings.length(item.product.dataImg) == 0) && #strings.length(item.product.imageUrl) > 0 }">
+                                <img th:src="${item.product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                            </div>
+<!--                            <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="80" height="150">-->
+                        </td>
                         <td>
                             <div class="d-flex text-justify my-auto">
                                 <div class="col-12 col-md-10" style="font-size: 1.2rem">

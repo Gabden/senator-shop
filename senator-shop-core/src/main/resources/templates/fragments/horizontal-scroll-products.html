@@ -4,7 +4,12 @@
         <div class="row text-center flex-nowrap flex-md-wrap overflow-auto mx-0 justify-content-md-center">
             <div th:each="product : ${products}" class="col-sm-4 col-md-3 p-1 product-card-size">
                 <div class="card card-block card-primary card-inverse no-gutters mx-0 " style="width: auto;height: 30rem; font-size: 1rem">
-                    <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                    <div  th:if="${product.dataImg != null && #strings.length(product.dataImg) > 0}">
+                        <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                    </div>
+                    <div  th:if="${(product.dataImg == null || #strings.length(product.dataImg) == 0) && #strings.length(product.imageUrl) > 0 }">
+                        <img th:src="${product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                    </div>
                     <div class="card-body text-justify text-center">
                         <a class="card-title" th:text="${product.productName}" th:href="@{'/productList/product/' + ${product.id}}" style="font-size: 0.9rem"></a>
                         <p class="card-text" style="font-size: 0.7rem">

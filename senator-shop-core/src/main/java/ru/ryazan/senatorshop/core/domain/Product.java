@@ -59,6 +59,8 @@ public class Product implements Serializable {
 
     private String productUnitInStock;
 
+    private String imageUrl;
+
     @Transient
     private String dataImg;
 
@@ -251,8 +253,13 @@ public class Product implements Serializable {
         this.productUnitInStock = productUnitInStock;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     @Override
     public String toString() {

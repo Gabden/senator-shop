@@ -123,6 +123,9 @@
                                 <label for="productTaste" >Короткое описание вкуса</label>
                                 <input type="text" id="productTaste" class="form-control mb-3" th:field="${product.productTaste}"  >
 
+                                <label for="productImageUrl" >Ссылка на изображение товара</label>
+                                <input type="text" id="productImageUrl" class="form-control mb-3" th:field="*{imageUrl}">
+
                                 <div class="upload-content mb-3">
                                     <div class="single-upload ">
                                         <h3>Загрузить изображение</h3>

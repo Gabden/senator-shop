@@ -24,7 +24,14 @@
 
                         <!-- Left side of product-->
                         <div class="col-8 col-md-4 col-lg-3 mb-3  mx-auto">
-                            <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" class="img img-fluid" height="750">
+
+                            <div  th:if="${product.dataImg != null && #strings.length(product.dataImg) > 0}">
+                                <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                            </div>
+                            <div  th:if="${(product.dataImg == null || #strings.length(product.dataImg) == 0) && #strings.length(product.imageUrl) > 0 }">
+                                <img th:src="${product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                            </div>
+<!--                            <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" class="img img-fluid" height="750">-->
                         </div>
                         <!-- Right side of product-->
                         <div class="col-md-6">
