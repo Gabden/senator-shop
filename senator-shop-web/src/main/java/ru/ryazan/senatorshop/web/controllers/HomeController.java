@@ -17,6 +17,7 @@ import ru.ryazan.senatorshop.core.service.PhotoOfEventService;
 import ru.ryazan.senatorshop.core.service.ProductService;
 import ru.ryazan.senatorshop.core.service.SaleEventsService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,23 +30,27 @@ public class HomeController {
     private PhotoOfEventService photoOfEventService;
 
     public HomeController(ProductService productService, SaleEventsService salesEventsService
-                          , PhotoOfEventService photoOfEventService, LifeEventsService lifeEventsService) {
+            , PhotoOfEventService photoOfEventService, LifeEventsService lifeEventsService) {
         this.productService = productService;
         this.salesEventsService = salesEventsService;
         this.photoOfEventService = photoOfEventService;
         this.lifeEventsService = lifeEventsService;
     }
 
-    @RequestMapping({"","/", "/index"})
-    public String main(@RequestParam(name = "page", defaultValue = "0")int page, Model model){
+    @RequestMapping({"", "/", "/index"})
+    public String main(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
         Page<Product> products = productService.findAll(pageable);
         int totalPages = products.getTotalPages();
+
 
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
+            if (pageNumbers.size() > 5) {
+                pageNumbers = Arrays.asList(0, 1, 2, 3, 4);
+            }
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
@@ -58,36 +63,37 @@ public class HomeController {
     }
 
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
+
     @RequestMapping("/about")
-    public String about(){
+    public String about() {
         return "about";
     }
 
     @RequestMapping("/reserve")
-    public String reserve(){
+    public String reserve() {
         return "reserve";
     }
 
     @RequestMapping("/rules")
-    public String rules(){
+    public String rules() {
         return "rules";
     }
 
     @RequestMapping("/business")
-    public String business(){
+    public String business() {
         return "for-business";
     }
 
     @RequestMapping("/confidential")
-    public String confidential(){
+    public String confidential() {
         return "confidential";
     }
 
     @RequestMapping("/events")
-    public String events(Model model){
+    public String events(Model model) {
         List<LifeEvents> events = lifeEventsService.findAll();
         events.forEach(event -> {
             List<PhotoOfEvent> photoOfEvents = photoOfEventService.findAllByLifeEvents_Id(event.getId());
