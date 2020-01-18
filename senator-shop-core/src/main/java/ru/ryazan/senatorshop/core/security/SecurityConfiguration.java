@@ -7,14 +7,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.ryazan.senatorshop.core.domain.User;
-import ru.ryazan.senatorshop.core.service.UserService;
-
-import javax.annotation.PostConstruct;
 
 @Configuration
 @EnableWebSecurity
@@ -32,19 +27,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.csrf().disable().authorizeRequests()
-                    .antMatchers("/index").permitAll()
-                    .antMatchers("/productList").permitAll()
-                    .antMatchers("/restCart/**").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/rest/**").hasRole("ADMIN")
+                .antMatchers("/index").permitAll()
+                .antMatchers("/productList").permitAll()
+                .antMatchers("/restCart/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/rest/**").hasRole("ADMIN")
                 .and()
-                    .formLogin()
-                    .loginPage("/login").permitAll()
+                .formLogin()
+                .loginPage("/login").permitAll()
                 .and()
-                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
+                .logout().deleteCookies("JSESSIONID").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()
-                .rememberMe().tokenValiditySeconds(604800);
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(604800);
     }
 
     @Bean

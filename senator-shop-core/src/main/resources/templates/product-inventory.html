@@ -92,7 +92,8 @@
                                     <a th:href="@{'/admin/productInventory/updateProduct/' + ${product.id}}"><span
                                             class="fas fa-pen-square"> </span></a>
                                     <br>
-                                    <a th:href="@{'/admin/productInventory/deleteProduct/' + ${product.id}}"><span
+                                    <a th:href="@{'/admin/productInventory/deleteProduct/' + ${product.id}}"
+                                       onclick="return confirm('Вы действительно хотите удалить этот товар?');"><span
                                             class="fas fa-trash text-danger"> </span></a>
                                 </td>
                             </tr>
