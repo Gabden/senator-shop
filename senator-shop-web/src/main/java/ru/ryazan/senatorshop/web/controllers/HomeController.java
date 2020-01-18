@@ -49,7 +49,7 @@ public class HomeController {
                     .boxed()
                     .collect(Collectors.toList());
             if (pageNumbers.size() > 5) {
-                pageNumbers = Arrays.asList(0, 1, 2, 3, 4);
+                pageNumbers = Arrays.asList(1, 2, 3, 4, 5);
             }
             model.addAttribute("pageNumbers", pageNumbers);
         }
