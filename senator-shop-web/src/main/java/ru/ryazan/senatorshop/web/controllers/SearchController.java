@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -25,21 +26,24 @@ public class SearchController {
                          @RequestParam(name = "description", required = false) String description,
                          @RequestParam(name = "page", defaultValue = "0")int page,Model model){
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
-        Page<Product> products;
+        Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);;
         List<Product> filteredList;
+        List<Product> filteredListCustom;
         if (category.equals("all")){
+           filteredListCustom = productService.findAllList();
            products = productService.findAll(pageable);
         } else {
-            products = productService.findByproductCategory(category,pageable);
+            filteredListCustom = productService.findByproductCategory(category);
         }
 
 
         if(description != null){
-            filteredList = products.stream().filter(product ->
+            filteredList = filteredListCustom.stream().filter(product ->
                     (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
                             || (product.getProductName().toLowerCase().contains(description.toLowerCase()))) .collect(Collectors.toList());
             products = new PageImpl<>(filteredList, pageable, filteredList.size());
         }
+
 
         int totalPages = products.getTotalPages();
 

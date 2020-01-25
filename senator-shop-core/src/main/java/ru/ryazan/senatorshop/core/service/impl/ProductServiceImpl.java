@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.repository.ProductRepository;
+import ru.ryazan.senatorshop.core.repository.ProductRepositoryCustom;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
 import java.util.List;
@@ -16,9 +17,11 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
+    private ProductRepositoryCustom productRepositoryCustom;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,ProductRepositoryCustom productRepositoryCustom) {
         this.productRepository = productRepository;
+        this.productRepositoryCustom = productRepositoryCustom;
     }
 
     public Page<Product> findAll(Pageable pageable){
@@ -57,5 +60,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> findByproductCategory(String category) {
+        return productRepositoryCustom.findByproductCategory(category);
+    }
+
+    @Override
+    public List<Product> findAllList() {
+        return productRepositoryCustom.findAll();
     }
 }
