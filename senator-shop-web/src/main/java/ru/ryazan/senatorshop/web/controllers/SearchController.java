@@ -24,24 +24,41 @@ public class SearchController {
     @RequestMapping("/search")
     public String search(@RequestParam(name = "category", defaultValue = "all") String category,
                          @RequestParam(name = "description", required = false) String description,
-                         @RequestParam(name = "page", defaultValue = "0")int page,Model model){
+                         @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
-        Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);;
+        Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);
         List<Product> filteredList;
         List<Product> filteredListCustom;
-        if (category.equals("all")){
-           filteredListCustom = productService.findAllList();
-           products = productService.findAll(pageable);
+        filteredListCustom = productService.findAllList();
+
+        int start = (int) pageable.getOffset();
+
+
+        if (category.contains("all")) {
+            if (description != null && description.length() > 0) {
+                filteredList = filteredListCustom.stream().filter(product ->
+                        (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
+                                || (product.getProductName().toLowerCase().contains(description.toLowerCase()))).collect(Collectors.toList());
+
+                int end = (int) (start + pageable.getPageSize()) > filteredList.size() ? filteredList.size() : (start + pageable.getPageSize());
+                products = new PageImpl<>(filteredList.subList(start, end), pageable, filteredList.size());
+            } else {
+                int end = (int) (start + pageable.getPageSize()) > filteredListCustom.size() ? filteredListCustom.size() : (start + pageable.getPageSize());
+                products = new PageImpl<>(filteredListCustom.subList(start, end), pageable, filteredListCustom.size());
+            }
+
         } else {
-            filteredListCustom = productService.findByproductCategory(category);
-        }
 
+            if (description != null) {
+                filteredList = filteredListCustom.stream().filter(product -> product.getProductCategory().toLowerCase().contains(category) && (
+                        (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
+                                || (product.getProductName().toLowerCase().contains(description.toLowerCase())))).collect(Collectors.toList());
+            } else {
+                filteredList = filteredListCustom.stream().filter(product -> product.getProductCategory().toLowerCase().contains(category)).collect(Collectors.toList());
+            }
+            int end = (int) (start + pageable.getPageSize()) > filteredList.size() ? filteredList.size() : (start + pageable.getPageSize());
 
-        if(description != null){
-            filteredList = filteredListCustom.stream().filter(product ->
-                    (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
-                            || (product.getProductName().toLowerCase().contains(description.toLowerCase()))) .collect(Collectors.toList());
-            products = new PageImpl<>(filteredList, pageable, filteredList.size());
+            products = new PageImpl<>(filteredList.subList(start, end), pageable, filteredList.size());
         }
 
 
