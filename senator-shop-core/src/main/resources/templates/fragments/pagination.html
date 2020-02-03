@@ -6,8 +6,8 @@
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="page-item" th:each="pageNumber : ${pageNumbers}"  th:class="${pageNumber==orders.getNumber() + 1} ? 'active page-item' : 'page-item'">
-            <a class="page-link" href="#" th:text=${pageNumber} th:href="@{${url}(page=${pageNumber -1})}"
+        <li class="page-item" th:each="pageNumber : ${pageNumbers}" th:class="${pageNumber==orders.getNumber() + 1} ? 'active page-item' : ${pageNumber == -1 ? 'disabled page-item':'page-item'}">
+            <a class="page-link" href="#" th:text=${pageNumber==-1?'...':pageNumber} th:href="@{${url}(page=${pageNumber -1})}"
             ></a></li>
 
         <li th:class="${orders.getNumber() == orders.getTotalPages() - 1} ? 'disabled page-item' : 'page-item'">
