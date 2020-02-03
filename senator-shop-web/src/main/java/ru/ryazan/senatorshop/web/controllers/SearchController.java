@@ -28,7 +28,7 @@ public class SearchController {
     public String search(@RequestParam(name = "category", defaultValue = "all") String category,
                          @RequestParam(name = "description", required = false) String description,
                          @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-        Pageable pageable = PageRequest.of(page, 1, Sort.by("id").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);
         List<Product> filteredList;
         List<Product> filteredListCustom;
