@@ -17,4 +17,6 @@ public interface ProductService {
     void deleteById(Long id);
     List<Product> findByproductCategory(String category);
     List<Product> findAllList();
+    Page<Product> findProductsByProductCategoryContainsAndProductDescriptionContains(String category, String description, Pageable pageable);
+    Page<Product> findProductsByProductDescriptionContains(String description, Pageable pageable);
 }

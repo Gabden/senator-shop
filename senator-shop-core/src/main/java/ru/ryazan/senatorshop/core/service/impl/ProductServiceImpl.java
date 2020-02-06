@@ -71,4 +71,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllList() {
         return productRepositoryCustom.findAll();
     }
+
+    @Override
+    public Page<Product> findProductsByProductCategoryContainsAndProductDescriptionContains(String category, String description, Pageable pageable) {
+        return productRepository.findProductsByProductCategoryContainsAndProductDescriptionContains(category,description,pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDescriptionContains(String description, Pageable pageable) {
+        return productRepository.findProductsByProductDescriptionContains(description,pageable);
+    }
 }
