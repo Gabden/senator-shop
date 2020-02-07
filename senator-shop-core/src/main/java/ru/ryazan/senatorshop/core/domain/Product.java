@@ -66,7 +66,7 @@ public class Product implements Serializable {
 
 
     @OneToMany(mappedBy = "product",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER
     )
     @JsonIgnore
     private Set<ProductImage> productImageSet;

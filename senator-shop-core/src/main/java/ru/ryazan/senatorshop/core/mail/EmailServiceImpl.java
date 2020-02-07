@@ -1,41 +1,54 @@
 package ru.ryazan.senatorshop.core.mail;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
+import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Component
 public class EmailServiceImpl implements EmailService{
     private JavaMailSender javaMailSender;
+    private MailContentBuilder mailContentBuilder;
 
-    public EmailServiceImpl(JavaMailSender javaMailSender) {
+    public EmailServiceImpl(JavaMailSender javaMailSender, MailContentBuilder mailContentBuilder) {
         this.javaMailSender = javaMailSender;
+        this.mailContentBuilder = mailContentBuilder;
     }
 
     @Override
     public void sendEmail(String[] sendTo, Cart cart) {
 
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(sendTo);
-        String message = "Оформлен новый заказ, id =  " + cart.getCartId() + "\n";
-        for (CartItem item : cart.getCartItems()){
-            message +="Продукт : \n" + "id : " + item.getProduct().getId() + "  название : " + item.getProduct().getProductName()
-                    + " цена : " + item.getProduct().getProductPrice() + "  количество : " + item.getQuantity() + "\n";
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            String content = mailContentBuilder.build(cart);
+            messageHelper.setText(content, true);
+            messageHelper.setFrom("gabden5545@gmail.com");
+            messageHelper.setTo("gabden5545@gmail.com");
+            messageHelper.setSubject("Sample mail subject");
+        };
+        try {
+            javaMailSender.send(messagePreparator);
+        } catch (MailException e) {
+            // runtime exception; compiler will not force you to handle it
         }
-        message += "Итого: " + cart.getGrandTotal();
-        msg.setSubject("Заказ на сайте senator-wine.ru");
-        msg.setText(message);
 
-        javaMailSender.send(msg);
+
+
 
     }
 
