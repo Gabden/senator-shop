@@ -13,302 +13,313 @@
     <div th:replace="fragments/add-item-alert :: alert">
     </div>
     <div class="row">
-        <!--Search filter -->
-        <div class="col-12 col-md-4 my-0 my-md-2 my-lg-4" style="margin-top: 15vh">
-            <!-- Страна -->
-            <div class="text-center p-2 border border-bottom-dark" style="font-weight: bold">
-                Фильтр
-            </div>
+        <form action="/filter" class="col-12 col-md-4 my-0 my-md-2 my-lg-4">
 
-
-            <!-- Категория -->
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100  p-3" data-toggle="collapse"
-                    data-target="#category">Категория</button>
-            <div class="collapse " id="category">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="all" id="filter-all" checked>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox"  value="Все товары" disabled>
-                        </div>
-
-                        <div class="input-group mb-1" id="filter-alcohol-wrapper">
-                            <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="alcohol" id="filter-alcohol">
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Алкоголь" disabled>
-                        </div>
-
-                        <div class="input-group mb-1" id="filter-drinks-wrapper">
-                            <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="drinks" id="filter-drinks">
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Напитки" disabled>
-                        </div>
-
-                        <div class="input-group mb-1" id="filter-oil-wrapper">
-                            <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="oil" id="filter-oil">
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Растительные масла" disabled>
-                        </div>
-
-                        <div class="input-group mb-1" id="filter-dishes-wrapper">
-                            <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="dishes" id="filter-dishes">
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Посуда" disabled>
-                        </div>
-                        <div class="input-group" id="filter-gifts-wrapper">
-                            <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="gifts" id="filter-gifts">
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Подарки" disabled>
-                        </div>
-
-                    </div>
+            <!--Search filter -->
+            <div style="margin-top: 15vh">
+                <!-- Страна -->
+                <div class="text-center p-2 border border-bottom-dark" style="font-weight: bold">
+                    Фильтр
                 </div>
-            </div>
 
 
-
-
-
-            <!-- Вид товара -->
-            <div id="btn-filter-type-alcohol" style="display: none">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100  p-3 " data-toggle="collapse"
-                    data-target="#type-alcohol">Тип алкоголя</button>
-            <div class="collapse mb-4" id="type-alcohol">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
+                <!-- Категория -->
+                <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100  p-3"
+                        data-toggle="collapse"
+                        data-target="#category">Категория
+                </button>
+                <div class="collapse " id="category">
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div class="input-group mb-1">
                                 <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="wine" value="wine" id="filter-wine-checkbox">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="category" value="all" id="filter-all" checked>
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" value="Все товары" disabled>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Вино">
-                        </div>
 
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
+                            <div class="input-group mb-1" id="filter-alcohol-wrapper">
                                 <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="strong-alcohol" value="strong" id="filter-strong-checkbox">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="category" value="alcohol" id="filter-alcohol">
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" value="Алкоголь" disabled>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Крепкий алкоголь" disabled>
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-            </div>
-            <!-- Вид товара -->
-
-
-
-
-
-
-
-            <!-- Вид товара -->
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100  p-3" data-toggle="collapse"
-            data-target="#collapse-btn-1">Страна</button>
-            <div class="collapse mb-4" id="collapse-btn-1">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
+                            <div class="input-group mb-1" id="filter-drinks-wrapper">
                                 <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="category" value="drinks" id="filter-drinks">
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" value="Напитки" disabled>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Франция">
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-            <!-- Страна -->
-
-            <!-- Регион -->
-            <div id="search-region-wrapper" style="display: none">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#collapse-btn-5">Регион</button>
-            <div class="collapse mb-4" id="collapse-btn-5">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
+                            <div class="input-group mb-1" id="filter-oil-wrapper">
                                 <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="category" value="oil" id="filter-oil">
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" value="Растительные масла" disabled>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Бордо">
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-            </div>
-            <!-- Регион -->
-
-            <!-- Цвет -->
-            <div id="search-color-wrapper" style="display: none">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#collapse-btn-2">Цвет</button>
-            <div class="collapse mb-4" id="collapse-btn-2">
-                <div class="card">
-                    <div class="card-body p-1">
-
-
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
+                            <div class="input-group mb-1" id="filter-dishes-wrapper">
                                 <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="category" value="dishes" id="filter-dishes">
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" value="Посуда" disabled>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Белое" disabled>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            </div>
-            <!-- Цвет -->
-
-            <!-- Сахар -->
-            <div id="search-sugar-wrapper" style="display: none">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#collapse-btn-3">Сахар</button>
-            <div class="collapse mb-4" id="collapse-btn-3">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
+                            <div class="input-group" id="filter-gifts-wrapper">
                                 <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="category" value="gifts" id="filter-gifts">
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" value="Подарки" disabled>
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Сухое">
+
                         </div>
-
-
                     </div>
                 </div>
-            </div>
-            </div>
-            <!-- Сахар -->
 
-            <!-- Сорт -->
-            <div id="search-sort-wrapper" style="display: none;">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#collapse-btn-4">Сорт</button>
-            <div class="collapse mb-4" id="collapse-btn-4">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input">
+
+                <!-- Вид товара -->
+                <!--            <div id="btn-filter-type-alcohol" style="display: none">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100  p-3 " data-toggle="collapse"-->
+                <!--                    data-target="#type-alcohol">Тип алкоголя</button>-->
+                <!--            <div class="collapse mb-4" id="type-alcohol">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input" name="wine" value="wine" id="filter-wine-checkbox">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Вино">-->
+                <!--                        </div>-->
+
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input" name="strong-alcohol" value="strong" id="filter-strong-checkbox">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Крепкий алкоголь" disabled>-->
+                <!--                        </div>-->
+
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- Вид товара -->
+
+
+                <!-- Вид товара -->
+                <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100  p-3"
+                        data-toggle="collapse"
+                        data-target="#collapse-btn-1">Страна
+                </button>
+                <div class="collapse mb-4" id="collapse-btn-1">
+                    <div class="card">
+                        <div class="card-body p-1" th:each="country : ${countries}">
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" aria-label="Checkbox for following text input"
+                                               name="country" th:value="${country}">
+                                    </div>
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" disabled
+                                       th:value="${country}">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Merlot/Мерло">
+
                         </div>
-
-
-
                     </div>
                 </div>
-            </div>
-            </div>
-            <!-- Сорт -->
+                <!-- Страна -->
 
-            <!-- ВИД КРЕПКОГО АЛКОГОЛЯ -->
-            <div id="strong-type-wrapper" style="display: none">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#search-filter-strong">Вид</button>
-            <div class="collapse mb-4" id="search-filter-strong">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="type-strong" value="type-strong">
+                <!-- Регион -->
+                <!--            <div id="search-region-wrapper" style="display: none">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"-->
+                <!--                    data-target="#collapse-btn-5">Регион</button>-->
+                <!--            <div class="collapse mb-4" id="collapse-btn-5">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Бордо">-->
+                <!--                        </div>-->
+
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- Регион -->
+
+                <!-- Цвет -->
+                <!--            <div id="search-color-wrapper" style="display: none">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"-->
+                <!--                    data-target="#collapse-btn-2">Цвет</button>-->
+                <!--            <div class="collapse mb-4" id="collapse-btn-2">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+
+
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" value="Белое" disabled>-->
+                <!--                        </div>-->
+
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- Цвет -->
+
+                <!-- Сахар -->
+                <!--            <div id="search-sugar-wrapper" style="display: none">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"-->
+                <!--                    data-target="#collapse-btn-3">Сахар</button>-->
+                <!--            <div class="collapse mb-4" id="collapse-btn-3">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Сухое">-->
+                <!--                        </div>-->
+
+
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- Сахар -->
+
+                <!-- Сорт -->
+                <!--            <div id="search-sort-wrapper" style="display: none;">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"-->
+                <!--                    data-target="#collapse-btn-4">Сорт</button>-->
+                <!--            <div class="collapse mb-4" id="collapse-btn-4">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Merlot/Мерло">-->
+                <!--                        </div>-->
+
+
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- Сорт -->
+
+                <!-- ВИД КРЕПКОГО АЛКОГОЛЯ -->
+                <!--            <div id="strong-type-wrapper" style="display: none">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"-->
+                <!--                    data-target="#search-filter-strong">Вид</button>-->
+                <!--            <div class="collapse mb-4" id="search-filter-strong">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input" name="type-strong" value="type-strong">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Коньяк">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- ВИД КРЕПКОГО АЛКОГОЛЯ  -->
+
+                <!-- ВЫДЕРЖКА КРЕПКОГО АЛКОГОЛЯ -->
+                <!--            <div id="strong-mature-wrapper" style="display: none">-->
+                <!--            <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"-->
+                <!--                    data-target="#search-filter-strong-mature">Выдержка</button>-->
+                <!--            <div class="collapse mb-4" id="search-filter-strong-mature">-->
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body p-1">-->
+                <!--                        <div class="input-group mb-1">-->
+                <!--                            <div class="input-group-prepend">-->
+                <!--                                <div class="input-group-text">-->
+                <!--                                    <input type="checkbox" aria-label="Checkbox for following text input" name="type-strong-mature" value="type-strong-mature">-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="XO">-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <!--            </div>-->
+                <!-- ВЫДЕРЖКА КРЕПКОГО АЛКОГОЛЯ  -->
+
+
+                <!-- Бренд -->
+                <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3"
+                        data-toggle="collapse"
+                        data-target="#search-filter-brand">Производитель
+                </button>
+                <div class="collapse mb-4" id="search-filter-brand">
+                    <div class="card">
+                        <div class="card-body p-1" th:each="manufacturer : ${manufacturers}">
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" aria-label="Checkbox for following text input"
+                                               name="manufacturer" th:value="${manufacturer}">
+                                    </div>
                                 </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" disabled
+                                       th:value="${manufacturer}">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Коньяк">
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
-            <!-- ВИД КРЕПКОГО АЛКОГОЛЯ  -->
+                <!-- Бренд -->
 
-            <!-- ВЫДЕРЖКА КРЕПКОГО АЛКОГОЛЯ -->
-            <div id="strong-mature-wrapper" style="display: none">
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#search-filter-strong-mature">Выдержка</button>
-            <div class="collapse mb-4" id="search-filter-strong-mature">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="type-strong-mature" value="type-strong-mature">
-                                </div>
+
+                <!-- Цена -->
+                <button type="button" class="btn btn-secondary border border-bottom-dark d-block w-100 p-3"
+                        data-toggle="collapse"
+                        data-target="#search-filter-price">Цена
+                </button>
+                <div class="collapse mb-4" id="search-filter-price">
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div class="input-group mb-1">
+                                <input type="number" class="form-control" aria-label="Text input with checkbox"
+                                       name="min-price" placeholder="min" min="0">
+                                <input type="number" class="form-control" aria-label="Text input with checkbox"
+                                       name="max-price" placeholder="max" min="0">
                             </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="XO">
                         </div>
                     </div>
                 </div>
+                <!-- Цена -->
+                <button type="submit" class="btn btn-info w-100">Применить</button>
+
             </div>
-            </div>
-            <!-- ВЫДЕРЖКА КРЕПКОГО АЛКОГОЛЯ  -->
-
-
-
-            <!-- Бренд -->
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#search-filter-brand">Производитель</button>
-            <div class="collapse mb-4" id="search-filter-brand">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" aria-label="Checkbox for following text input" name="brand" value="">
-                                </div>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Text input with checkbox" disabled value="Aetos">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Бренд -->
-
-
-
-
-            <!-- Цена -->
-            <button class="btn btn-secondary border border-bottom-dark d-block w-100 p-3" data-toggle="collapse"
-                    data-target="#search-filter-price">Цена</button>
-            <div class="collapse mb-4" id="search-filter-price">
-                <div class="card">
-                    <div class="card-body p-1">
-                        <div class="input-group mb-1">
-                            <input type="number" class="form-control" aria-label="Text input with checkbox" name="min-price" placeholder="min" min="0">
-                            <input type="number" class="form-control" aria-label="Text input with checkbox" name="max-price" placeholder="max" min="0">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Цена -->
-            <button class="btn btn-info w-100">Применить</button>
-
-        </div>
+        </form>
         <!--Search result -->
         <div class="col-12 col-md-8 mt-4">
             <div th:replace="fragments/horizontal-scroll-products :: products">
