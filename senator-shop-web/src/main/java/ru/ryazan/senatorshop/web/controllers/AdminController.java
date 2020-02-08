@@ -88,28 +88,22 @@ public class AdminController {
                          @RequestParam(name = "description", required = false) String description,
                          @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Pageable pageable = PageRequest.of(page, 7, Sort.by("id").descending());
-        Page<Product> products;
-        List<Product> filteredList;
-        if (category.equals("all")) {
+        Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);
+        if (category.contains("all") && description == null) {
             products = productService.findAll(pageable);
-        } else {
-            products = productService.findByproductCategory(category, pageable);
-        }
-
-        if (description != null) {
-            filteredList = products.stream().filter(product ->
-                    (product.getProductDescription().toLowerCase().contains(description.toLowerCase()))
-                            || (product.getProductName().toLowerCase().contains(description.toLowerCase()))).collect(Collectors.toList());
-            products = new PageImpl<>(filteredList, pageable, filteredList.size());
+        } else if (category.contains("all") && description != null) {
+            products = productService.findProductsByProductDescriptionContains(description, pageable);
+        } else if (!category.contains("all") && (description == null || description.length() == 0)) {
+            products = productService.findProductsByProductCategoryContains(category, pageable);
+        } else if (!category.contains("all") && (description != null && description.length() > 0)) {
+            products = productService.findProductsByProductCategoryContainsAndProductDescriptionContains(category, description, pageable);
         }
 
         int totalPages = products.getTotalPages();
 
         if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
+            List<Integer> pageNumbersList = paginationNumbers.getPaginationListNumbers(page, totalPages);
+            model.addAttribute("pageNumbers", pageNumbersList);
         }
 
         model.addAttribute("orders", products);

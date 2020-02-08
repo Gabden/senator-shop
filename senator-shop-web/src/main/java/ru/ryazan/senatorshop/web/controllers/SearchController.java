@@ -33,9 +33,9 @@ public class SearchController {
             products = productService.findAll(pageable);
         } else if (category.contains("all") && description != null) {
             products = productService.findProductsByProductDescriptionContains(description, pageable);
-        } else if (!category.contains("all") && description == null) {
-            products = productService.findProductsByProductDescriptionContains("", pageable);
-        } else if (!category.contains("all") && description != null) {
+        } else if (!category.contains("all") && (description == null || description.length() == 0)) {
+            products = productService.findProductsByProductCategoryContains(category, pageable);
+        } else if (!category.contains("all") && (description != null && description.length() > 0)) {
             products = productService.findProductsByProductCategoryContainsAndProductDescriptionContains(category, description, pageable);
         }
 

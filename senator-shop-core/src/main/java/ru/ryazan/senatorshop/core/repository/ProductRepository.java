@@ -6,16 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import ru.ryazan.senatorshop.core.domain.Product;
 
-import java.util.List;
-
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long> {
-    Page<Product> findByproductCategory(String category, Pageable pageable);
-
-    List<Product> findByProductCategoryAndProductDescription(String category, String description);
-
-    List<Product> findAllByProductCategory(String category);
-
     Page<Product> findProductsByProductCategoryContainsAndProductDescriptionContains(String category, String description, Pageable pageable);
     Page<Product> findProductsByProductDescriptionContains(String description, Pageable pageable);
+
+    Page<Product> findProductsByProductCategoryContains(String category, Pageable pageable);
 
 }
