@@ -26,21 +26,28 @@
                         <!-- Left side of product-->
                         <div class="col-8 col-md-4 col-lg-3 mb-3  mx-auto">
 
-                            <div th:if="${product.dataImg != null && #strings.length(product.dataImg) > 0}">
-                                <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}"
-                                     class="mx-auto pt-3 product--img_width" alt="..." height="250">
-                            </div>
-                            <div th:if="${(product.dataImg == null || #strings.length(product.dataImg) == 0) && #strings.length(product.imageUrl) > 0 }">
-                                <img th:src="${product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..."
-                                     height="250">
-                            </div>
+                            <div class="card" style="width: 18rem;">
+                                <div th:if="${product.dataImg != null && #strings.length(product.dataImg) > 0}"
+                                     class="mx-auto mb-3">
+                                    <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}"
+                                         class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                </div>
+                                <div th:if="${(product.dataImg == null || #strings.length(product.dataImg) == 0) && #strings.length(product.imageUrl) > 0 }">
+                                    <img th:src="${product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..."
+                                         height="250">
+                                </div>
 
-                            <div class="bg-transparent mt-3" style="font-size: 1.2rem">
+                                <div class="card-footer d-flex">
+                                    <div class="bg-transparent mx-auto" style="font-size: 1.2rem">
                                 <span th:class="${product.salePrice != null && #strings.length(product.salePrice) > 0 ? 'd-block line-price':'d-block'}"
                                       style="font-weight: bold">Цена: [[${product.productPrice}]]</span>
-                                <span class="text-danger"
-                                      th:if="${product.salePrice != null && #strings.length(product.salePrice) > 0}">Цена по акции: [[${product.salePrice}]]</span>
+                                        <span class="text-danger"
+                                              th:if="${product.salePrice != null && #strings.length(product.salePrice) > 0}">Цена по акции: [[${product.salePrice}]]</span>
+                                    </div>
+                                </div>
                             </div>
+
+
                             <!--                            <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}" alt="Image" class="img img-fluid" height="750">-->
                         </div>
                         <!-- Right side of product-->
@@ -63,11 +70,12 @@
                                                     th:text="${product.productVolume}"></span></p>
                                         </div>
                                         <div class="col-4 "
-                                             th:if="${product.productCountry != null && #strings.length(product.productCountry) > 0}">
-                                            <p class="lean mb-0">Страна</p>
+                                             th:if="${product.productAlcoholColor != null && #strings.length(product.productAlcoholColor) > 0}">
+                                            <p class="lean mb-0">Цвет</p>
                                             <p class="text-dark border-light-gray"><span
-                                                    th:text="${product.productCountry}"></span></p>
+                                                    th:text="${product.productAlcoholColor}"></span></p>
                                         </div>
+
                                         <div class="col-4 "
                                              th:if="${product.productRegion != null && #strings.length(product.productRegion) > 0} ">
                                             <p class="lean mb-0">Регион</p>
@@ -79,18 +87,6 @@
                                             <p class="lean mb-0">Алкоголь</p>
                                             <p class="text-dark border-light-gray"><span
                                                     th:text="${product.productAlcoholDegree}"></span></p>
-                                        </div>
-                                        <div class="col-4 "
-                                             th:if="${product.productAlcoholColor != null && #strings.length(product.productAlcoholColor) > 0}">
-                                            <p class="lean mb-0">Цвет</p>
-                                            <p class="text-dark border-light-gray"><span
-                                                    th:text="${product.productAlcoholColor}"></span></p>
-                                        </div>
-                                        <div class="col-4 "
-                                             th:if="${product.productAlcoholSugar != null && #strings.length(product.productAlcoholSugar) > 0}">
-                                            <p class="lean mb-0">Сахар</p>
-                                            <p class="text-dark border-light-gray"><span
-                                                    th:text="${product.productAlcoholSugar}"></span></p>
                                         </div>
                                         <div class="col-4"
                                              th:if="${product.productAlcoholTemperature != null && #strings.length(product.productAlcoholTemperature) > 0}">
@@ -104,17 +100,38 @@
                                             <p class="text-dark border-light-gray"><span
                                                     th:text="${product.productAlcoholSort}"></span></p>
                                         </div>
+
+                                        <div class="col-4 "
+                                             th:if="${product.productCountry != null && #strings.length(product.productCountry) > 0}">
+                                            <p class="lean mb-0">Страна</p>
+                                            <a th:href="@{'/filter?categories=all&min-price=&max-price=&countries=' + ${product.productCountry}}"
+                                               class="text-success">
+                                                <p class="border-light-gray text-danger"><span
+                                                        th:text="${product.productCountry}"></span></p>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-4 "
+                                             th:if="${product.productAlcoholSugar != null && #strings.length(product.productAlcoholSugar) > 0}">
+                                            <p class="lean mb-0">Сахар</p>
+                                            <p class="text-dark border-light-gray"><span
+                                                    th:text="${product.productAlcoholSugar}"></span></p>
+                                        </div>
+
                                         <div class="col-4 text-nowrap"
                                              th:if="${product.productManufacturer != null && #strings.length(product.productManufacturer) > 0}">
                                             <p class="lean mb-0">Производитель</p>
-                                            <p class="text-dark border-light-gray"><span
-                                                    th:text="${product.productManufacturer}"></span></p>
+                                            <a th:href="@{'/filter?categories=all&min-price=&max-price=&manufacturers=' + ${product.productManufacturer}}">
+                                                <p class="text-danger border-light-gray"><span
+                                                        th:text="${product.productManufacturer}"></span></p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col" th:if="${#numbers.formatInteger(product.productUnitInStock,5)} != 0">
                                     <p class="lean mb-0 text-center">Количество</p>
-                                    <select class="form-control text-center" id="quantityFromSelect" style="width: 24%; margin-left: 39%">
+                                    <select class="form-control text-center" id="quantityFromSelect"
+                                            style="width: 24%; margin-left: 39%">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
