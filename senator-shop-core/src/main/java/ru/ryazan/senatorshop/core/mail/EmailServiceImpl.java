@@ -7,17 +7,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
-import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
-import ru.ryazan.senatorshop.core.domain.cart.CartItem;
-import ru.ryazan.senatorshop.core.service.ProductService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 
 @Component
@@ -32,24 +26,30 @@ public class EmailServiceImpl implements EmailService{
 
     @Override
     public void sendEmail(String[] sendTo, Cart cart) {
+        sendEmailToCustomerAndAdmin(cart, true);
+        sendEmailToCustomerAndAdmin(cart, false);
 
+    }
+
+    private void sendEmailToCustomerAndAdmin(Cart cart, boolean isCustomerOrAdmin) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             String content = mailContentBuilder.build(cart);
             messageHelper.setText(content, true);
-            messageHelper.setFrom("gabden5545@gmail.com");
-            messageHelper.setTo("gabden5545@gmail.com");
-            messageHelper.setSubject("Sample mail subject");
+            messageHelper.setFrom("aisukhov@mail.ru");
+            if (isCustomerOrAdmin) {
+                messageHelper.setTo(cart.getCustomer().getCustomerName());
+            } else {
+                messageHelper.setTo("gabden5545@gmail.com");
+            }
+
+            messageHelper.setSubject("Резерв товара на сайте senator-wine.ru");
         };
         try {
             javaMailSender.send(messagePreparator);
         } catch (MailException e) {
             // runtime exception; compiler will not force you to handle it
         }
-
-
-
-
     }
 
     @Override
