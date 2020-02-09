@@ -132,17 +132,35 @@ public class SearchController {
 
 
         try {
-            if (minPrice != null && minPrice.length() > 0 && maxPrice != null && maxPrice.length() > 0) {
+            boolean isMaxAndMinNull = minPrice != null && minPrice.length() > 0 && maxPrice != null && maxPrice.length() > 0;
+            boolean isMinExist = minPrice != null && minPrice.length() > 0;
+            boolean isMaxExist = maxPrice != null && maxPrice.length() > 0;
+
+            if (isMinExist && isMaxExist) {
                 int min = Integer.parseInt(minPrice);
                 int max = Integer.parseInt(maxPrice);
-
                 filterProducts = filterProducts.stream().filter(product -> {
                     int price = Integer.parseInt(product.getProductPrice());
                     return price >= min && price <= max;
                 }).collect(Collectors.toList());
             }
+            if (!isMinExist && isMaxExist) {
+                int max = Integer.parseInt(maxPrice);
+                filterProducts = filterProducts.stream().filter(product -> {
+                    int price = Integer.parseInt(product.getProductPrice());
+                    return price <= max;
+                }).collect(Collectors.toList());
+            }
+            if (isMinExist && !isMaxExist) {
+                int min = Integer.parseInt(minPrice);
+                filterProducts = filterProducts.stream().filter(product -> {
+                    int price = Integer.parseInt(product.getProductPrice());
+                    return price >= min;
+                }).collect(Collectors.toList());
+            }
         } catch (Exception e) {
             System.out.println("ошибка преобразования");
+            e.printStackTrace();
         }
 
         if (filterProducts.size() > 0) {
