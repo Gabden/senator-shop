@@ -34,7 +34,7 @@
                             <div class="input-group mb-1">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
-                                           name="category" value="all" id="filter-all" checked>
+                                           name="categories" value="all" id="filter-all" checked>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="Все товары" disabled>
                             </div>
@@ -42,7 +42,7 @@
                             <div class="input-group mb-1" id="filter-alcohol-wrapper">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
-                                           name="category" value="alcohol" id="filter-alcohol">
+                                           name="categories" value="alcohol" id="filter-alcohol">
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="Алкоголь" disabled>
                             </div>
@@ -50,7 +50,7 @@
                             <div class="input-group mb-1" id="filter-drinks-wrapper">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
-                                           name="category" value="drinks" id="filter-drinks">
+                                           name="categories" value="drinks" id="filter-drinks">
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="Напитки" disabled>
                             </div>
@@ -58,7 +58,7 @@
                             <div class="input-group mb-1" id="filter-oil-wrapper">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
-                                           name="category" value="oil" id="filter-oil">
+                                           name="categories" value="oil" id="filter-oil">
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="Растительные масла" disabled>
                             </div>
@@ -66,14 +66,14 @@
                             <div class="input-group mb-1" id="filter-dishes-wrapper">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
-                                           name="category" value="dishes" id="filter-dishes">
+                                           name="categories" value="dishes" id="filter-dishes">
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="Посуда" disabled>
                             </div>
                             <div class="input-group" id="filter-gifts-wrapper">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
-                                           name="category" value="gifts" id="filter-gifts">
+                                           name="categories" value="gifts" id="filter-gifts">
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" value="Подарки" disabled>
                             </div>
@@ -127,7 +127,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <input type="checkbox" aria-label="Checkbox for following text input"
-                                               name="country" th:value="${country}">
+                                               name="countries" th:value="${country}">
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" disabled
@@ -282,11 +282,11 @@
                 <div class="collapse mb-4" id="search-filter-brand">
                     <div class="card">
                         <div class="card-body p-1" th:each="manufacturer : ${manufacturers}">
-                            <div class="input-group mb-1">
+                            <div class="input-group mb-1" th:if="${#strings.length(manufacturer) > 0}">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <input type="checkbox" aria-label="Checkbox for following text input"
-                                               name="manufacturer" th:value="${manufacturer}">
+                                               name="manufacturers" th:value="${manufacturer}">
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Text input with checkbox" disabled

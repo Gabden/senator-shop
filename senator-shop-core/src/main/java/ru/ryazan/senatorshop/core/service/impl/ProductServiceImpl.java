@@ -7,6 +7,7 @@ import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.repository.ProductRepository;
 import ru.ryazan.senatorshop.core.service.ProductService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,11 +56,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findProductsByProductCategoryContainsAndProductDescriptionContains(String category, String description, Pageable pageable) {
-        return productRepository.findProductsByProductCategoryContainsAndProductDescriptionContains(category,description,pageable);
+        return productRepository.findProductsByProductCategoryContainsAndProductDescriptionContains(category, description, pageable);
     }
 
     @Override
     public Page<Product> findProductsByProductDescriptionContains(String description, Pageable pageable) {
-        return productRepository.findProductsByProductDescriptionContains(description,pageable);
+        return productRepository.findProductsByProductDescriptionContains(description, pageable);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return (List<Product>) productRepository.findAll();
     }
 }
