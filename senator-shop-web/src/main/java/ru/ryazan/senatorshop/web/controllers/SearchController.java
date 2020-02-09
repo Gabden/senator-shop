@@ -10,6 +10,7 @@ import ru.ryazan.senatorshop.core.service.ProductService;
 import ru.ryazan.senatorshop.web.pagination.PaginationNumbers;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -81,6 +82,7 @@ public class SearchController {
                          @RequestParam(name = "manufacturers", required = false) String[] manufacturers,
                          @RequestParam(name = "min-price", required = false) String minPrice,
                          @RequestParam(name = "max-price", required = false) String maxPrice,
+                         HttpServletRequest request,
                          Model model) {
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Product> products = productService.findAll(pageable);
@@ -89,20 +91,45 @@ public class SearchController {
 
         List<Product> filterProducts = new ArrayList<>();
 
-        if (categories != null && categories.length > 0 && !categories[0].equals("all")) {
-            filterProducts = all.stream().filter(product -> Arrays.stream(categories).parallel().anyMatch(category -> product.getProductCategory().contains(category))).collect(Collectors.toList());
+        try {
+            if (categories != null && categories.length > 0 && !categories[0].equals("all")) {
+                filterProducts = all.stream().filter(product -> Arrays.stream(categories).parallel().anyMatch(category -> {
+                    if (product.getProductCategory() != null) {
+                        return product.getProductCategory().contains(category);
+                    } else {
+                        return false;
+                    }
+                })).collect(Collectors.toList());
 
-        } else {
-            filterProducts.addAll(all);
+            } else {
+                filterProducts.addAll(all);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (countries != null && countries.length > 0) {
-            filterProducts = filterProducts.stream().filter(product -> Arrays.stream(countries).parallel().anyMatch(country -> product.getProductCountry().contains(country))).collect(Collectors.toList());
+        try {
+            if (countries != null && countries.length > 0) {
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(countries).parallel().anyMatch(country -> {
+                    if (product.getProductCountry() != null) {
+                        return product.getProductCountry().contains(country);
+                    } else {
+                        return false;
+                    }
+                })).collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (manufacturers != null && manufacturers.length > 0) {
-            filterProducts = filterProducts.stream().filter(product -> Arrays.stream(manufacturers).parallel().anyMatch(manufacture -> product.getProductManufacturer().contains(manufacture))).collect(Collectors.toList());
+        try {
+            if (manufacturers != null && manufacturers.length > 0) {
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(manufacturers).parallel().anyMatch(manufacture -> product.getProductManufacturer().contains(manufacture))).collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         try {
             if (minPrice != null && minPrice.length() > 0 && maxPrice != null && maxPrice.length() > 0) {
@@ -131,11 +158,15 @@ public class SearchController {
             List<Integer> pageNumbersList = paginationNumbers.getPaginationListNumbers(page, totalPages);
             model.addAttribute("pageNumbers", pageNumbersList);
         }
-
+        String queries = request.getQueryString();
+        if (queries.contains("page=")) {
+            queries = queries.replaceAll("page=", "oldpage=");
+        }
+        String completeUrl = request.getRequestURI() + "?" + queries;
         model.addAttribute("countries", countriesNames);
         model.addAttribute("manufacturers", manufacturersNames);
         model.addAttribute("orders", products);
-        model.addAttribute("url", "/search");
+        model.addAttribute("url", completeUrl);
         model.addAttribute("products", products);
         return "search-result";
     }
