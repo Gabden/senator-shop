@@ -72,6 +72,11 @@ public class HomeController {
         return "about";
     }
 
+    @RequestMapping("/about-us")
+    public String aboutUs() {
+        return "aboutUs";
+    }
+
     @RequestMapping("/reserve")
     public String reserve() {
         return "reserve";
