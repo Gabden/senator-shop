@@ -69,31 +69,49 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="gifts" id="defaultCheck5" th:checked="${#strings.contains(product.productCategory, 'gifts')}" th:field="*{productCategory}">
+                                            <input class="form-check-input" type="checkbox" value="gifts"
+                                                   id="defaultCheck5"
+                                                   th:checked="${#strings.contains(product.productCategory, 'gifts')}"
+                                                   th:field="*{productCategory}">
                                             <label class="form-check-label" for="defaultCheck5">
                                                 Подарки
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="sales"
+                                                   th:checked="${#strings.contains(product.productCategory, 'sale')}"
+                                                   id="defaultCheck6" th:field="*{productCategory}">
+                                            <label class="form-check-label" for="defaultCheck4">
+                                                Акции
                                             </label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <label for="description" >Тип алкоголя (Вино, виски, водка и т.д)</label>
+                                <label for="description">Тип алкоголя (Вино, виски, водка и т.д)</label>
                                 <input type="text" id="type" class="form-control mb-3" th:field="*{productType}">
 
-                                <label for="description" >Описание</label>
-                                <textarea type="text" id="description" class="form-control mb-3" th:field="${product.productDescription}"  ></textarea>
+                                <label for="description">Описание</label>
+                                <textarea type="text" id="description" class="form-control mb-3"
+                                          th:field="${product.productDescription}"></textarea>
 
-                                <label for="price" >Цена</label>
-                                <input type="text" id="price" class="form-control mb-3" th:field="${product.productPrice}" >
+                                <label for="price">Цена</label>
+                                <input type="text" id="price" class="form-control mb-3"
+                                       th:field="${product.productPrice}">
 
-                                <label for="unitInStock" >Количество</label>
-                                <input type="text" id="unitInStock" class="form-control mb-3" th:field="${product.productUnitInStock}"  >
+                                <label for="salePrice">Цена по акции</label>
+                                <input type="number" id="salePrice" class="form-control mb-3" th:field="*{salePrice}">
 
-                                <label for="volume" >Объем</label>
+                                <label for="unitInStock">Количество</label>
+                                <input type="text" id="unitInStock" class="form-control mb-3"
+                                       th:field="${product.productUnitInStock}">
+
+                                <label for="volume">Объем</label>
                                 <input type="text" id="volume" class="form-control mb-3" th:field="*{productVolume}">
 
-                                <label for="country" >Страна производитель</label>
-                                <input type="text" id="country" class="form-control mb-3" th:field="${product.productCountry}"   >
+                                <label for="country">Страна производитель</label>
+                                <input type="text" id="country" class="form-control mb-3"
+                                       th:field="${product.productCountry}">
 
                                 <label for="region" >Регион производителя</label>
                                 <input type="text" id="region" class="form-control mb-3" th:field="${product.productRegion}"  >

@@ -17,116 +17,141 @@
                     <h1 class="title">Добавление нового товара</h1>
                     <p class="lead">Необходимо заполнить поля, чтобы добавить новый товар в базу данных</p>
 
-                    <form th:action="@{/admin/productInventory/addProduct}" th:object="${product}" method="post" class="form" enctype="multipart/form-data">
+                    <form th:action="@{/admin/productInventory/addProduct}" th:object="${product}" method="post"
+                          class="form" enctype="multipart/form-data">
                         <div class="form-group ">
                             <label for="name">Название</label>
-                            <input type="text" id="name" class="form-control" th:field="*{productName}" placeholder="Имя товара">
+                            <input type="text" id="name" class="form-control" th:field="*{productName}"
+                                   placeholder="Имя товара">
 
                             <div class="input-group my-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Категория</label>
                                 </div>
-<!--                                <select class="custom-select" id="inputGroupSelect01" th:field="*{productCategory}">-->
-<!--                                    <option value="" selected>Выберите...</option>-->
-<!--                                    <option value="alcohol">Алкоголь</option>-->
-<!--                                    <option value="drinks">Напитки</option>-->
-<!--                                    <option value="oil">Оливковое масло</option>-->
-<!--                                    <option value="dishes">Посуда</option>-->
-<!--                                    <option value="gifts">Подарки</option>-->
-<!--                                </select>-->
-                              <div id="inputGroupSelect01" class="ml-4">
+                                <!--                                <select class="custom-select" id="inputGroupSelect01" th:field="*{productCategory}">-->
+                                <!--                                    <option value="" selected>Выберите...</option>-->
+                                <!--                                    <option value="alcohol">Алкоголь</option>-->
+                                <!--                                    <option value="drinks">Напитки</option>-->
+                                <!--                                    <option value="oil">Оливковое масло</option>-->
+                                <!--                                    <option value="dishes">Посуда</option>-->
+                                <!--                                    <option value="gifts">Подарки</option>-->
+                                <!--                                </select>-->
+                                <div id="inputGroupSelect01" class="ml-4">
 
 
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="alcohol" id="defaultCheck1" th:field="*{productCategory}">
-                                    <label class="form-check-label" for="defaultCheck1">
-                                        Алкоголь
-                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="alcohol"
+                                               id="defaultCheck1" th:field="*{productCategory}">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            Алкоголь
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="drinks"
+                                               id="defaultCheck2" th:field="*{productCategory}">
+                                        <label class="form-check-label" for="defaultCheck2">
+                                            Напитки
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="oil" id="defaultCheck3"
+                                               th:field="*{productCategory}">
+                                        <label class="form-check-label" for="defaultCheck3">
+                                            Оливковое масло
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="dishes"
+                                               id="defaultCheck4" th:field="*{productCategory}">
+                                        <label class="form-check-label" for="defaultCheck4">
+                                            Посуда
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="gifts" id="defaultCheck5"
+                                               th:field="*{productCategory}">
+                                        <label class="form-check-label" for="defaultCheck5">
+                                            Подарки
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="sale"
+                                               id="defaultCheck6" th:field="*{productCategory}">
+                                        <label class="form-check-label" for="defaultCheck4">
+                                            Акции
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="drinks" id="defaultCheck2" th:field="*{productCategory}">
-                                    <label class="form-check-label" for="defaultCheck2">
-                                        Напитки
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="oil" id="defaultCheck3" th:field="*{productCategory}">
-                                    <label class="form-check-label" for="defaultCheck3">
-                                        Оливковое масло
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="dishes" id="defaultCheck4" th:field="*{productCategory}">
-                                    <label class="form-check-label" for="defaultCheck4">
-                                        Посуда
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="gifts" id="defaultCheck5" th:field="*{productCategory}">
-                                    <label class="form-check-label" for="defaultCheck5">
-                                        Подарки
-                                    </label>
-                                </div>
-                              </div>
                             </div>
 
-                            <label for="description" >Тип алкоголя(Вино, виски, водка и т.д)</label>
+                            <label for="description">Тип алкоголя(Вино, виски, водка и т.д)</label>
                             <input type="text" id="type" class="form-control mb-3" th:field="*{productType}">
 
-                            <label for="description" >Описание</label>
-                            <textarea type="text" id="description" class="form-control mb-3" th:field="*{productDescription}"></textarea>
+                            <label for="description">Описание</label>
+                            <textarea type="text" id="description" class="form-control mb-3"
+                                      th:field="*{productDescription}"></textarea>
 
-                            <label for="price" >Цена</label>
+                            <label for="price">Цена</label>
                             <input type="number" id="price" class="form-control mb-3" th:field="*{productPrice}">
 
-                            <label for="volume" >Объем</label>
+                            <label for="salePrice">Цена по акции</label>
+                            <input type="number" id="salePrice" class="form-control mb-3" th:field="*{salePrice}">
+
+                            <label for="volume">Объем</label>
                             <input type="text" id="volume" class="form-control mb-3" th:field="*{productVolume}">
 
-                            <label for="unitInStock" >Количество</label>
-                            <input type="number" id="unitInStock" class="form-control mb-3" th:field="*{productUnitInStock}">
+                            <label for="unitInStock">Количество</label>
+                            <input type="number" id="unitInStock" class="form-control mb-3"
+                                   th:field="*{productUnitInStock}">
 
 
-
-                            <label for="country" >Страна производитель</label>
+                            <label for="country">Страна производитель</label>
                             <input type="text" id="country" class="form-control" th:field="*{productCountry}">
 
-                            <label for="region" >Регион производителя</label>
+                            <label for="region">Регион производителя</label>
                             <input type="text" id="region" class="form-control" th:field="*{productRegion}">
 
 
-                            <label for="productAlcoholDegree" >Содержание спирта</label>
-                            <input type="text" id="productAlcoholDegree" class="form-control mb-3" th:field="*{productAlcoholDegree}">
+                            <label for="productAlcoholDegree">Содержание спирта</label>
+                            <input type="text" id="productAlcoholDegree" class="form-control mb-3"
+                                   th:field="*{productAlcoholDegree}">
 
-                            <label for="productAlcoholColor" >Тип (красное, белое, игристое и тд)</label>
-                            <input type="text" id="productAlcoholColor" class="form-control mb-3" th:field="*{productAlcoholColor}">
+                            <label for="productAlcoholColor">Тип (красное, белое, игристое и тд)</label>
+                            <input type="text" id="productAlcoholColor" class="form-control mb-3"
+                                   th:field="*{productAlcoholColor}">
 
-                            <label for="productAlcoholSugar" >Сахар (сухое, полусухое и т.д.)</label>
-                            <input type="text" id="productAlcoholSugar" class="form-control mb-3" th:field="*{productAlcoholSugar}">
+                            <label for="productAlcoholSugar">Сахар (сухое, полусухое и т.д.)</label>
+                            <input type="text" id="productAlcoholSugar" class="form-control mb-3"
+                                   th:field="*{productAlcoholSugar}">
 
-                            <label for="productAlcoholTemperature" >Температура подачи</label>
-                            <input type="text" id="productAlcoholTemperature" class="form-control mb-3" th:field="*{productAlcoholTemperature}">
+                            <label for="productAlcoholTemperature">Температура подачи</label>
+                            <input type="text" id="productAlcoholTemperature" class="form-control mb-3"
+                                   th:field="*{productAlcoholTemperature}">
 
-                            <label for="productAlcoholSort" >Сорт винограда или тип сырья</label>
-                            <input type="text" id="productAlcoholSort" class="form-control mb-3" th:field="*{productAlcoholSort}">
+                            <label for="productAlcoholSort">Сорт винограда или тип сырья</label>
+                            <input type="text" id="productAlcoholSort" class="form-control mb-3"
+                                   th:field="*{productAlcoholSort}">
 
-                            <label for="productManufacturer" >Фирма производитель</label>
-                            <input type="text" id="productManufacturer" class="form-control mb-3" th:field="*{productManufacturer}">
+                            <label for="productManufacturer">Фирма производитель</label>
+                            <input type="text" id="productManufacturer" class="form-control mb-3"
+                                   th:field="*{productManufacturer}">
 
-                            <label for="productMature" >Выдержка</label>
+                            <label for="productMature">Выдержка</label>
                             <input type="text" id="productMature" class="form-control mb-3" th:field="*{productMature}">
 
-                            <label for="productTaste" >Короткое описание вкуса</label>
+                            <label for="productTaste">Короткое описание вкуса</label>
                             <input type="text" id="productTaste" class="form-control mb-3" th:field="*{productTaste}">
 
-                            <label for="productImageUrl" >Ссылка на изображение товара</label>
+                            <label for="productImageUrl">Ссылка на изображение товара</label>
                             <input type="text" id="productImageUrl" class="form-control mb-3" th:field="*{imageUrl}">
 
                             <div class="upload-content mb-3">
                                 <div class="single-upload ">
                                     <h3>Загрузить изображение</h3>
                                     <form id="singleUploadForm" name="singleUploadForm">
-                                        <input id="singleFileUploadInput" type="file" name="file" class="file-input " />
-                                        <input type="radio" name="storage-single" id="rs1" value="database" checked> Database<br>
+                                        <input id="singleFileUploadInput" type="file" name="file" class="file-input "/>
+                                        <input type="radio" name="storage-single" id="rs1" value="database" checked>
+                                        Database<br>
                                     </form>
                                     <div class="upload-response">
                                         <div id="singleFileUploadError"></div>
@@ -163,10 +188,16 @@
     </footer>
 
 </main>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script src="../../js/upload.js" th:src="@{/js/upload.js}"></script>
 </body>
 

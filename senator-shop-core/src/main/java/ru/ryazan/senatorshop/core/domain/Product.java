@@ -61,6 +61,8 @@ public class Product implements Serializable {
 
     private String imageUrl;
 
+    private String salePrice;
+
     @Transient
     private String dataImg;
 
@@ -116,9 +118,9 @@ public class Product implements Serializable {
 
     public void setDataImg() {
         List<ProductImage> images = new ArrayList<>(productImageSet);
-       if (images.size() != 0){
-           this.dataImg =  Base64.getEncoder().encodeToString(images.get(0).getFileData());
-       }
+        if (images.size() != 0) {
+            this.dataImg = Base64.getEncoder().encodeToString(images.get(0).getFileData());
+        }
     }
 
     public String getProductCountry() {
@@ -203,6 +205,14 @@ public class Product implements Serializable {
 
     public String getProductMature() {
         return productMature;
+    }
+
+    public String getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(String salePrice) {
+        this.salePrice = salePrice;
     }
 
     public void setProductMature(String productMature) {

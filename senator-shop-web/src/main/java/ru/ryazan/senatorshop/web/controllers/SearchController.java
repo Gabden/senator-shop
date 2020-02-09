@@ -132,7 +132,6 @@ public class SearchController {
 
 
         try {
-            boolean isMaxAndMinNull = minPrice != null && minPrice.length() > 0 && maxPrice != null && maxPrice.length() > 0;
             boolean isMinExist = minPrice != null && minPrice.length() > 0;
             boolean isMaxExist = maxPrice != null && maxPrice.length() > 0;
 
