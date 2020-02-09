@@ -99,7 +99,8 @@
                                 <input type="text" id="price" class="form-control mb-3"
                                        th:field="${product.productPrice}">
 
-                                <label for="salePrice">Цена по акции</label>
+                                <label for="salePrice">Цена по акции(Поле либо пустое либо с ценой, ноль не
+                                    ставить!)</label>
                                 <input type="number" id="salePrice" class="form-control mb-3" th:field="*{salePrice}">
 
                                 <label for="unitInStock">Количество</label>

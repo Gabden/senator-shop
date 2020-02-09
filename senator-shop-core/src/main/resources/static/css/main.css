@@ -363,4 +363,8 @@ div label {
     font-size: 1.7rem;
 }
 
+.line-price {
+    text-decoration: line-through;
+}
+
 

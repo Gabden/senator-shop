@@ -26,7 +26,12 @@
                             <span th:text="${product.productCountry}"></span>
                             <span th:text="${product.productAlcoholDegree}"></span>
                         </p>
+                    </div>
 
+                    <div class="card-footer bg-transparent m-0" style="font-size: 0.8rem">
+                        <span th:class="${product.salePrice != null && #strings.length(product.salePrice) > 0 ? 'd-block line-price':'d-block'}">Цена: [[${product.productPrice}]]</span>
+                        <span class="text-danger"
+                              th:if="${product.salePrice != null && #strings.length(product.salePrice) > 0}">Цена по акции: [[${product.salePrice}]]</span>
                     </div>
                     <div class="d-flex mb-3">
                         <div class="col-12">

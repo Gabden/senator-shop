@@ -56,23 +56,32 @@
                         <td>
                             <div class="d-flex text-justify my-auto">
                                 <div class="col-12 col-md-10" style="font-size: 1.2rem">
-                                    <a th:href="@{'/productList/product/' + ${cart[__${i.index}__].product.id}}" th:text="${item.product.productName}" style="font-size: 0.7rem"></a>
-                                    <input type="hidden" th:value="*{cart[__${i.index}__].product.id}" id="productId"></input>
+                                    <a th:href="@{'/productList/product/' + ${cart[__${i.index}__].product.id}}"
+                                       th:text="${item.product.productName}" style="font-size: 0.7rem"></a>
+                                    <input type="hidden" th:value="*{cart[__${i.index}__].product.id}"
+                                           id="productId"></input>
                                 </div>
                             </div>
 
                         </td>
-                        <td th:text="${item.product.productPrice}">{item.productPrice}}</td>
+                        <td>
+                            <span th:class="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0 ? 'd-block line-price':'d-block'}"
+                                  style="font-weight: bold">[[${cart[__${i.index}__].product.productPrice}]]</span>
+                            <span class="text-danger"
+                                  th:if="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">[[${cart[__${i.index}__].product.salePrice}]]</span>
+                        </td>
 
-                        <td >
+                        <td>
                             <div class="form-group w-100 w-md-50">
-                                <input type="number" th:value="*{cart[__${i.index}__].quantity}" class="form-control" max="10" min="1" id="quantityInCart">
+                                <input type="number" th:value="*{cart[__${i.index}__].quantity}" class="form-control"
+                                       max="10" min="1" id="quantityInCart">
                             </div>
 
                         </td>
                         <td th:text="${item.totalPrice}">{{item.totalPrice}}</td>
 
-                        <td><a href="#" class="label label-danger" th:attr="ng-click='removeFromCart(\''+${item.product.id}+'\');'">
+                        <td><a href="#" class="label label-danger"
+                               th:attr="ng-click='removeFromCart(\''+${item.product.id}+'\');'">
                             <i class="fas fa-times text-danger"></i></a></td>
                     </tr>
                     <tr>

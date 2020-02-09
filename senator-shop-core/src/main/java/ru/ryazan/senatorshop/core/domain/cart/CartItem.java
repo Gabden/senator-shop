@@ -68,7 +68,11 @@ public class CartItem implements Serializable {
     }
 
     public Integer getTotalPrice() {
-        return Integer.parseInt(product.getProductPrice()) * quantity;
+        if (product.getSalePrice() != null && Integer.parseInt(product.getSalePrice()) > 0) {
+            return Integer.parseInt(product.getSalePrice()) * quantity;
+        } else {
+            return Integer.parseInt(product.getProductPrice()) * quantity;
+        }
     }
 
     public void setTotalPrice(Integer totalPrice) {

@@ -177,13 +177,13 @@ public class RegisterController {
         billingAddress.setCountry("Россия");
         billingAddress.setZipCode("390006");
         billingAddress.setCity("Рязань");
-        billingAddress.setStreetName("ул.Садовая д.24а");
+        billingAddress.setStreetName("ул.Свободы д.24а");
         billingAddress.setApartmentNumber("1");
         ShippingAddress shippingAddress = new ShippingAddress();
         shippingAddress.setCountry("Россия");
         shippingAddress.setZipCode("390006");
         shippingAddress.setCity("Рязань");
-        shippingAddress.setStreetName("ул.Садовая д.24а");
+        shippingAddress.setStreetName("ул.Свободы д.24а");
         shippingAddress.setApartmentNumber("1");
         customer.setBillingAddress(billingAddress);
         customer.setShippingAddress(shippingAddress);
