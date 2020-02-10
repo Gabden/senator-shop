@@ -16,19 +16,20 @@ $( document ).ready(function() {
 });
 cartApp.controller("cartCtrl", function ($scope, $http){
 
-    $("#quantityInCart").bind("change paste keyup", function() {
-        var id = $("#productId").val();
-        $scope.refreshQuantity(id);
+    $("input").bind("change paste keyup", function () {
+        var id = this.id;
+        var quantity = this.value;
+        $scope.refreshQuantity(id, quantity);
     });
 
     $scope.refreshCart = function (cartId) {
         $http({
             method: 'GET',
-            url:'/restCart/cart/' + cartId
-        }).then(function (response){
+            url: '/restCart/cart/' + cartId
+        }).then(function (response) {
             console.log(response);
             $('#cart-badge').text(data.cartItems.length)
-        },function (error){
+        }, function (error) {
             console.log("Error when refreshCart request")
         });
         // $http.get('/rest/cart/'+$scope.cartId).success(function (data) {
@@ -52,14 +53,14 @@ cartApp.controller("cartCtrl", function ($scope, $http){
         $scope.refreshCart(cartId);
     };
 
-    $scope.refreshQuantity = function(productId){
+    $scope.refreshQuantity = function (productId, quantity) {
         $http({
             method: 'PUT',
-            url: '/restCart/cart/refreshQuantity/' + productId + '?quantity=' + $('#quantityInCart').val(),
+            url: '/restCart/cart/refreshQuantity/' + productId + '?quantity=' + quantity,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
             }
-        }).then(function (response){
+        }).then(function (response) {
             location.reload();
             console.log("Количество обновлено")
 
