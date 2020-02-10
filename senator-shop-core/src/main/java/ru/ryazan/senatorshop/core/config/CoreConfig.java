@@ -29,6 +29,7 @@ public class CoreConfig {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
+
     @Bean
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
