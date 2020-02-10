@@ -21,12 +21,12 @@
                     товаре</p>
 
                 <div class="container text-justify">
-                    <div class="row justify-content-around">
+                    <div class="row justify-content-between">
 
                         <!-- Left side of product-->
-                        <div class="col-8 col-md-4 col-lg-3 mb-3  mx-auto">
+                        <div class="col-12 col-md-4 col-lg-3 mb-3  mx-auto">
 
-                            <div class="card" style="width: 18rem;">
+                            <div class="card" style="max-width: 18rem;">
                                 <div th:if="${product.dataImg != null && #strings.length(product.dataImg) > 0}"
                                      class="mx-auto mb-3">
                                     <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}"
