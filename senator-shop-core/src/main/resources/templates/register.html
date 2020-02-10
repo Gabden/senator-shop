@@ -21,9 +21,10 @@
                 <div class="container">
                     <form th:action="@{/register}" th:object="${customer}" method="post" class="form">
                         <div class="form-group">
-                            <div class="d-flex">
-                                <div class="col">
-                                    <p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="alert alert-danger" role="alert">Name Error</p>
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <p th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}"
+                                       class="alert alert-danger" role="alert">Name Error</p>
                                     <label for="name">Электронная почта <span class="text-danger">*</span></label>
                                     <input type="email" id="name" class="form-control mb-3" th:field="*{customerName}"
                                            required>
@@ -43,7 +44,7 @@
                                            required>
                                 </div>
 
-                                <div class="col">
+                                <div class="col-12 col-md-6">
                                     <label for="FIOfirst">Фамилия<span class="text-danger ">*</span></label>
                                     <input type="text" id="FIOfirst" class="form-control mb-3" th:field="*{FIOlast}"
                                            required>
@@ -59,10 +60,12 @@
                             </div>
 
 
-
-                            <input type="submit" class="btn btn-dark my-3 ml-3" value="Регистрация">
-                            <p class="lean px-3" style="font-size: 0.8rem">Нажимая на кнопку Регистрации, Вы соглашаетесь c <a href="/rules" class="text-primary">Пользовательским соглашением</a> и подтверждаете,
-                                что ознакомились с <a href="/confidential" class="text-primary">Политикой конфиденциальности</a></p>
+                            <input type="submit" class="btn btn-dark my-3 center-orient-button" value="Регистрация">
+                            <p class="lean text-justify" style="font-size: 0.8rem">Нажимая на кнопку Регистрации, Вы
+                                соглашаетесь c <a href="/rules" class="text-primary">Пользовательским соглашением</a> и
+                                подтверждаете,
+                                что ознакомились с <a href="/confidential" class="text-primary">Политикой
+                                    конфиденциальности</a></p>
 
                         </div>
                     </form>

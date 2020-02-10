@@ -232,14 +232,20 @@ hr {
 }
 
 @media (max-width: 576px) {
+    .center-orient-button {
+        margin-left: 35%;
+    }
+
     .carousel-item {
         height: 16rem;
-        background-size:cover;
+        background-size: cover;
     }
+
     .carousel-item > img {
         height: 100%;
         width: 100%;
     }
+
     .fsize-07 {
         font-size: 0.7rem;
     }
