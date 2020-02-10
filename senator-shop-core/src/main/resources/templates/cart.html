@@ -16,7 +16,7 @@
                 <div class="jumbotron">
                     <div class="container">
                         <div th:if="${cart.size() != 0}">
-                            <h1 >Корзина</h1>
+                            <h1>Корзина</h1>
                             <p>Все товары добавленные в корзину</p>
                         </div>
                         <h1 th:unless="${cart.size() != 0}">Корзина пуста</h1>
@@ -29,77 +29,89 @@
             <section class="container" ng-app="cartApp">
                 <div ng-controller="cartCtrl" th:attr="ng-init='initCartId(\''+${cartId}+'\');'">
 
-<!--                <div class="a">-->
-<!--                    <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>-->
-<!--                </div>-->
+                    <!--                <div class="a">-->
+                    <!--                    <a href="#" th:attr="ng-click='clearCart(\''+${cartId}+'\');'" class="btn btn-danger left"> <span class="fas fa-trash-alt"></span>Clear cart</a>-->
+                    <!--                </div>-->
 
-                <table class="table table-hover"  style="font-size: 0.7rem" th:if="${cart.size() != 0}">
-                    <tr>
-                        <th></th>
-                        <th>Товар</th>
-                        <th>Цена</th>
-                        <th>Количество</th>
-                        <th>Сумма</th>
-                        <th></th>
-                    </tr>
-                    <tr th:each="item, i : ${cart}">
+                    <table class="table table-hover" style="font-size: 0.7rem" th:if="${cart.size() != 0}">
+                        <tr>
+                            <th></th>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
+                            <th></th>
+                        </tr>
+                        <tr th:each="item, i : ${cart}">
 
-                        <td>
-                            <div  th:if="${item.product.dataImg != null && #strings.length(item.product.dataImg) > 0}">
-                                <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
-                            </div>
-                            <div  th:if="${(item.product.dataImg == null || #strings.length(item.product.dataImg) == 0) && #strings.length(item.product.imageUrl) > 0 }">
-                                <img th:src="${item.product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
-                            </div>
-<!--                            <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="80" height="150">-->
-                        </td>
-                        <td>
-                            <div class="d-flex text-justify my-auto">
-                                <div class="col-12 col-md-10" style="font-size: 1.2rem">
-                                    <a th:href="@{'/productList/product/' + ${cart[__${i.index}__].product.id}}"
-                                       th:text="${item.product.productName}" style="font-size: 0.7rem"></a>
-                                    <input type="hidden" th:value="*{cart[__${i.index}__].product.id}"
-                                           id="productId"></input>
+                            <td>
+                                <div th:if="${item.product.dataImg != null && #strings.length(item.product.dataImg) > 0}">
+                                    <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}"
+                                         class="mx-auto pt-3 product--img_width" alt="..." height="250">
                                 </div>
-                            </div>
+                                <div th:if="${(item.product.dataImg == null || #strings.length(item.product.dataImg) == 0) && #strings.length(item.product.imageUrl) > 0 }">
+                                    <img th:src="${item.product.imageUrl}" class="mx-auto pt-3 product--img_width"
+                                         alt="..." height="250">
+                                </div>
+                                <!--                            <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}" class="mx-auto pt-3" alt="..." width="80" height="150">-->
+                            </td>
+                            <td>
+                                <div class="d-flex text-justify my-auto">
+                                    <div class="col-12 col-md-10" style="font-size: 1.2rem">
+                                        <a th:href="@{'/productList/product/' + ${cart[__${i.index}__].product.id}}"
+                                           th:text="${item.product.productName}" style="font-size: 0.7rem"></a>
+                                        <input type="hidden" th:value="*{cart[__${i.index}__].product.id}"
+                                               id="productId"></input>
+                                    </div>
+                                </div>
 
-                        </td>
-                        <td>
-                            <span th:class="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0 ? 'd-block line-price':'d-block'}"
-                                  style="font-weight: bold">[[${cart[__${i.index}__].product.productPrice}]]</span>
-                            <span class="text-danger"
-                                  th:if="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">[[${cart[__${i.index}__].product.salePrice}]]</span>
-                        </td>
+                            </td>
+                            <td>
+                            <span th:class="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${cart[__${i.index}__].product.productPrice}]]<i
+                                    class="fas fa-ruble-sign ml-1"></i></span>
+                                <span class="text-danger"
+                                      th:if="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">Акция: [[${cart[__${i.index}__].product.salePrice}]]<i
+                                        class="fas fa-ruble-sign ml-1"></i></span>
+                                <span id="priceRegistered" class="text-danger" style="cursor: help"
+                                      data-toggle="tooltip"
+                                      data-html="true" data-placement="right"
+                                      title="<em>Цена для зарегистрированных пользователей или держателей карт Сенатор</em>"
+                                      th:unless="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">[[${@priceFormatter.format(cart[__${i.index}__].product.productPrice)}]]<i
+                                        class="fas fa-ruble-sign ml-1"></i><i
+                                        class="fas fa-id-card ml-1"></i></span>
+                            </td>
 
-                        <td>
-                            <div class="form-group w-100 w-md-50">
-                                <input type="number" th:value="*{cart[__${i.index}__].quantity}" class="form-control"
-                                       max="10" min="1" id="quantityInCart">
-                            </div>
+                            <td>
+                                <div class="form-group w-100 w-md-50">
+                                    <input type="number" th:value="*{cart[__${i.index}__].quantity}"
+                                           class="form-control"
+                                           max="10" min="1" id="quantityInCart">
+                                </div>
 
-                        </td>
-                        <td th:text="${item.totalPrice}">{{item.totalPrice}}</td>
+                            </td>
+                            <td th:text="${item.totalPrice}">{{item.totalPrice}}</td>
 
-                        <td><a href="#" class="label label-danger"
-                               th:attr="ng-click='removeFromCart(\''+${item.product.id}+'\');'">
-                            <i class="fas fa-times text-danger"></i></a></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Итого</th>
-                        <th th:text="${grandTotal}"></th>
-                        <th></th>
-                    </tr>
-                </table>
-                <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning" th:if="${cart.size() != 0}">Оформить резерв</a>
+                            <td><a href="#" class="label label-danger"
+                                   th:attr="ng-click='removeFromCart(\''+${item.product.id}+'\');'">
+                                <i class="fas fa-times text-danger"></i></a></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Итого</th>
+                            <th th:text="${grandTotal}"></th>
+                            <th></th>
+                        </tr>
+                    </table>
+                    <a th:href="@{'/order/' + ${cartId}}" class="btn btn-warning" th:if="${cart.size() != 0}">Оформить
+                        резерв</a>
                 </div>
             </section>
         </div>
 
 
-            <!-- FOOTER -->
+        <!-- FOOTER -->
 
     </div><!-- /.container wrapper -->
 
@@ -107,7 +119,9 @@
 </main>
 <footer th:replace="fragments/footer :: footer">
 </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
