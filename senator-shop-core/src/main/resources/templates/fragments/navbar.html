@@ -10,7 +10,7 @@
             <a sec:authorize="!isAuthenticated()" href="/login"><i class="fas fa-user mr-2 rem15"></i>Личный кабинет</a>
             <form sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0" form-method="post"
                   th:action="@{/logout}">
-                <a href="/profile" sec:authentication="name" class="mx-2"></a>
+                <strong><a href="/profile" sec:authentication="name" class="mx-2"></a> </strong>
                 <br>
                 <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin" class="btn-sm btn-secondary my-2">Администрирование</a>
                 <button class="btn btn-outline-secondary my-2 my-sm-0 btn-sm" type="submit">Выйти</button>
@@ -86,12 +86,13 @@
                     <a sec:authorize="!isAuthenticated()" href="/login">Вход</a>
                     <form sec:authorize="isAuthenticated()" class="form my-2 my-lg-0" form-method="post"
                           th:action="@{/logout}">
-                        <a href="/profile" class="mx-2 mb-2 d-inline-block">
-                            <span sec:authentication="name"></span>
+                        <a href="/profile" class="d-inline-block mb-1">
+                            <strong sec:authentication="name"></strong>
                         </a>
                         <br>
-                        <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin" class="btn-sm btn-secondary">Администрирование</a>
-                        <br>
+                        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/admin"
+                           class="btn-sm btn-secondary mt-2">Администрирование</a>
+                        <br th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
                         <button class="btn btn-outline-secondary my-2 my-sm-0 btn-sm" type="submit">Выйти</button>
                     </form>
 
