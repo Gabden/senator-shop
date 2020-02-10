@@ -8,7 +8,7 @@
 </header>
 <div th:insert="fragments/search-input :: search">
 </div>
-<main role="main" id="main" class="mt-3">
+<main role="main" id="main" class="mt-3 text-center">
     <div class="container">
         <div class="order">
             <h3 class="h1 mb-3">Порядок резервирования товара</h3>
@@ -17,18 +17,19 @@
             </div>
             <div class="mb-3 text-left">
                 <span><i class="fas fa-cart-plus text-danger mr-2 mr-md-4 pr-4"></i>Добавьте товар в корзину</span>
-               </div>
+            </div>
             <div class="mb-3 text-left">
-                <span><i class="fas fa-store text-danger mr-2 mr-md-4 pr-4"></i>Перейдите в корзину и оформите резерв</span>
-                </div>
+                <span><i
+                        class="fas fa-store text-danger mr-2 mr-md-4 pr-4"></i>Перейдите в корзину и оформите резерв</span>
+            </div>
             <div class="mb-3 text-left">
                 <span><i class="fas fa-phone-volume text-danger mr-2 mr-md-4 pr-4 pl-2"></i>Дождитесь звонка от менеджера</span>
-                </div>
-            <div class="mb-3 text-left">
-            <span><i class="fas fa-luggage-cart text-danger mr-2 mr-md-4pr-4"></i>Заберите зарезервированные товары</span>
             </div>
             <div class="mb-3 text-left">
                 <span><i class="fas fa-credit-card text-danger mr-2 mr-md-4 pr-4"></i>Оплатите покупку</span>
+            </div>
+            <div class="mb-3 text-left">
+                <span><i class="fas fa-luggage-cart text-danger mr-2 mr-md-4pr-4"></i>Заберите зарезервированные товары</span>
             </div>
 
         </div>
@@ -55,8 +56,8 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="js/controller.js"></script>
-<script src="js/home.js"></script>
+<script src="../../js/controller.js" th:src="@{/js/controller.js}"></script>
+<script src="../../js/home.js" th:src="@{/js/home.js}"></script>
 </body>
 
 </html>
