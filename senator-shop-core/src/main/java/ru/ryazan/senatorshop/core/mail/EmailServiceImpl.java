@@ -45,11 +45,9 @@ public class EmailServiceImpl implements EmailService{
 
             messageHelper.setSubject("Резерв товара на сайте senator-wine.ru");
         };
-        try {
+
             javaMailSender.send(messagePreparator);
-        } catch (MailException e) {
-            // runtime exception; compiler will not force you to handle it
-        }
+
     }
 
     @Override
