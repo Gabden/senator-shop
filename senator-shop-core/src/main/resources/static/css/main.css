@@ -232,6 +232,13 @@ hr {
 }
 
 @media (max-width: 576px) {
+    .card-line-height{
+        line-height: 85%;
+    }
+
+    .price-size {
+        font-size: 0.7rem;
+    }
     .center-orient-button {
         margin-left: 35%;
     }
@@ -278,6 +285,9 @@ hr {
 
 
 @media (min-width: 576px) {
+    .card-line-height{
+        line-height: 85%;
+    }
     .carousel-item {
         height: 16rem;
         background-size:cover;
@@ -322,6 +332,9 @@ hr {
 
 
 @media (min-width: 992px) {
+    .card-line-height{
+        line-height: 100%;
+    }
     .card-title{
         font-size: 1.15rem;
     }

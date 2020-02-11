@@ -18,17 +18,17 @@
                         </a>
 
                     </div>
-                    <div class="card-body text-justify text-center">
+                    <div class="card-body text-justify text-center card-line-height">
                         <a class="card-title" th:text="${product.productName}"
                            th:href="@{'/productList/product/' + ${product.id}}" style="font-size: 0.9rem"></a>
-                        <p class="card-text" style="font-size: 0.7rem">
+                        <p class="card-text" style="font-size: 0.7rem;">
                             <span th:text="${product.productVolume}"></span>
                             <span th:text="${product.productCountry}"></span>
                             <span th:text="${product.productAlcoholDegree}"></span>
                         </p>
                     </div>
 
-                    <div class="card-footer bg-transparent m-0" style="font-size: 0.95rem">
+                    <div class="card-footer bg-transparent m-0 price-size">
                         <span th:class="${product.salePrice != null && #strings.length(product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${product.productPrice}]]<i
                                 class="fas fa-ruble-sign ml-1"></i></span>
                         <span class="text-danger"
