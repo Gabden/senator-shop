@@ -14,9 +14,10 @@ public class MailContentBuilder {
         this.templateEngine = templateEngine;
     }
 
-    public String build(Cart cart) {
+    public String build(Cart cart, Long orderId) {
         Context context = new Context();
         context.setVariable("cart", cart);
+        context.setVariable("orderId",orderId);
         return templateEngine.process("mailTemplate", context);
     }
 

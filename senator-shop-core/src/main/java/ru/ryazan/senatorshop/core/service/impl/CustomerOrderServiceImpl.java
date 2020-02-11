@@ -13,6 +13,7 @@ import ru.ryazan.senatorshop.core.repository.CustomerOrderRepository;
 import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerOrderService;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
@@ -59,9 +60,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public void sendEmailToAdmin(Cart cart){
         System.out.println("Sending Email...");
         String[] mails = adminsMail.split(";");
+        List<CustomerOrder> orders = customerOrderRepository.findCustomerOrderByCart(cart);
+        Long orderId = orders.get(orders.size() - 1).getCustomerOrderId();
 //        try {
 
-            mailSender.sendEmail(mails, cart);
+            mailSender.sendEmail(mails, cart, orderId);
 //            mailSender.sendEmailWithAttachment();
 
 //        } catch (MessagingException | IOException e) {

@@ -25,16 +25,16 @@ public class EmailServiceImpl implements EmailService{
     }
 
     @Override
-    public void sendEmail(String[] sendTo, Cart cart) {
-        sendEmailToCustomerAndAdmin(cart, true);
-        sendEmailToCustomerAndAdmin(cart, false);
+    public void sendEmail(String[] sendTo, Cart cart, Long orderId) {
+        sendEmailToCustomerAndAdmin(cart, true,orderId);
+        sendEmailToCustomerAndAdmin(cart, false, orderId);
 
     }
 
-    private void sendEmailToCustomerAndAdmin(Cart cart, boolean isCustomerOrAdmin) {
+    private void sendEmailToCustomerAndAdmin(Cart cart, boolean isCustomerOrAdmin, Long orderId) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-            String content = mailContentBuilder.build(cart);
+            String content = mailContentBuilder.build(cart, orderId);
             messageHelper.setText(content, true);
             messageHelper.setFrom("aisukhov@mail.ru");
             if (isCustomerOrAdmin) {
