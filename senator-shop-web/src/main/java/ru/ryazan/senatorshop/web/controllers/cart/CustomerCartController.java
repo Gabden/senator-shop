@@ -50,7 +50,7 @@ public class CustomerCartController {
     public String getCartRedirect(@PathVariable("cartId") Long id, Model model) {
         Optional<Cart> cart = cartService.read(id);
         int grandTotal = 0;
-        cart.ifPresent(this::updatePriceItems);
+        cart.ifPresent(cart1 -> updatePriceItems(cart1, model));
 
 
         model.addAttribute("cart", cart.get().getCartItems());
@@ -69,7 +69,7 @@ public class CustomerCartController {
         Optional<Cart> cart = cartService.readBySessionId(sessionId);
         int grandTotal = 0;
 
-        cart.ifPresent(this::updatePriceItems);
+        cart.ifPresent(cart1 -> updatePriceItems(cart1, model));
 
         if (cart.isPresent()) {
             model.addAttribute("cart", cart.get().getCartItems());
@@ -84,9 +84,10 @@ public class CustomerCartController {
         return "cart";
     }
 
-    private void updatePriceItems(Cart cart) {
+    private void updatePriceItems(Cart cart, Model model) {
         List<CartItem> alcoListInCart = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().getProductCategory().contains("alco")).collect(Collectors.toList());
         int numberOfAlcoholPositions = alcoListInCart.stream().mapToInt(CartItem::getQuantity).sum();
+        model.addAttribute("quantity", numberOfAlcoholPositions);
         alcoListInCart.forEach(cartItem -> {
             priceCalculator.finalPriceItem(cartItem, numberOfAlcoholPositions);
         });

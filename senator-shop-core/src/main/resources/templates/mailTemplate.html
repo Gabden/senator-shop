@@ -26,16 +26,17 @@
                     </thead>
                     <tbody>
                     <tr th:each="cartItem : ${cart.cartItems}" style="margin-bottom: 2vh">
-                        <td>
-                            <div th:if="${cartItem.product.dataImg != null && #strings.length(cartItem.product.dataImg) > 0}">
-                                <img th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"
-                                     class="mx-auto pt-3 product--img_width" alt="..." height="250">
-                            </div>
-                            <div th:if="${(cartItem.product.dataImg == null || #strings.length(cartItem.product.dataImg) == 0) && #strings.length(cartItem.product.imageUrl) > 0 }">
-                                <img th:src="${cartItem.product.imageUrl}" class="mx-auto pt-3 product--img_width"
-                                     alt="..."
-                                     height="250">
-                            </div>
+                        <img src="/test" alt="product image">
+                        <!--                            <div th:if="${cartItem.product.dataImg != null && #strings.length(cartItem.product.dataImg) > 0}">-->
+                        <!--                                <img th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"-->
+                        <!--                                     class="mx-auto pt-3 product&#45;&#45;img_width" alt="..." height="250">-->
+                        <!--                            </div>-->
+                        <!--                            <div th:if="${(cartItem.product.dataImg == null || #strings.length(cartItem.product.dataImg) == 0) && #strings.length(cartItem.product.imageUrl) > 0 }">-->
+                        <!--                                <img th:src="${cartItem.product.imageUrl}" class="mx-auto pt-3 product&#45;&#45;img_width"-->
+                        <!--                                     alt="..."-->
+                        <!--                                     height="250">-->
+                        <!--                            </div>-->
+
                         </td>
                         <td></td>
                         <td th:text="${cartItem.product.productName}">
@@ -43,7 +44,7 @@
                         <td></td>
                         <td th:text="${cartItem.quantity}" class="text-center"></td>
                         <td></td>
-                        <td th:text="${(cartItem.product.salePrice != null && #strings.length(cartItem.product.salePrice) > 0) ? cartItem.product.salePrice : @priceFormatter.format(cartItem.product.productPrice)}"
+                        <td th:text="${cartItem.cartItemFinalPrice}"
                             style="font-weight: bold">
                             {item.productPrice}}
                         </td>
