@@ -69,13 +69,13 @@
                             <span th:class="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${cart[__${i.index}__].product.productPrice}]]<i
                                     class="fas fa-ruble-sign ml-1"></i></span>
                                 <span class="text-danger"
-                                      th:if="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">Акция: [[${cart[__${i.index}__].product.salePrice}]]<i
+                                      th:if="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">Акция: [[${cart[__${i.index}__].cartItemFinalPrice}]]<i
                                         class="fas fa-ruble-sign ml-1"></i></span>
                                 <span id="priceRegistered" class="text-danger" style="cursor: help"
                                       data-toggle="tooltip"
                                       data-html="true" data-placement="right"
                                       title="<em>Цена для зарегистрированных пользователей или держателей карт Сенатор</em>"
-                                      th:unless="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">[[${@priceFormatter.format(cart[__${i.index}__].product.productPrice)}]]<i
+                                      th:unless="${cart[__${i.index}__].product.salePrice != null && #strings.length(cart[__${i.index}__].product.salePrice) > 0}">[[${cart[__${i.index}__].cartItemFinalPrice}]]<i
                                         class="fas fa-ruble-sign ml-1"></i><i
                                         class="fas fa-id-card ml-1"></i></span>
                             </td>

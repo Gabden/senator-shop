@@ -10,102 +10,92 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 <main role="main" class="mt-1">
-    <div class="container py-5" id="wrapper">
-        <div class="container">
-            <div class="page-header">
-                <h1 class="title text-center">Резерв</h1>
-                <p class="lead text-center">Подтверждение заявки на резерв товаров</p>
+    <div class="container mt-3" id="wrapper">
+        <div class="page-header">
+            <h1 class="title text-center">Резерв</h1>
+            <p class="lead text-center">Подтверждение заявки на резерв товаров</p>
 
-                <div class="container">
-                    <div class="row">
+            <div class="row">
 
-                        <form method="post" class="form form-horizontal  mx-auto">
-                            <div class="col-xs-10 ">
-                                <div class="form-group">
+                <form method="post" class="form form-horizontal col-12">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-12 col-md-8 mx-auto">
+                                <address class="text-center">
+                                    <strong>Адрес магазина</strong><br>
+                                    <span th:text="${order.cart.customer.shippingAddress.streetName}"></span><br>
+                                    <span th:text="${order.cart.customer.shippingAddress.country}"></span><br>
+                                    <span th:text="${order.cart.customer.shippingAddress.city}"></span><br>
+                                    <span th:text="${order.cart.customer.shippingAddress.zipCode}"></span><br>
+                                </address>
+                                <p class="text-center">Время заказа: <span
+                                        th:text="${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"></span>
+                                </p>
+                            </div>
 
-                                    <div class="row">
-                                        <div class="col-xs-6">
-                                            <address>
-                                                <strong>Адрес магазина</strong><br>
-                                                <span th:text="${order.cart.customer.shippingAddress.streetName}"></span><br>
-                                                <span th:text="${order.cart.customer.shippingAddress.country}"></span><br>
-                                                <span th:text="${order.cart.customer.shippingAddress.city}"></span><br>
-                                                <span th:text="${order.cart.customer.shippingAddress.zipCode}"></span><br>
-                                            </address>
-                                            <p>Время заказа: <span
-                                                    th:text="${#dates.format(#dates.createNow(),'YYYY/MM/dd HH:mm')}"></span>
-                                            </p>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <table class="table table-hover">
-                                            <tr>
-                                                <th>Товар</th>
-                                                <th>Количество</th>
-                                                <th>Цена</th>
-                                                <th>Сумма</th>
-                                            </tr>
-                                            <tr th:each="item : ${order.cart.cartItems}">
-                                                <td class="col-md-9" th:text="${item.product.productName}">productName
-                                                </td>
-                                                <td class="col-md-1 text-center" th:text="${item.quantity}">
-                                                    {{item.quantity}}
-                                                </td>
-                                                <td class="col-md-1 text-center">
-                                            <span th:class="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${item.product.productPrice}]]<i
+                        </div>
+                        <div>
+                            <table class="table table-hover">
+                                <tr class="text-center">
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th style="min-width: 8rem">Цена</th>
+                                    <th>Сумма</th>
+                                </tr>
+                                <tr th:each="item : ${order.cart.cartItems}">
+                                    <td class="col-md-9" th:text="${item.product.productName}">productName
+                                    </td>
+                                    <td class="col-md-1 text-center" th:text="${item.quantity}">
+                                        {{item.quantity}}
+                                    </td>
+                                    <td class="col-md-1 text-center">
+                                            <span th:class="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${item.cartItemPrice}]]<i
                                                     class="fas fa-ruble-sign ml-1"></i></span>
-                                                    <span class="text-danger"
-                                                          th:if="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0}">Акция: [[${item.product.salePrice}]]<i
-                                                            class="fas fa-ruble-sign ml-1"></i></span>
-                                                    <span id="priceRegistered" class="text-danger" style="cursor: help"
-                                                          data-toggle="tooltip"
-                                                          data-html="true" data-placement="right"
-                                                          title="<em>Цена для зарегистрированных пользователей или держателей карт Сенатор</em>"
-                                                          th:unless="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0}">[[${@priceFormatter.format(item.product.productPrice)}]]
-                                                        <i
-                                                                class="fas fa-ruble-sign ml-1"></i>
+                                        <span class="text-danger"
+                                              th:if="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0}">Акция: [[${item.cartItemFinalPrice}]]<i
+                                                class="fas fa-ruble-sign ml-1"></i></span>
+                                        <span id="priceRegistered" class="text-danger" style="cursor: help"
+                                              data-toggle="tooltip"
+                                              data-html="true" data-placement="right"
+                                              title="<em>Цена для зарегистрированных пользователей или держателей карт Сенатор</em>"
+                                              th:unless="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0}">[[${item.cartItemFinalPrice}]]<i
+                                                class="fas fa-ruble-sign ml-1"></i>
                                                 <i
                                                         class="fas fa-id-card ml-1"></i></span>
-                                                </td>
-                                                <td class="col-md-1 text-center" th:text="${item.totalPrice}">
-                                                    {{item.totalPrice}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th></th>
-                                                <th></th>
-                                                <th class="text-right">Итого</th>
-                                                <th class="text-center text-danger"
-                                                    th:text="${order.cart.grandTotal}"></th>
-                                                <th></th>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <input type="hidden" name="_flowExecutionKey">
+                                    </td>
+                                    <td class="col-md-1 text-center" th:text="${item.totalPrice}">
+                                        {{item.totalPrice}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-right">Итого</th>
+                                    <th class="text-center text-danger"
+                                        th:text="${order.cart.grandTotal}"></th>
+                                    <th></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <input type="hidden" name="_flowExecutionKey">
 
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <button class="btn btn-success mt-3"
-                                                    name="_eventId_backToCollectShippingDetail">Назад
-                                            </button>
-                                            <input type="submit" class="btn btn-dark mt-3" value="Зарезервировать"
-                                                   name="_eventId_orderConfirmed">
-                                        </div>
-                                        <button class="btn btn-danger mt-3" name="_eventId_cancel">Отмена</button>
-                                    </div>
-
-                                </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <button class="btn btn-success mt-3"
+                                        name="_eventId_backToCollectShippingDetail">Назад
+                                </button>
+                                <input type="submit" class="btn btn-dark mt-3" value="Зарезервировать"
+                                       name="_eventId_orderConfirmed">
                             </div>
-                        </form>
+                            <button class="btn btn-danger mt-3" name="_eventId_cancel">Отмена</button>
+                        </div>
+
                     </div>
-                </div>
+                </form>
             </div>
-            <!-- FOOTER -->
-
         </div>
-
-    </div><!-- /.container wrapper -->
+    </div>
+    <!-- FOOTER -->
 
 </main>
 <footer th:replace="fragments/footer :: footer">

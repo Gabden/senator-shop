@@ -12,11 +12,13 @@ import ru.ryazan.senatorshop.core.service.CartItemService;
 import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerService;
 import ru.ryazan.senatorshop.core.service.ProductService;
+import ru.ryazan.senatorshop.core.utils.PriceCalculator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/restCart/cart")
@@ -26,27 +28,29 @@ public class CartController {
     private ProductService productService;
     private CustomerService customerService;
     private CartItemService cartItemService;
+    private PriceCalculator priceCalculator;
 
-    public CartController(CartService cartService, ProductService productService, CustomerService customerService, CartItemService cartItemService) {
+    public CartController(CartService cartService, ProductService productService, CustomerService customerService, CartItemService cartItemService, PriceCalculator priceCalculator) {
         this.cartService = cartService;
         this.productService = productService;
         this.customerService = customerService;
         this.cartItemService = cartItemService;
+        this.priceCalculator = priceCalculator;
     }
 
     @RequestMapping("/{cartId}")
-    public Cart read(@PathVariable(value = "cartId")Long cartId){
+    public Cart read(@PathVariable(value = "cartId") Long cartId) {
         return cartService.read(cartId).get();
     }
 
     @RequestMapping("/ajax")
-    public Cart read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails){
+    public Cart read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails) {
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         Optional<Cart> cartFromSessionId = cartService.readBySessionId(sessionId);
-        if (userDetails == null){
+        if (userDetails == null) {
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
-            if (cart.isPresent()){
-               return cart.get();
+            if (cart.isPresent()) {
+                return cart.get();
             } else {
                 Cart cartNew = new Cart();
                 cartNew.setCartItems(new ArrayList<>());
@@ -54,22 +58,23 @@ public class CartController {
                 cartService.create(cartNew);
                 return cartNew;
             }
-        }else {
+        } else {
             Cart cartFromAuthUser = customerService.findCustomerByCustomerName(userDetails.getUsername()).getCart();
 
             List<CartItem> summaryListItems = new ArrayList<>(cartFromAuthUser.getCartItems());
-            if (cartFromSessionId.isPresent()){
-                if (cartFromSessionId.get().getCartItems().size() > 0){
-                   OUTTER: for (CartItem item: cartFromSessionId.get().getCartItems()){
-                        for (CartItem userItem : summaryListItems){
-                            if (item.getProduct().getId().equals(userItem.getProduct().getId())){
+            if (cartFromSessionId.isPresent()) {
+                if (cartFromSessionId.get().getCartItems().size() > 0) {
+                    OUTTER:
+                    for (CartItem item : cartFromSessionId.get().getCartItems()) {
+                        for (CartItem userItem : summaryListItems) {
+                            if (item.getProduct().getId().equals(userItem.getProduct().getId())) {
                                 userItem.setQuantity(userItem.getQuantity() + item.getQuantity());
                                 cartItemService.update(userItem);
                                 continue OUTTER;
                             }
                         }
-                            item.setCart(cartFromAuthUser);
-                            cartItemService.addItem(item);
+                        item.setCart(cartFromAuthUser);
+                        cartItemService.addItem(item);
                     }
 
                 }
@@ -80,38 +85,46 @@ public class CartController {
     }
 
     @RequestMapping("bySession/{sessionId}")
-    public Cart readBySessionId(@PathVariable(value = "sessionId")String sessionId){
+    public Cart readBySessionId(@PathVariable(value = "sessionId") String sessionId) {
         Optional<Cart> cart = cartService.readBySessionId(sessionId);
-        if (!cart.isPresent()){
+        if (!cart.isPresent()) {
             Cart newCart = new Cart();
             newCart.setSessionId(sessionId);
             return newCart;
-        }else {
+        } else {
             return cart.get();
         }
     }
 
     @RequestMapping(value = "/refreshQuantity/{productId}", method = RequestMethod.PUT)
-    public void refreshQuantity(@PathVariable(value = "productId") Long productId, @RequestParam(name = "quantity") int quantity, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
-        if (userDetails != null){
+    public void refreshQuantity(@PathVariable(value = "productId") Long productId, @RequestParam(name = "quantity") int quantity, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
+        if (userDetails != null) {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             Cart cart = customer.getCart();
-            List<CartItem> cartItems =  cart.getCartItems();
-            for (CartItem item: cartItems){
-                if (item.getProduct().getId().equals(productId)){
+            Long cartId = cart.getCartId();
+            List<CartItem> cartItems = cart.getCartItems();
+
+            for (CartItem item : cartItems) {
+                if (item.getProduct().getId().equals(productId)) {
                     item.setQuantity(quantity);
                     cartItemService.update(item);
+                    Optional<Cart> refreshedCart = cartService.read(cartId);
+                    refreshedCart.ifPresent(this::updateCart);
                     return;
                 }
             }
         } else {
+
             String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
-            List<CartItem> cartItems =  cart.get().getCartItems();
-            for (CartItem item: cartItems){
-                if (item.getProduct().getId().equals(productId)){
+            List<CartItem> cartItems = cart.get().getCartItems();
+
+            for (CartItem item : cartItems) {
+                if (item.getProduct().getId().equals(productId)) {
                     item.setQuantity(quantity);
                     cartItemService.update(item);
+                    Optional<Cart> refreshedCart = cartService.read(cart.get().getCartId());
+                    refreshedCart.ifPresent(this::updateCart);
                     return;
                 }
             }
@@ -120,14 +133,14 @@ public class CartController {
 
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addItem(@PathVariable(value = "productId") Long productId, @RequestParam(name = "quantity") int quantity, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+    public void addItem(@PathVariable(value = "productId") Long productId, @RequestParam(name = "quantity") int quantity, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
         Optional<Product> product = productService.findById(productId);
-        if (userDetails != null){
+        if (userDetails != null) {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             Cart cart = customer.getCart();
-            List<CartItem> cartItems =  cart.getCartItems();
-            for (CartItem item: cartItems){
-                if (item.getProduct().getId().equals(productId)){
+            List<CartItem> cartItems = cart.getCartItems();
+            for (CartItem item : cartItems) {
+                if (item.getProduct().getId().equals(productId)) {
                     item.setQuantity(quantity);
                     cartItemService.addItem(item);
                     return;
@@ -138,12 +151,13 @@ public class CartController {
             cartItem.setQuantity(quantity);
             cartItem.setCart(cart);
             cartItemService.addItem(cartItem);
+            updateCart(cart);
         } else {
             String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
-            List<CartItem> cartItems =  cart.get().getCartItems();
-            for (CartItem item: cartItems){
-                if (item.getProduct().getId().equals(productId)){
+            List<CartItem> cartItems = cart.get().getCartItems();
+            for (CartItem item : cartItems) {
+                if (item.getProduct().getId().equals(productId)) {
                     item.setQuantity(item.getQuantity() + quantity);
                     cartItemService.addItem(item);
                     return;
@@ -154,6 +168,7 @@ public class CartController {
             cartItem.setQuantity(quantity);
             cartItem.setCart(cart.get());
             cartItemService.addItem(cartItem);
+            cart.ifPresent(this::updateCart);
 
         }
 
@@ -182,9 +197,9 @@ public class CartController {
 
     @RequestMapping(value = "/ajax/clearCart", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeAllItems(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+    public void removeAllItems(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
-        if (userDetails != null){
+        if (userDetails != null) {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             Cart cart = customer.getCart();
             cartItemService.deleteAll(cart);
@@ -239,12 +254,21 @@ public class CartController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal request, please verify your payload")
-    public void handleClientError(Exception e){}
+    public void handleClientError(Exception e) {
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Internal server error")
-    public void handleServerError(Exception e){}
+    public void handleServerError(Exception e) {
+    }
 
+    private void updateCart(Cart cart) {
+        List<CartItem> alcoListInCart = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().getProductCategory().contains("alco")).collect(Collectors.toList());
+        int numberOfAlcoholPositions = alcoListInCart.stream().mapToInt(CartItem::getQuantity).sum();
+        alcoListInCart.forEach(cartItem -> {
+            priceCalculator.finalPriceItem(cartItem, numberOfAlcoholPositions);
+        });
+    }
 
 
 }

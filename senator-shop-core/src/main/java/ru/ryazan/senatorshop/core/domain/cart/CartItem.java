@@ -23,6 +23,26 @@ public class CartItem implements Serializable {
     @JsonIgnore
     private Product product;
     private int quantity;
+
+    private String cartItemPrice;
+    private String cartItemFinalPrice;
+
+    public String getCartItemPrice() {
+        return cartItemPrice;
+    }
+
+    public void setCartItemPrice(String cartItemPrice) {
+        this.cartItemPrice = cartItemPrice;
+    }
+
+    public String getCartItemFinalPrice() {
+        return cartItemFinalPrice;
+    }
+
+    public void setCartItemFinalPrice(String cartItemFinalPrice) {
+        this.cartItemFinalPrice = cartItemFinalPrice;
+    }
+
     @JsonIgnore
     private Integer totalPrice;
 
@@ -68,13 +88,7 @@ public class CartItem implements Serializable {
     }
 
     public int getTotalPrice() {
-        if (product.getSalePrice() != null && product.getSalePrice().length() > 0 && Integer.parseInt(product.getSalePrice()) > 0) {
-            return Integer.parseInt(product.getSalePrice()) * quantity;
-        } else {
-            int summary = Integer.parseInt(product.getProductPrice()) * quantity;
-            summary *= 0.9;
-            return summary;
-        }
+        return Integer.parseInt(cartItemFinalPrice) * quantity;
     }
 
     public void setTotalPrice(Integer totalPrice) {

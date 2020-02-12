@@ -65,7 +65,9 @@
                     <div th:each="order, i : ${orders}" class="my-3">
 
                         <button class="btn btn-dark d-block my-4" data-toggle="collapse"
-                                th:attr="data-target='#collapse-' + ${order.customerOrderId}" >Заказ &#8470; [[${order.customerOrderId}]] от [[${order.timestamp}]]</button>
+                                th:attr="data-target='#collapse-' + ${order.customerOrderId}">Заказ &#8470;
+                            [[${order.customerOrderId}]] от [[${order.timestamp}]]
+                        </button>
                         <div class="collapse mb-4" th:id="'collapse-' + ${order.customerOrderId}">
                             <div class="card">
                                 <div class="card-body">
@@ -81,27 +83,43 @@
 
                                         <tr th:each="cartItem : ${order.cart.cartItems}">
                                             <td>
-                                                <div  th:if="${cartItem.product.dataImg != null && #strings.length(cartItem.product.dataImg) > 0}">
-                                                    <img th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                                <div th:if="${cartItem.product.dataImg != null && #strings.length(cartItem.product.dataImg) > 0}">
+                                                    <img th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"
+                                                         class="mx-auto pt-3 product--img_width" alt="..." height="250">
                                                 </div>
-                                                <div  th:if="${(cartItem.product.dataImg == null || #strings.length(cartItem.product.dataImg) == 0) && #strings.length(cartItem.product.imageUrl) > 0 }">
-                                                    <img th:src="${cartItem.product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                                <div th:if="${(cartItem.product.dataImg == null || #strings.length(cartItem.product.dataImg) == 0) && #strings.length(cartItem.product.imageUrl) > 0 }">
+                                                    <img th:src="${cartItem.product.imageUrl}"
+                                                         class="mx-auto pt-3 product--img_width" alt="..." height="250">
                                                 </div>
-<!--                                                <img-->
-<!--                                                    th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"-->
-<!--                                                    class="mx-auto pt-3" alt="..." width="40" height="150">-->
+                                                <!--                                                <img-->
+                                                <!--                                                    th:src="@{'data:image/jpg;base64,' + ${cartItem.product.dataImg}}"-->
+                                                <!--                                                    class="mx-auto pt-3" alt="..." width="40" height="150">-->
                                             </td>
                                             <td>
                                                 <div class="d-flex text-justify my-auto">
                                                     <div class="col-12 col-md-10" style="font-size: 1.2rem">
-                                                        <a th:text="${cartItem.product.productName}" th:href="@{'/productList/product/' + ${cartItem.product.id}}" style="font-size: 0.9rem"></a>
+                                                        <a th:text="${cartItem.product.productName}"
+                                                           th:href="@{'/productList/product/' + ${cartItem.product.id}}"
+                                                           style="font-size: 0.9rem"></a>
                                                         <!--                                            <span th:text="${i}"></span>-->
                                                     </div>
                                                 </div>
 
                                             </td>
-                                            <td th:text="${cartItem.product.productPrice}">
-                                                {item.productPrice}}
+                                            <td>
+                                                <span th:class="${cartItem.product.salePrice != null && #strings.length(cartItem.product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${cartItem.cartItemPrice}]]<i
+                                                        class="fas fa-ruble-sign ml-1"></i></span>
+                                                <span class="text-danger"
+                                                      th:if="${cartItem.product.salePrice != null && #strings.length(cartItem.product.salePrice) > 0}">Акция: [[${cartItem.cartItemFinalPrice}]]<i
+                                                        class="fas fa-ruble-sign ml-1"></i></span>
+                                                <span id="priceRegistered" class="text-danger" style="cursor: help"
+                                                      data-toggle="tooltip"
+                                                      data-html="true" data-placement="right"
+                                                      title="<em>Цена для зарегистрированных пользователей или держателей карт Сенатор</em>"
+                                                      th:unless="${cartItem.product.salePrice != null && #strings.length(cartItem.product.salePrice) > 0}">[[${cartItem.cartItemFinalPrice}]]<i
+                                                        class="fas fa-ruble-sign ml-1"></i>
+                                                <i
+                                                        class="fas fa-id-card ml-1"></i></span>
                                             </td>
 
                                             <td th:text="${cartItem.quantity}" class="text-center"></td>
@@ -111,7 +129,7 @@
 
                                         <tr>
                                             <th>
-                                               Статус заказа
+                                                Статус заказа
                                             </th>
                                             <th>
                                                 <div th:if="${order.status} == 'confirmed'">
@@ -131,19 +149,19 @@
                             </div>
                         </div>
 
-                        </div> <!-- my03 -->
-                        <div th:if="${orders.getTotalElements()} > 0">
-                            <nav th:replace="fragments/pagination :: pagination"></nav>
-                        </div>
+                    </div> <!-- my03 -->
+                    <div th:if="${orders.getTotalElements()} > 0">
+                        <nav th:replace="fragments/pagination :: pagination"></nav>
+                    </div>
                     <div th:unless="${orders.getTotalElements()} > 0">
                         <p class="text-center h4">Вы не делали заказов</p>
                     </div>
 
-                    </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
 
     </div><!-- /.container wrapper -->
     <!-- FOOTER -->
