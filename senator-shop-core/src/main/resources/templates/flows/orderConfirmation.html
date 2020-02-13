@@ -49,7 +49,8 @@
                                         {{item.quantity}}
                                     </td>
                                     <td class="col-md-1 text-center">
-                                            <span th:class="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0 ? 'd-block line-price':'d-block'}">[[${item.cartItemPrice}]]<i
+                                            <span th:class="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0 ? 'd-block line-price':'d-block'}"
+                                                  style="text-decoration: line-through;">[[${item.cartItemPrice}]]<i
                                                     class="fas fa-ruble-sign ml-1"></i></span>
                                         <span class="text-danger"
                                               th:if="${item.product.salePrice != null && #strings.length(item.product.salePrice) > 0}">Акция: [[${item.cartItemFinalPrice}]]<i

@@ -132,12 +132,13 @@
                                                 Статус заказа
                                             </th>
                                             <th>
-                                                <div th:if="${order.status} == 'confirmed'">
-                                                    <span class="text-danger">Подтвержден</span>
+                                                <div>
+                                                    <span class="text-danger" th:if="${order.status} == 'confirmed'">Подтвержден</span>
+                                                    <span class="text-success"
+                                                          th:if="${order.status} == 'confirmation'">В обработке</span>
+                                                    <span class="text-success" th:if="${order.status} == 'processed'">Исполнен</span>
                                                 </div>
-                                                <div th:unless="${order.status} == 'confirmed'">
-                                                    <span class="text-success">Оформлен</span>
-                                                </div>
+
                                             </th>
                                             <th></th>
                                             <th>Итого</th>

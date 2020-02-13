@@ -9,6 +9,7 @@ import ru.ryazan.senatorshop.core.repository.CustomerRepository;
 import ru.ryazan.senatorshop.core.service.CustomerService;
 import ru.ryazan.senatorshop.core.service.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,11 +49,21 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findCustomersByCustomerPhone(phone, pageable);
     }
 
-    public void validate(Customer customer){
-        Optional<Customer> oldCustomer = customerRepository.findById(customer.getCustomerId());
-        if (oldCustomer.isPresent()){
+    @Override
+    public List<Customer> findAll() {
+        return (List<Customer>) customerRepository.findAll();
+    }
 
-            if (!customer.getCustomerName().equals(oldCustomer.get().getCustomerName())){
+    @Override
+    public void deleteById(Long customerId) {
+        customerRepository.deleteById(customerId);
+    }
+
+    public void validate(Customer customer) {
+        Optional<Customer> oldCustomer = customerRepository.findById(customer.getCustomerId());
+        if (oldCustomer.isPresent()) {
+
+            if (!customer.getCustomerName().equals(oldCustomer.get().getCustomerName())) {
                 oldCustomer.get().setCustomerName(customer.getCustomerName());
                 User user = userService.findUserByUsername(oldCustomer.get().getCustomerName());
                 user.setUsername(customer.getCustomerName());

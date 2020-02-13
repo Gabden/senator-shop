@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+>
+<head th:replace="fragments/header :: header">
+</head>
+
+<body>
+<header th:replace="fragments/navbar :: navbar">
+</header>
+<div th:insert="fragments/search-input :: search">
+</div>
+<main role="main" class="mt-5">
+    <div class="container" id="wrapper">
+        <div class="page-header">
+            <h1 class="title text-center">Страница администрирования резерва клиента</h1>
+            <p class="lead text-center">Здесь вы можете изменить статус заказа, изменить количество товара и тд</p>
+        </div>
+        <div>
+            <div class="container">
+                <select class="form-control fsize-07" name="category" th:id="${order.customerOrderId}"
+                        th:field="*{order.status}" style="max-width: 25vw;">
+                    <option value="created">Создан</option>
+                    <option value="confirmation">В обработке</option>
+                    <option value="processed">Исполнен</option>
+                </select>
+            </div>
+            <section class="container my-2" ng-app="cartApp">
+                <div ng-controller="cartCtrl" th:attr="ng-init='initCartId(\''+${order.cart.cartId}+'\');'">
+
+                    <table class="table table-hover" style="font-size: 0.7rem">
+                        <tr>
+                            <th></th>
+                            <th>Товар</th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Сумма</th>
+                            <th></th>
+                        </tr>
+                        <tr th:each="item, i : ${order.cart.cartItems}">
+
+                            <td>
+                                <div th:if="${item.product.dataImg != null && #strings.length(item.product.dataImg) > 0}">
+                                    <img th:src="@{'data:image/jpg;base64,' + ${item.product.dataImg}}"
+                                         class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                </div>
+                                <div th:if="${(item.product.dataImg == null || #strings.length(item.product.dataImg) == 0) && #strings.length(item.product.imageUrl) > 0 }">
+                                    <img th:src="${item.product.imageUrl}" class="mx-auto pt-3 product--img_width"
+                                         alt="..." height="250">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex text-justify my-auto">
+                                    <div class="col-12 col-md-10" style="font-size: 1.2rem">
+                                        <a th:href="@{'/productList/product/' + ${order.cart.cartItems[__${i.index}__].product.id}}"
+                                           th:text="${item.product.productName}" style="font-size: 0.7rem"></a>
+                                        <input type="hidden"
+                                               th:value="*{order.cart.cartItems[__${i.index}__].product.id}"
+                                               id="productId">
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>
+                            <span th:class="${order.cart.cartItems[__${i.index}__].product.salePrice != null && #strings.length(order.cart.cartItems[__${i.index}__].product.salePrice) > 0 ? 'd-block line-price':'d-block'}"
+                                  style="text-decoration: line-through;">[[${order.cart.cartItems[__${i.index}__].cartItemPrice}]]<i
+                                    class="fas fa-ruble-sign ml-1"></i></span>
+                                <span class="text-danger"
+                                >Цена резерва: [[${order.cart.cartItems[__${i.index}__].cartItemFinalPrice}]]<i
+                                        class="fas fa-ruble-sign ml-1"></i></span>
+                            </td>
+
+                            <td>
+                                <div class="form-group w-100 w-md-50">
+                                    <input type="number" th:value="*{order.cart.cartItems[__${i.index}__].quantity}"
+                                           class="form-control"
+                                           max="10" min="1" th:id="${order.cart.cartItems[__${i.index}__].cartItemId}">
+                                </div>
+
+                            </td>
+                            <td th:text="${item.totalPrice}"></td>
+
+                            <td><a href="#" class="label label-danger"
+                                   th:attr="data-item=${order.cart.cartItems[__${i.index}__].cartItemId}">
+                                <i class="fas fa-times text-danger card-title"></i></a></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Итого</th>
+                            <th th:text="${order.cart.grandTotal}"></th>
+                            <th></th>
+                        </tr>
+                    </table>
+
+                </div>
+            </section>
+        </div>
+    </div><!-- /.container wrapper -->
+
+
+</main>
+<footer th:replace="fragments/footer :: footer">
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script src="../../js/home.js" th:src="@{/js/home.js}"></script>
+<script src="../../js/order-change.js" th:src="@{/js/order-change.js}"></script>
+</body>
+
+</body>
+</html>

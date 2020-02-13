@@ -36,11 +36,24 @@ public class CustomerCartController {
     public String getCustomerCart (@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
         if (userDetails != null) {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
-            Cart cart = customer.getCart();
-            long cartId = cart.getCartId();
+            Cart customerCart = customer.getCart();
+            if (customerCart != null) {
+                long cartId = customerCart.getCartId();
+                return "redirect:/customer/cart/" + cartId;
+            } else {
+                Cart cart = new Cart();
+                cart.setCustomer(customer);
+                customer.setCart(cart);
+                cartService.create(cart);
 
+                customer.setEnabled(true);
+                customerService.addCustomer(customer);
+            }
 
-            return "redirect:/customer/cart/" + cartId;
+            Customer updatedCustomer = customerService.findCustomerByCustomerName(userDetails.getUsername());
+            Cart updatedCart = updatedCustomer.getCart();
+
+            return "redirect:/customer/cart/" + updatedCart.getCartId();
         }
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         return "redirect:/customer/cart/session/" + sessionId;

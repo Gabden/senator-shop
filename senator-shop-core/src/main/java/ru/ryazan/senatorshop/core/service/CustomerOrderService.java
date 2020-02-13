@@ -10,11 +10,18 @@ import java.util.Optional;
 
 public interface CustomerOrderService {
     void createOrder(CustomerOrder customerOrder);
+
     int getGrantTotal(Long cartId);
+
     Page<CustomerOrder> findAllByCustomer(Customer customer, Pageable pageable);
+
     Page<CustomerOrder> findAll(Pageable pageable);
 
     void sendEmailToAdmin(Cart cart);
 
     Optional<CustomerOrder> findById(long id);
+
+    void update(CustomerOrder updatedCustomerOrder);
+
+    void delete(Long id);
 }

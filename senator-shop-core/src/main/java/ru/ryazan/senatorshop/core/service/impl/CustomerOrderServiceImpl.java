@@ -78,4 +78,14 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public Optional<CustomerOrder> findById(long id) {
         return customerOrderRepository.findById(id);
     }
+
+    @Override
+    public void update(CustomerOrder updatedCustomerOrder) {
+        customerOrderRepository.save(updatedCustomerOrder);
+    }
+
+    @Override
+    public void delete(Long id) {
+        customerOrderRepository.deleteById(id);
+    }
 }

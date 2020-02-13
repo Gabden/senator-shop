@@ -43,6 +43,15 @@ public class AdminController {
         this.paginationNumbers = paginationNumbers;
     }
 
+    @RequestMapping("/delete/all")
+    public String deleteAll() {
+        List<Customer> customers = customerService.findAll();
+        customers.forEach(customer -> customerService.deleteById(customer.getCustomerId()));
+        List<User> users = userService.findAll();
+        users.forEach(user -> userService.deleteById(user.getId()));
+        return "redirect:/";
+    }
+
     @RequestMapping({"", "/"})
     public String admin(Model model) {
         return "admin";
