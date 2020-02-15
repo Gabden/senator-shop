@@ -12,33 +12,34 @@
 <main role="main" class="my-3">
     <div class="container" id="wrapper">
         <div class="container">
-            <section>
-
-                <div th:if="${cart.size() != 0}" class="text-center">
-                    <h1>Корзина</h1>
+            <section th:if="${cart.size() == 0}" class="text-center">
+                <div class="jumbotron">
+                    <div class="container text-center">
+                        <h1 th:unless="${cart.size() != 0}">Корзина пуста</h1>
+                    </div>
                 </div>
-                <h1 th:unless="${cart.size() != 0}">Корзина пуста</h1>
-
             </section>
-            <section>
+
+            <section th:unless="${cart.size() == 0}">
                 <div class="alert alert-success d-block text-center my-3">
                     <h4 class="alert-heading">Внимание!</h4>
                     <p th:if="${quantity < 3}">Для того, чтобы получить скидку <span
                             class="font-weight-bold text-danger">15%</span> на резерв алкогольной продукции необходимо
-                        выбрать еще <span th:text="${3 - quantity == 1 ? 'один товар' : 'два товара'}"
+                        выбрать еще <span th:text="${3 - quantity == 1 ? 'одну единицу товара' : 'две единицы товара'}"
                                           class="text-uppercase text-danger font-weight-bold"></span> из категории
                         алкоголь</p>
                     <p th:if="${quantity >= 3 && quantity < 6}">Для того, чтобы получить скидку <span
                             class="font-weight-bold text-danger">25%</span> на резерв алкогольной продукции необходимо
                         выбрать еще <span
-                                th:text="${6 - quantity == 3 ? 'три товара' : 6 - quantity == 1 ? 'один товар' : 'два товара'}"
-                                class="text-uppercase text-danger font-weight-bold"></span> товар из категории алкоголь
+                                th:text="${6 - quantity == 3 ? 'три единицы товара' : 6 - quantity == 1 ? 'один единицу товар' : 'две единицы товара'}"
+                                class="text-uppercase text-danger font-weight-bold"></span> из категории алкоголь
                     </p>
                     <p th:if="${quantity >= 6}">Поздравляем, вы выполнили условия получения
                         максимальной скидки - <span class="font-weight-bold text-danger">25%</span></p>
                     <hr>
-                    <p class="mb-0">Дополнительная скидка активируется автоматически при выполнении условий</p>
-                    <p class="mb-0">Дополнительная скидка не применяется на товары по акции</p>
+                    <p class="mb-0">Дополнительная скидка активируется автоматически при выполнении условий описанных
+                        выше.</p>
+                    <p class="mb-0">Дополнительная скидка не применяется на товары по акции.</p>
                     <p class="mb-0">Зарезервированный товар вы сможете получить в магазине Сенатор.</p>
                 </div>
             </section>
