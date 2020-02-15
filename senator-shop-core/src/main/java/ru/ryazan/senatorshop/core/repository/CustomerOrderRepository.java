@@ -12,4 +12,6 @@ import java.util.List;
 public interface CustomerOrderRepository extends PagingAndSortingRepository<CustomerOrder, Long> {
     Page<CustomerOrder> findAllByCustomer(Customer customer, Pageable pageable);
     List<CustomerOrder> findCustomerOrderByCart(Cart cart);
+
+    List<CustomerOrder> findCustomerOrdersByStatus(String status);
 }

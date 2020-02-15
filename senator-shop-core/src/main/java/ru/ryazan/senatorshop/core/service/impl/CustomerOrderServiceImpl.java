@@ -88,4 +88,9 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public void delete(Long id) {
         customerOrderRepository.deleteById(id);
     }
+
+    @Override
+    public List<CustomerOrder> findCustomerOrdersByStatus(String created) {
+        return customerOrderRepository.findCustomerOrdersByStatus(created);
+    }
 }

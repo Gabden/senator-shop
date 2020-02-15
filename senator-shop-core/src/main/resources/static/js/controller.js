@@ -2,6 +2,7 @@ var cartApp = angular.module ("cartApp", []);
 
 $( document ).ready(function() {
     $(".alert").hide();
+
     $.ajax({
         url: '/restCart/cart/ajax',
         success: function(data){

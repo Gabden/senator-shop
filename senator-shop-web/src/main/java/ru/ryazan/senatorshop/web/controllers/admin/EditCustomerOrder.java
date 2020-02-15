@@ -14,6 +14,7 @@ import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerOrderService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -89,5 +90,10 @@ public class EditCustomerOrder {
 
     }
 
+    @RequestMapping("/orders/quantity")
+    public ResponseEntity<Integer> getNumberOfNewOrders() {
+        List<CustomerOrder> newOrders = customerOrderService.findCustomerOrdersByStatus("created");
+        return ResponseEntity.ok(newOrders.size());
+    }
 
 }

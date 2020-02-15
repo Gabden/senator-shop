@@ -6,6 +6,7 @@ import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerOrderService {
@@ -24,4 +25,7 @@ public interface CustomerOrderService {
     void update(CustomerOrder updatedCustomerOrder);
 
     void delete(Long id);
+
+    List<CustomerOrder> findCustomerOrdersByStatus(String created);
+
 }
