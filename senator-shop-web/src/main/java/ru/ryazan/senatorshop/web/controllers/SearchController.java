@@ -82,6 +82,8 @@ public class SearchController {
                          @RequestParam(name = "manufacturers", required = false) String[] manufacturers,
                          @RequestParam(name = "min-price", required = false) String minPrice,
                          @RequestParam(name = "max-price", required = false) String maxPrice,
+                         @RequestParam(name = "tRegions", required = false) String[] regions,
+                         @RequestParam(name = "sortOfVine", required = false) String[] sorts,
                          HttpServletRequest request,
                          Model model) {
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
@@ -125,6 +127,22 @@ public class SearchController {
         try {
             if (manufacturers != null && manufacturers.length > 0) {
                 filterProducts = filterProducts.stream().filter(product -> Arrays.stream(manufacturers).parallel().anyMatch(manufacture -> product.getProductManufacturer().contains(manufacture))).collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (regions != null && regions.length > 0) {
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(regions).parallel().anyMatch(region -> product.getProductRegion().contains(region))).collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (sorts != null && sorts.length > 0) {
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(sorts).parallel().anyMatch(sort -> product.getProductAlcoholSort().contains(sort))).collect(Collectors.toList());
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -87,8 +87,11 @@
                                         <div class="col-4 "
                                              th:if="${product.productRegion != null && #strings.length(product.productRegion) > 0} ">
                                             <p class="lean mb-0">Регион</p>
-                                            <p class="text-dark border-light-gray"><span
-                                                    th:text="${product.productRegion}"></span></p>
+                                            <a th:href="@{'/filter?categories=all&min-price=&max-price=&tRegions=' + ${product.productRegion}}"
+                                               class="text-success">
+                                                <p class="border-light-gray text-danger"><span
+                                                        th:text="${product.productRegion}"></span></p>
+                                            </a>
                                         </div>
                                         <div class="col-4 "
                                              th:if="${product.productAlcoholDegree != null && #strings.length(product.productAlcoholDegree) > 0}">
@@ -105,8 +108,11 @@
                                         <div class="col-4 text-nowrap"
                                              th:if="${product.productAlcoholSort != null && #strings.length(product.productAlcoholSort) > 0}">
                                             <p class="lean mb-0">Сорт</p>
-                                            <p class="text-dark border-light-gray"><span
-                                                    th:text="${product.productAlcoholSort}"></span></p>
+                                            <a th:href="@{'/filter?categories=all&min-price=&max-price=&sortOfVine=' + ${product.productAlcoholSort}}"
+                                               class="text-success">
+                                                <p class="border-light-gray text-danger"><span
+                                                        th:text="${product.productAlcoholSort}"></span></p>
+                                            </a>
                                         </div>
 
                                         <div class="col-4 "

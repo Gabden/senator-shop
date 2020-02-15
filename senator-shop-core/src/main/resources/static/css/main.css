@@ -27,7 +27,7 @@ a:focus {
 
 .navbar-btn {
     box-shadow: none;
-    outline: none ;
+    outline: none;
     border: none;
 }
 
@@ -59,6 +59,7 @@ a:focus {
 #sidebar.active {
     left: 0;
 }
+
 #chevron {
     padding-top: 4px;
 }
@@ -68,7 +69,7 @@ a:focus {
     height: 35px;
     line-height: 35px;
     text-align: center;
-    background: white ;
+    background: white;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -79,7 +80,7 @@ a:focus {
 }
 
 #dismiss:hover {
-    
+
     color: #dc3545;
 }
 
@@ -95,6 +96,7 @@ a:focus {
     opacity: 0;
     transition: all 0.5s ease-in-out;
 }
+
 .overlay.active {
     display: block;
     opacity: 1;
@@ -113,9 +115,10 @@ a:focus {
     color: #343a40;
     padding: 10px;
 }
+
 #sidebar ul p:hover {
     color: #dc3545;
-    
+
 }
 
 #sidebar ul li a {
@@ -125,10 +128,10 @@ a:focus {
 
 #sidebar ul li a:hover {
     color: #dc3545;
-    
+
 }
 
-#sidebar ul li.active>a,
+#sidebar ul li.active > a,
 a[aria-expanded="true"] {
     color: #343a40;
 
@@ -137,6 +140,7 @@ a[aria-expanded="true"] {
 a[data-toggle="collapse"] {
     position: relative;
 }
+
 .hover-red:hover {
     color: #dc3545;
 }
@@ -150,8 +154,8 @@ a[data-toggle="collapse"] {
 }
 
 ul ul a {
-    font-size: 0.9em ;
-    padding-left: 30px ;
+    font-size: 0.9em;
+    padding-left: 30px;
 }
 
 ul.CTAs {
@@ -160,7 +164,7 @@ ul.CTAs {
 
 ul.CTAs a {
     text-align: center;
-    font-size: 0.9em ;
+    font-size: 0.9em;
     display: block;
     border-radius: 5px;
     margin-bottom: 5px;
@@ -173,7 +177,7 @@ a.download {
 
 a.article,
 a.article:hover {
-    
+
     color: #dc3545;
 }
 
@@ -181,7 +185,7 @@ a.article:hover {
     font-size: 1.5rem;
 }
 
-.bigA{
+.bigA {
     font-size: 2.5rem;
 }
 
@@ -190,8 +194,9 @@ a.article:hover {
     filter: invert(.99);
     transform: translateX(23%);
 }
+
 #enterOrReg:hover {
-    
+
     color: #dc3545;
 }
 
@@ -199,9 +204,11 @@ a.article:hover {
     font-size: 50%;
     transform: translateX(-10px);
 }
+
 .rem15:hover {
-    color: rgb(119,119,119);
+    color: rgb(119, 119, 119);
 }
+
 #olive-option {
     padding-left: 18px;
 }
@@ -215,7 +222,7 @@ hr {
 }
 
 .allproducts {
-    font-size: 1em!important;
+    font-size: 1em !important;
     padding: 8px;
 }
 
@@ -224,25 +231,28 @@ hr {
 }
 
 
-#catalog-md{
+#catalog-md {
     height: 55px;
     padding: 8px;
 }
-#search-input{
+
+#search-input {
     white-space: nowrap;
 }
+
 .product-card-size {
     min-width: 40vw;
 }
 
 @media (max-width: 576px) {
-    .card-line-height{
+    .card-line-height {
         line-height: 85%;
     }
 
     .price-size {
         font-size: 0.7rem;
     }
+
     .center-orient-button {
         margin-left: 35%;
     }
@@ -260,27 +270,34 @@ hr {
     .fsize-07 {
         font-size: 0.7rem;
     }
+
     .order {
         font-size: 1.3rem;
     }
+
     .product-card-size {
         min-width: 45vw !important;
     }
-    .card-title{
-        font-size: 0.7rem!important;
+
+    .card-title {
+        font-size: 0.7rem !important;
     }
-    .card-text{
-        font-size: 0.6rem!important;
+
+    .card-text {
+        font-size: 0.6rem !important;
     }
-    .btn{
-        font-size: 0.8rem!important;
+
+    .btn {
+        font-size: 0.8rem !important;
     }
+
     #productNameHistory {
         font-size: 0.8rem;
     }
+
     #tableHeaderHistory {
         font-size: 0.7rem;
-     }
+    }
 
     .product--img_width {
         max-width: 8.1rem;
@@ -289,23 +306,28 @@ hr {
 
 
 @media (min-width: 576px) {
-    .card-line-height{
+    .card-line-height {
         line-height: 85%;
     }
+
     .carousel-item {
         height: 16rem;
-        background-size:cover;
+        background-size: cover;
     }
+
     .carousel-item > img {
         height: 100%;
         width: 100%;
     }
+
     .fsize-07 {
         font-size: 0.7rem;
     }
+
     .order {
         font-size: 1.3rem;
     }
+
     .product-card-size {
         min-width: 40vw !important;
     }
@@ -317,16 +339,20 @@ hr {
     #main-logo {
         margin-left: 25vw;
     }
+
     .search-cart-buttons {
         margin-left: 30vw;
     }
+
     .carousel-item > img {
         overflow: hidden;
         width: 100%;
     }
+
     .order {
         font-size: 1.9rem;
     }
+
     .product-card-size {
         min-width: 25vw !important;
         max-width: 35vw !important;
@@ -336,10 +362,11 @@ hr {
 
 
 @media (min-width: 992px) {
-    .card-line-height{
+    .card-line-height {
         line-height: 100%;
     }
-    .card-title{
+
+    .card-title {
         font-size: 1.15rem;
     }
 
@@ -354,11 +381,9 @@ hr {
 }
 
 
-
 div label {
     font-weight: bold;
 }
-
 
 
 /*horizontal scroll */
@@ -406,7 +431,7 @@ div label {
     /*font-size: 18px; !* Increase font size *!*/
 }
 
-/*#myBtn:hover {*/
-/*    background-color: #555; !* Add a dark-grey background on hover *!*/
-/*}*/
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
 
