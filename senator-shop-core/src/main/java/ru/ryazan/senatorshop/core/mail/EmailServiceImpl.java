@@ -1,7 +1,7 @@
 package ru.ryazan.senatorshop.core.mail;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,9 +15,12 @@ import java.io.IOException;
 
 
 @Component
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
     private JavaMailSender javaMailSender;
     private MailContentBuilder mailContentBuilder;
+    @Value("${admin.mail}")
+    private String adminsMail;
+
 
     public EmailServiceImpl(JavaMailSender javaMailSender, MailContentBuilder mailContentBuilder) {
         this.javaMailSender = javaMailSender;
@@ -25,8 +28,8 @@ public class EmailServiceImpl implements EmailService{
     }
 
     @Override
-    public void sendEmail(String[] sendTo, Cart cart, Long orderId) {
-        sendEmailToCustomerAndAdmin(cart, true,orderId);
+    public void sendEmail(Cart cart, Long orderId) {
+        sendEmailToCustomerAndAdmin(cart, true, orderId);
         sendEmailToCustomerAndAdmin(cart, false, orderId);
 
     }
@@ -35,12 +38,13 @@ public class EmailServiceImpl implements EmailService{
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             String content = mailContentBuilder.build(cart, orderId);
+            String[] mails = adminsMail.split(";");
             messageHelper.setText(content, true);
-            messageHelper.setFrom("aisukhov@mail.ru");
+            messageHelper.setFrom(mails[0]);
             if (isCustomerOrAdmin) {
                 messageHelper.setTo(cart.getCustomer().getCustomerName());
             } else {
-                messageHelper.setTo("gabden5545@gmail.com");
+                messageHelper.setTo(mails[0]);
             }
 
             messageHelper.setSubject("Резерв товара на сайте senator-wine.ru");

@@ -1,6 +1,5 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         this.cartService = cartService;
         this.mailSender = mailSender;
     }
-    @Value("${admin.mail}")
-    private String adminsMail;
 
     @Override
     public void createOrder(CustomerOrder customerOrder) {
@@ -59,12 +56,12 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Override
     public void sendEmailToAdmin(Cart cart){
         System.out.println("Sending Email...");
-        String[] mails = adminsMail.split(";");
+
         List<CustomerOrder> orders = customerOrderRepository.findCustomerOrderByCart(cart);
         Long orderId = orders.get(orders.size() - 1).getCustomerOrderId();
 //        try {
 
-            mailSender.sendEmail(mails, cart, orderId);
+        mailSender.sendEmail(cart, orderId);
 //            mailSender.sendEmailWithAttachment();
 
 //        } catch (MessagingException | IOException e) {
