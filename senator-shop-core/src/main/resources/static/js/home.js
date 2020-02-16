@@ -6,6 +6,7 @@ $(document).ready(function () {
         url: '/admin/orders/quantity',
         success: function (data) {
             $('#new-order-badge').text(data)
+            $('#new-order-badge2').text(data)
         },
         error: function (request, msg, error) {
             console.log(msg)
