@@ -26,9 +26,9 @@ public class SearchController {
     public SearchController(ProductService productService, PaginationNumbers paginationNumbers) {
         this.productService = productService;
         this.paginationNumbers = paginationNumbers;
-        countriesNames = new HashSet<>();
-        manufacturersNames = new HashSet<>();
-        productTypes = new HashSet<>();
+        countriesNames = new TreeSet<>();
+        manufacturersNames = new TreeSet<>();
+        productTypes = new TreeSet<>();
         all = new ArrayList<>();
     }
 
@@ -37,15 +37,24 @@ public class SearchController {
         all = productService.findAll();
         all.forEach(product -> {
             if (product.getProductCountry() != null && product.getProductCountry().length() > 0) {
-                countriesNames.add(product.getProductCountry().trim());
+                countriesNames.add(capitalizeFirstLetter(product.getProductCountry().trim()));
             }
             if (product.getProductManufacturer() != null && product.getProductManufacturer().length() > 0) {
-                manufacturersNames.add(product.getProductManufacturer().trim());
+                manufacturersNames.add(capitalizeFirstLetter(product.getProductManufacturer().trim()));
             }
             if (product.getProductType() != null && product.getProductType().length() > 0) {
-                productTypes.add(product.getProductType().trim());
+                productTypes.add(capitalizeFirstLetter(product.getProductType().trim()));
             }
         });
+    }
+
+    private String capitalizeFirstLetter(String str) {
+        if (str != null && str.length() > 0) {
+            return str.substring(0, 1).toUpperCase() + str.substring(1);
+        } else {
+            return "";
+        }
+
     }
 
     @RequestMapping("/search")
@@ -104,7 +113,7 @@ public class SearchController {
             if (categories != null && categories.length > 0 && !categories[0].equals("all")) {
                 filterProducts = all.stream().filter(product -> Arrays.stream(categories).parallel().anyMatch(category -> {
                     if (product.getProductCategory() != null) {
-                        return product.getProductCategory().contains(category);
+                        return product.getProductCategory().toLowerCase().contains(category.toLowerCase());
                     } else {
                         return false;
                     }
@@ -121,7 +130,7 @@ public class SearchController {
             if (countries != null && countries.length > 0) {
                 filterProducts = filterProducts.stream().filter(product -> Arrays.stream(countries).parallel().anyMatch(country -> {
                     if (product.getProductCountry() != null) {
-                        return product.getProductCountry().contains(country);
+                        return product.getProductCountry().toLowerCase().contains(country.toLowerCase());
                     } else {
                         return false;
                     }
@@ -133,7 +142,7 @@ public class SearchController {
 
         try {
             if (manufacturers != null && manufacturers.length > 0) {
-                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(manufacturers).parallel().anyMatch(manufacture -> product.getProductManufacturer().contains(manufacture))).collect(Collectors.toList());
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(manufacturers).parallel().anyMatch(manufacture -> product.getProductManufacturer().toLowerCase().contains(manufacture.toLowerCase()))).collect(Collectors.toList());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,7 +150,7 @@ public class SearchController {
 
         try {
             if (regions != null && regions.length > 0) {
-                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(regions).parallel().anyMatch(region -> product.getProductRegion().contains(region))).collect(Collectors.toList());
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(regions).parallel().anyMatch(region -> product.getProductRegion().toLowerCase().contains(region.toLowerCase()))).collect(Collectors.toList());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,7 +158,7 @@ public class SearchController {
 
         try {
             if (sorts != null && sorts.length > 0) {
-                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(sorts).parallel().anyMatch(sort -> product.getProductAlcoholSort().contains(sort))).collect(Collectors.toList());
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(sorts).parallel().anyMatch(sort -> product.getProductAlcoholSort().toLowerCase().contains(sort.toLowerCase()))).collect(Collectors.toList());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +170,7 @@ public class SearchController {
                     if (product.getProductType() == null) {
                         return false;
                     } else {
-                        return product.getProductType().contains(type);
+                        return product.getProductType().toLowerCase().contains(type.toLowerCase());
                     }
                 })).collect(Collectors.toList());
             }
