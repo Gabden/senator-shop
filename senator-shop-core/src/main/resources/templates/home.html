@@ -19,7 +19,10 @@
         </ol>
         <div class="carousel-inner">
             <div th:each="event, i : ${events}" th:class="${i.index == 0} ? 'carousel-item active' : 'carousel-item'">
-                <img th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="img img-fluid" alt="...">
+                <img th:if="${event.bannerUrl == null || event.bannerUrl.length() == 0}"
+                     th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="img img-fluid" alt="...">
+                <a th:if="${event.bannerUrl != null && event.bannerUrl.length() > 0}" th:href="${event.bannerUrl}"><img
+                        th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="img img-fluid" alt="..."></a>
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
