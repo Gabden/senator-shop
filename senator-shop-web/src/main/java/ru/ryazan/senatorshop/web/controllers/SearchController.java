@@ -20,6 +20,7 @@ public class SearchController {
     private PaginationNumbers paginationNumbers;
     private Set<String> countriesNames;
     private Set<String> manufacturersNames;
+    private Set<String> productTypes;
     private List<Product> all;
 
     public SearchController(ProductService productService, PaginationNumbers paginationNumbers) {
@@ -27,6 +28,7 @@ public class SearchController {
         this.paginationNumbers = paginationNumbers;
         countriesNames = new HashSet<>();
         manufacturersNames = new HashSet<>();
+        productTypes = new HashSet<>();
         all = new ArrayList<>();
     }
 
@@ -34,11 +36,14 @@ public class SearchController {
     public void init() {
         all = productService.findAll();
         all.forEach(product -> {
-            if (product.getProductCountry() != null) {
-                countriesNames.add(product.getProductCountry());
+            if (product.getProductCountry() != null && product.getProductCountry().length() > 0) {
+                countriesNames.add(product.getProductCountry().trim());
             }
-            if (product.getProductManufacturer() != null) {
-                manufacturersNames.add(product.getProductManufacturer());
+            if (product.getProductManufacturer() != null && product.getProductManufacturer().length() > 0) {
+                manufacturersNames.add(product.getProductManufacturer().trim());
+            }
+            if (product.getProductType() != null && product.getProductType().length() > 0) {
+                productTypes.add(product.getProductType().trim());
             }
         });
     }
@@ -69,6 +74,7 @@ public class SearchController {
 
         model.addAttribute("countries", countriesNames);
         model.addAttribute("manufacturers", manufacturersNames);
+        model.addAttribute("types", productTypes);
         model.addAttribute("orders", products);
         model.addAttribute("url", "/search");
         model.addAttribute("products", products);
@@ -84,6 +90,7 @@ public class SearchController {
                          @RequestParam(name = "max-price", required = false) String maxPrice,
                          @RequestParam(name = "tRegions", required = false) String[] regions,
                          @RequestParam(name = "sortOfVine", required = false) String[] sorts,
+                         @RequestParam(name = "types", required = false) String[] types,
                          HttpServletRequest request,
                          Model model) {
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
@@ -148,6 +155,20 @@ public class SearchController {
             e.printStackTrace();
         }
 
+        try {
+            if (types != null && types.length > 0) {
+                filterProducts = filterProducts.stream().filter(product -> Arrays.stream(types).parallel().anyMatch(type -> {
+                    if (product.getProductType() == null) {
+                        return false;
+                    } else {
+                        return product.getProductType().contains(type);
+                    }
+                })).collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         try {
             boolean isMinExist = minPrice != null && minPrice.length() > 0;
@@ -200,6 +221,7 @@ public class SearchController {
         String completeUrl = request.getRequestURI() + "?" + queries;
         model.addAttribute("countries", countriesNames);
         model.addAttribute("manufacturers", manufacturersNames);
+        model.addAttribute("types", productTypes);
         model.addAttribute("orders", products);
         model.addAttribute("url", completeUrl);
         model.addAttribute("products", products);
