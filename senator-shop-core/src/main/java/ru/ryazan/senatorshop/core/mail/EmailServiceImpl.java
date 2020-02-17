@@ -1,17 +1,21 @@
 package ru.ryazan.senatorshop.core.mail;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+import ru.ryazan.senatorshop.core.domain.ProductImage;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -36,10 +40,20 @@ public class EmailServiceImpl implements EmailService {
 
     private void sendEmailToCustomerAndAdmin(Cart cart, boolean isCustomerOrAdmin, Long orderId) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             String content = mailContentBuilder.build(cart, orderId);
             String[] mails = adminsMail.split(";");
             messageHelper.setText(content, true);
+
+            cart.getCartItems().forEach(cartItem -> {
+                List<ProductImage> images = new ArrayList<>(cartItem.getProduct().getProductImageSet());
+                try {
+                    messageHelper.addInline("img-" + cartItem.getCartItemId(), new ByteArrayResource(images.get(0).getFileData()), images.get(0).getFileType());
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            });
+
             messageHelper.setFrom(mails[0]);
             if (isCustomerOrAdmin) {
                 messageHelper.setTo(cart.getCustomer().getCustomerName());
