@@ -49,6 +49,15 @@
                                        value="Акции" disabled>
                             </div>
 
+                            <div class="input-group mb-1" id="filter-new-wrapper">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input"
+                                           name="categories" value="new" id="filter-new">
+                                </div>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox"
+                                       value="Новинки" disabled>
+                            </div>
+
                             <div class="input-group mb-1" id="filter-alcohol-wrapper">
                                 <div class="input-group-text">
                                     <input type="checkbox" aria-label="Checkbox for following text input"
@@ -195,7 +204,7 @@
         </div>
     </div>
 </div>
-
+<div th:replace="fragments/modal :: modal-registration"></div>
 <footer th:replace="fragments/footer :: footer">
 </footer>
 

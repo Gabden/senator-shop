@@ -9,6 +9,7 @@ $('document').ready(function () {
         $('#filter-gifts-wrapper').toggle('d-none');
         $('#filter-oil-wrapper').toggle('d-none');
         $('#filter-sale-wrapper').toggle('d-none');
+        $('#filter-new-wrapper').toggle('d-none');
     }
     filterAll.click(function() {
         if ($(this).is(':checked')) {
@@ -18,6 +19,7 @@ $('document').ready(function () {
             $('#filter-gifts-wrapper').toggle('d-none');
             $('#filter-oil-wrapper').toggle('d-none');
             $('#filter-sale-wrapper').toggle('d-none');
+            $('#filter-new-wrapper').toggle('d-none');
 
             $('#filter-alcohol').prop('checked', false);
             $('#filter-dishes').prop('checked', false);
@@ -25,6 +27,7 @@ $('document').ready(function () {
             $('#filter-gifts').prop('checked', false);
             $('#filter-oil').prop('checked', false);
             $('#filter-sale').prop('checked', false);
+            $('#filter-new').prop('checked', false);
         } else {
             $('#filter-alcohol-wrapper').toggle('d-none');
             $('#filter-dishes-wrapper').toggle('d-none');
@@ -32,6 +35,7 @@ $('document').ready(function () {
             $('#filter-gifts-wrapper').toggle('d-none');
             $('#filter-oil-wrapper').toggle('d-none');
             $('#filter-sale-wrapper').toggle('d-none');
+            $('#filter-new-wrapper').toggle('d-none');
         }
     });
     // LOGIC OF SEARCH CATEGORY

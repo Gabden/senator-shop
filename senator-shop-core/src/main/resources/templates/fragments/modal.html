@@ -2,25 +2,50 @@
 
 
 <!-- Modal -->
-<div th:fragment="modal" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
-    <div class="modal-dialog modal-dialog-centered modal-lg " role="document" >
+<div th:fragment="modal" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
         <div class="modal-content ">
             <div class="modal-header mx-auto">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Добро пожаловать на сайт магазина SEN<span class="bigA">A</span>TOR  <i class="ml-2 fas fa-wine-glass-alt text-danger"></i></h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Добро пожаловать на сайт магазина SEN<span
+                        class="bigA">A</span>TOR <i class="ml-2 fas fa-wine-glass-alt text-danger"></i></h5>
             </div>
             <div class="modal-body mt-4">
                 <span style="font-size: 1.5rem">Вам уже исполнилось 18 лет?</span>
 
             </div>
             <div class="bg-light text-justify">
-                <p class="px-4 " style="font-size: 0.6rem;">Мы используем файлы cookie, для того, чтобы улучшать функциональность нашего веб-сервиса, давать вам возможность эффективно перемещаться по страницам нашего веб-сайта
+                <p class="px-4 " style="font-size: 0.6rem;">Мы используем файлы cookie, для того, чтобы улучшать
+                    функциональность нашего веб-сервиса, давать вам возможность эффективно перемещаться по страницам
+                    нашего веб-сайта
                     , а также для того, чтобы улучшать взаимодействие пользователя с нашим контентом.
-                    Нажимая "Да" вы соглашаетесь с правилами использования cookie файлов, а также подтверждаете, что вы старше 18 лет.</p>
+                    Нажимая "Да" вы соглашаетесь с правилами использования cookie файлов, а также подтверждаете, что вы
+                    старше 18 лет.</p>
             </div>
             <div class="modal-footer bg-secondary d-flex justify-content-around">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Да</button>
                 <a href="https://www.google.com/search?q=%D0%91%D0%B5%D0%B7%D0%B0%D0%BB%D0%BA%D0%BE%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BD%D0%B0%D0%BF%D0%B8%D1%82%D0%BA%D0%B8"
                    class="btn btn-outline-dark">Нет</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="modal-registration">
+    <!-- Modal -->
+    <div class="modal fade" id="modal-registration" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <a type="button" class="close d-inline" data-dismiss="modal" aria-label="Close"
+                   style="margin-top: -25px;">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div>
+                    <img class="w-100 h-100 bg-light" th:src="@{/images/modreg.jpg}"
+                         alt="senAtor logo">
+                </div>
+                <a href="/register" class="btn btn-dark text-white" style="margin-top: -70px;
+    margin-left: 10px;width: 45%">ЗАРЕГИСТРИРОВАТЬСЯ</a>
             </div>
         </div>
     </div>

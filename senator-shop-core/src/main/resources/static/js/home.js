@@ -90,6 +90,18 @@ $(document).ready(function () {
         })
     }
 
+    if (sessionStorage.getItem("story-reg") !== 'true') {
+        // sessionStorage.setItem('key', 'value'); pair
+        sessionStorage.setItem("story-reg", "true");
+        // Calling the bootstrap modal
+        setTimeout(function () {
+            $('#modal-registration').modal({
+                backdrop: 'show'
+            })
+        }, 15000)
+
+    }
+
 
 });
 //---------------------------------------
