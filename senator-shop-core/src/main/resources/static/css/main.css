@@ -245,6 +245,10 @@ hr {
 }
 
 @media (max-width: 576px) {
+    .btn-modal-6 {
+        font-size: 0.6rem !important;
+    }
+
     .card-line-height {
         line-height: 85%;
     }
