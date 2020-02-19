@@ -60,7 +60,8 @@ public class SearchController {
     @RequestMapping("/search")
     public String search(@RequestParam(name = "category", defaultValue = "all") String category,
                          @RequestParam(name = "description", required = false) String description,
-                         @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+                         @RequestParam(name = "page", defaultValue = "0") int page, Model model,
+                         HttpServletRequest request) {
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);
 
@@ -81,11 +82,17 @@ public class SearchController {
             model.addAttribute("pageNumbers", pageNumbersList);
         }
 
+        String queries = request.getQueryString();
+        if (queries.contains("page=")) {
+            queries = queries.replaceAll("page=", "oldpage=");
+        }
+        String completeUrl = request.getRequestURI() + "?" + queries;
+
         model.addAttribute("countries", countriesNames);
         model.addAttribute("manufacturers", manufacturersNames);
         model.addAttribute("types", productTypes);
         model.addAttribute("orders", products);
-        model.addAttribute("url", "/search");
+        model.addAttribute("url", completeUrl);
         model.addAttribute("products", products);
         return "search-result";
     }
