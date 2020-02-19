@@ -8,13 +8,13 @@
                     <div th:if="${product.dataImg != null && #strings.length(product.dataImg) > 0}">
                         <a th:href="@{'/productList/product/' + ${product.id}}">
                             <img th:src="@{'data:image/jpg;base64,' + ${product.dataImg}}"
-                                 class="mx-auto pt-3 product--img_width" alt="..." height="250">
+                                 class="mx-auto pt-3 product--img_width" alt="..." height="250" style="max-width: 80%">
                         </a>
                     </div>
                     <div th:if="${(product.dataImg == null || #strings.length(product.dataImg) == 0) && #strings.length(product.imageUrl) > 0 }">
                         <a th:href="@{'/productList/product/' + ${product.id}}">
                             <img th:src="${product.imageUrl}" class="mx-auto pt-3 product--img_width" alt="..."
-                                 height="250">
+                                 height="250" style="max-width: 80%">
                         </a>
 
                     </div>
