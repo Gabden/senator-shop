@@ -1,5 +1,6 @@
 package ru.ryazan.senatorshop.core.service.impl;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.ryazan.senatorshop.core.domain.admin.SalesEvents;
 import ru.ryazan.senatorshop.core.repository.SaleEventsRepository;
@@ -17,7 +18,7 @@ public class SaleEventsServiceImpl implements SaleEventsService {
 
     @Override
     public List<SalesEvents> findAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by("id").ascending());
     }
 
     @Override

@@ -12,7 +12,7 @@
     <div th:replace="fragments/add-item-alert :: alert">
     </div>
     <div id="carouselExampleIndicators" class="container carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators mb-0">
             <li th:each="event, i : ${events}" th:class="${i.index == 0} ? 'active' : ''"
                 data-target="#carouselExampleIndicators"
                 th:attr="data-slide-to=${i.index}"></li>
@@ -20,9 +20,10 @@
         <div class="carousel-inner">
             <div th:each="event, i : ${events}" th:class="${i.index == 0} ? 'carousel-item active' : 'carousel-item'">
                 <img th:if="${event.bannerUrl == null || event.bannerUrl.length() == 0}"
-                     th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="img img-fluid" alt="...">
+                     th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="image-carousel img-fluid" alt="...">
                 <a th:if="${event.bannerUrl != null && event.bannerUrl.length() > 0}" th:href="${event.bannerUrl}"><img
-                        th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="img img-fluid" alt="..."></a>
+                        th:src="@{'data:image/jpg;base64,' + ${event.dataImg}}" class="image-carousel img-fluid"
+                        alt="..."></a>
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

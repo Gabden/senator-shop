@@ -245,6 +245,13 @@ hr {
 }
 
 @media (max-width: 576px) {
+
+    .image-carousel {
+        width: 100%;
+        height: 100%;
+
+    }
+
     .btn-modal-6 {
         font-size: 0.6rem !important;
     }
@@ -308,6 +315,13 @@ hr {
     }
 }
 
+@media (max-width: 768px) {
+    .image-carousel {
+        width: 100%;
+        height: 100%;
+
+    }
+}
 
 @media (min-width: 576px) {
     .card-line-height {
