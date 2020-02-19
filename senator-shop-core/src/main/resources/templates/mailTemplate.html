@@ -14,9 +14,10 @@
             <div class="page-header">
                 <h1 class="title" style="text-align: center">Резерв товара</h1>
                 <h3 class="title" style="text-align: center">Номер заявления - [[${orderId}]]</h3>
-                <table align="center">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+                       style="border-collapse: collapse;">
                     <thead style="margin-bottom: 1vh">
-                    <tr class="bg-success">
+                    <tr bgcolor="#c7c7c7">
                         <th style="margin-right: 2vw">Товар</th>
                         <th style="margin-right: 2vw;width: 0.5vw"></th>
                         <th style="margin-right: 2vw">Имя</th>
@@ -27,15 +28,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="cartItem : ${cart.cartItems}" style="margin-bottom: 2vh" align="center">
-                        <img th:src="|cid:${'img-' + cartItem.cartItemId}|" height="250"/>
-
+                    <tr th:each="cartItem : ${cart.cartItems}" align="center" bgcolor="#fafafa"
+                        style="padding: 40px 0 30px 0;">
+                        <td>
+                            <img th:src="|cid:${'img-' + cartItem.cartItemId}|" height="250"/>
                         </td>
                         <td></td>
-                        <td th:text="${cartItem.product.productName}">
+                        <td th:text="${cartItem.product.productName}" style="font-weight: bold">
                         </td>
                         <td></td>
-                        <td th:text="${cartItem.quantity}" class="text-center"></td>
+                        <td th:text="${cartItem.quantity}" style="font-weight: bold"></td>
                         <td></td>
                         <td th:text="${cartItem.cartItemFinalPrice}"
                             style="font-weight: bold">
@@ -43,7 +45,7 @@
                         </td>
 
                     </tr>
-                    <tr align="center">
+                    <tr align="center" bgcolor="#c7c7c7" style="padding: 40px 0 30px 0;">
                         <th></th>
                         <th></th>
                         <th></th>
@@ -56,7 +58,7 @@
                 </table>
             </div>
             <!-- FOOTER -->
-            <footer align="center">
+            <div align="center">
                 <p class="widget-title d-1 text-muted">ООО "Сенатор"<span class="mx-auto mx-md-0"></span></p>
                 <p class="text-justify px-4 px-md-0">Первая компания в Рязани, работающая в сегменте алкоголя
                     премиум класса </p>
@@ -68,7 +70,7 @@
                         class="fas fa-at mr-2"></i>senator24a@gmail.com</a>
                 </p>
                 <p class="text-wrap"><i class="fas fa-mail-bulk mr-2"></i>390006, г.Рязань, ул.Свободы д.24а</p>
-            </footer>
+            </div>
         </div>
 
     </div><!-- /.container wrapper -->
