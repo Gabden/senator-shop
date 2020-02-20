@@ -63,15 +63,18 @@ public class CustomerCartController {
     public String getCartRedirect(@PathVariable("cartId") Long id, Model model) {
         Optional<Cart> cart = cartService.read(id);
         int grandTotal = 0;
+        int grandTotalFull = 0;
         cart.ifPresent(cart1 -> updatePriceItems(cart1, model));
 
 
         model.addAttribute("cart", cart.get().getCartItems());
         for (CartItem value : cart.get().getCartItems()) {
             grandTotal += value.getTotalPrice();
+            grandTotalFull += value.getTotalPriceFull();
         }
 
         model.addAttribute("grandTotal", grandTotal);
+        model.addAttribute("grandTotalFull", grandTotalFull);
         model.addAttribute("cartId", id);
         return "cart";
     }
@@ -81,6 +84,7 @@ public class CustomerCartController {
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         Optional<Cart> cart = cartService.readBySessionId(sessionId);
         int grandTotal = 0;
+        int grandTotalFull = 0;
 
         cart.ifPresent(cart1 -> updatePriceItems(cart1, model));
 
@@ -88,11 +92,13 @@ public class CustomerCartController {
             model.addAttribute("cart", cart.get().getCartItems());
             for (CartItem value2 : cart.get().getCartItems()) {
                 grandTotal += value2.getTotalPrice();
+                grandTotalFull += value2.getTotalPriceFull();
             }
         }
 
 
         model.addAttribute("grandTotal", grandTotal);
+        model.addAttribute("grandTotalFull", grandTotalFull);
         model.addAttribute("cartId", id);
         return "cart";
     }

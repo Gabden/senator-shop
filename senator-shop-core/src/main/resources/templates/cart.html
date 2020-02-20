@@ -108,7 +108,17 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th>Итого</th>
+                            <th>ВСЕГО</th>
+                            <th th:text="${grandTotalFull}"></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th th:if="${quantity < 3}" th:text="'ИТОГО со скидкой 10%'"></th>
+                            <th th:if="${quantity >= 3 && quantity < 6}" th:text="'ИТОГО со скидкой 15%'"></th>
+                            <th th:if="${quantity > 5}" th:text="'ИТОГО со скидкой 25%'"></th>
                             <th th:text="${grandTotal}"></th>
                             <th></th>
                         </tr>

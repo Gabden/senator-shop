@@ -91,6 +91,10 @@ public class CartItem implements Serializable {
         return Integer.parseInt(cartItemFinalPrice) * quantity;
     }
 
+    public int getTotalPriceFull() {
+        return Integer.parseInt(cartItemPrice) * quantity;
+    }
+
     public void setTotalPrice(Integer totalPrice) {
         this.totalPrice = totalPrice;
     }
