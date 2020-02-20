@@ -22,8 +22,12 @@ import java.util.List;
 public class EmailServiceImpl implements EmailService {
     private JavaMailSender javaMailSender;
     private MailContentBuilder mailContentBuilder;
+
     @Value("${admin.mail}")
     private String adminsMail;
+
+    @Value("${SENATOR_TECH_MAIL}")
+    private String adminsMailTech;
 
 
     public EmailServiceImpl(JavaMailSender javaMailSender, MailContentBuilder mailContentBuilder) {
@@ -54,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
                 }
             });
 
-            messageHelper.setFrom(mails[0]);
+            messageHelper.setFrom(adminsMailTech);
             if (isCustomerOrAdmin) {
                 messageHelper.setTo(cart.getCustomer().getCustomerName());
             } else {
