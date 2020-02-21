@@ -1,7 +1,6 @@
 package ru.ryazan.senatorshop.web.controllers.cart;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -45,19 +44,19 @@ public class CartController {
     }
 
     @RequestMapping("/ajax")
-    public ResponseEntity<Cart> read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails) {
+    public int read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails) {
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         Optional<Cart> cartFromSessionId = cartService.readBySessionId(sessionId);
         if (userDetails == null) {
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
             if (cart.isPresent()) {
-                return ResponseEntity.ok(cart.get());
+                return cart.get().getCartItems().size();
             } else {
                 Cart cartNew = new Cart();
                 cartNew.setCartItems(new ArrayList<>());
                 cartNew.setSessionId(sessionId);
                 cartService.create(cartNew);
-                return ResponseEntity.ok(cartNew);
+                return cartNew.getCartItems().size();
             }
         } else {
             Cart cartFromAuthUser = customerService.findCustomerByCustomerName(userDetails.getUsername()).getCart();
@@ -81,7 +80,7 @@ public class CartController {
                 }
             }
 
-            return ResponseEntity.ok(cartFromAuthUser);
+            return cartFromAuthUser.getCartItems().size();
         }
     }
 

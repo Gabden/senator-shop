@@ -2,11 +2,15 @@ var cartApp = angular.module ("cartApp", []);
 
 $( document ).ready(function() {
     $(".alert").hide();
-
     $.ajax({
         url: '/restCart/cart/ajax',
-        success: function(data){
-            $('#cart-badge').text(data.cartItems.length)
+        method: 'GET',
+        contentType: 'application/json',
+        success: function (data) {
+            $('#cart-badge').text(data)
+        },
+        error: function (request, msg, error) {
+            console.log(msg)
         }
     });
 
@@ -39,15 +43,16 @@ cartApp.controller("cartCtrl", function ($scope, $http){
     };
 
     $scope.refreshCartBadge = function () {
-        $http({
-            method: 'GET',
-            url:'/restCart/cart/ajax'
-        }).then(function (response){
-            $('#cart-badge').text(response.data.cartItems.length)
-        },function (error){
-            console.log("Error when refreshCart request")
+        $.ajax({
+            url: '/restCart/cart/ajax',
+            success: function (data) {
+                $('#cart-badge').text(data)
+            },
+            error: function (request, msg, error) {
+                console.log(msg)
+            }
         });
-    }
+    };
 
     $scope.initCartId = function (cartId) {
         $scope.cartId = cartId;
