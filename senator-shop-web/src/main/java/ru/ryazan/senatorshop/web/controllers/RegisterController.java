@@ -148,11 +148,11 @@ public class RegisterController {
         User oldUser = userService.findUserByUsername("admin");
         if (oldUser == null){
             Customer customer = new Customer();
-            customer.setCustomerName("admin");
-            customer.setCustomerPassword("123");
+            customer.setCustomerName("senator");
+            customer.setCustomerPassword("senator-suhov24!");
             customer.setCustomerPhone("8991050778");
             createUser(customer, "ADMIN");
-            model.addAttribute("msg","Учетная запись администратора создана успешно");
+            model.addAttribute("msg", "Учетная запись администратора создана успешно");
             return "admin-create";
         }
         model.addAttribute("msg","Учетная запись администратора уже существует");
