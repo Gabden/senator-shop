@@ -1,6 +1,7 @@
 package ru.ryazan.senatorshop.web.controllers.cart;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -44,19 +45,19 @@ public class CartController {
     }
 
     @RequestMapping("/ajax")
-    public Cart read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<Cart> read(HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetails) {
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
         Optional<Cart> cartFromSessionId = cartService.readBySessionId(sessionId);
         if (userDetails == null) {
             Optional<Cart> cart = cartService.readBySessionId(sessionId);
             if (cart.isPresent()) {
-                return cart.get();
+                return ResponseEntity.ok(cart.get());
             } else {
                 Cart cartNew = new Cart();
                 cartNew.setCartItems(new ArrayList<>());
                 cartNew.setSessionId(sessionId);
                 cartService.create(cartNew);
-                return cartNew;
+                return ResponseEntity.ok(cartNew);
             }
         } else {
             Cart cartFromAuthUser = customerService.findCustomerByCustomerName(userDetails.getUsername()).getCart();
@@ -80,7 +81,7 @@ public class CartController {
                 }
             }
 
-            return cartFromAuthUser;
+            return ResponseEntity.ok(cartFromAuthUser);
         }
     }
 
