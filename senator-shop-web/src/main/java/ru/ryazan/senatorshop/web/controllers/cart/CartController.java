@@ -264,10 +264,14 @@ public class CartController {
     }
 
     private void updateCart(Cart cart) {
+        List<CartItem> NotAlcoListInCart = cart.getCartItems().stream().filter(cartItem -> !cartItem.getProduct().getProductCategory().contains("alco")).collect(Collectors.toList());
         List<CartItem> alcoListInCart = cart.getCartItems().stream().filter(cartItem -> cartItem.getProduct().getProductCategory().contains("alco")).collect(Collectors.toList());
         int numberOfAlcoholPositions = alcoListInCart.stream().mapToInt(CartItem::getQuantity).sum();
         alcoListInCart.forEach(cartItem -> {
             priceCalculator.finalPriceItem(cartItem, numberOfAlcoholPositions);
+        });
+        NotAlcoListInCart.forEach(cartItem -> {
+            priceCalculator.finalPriceItem(cartItem, 1);
         });
     }
 
