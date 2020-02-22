@@ -14,6 +14,8 @@
             <div class="page-header">
                 <h1 class="title" style="text-align: center">Резерв товара</h1>
                 <h3 class="title" style="text-align: center">Номер заявления - [[${orderId}]]</h3>
+                <h3 th:if="${isCustomer}" class="title" style="text-align: center">Номер телефона -
+                    [[${cart.customer.customerPhone}]]</h3>
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
                        style="border-collapse: collapse;">
                     <thead style="margin-bottom: 1vh">

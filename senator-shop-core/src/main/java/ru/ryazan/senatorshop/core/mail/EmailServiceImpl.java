@@ -45,7 +45,7 @@ public class EmailServiceImpl implements EmailService {
     private void sendEmailToCustomerAndAdmin(Cart cart, boolean isCustomerOrAdmin, Long orderId) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            String content = mailContentBuilder.build(cart, orderId);
+            String content = mailContentBuilder.build(cart, orderId, isCustomerOrAdmin);
             String[] mails = adminsMail.split(";");
             messageHelper.setText(content, true);
 
