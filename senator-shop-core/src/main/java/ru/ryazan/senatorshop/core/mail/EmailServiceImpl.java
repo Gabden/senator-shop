@@ -65,7 +65,8 @@ public class EmailServiceImpl implements EmailService {
                 messageHelper.setTo(mails[0]);
             }
 
-            messageHelper.setSubject("Резерв товара на сайте senator-wine.ru");
+            String subject = "Резерв товара на сайте senator-wine.ru №" + orderId;
+            messageHelper.setSubject(subject);
         };
 
             javaMailSender.send(messagePreparator);
