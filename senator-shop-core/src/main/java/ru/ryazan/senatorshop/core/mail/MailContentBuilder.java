@@ -18,7 +18,7 @@ public class MailContentBuilder {
         Context context = new Context();
         context.setVariable("cart", cart);
         context.setVariable("orderId", orderId);
-        context.setVariable("isCustomer", isCustomerOrAdmin);
+        context.setVariable("isCustomer", !isCustomerOrAdmin);
         return templateEngine.process("mailTemplate", context);
     }
 
