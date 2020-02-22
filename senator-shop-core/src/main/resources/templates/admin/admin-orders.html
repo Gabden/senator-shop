@@ -48,7 +48,10 @@
                     <tbody>
                     <tr th:each="order : ${customerOrders}" class="text-center">
                         <td th:text="${order.customerOrderId}"></td>
-                        <td th:text="${order.customer.customerName}"></td>
+                        <td>
+                            <p th:text="${order.customer.customerName}"></p>
+                            <p th:text="${order.customer.customerPhone}"></p>
+                        </td>
                         <td th:text="${order.timestamp}"></td>
                         <td th:text="${order.cart.grandTotal}"></td>
                         <td th:text="${order.status}"></td>
