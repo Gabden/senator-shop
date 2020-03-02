@@ -133,6 +133,9 @@ public class AdminController {
     @RequestMapping(value = "/productInventory/addProduct", method = RequestMethod.POST)
     public String productInventoryAdd(@ModelAttribute("product") Product product, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
         System.out.println(product.getProductName());
+        if (product.getProductCategory() == null) {
+            product.setProductCategory("alcohol");
+        }
         productService.addProduct(product);
         ProductImage dbFile = DBFileStorageService.storeFile(file, product);
 
@@ -152,7 +155,12 @@ public class AdminController {
                          HttpServletRequest request) {
 
         Optional<Product> productFromDB = Optional.of(product);
-        productFromDB.ifPresent(productNew -> productNew.setId(id));
+        productFromDB.ifPresent(productNew -> {
+            if (productNew.getProductCategory() == null) {
+                productNew.setProductCategory("alcohol");
+            }
+            productNew.setId(id);
+        });
         ArrayList<ProductImage> image = DBFileStorageService.findProductImageByProduct(product);
         if (!file.isEmpty()) {
             DBFileStorageService.deleteOldPhoto(image);
