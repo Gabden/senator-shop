@@ -63,6 +63,8 @@ public class Product implements Serializable {
 
     private String salePrice;
 
+    private int discount;
+
     @Transient
     private String dataImg;
 
@@ -121,6 +123,14 @@ public class Product implements Serializable {
         if (images.size() != 0) {
             this.dataImg = Base64.getEncoder().encodeToString(images.get(0).getFileData());
         }
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     public String getProductCountry() {
