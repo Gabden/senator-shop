@@ -1,17 +1,21 @@
 package ru.ryazan.senatorshop.core.config;
 
 import org.springframework.stereotype.Component;
+import ru.ryazan.senatorshop.core.domain.Product;
 
 @Component
 public class PriceFormatter {
-    public String format(String numberString) {
+    public String format(Product product) {
         try {
-            int number = Integer.parseInt(numberString);
-            number *= 0.9;
-            return String.valueOf(number);
+            int discount = product.getDiscount();
+            String price = product.getProductPrice();
+            int priceNumber = Integer.parseInt(price);
+            priceNumber = priceNumber - (priceNumber * discount) / 100;
+
+            return String.valueOf(priceNumber);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        return numberString;
+        return product.getProductPrice();
     }
 }
