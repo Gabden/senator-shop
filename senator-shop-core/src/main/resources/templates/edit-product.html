@@ -123,9 +123,9 @@
                                 ставить!)</label>
                             <input type="number" id="salePrice" class="form-control mb-3" th:field="*{salePrice}">
 
-                            <label for="discount">Скидка</label>
+                            <label for="discount">Скидка(По умолчанию ставить 10)</label>
                             <input type="number" id="discount" class="form-control mb-3" min="10" max="100"
-                                   th:field="*{discount}">
+                                   th:field="*{discount}" required>
 
                             <label for="unitInStock">Количество</label>
                             <input type="text" id="unitInStock" class="form-control mb-3"
