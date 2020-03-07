@@ -176,18 +176,18 @@ public class CartController {
 
     @RequestMapping(value = "/delete/{productId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+    public void removeItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
         Cart cart = null;
         String sessionId = String.valueOf(request.getSession().getAttribute("USERSESSION"));
-        if (userDetails != null){
+        if (userDetails != null) {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             cart = customer.getCart();
         } else {
             cart = cartService.readBySessionId(sessionId).get();
         }
-        List<CartItem> cartItems =  cart.getCartItems();
-        for (CartItem item: cartItems){
-            if (item.getProduct().getId().equals(productId)){
+        List<CartItem> cartItems = cart.getCartItems();
+        for (CartItem item : cartItems) {
+            if (item.getProduct().getId().equals(productId)) {
                 cartItemService.deleteById(item.getCartItemId());
 
             }

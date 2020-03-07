@@ -17,28 +17,30 @@ public class PriceCalculator {
         Product productInCart = cartItem.getProduct();
         cartItem.setCartItemPrice(productInCart.getProductPrice());
         int priceAfterSale = Integer.parseInt(productInCart.getProductPrice());
+        int discount = cartItem.getProduct().getDiscount();
         if (productInCart.getSalePrice() != null && productInCart.getSalePrice().length() > 0) {
             cartItem.setCartItemFinalPrice(productInCart.getSalePrice());
             cartItemService.update(cartItem);
             return;
         }
 
-        if (quantity > 0 && quantity < 3) {
-            priceAfterSale *= 0.9;
-            String finalPrice = String.valueOf(priceAfterSale);
-            cartItem.setCartItemFinalPrice(finalPrice);
-            cartItemService.update(cartItem);
-
-        } else if (quantity >= 3 && quantity < 6) {
-            priceAfterSale *= 0.85;
-            String finalPrice = String.valueOf(priceAfterSale);
-            cartItem.setCartItemFinalPrice(finalPrice);
-            cartItemService.update(cartItem);
-        } else if (quantity >= 6) {
-            priceAfterSale *= 0.75;
-            String finalPrice = String.valueOf(priceAfterSale);
-            cartItem.setCartItemFinalPrice(finalPrice);
-            cartItemService.update(cartItem);
+        if (discount > 10) {
+            updateItemPrice(priceAfterSale, cartItem, discount);
         }
+
+        if (quantity > 0 && quantity < 3 && discount == 10) {
+            updateItemPrice(priceAfterSale, cartItem, 10);
+        } else if (quantity >= 3 && quantity < 6 && discount < 15) {
+            updateItemPrice(priceAfterSale, cartItem, 15);
+        } else if (quantity >= 6 && discount < 25) {
+            updateItemPrice(priceAfterSale, cartItem, 25);
+        }
+    }
+
+    private void updateItemPrice(int priceAfterSale, CartItem cartItem, int discount) {
+        int newPrice = priceAfterSale - (priceAfterSale * discount) / 100;
+        String finalPrice = String.valueOf(newPrice);
+        cartItem.setCartItemFinalPrice(finalPrice);
+        cartItemService.update(cartItem);
     }
 }
