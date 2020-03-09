@@ -10,7 +10,35 @@
 <div th:insert="fragments/search-input :: search">
 </div>
 <main role="main" class="mt-5">
-
+    <div class="container">
+        <h3 class="text-center">Здесь вы можете редактировать размер скидки на группу товаров</h3>
+        <div th:if="${error != null}" class="alert alert-danger" th:text="${error}">
+        </div>
+        <form class="my-3" action="/admin/group-discount/edit/category" method="post">
+            <div class="d-inline-flex flex-row no-gutters">
+                <div class="col-5 p-0">
+                    <select class="form-control" name="category">
+                        <option value="alcohol">Алкоголь</option>
+                        <option value="drinks">Напитки</option>
+                        <option value="oil">Оливковое масло</option>
+                        <option value="dishes">Посуда</option>
+                        <option value="gifts">Подарки</option>
+                    </select>
+                </div>
+                <div class="col-5 p-0">
+                    <input type="number" class="form-control d-inline w-100" name="discount">
+                </div>
+                <div class="col-1">
+                    <button type="button" class="input-group-text h-100" style="cursor: text"><i
+                            class="fas fa-percent"></i></button>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-1">
+                    <button type="submit" class="input-group-text h-100"><span class="far fa-edit"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
 </main>
 <footer th:replace="fragments/footer :: footer">
 </footer>
