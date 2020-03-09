@@ -27,4 +27,12 @@ public interface ProductService {
     Page<Product> findProductsByProductDescriptionContains(String description, Pageable pageable);
 
     List<Product> findAll();
+
+    List<Product> findProductsByProductCategoryContains(String category);
+
+    List<Product> findProductsByProductManufacturerContains(String manufacturer);
+
+    List<Product> findProductsByProductTypeContains(String productType);
+
+    List<Product> findProductsByProductCountryContains(String country);
 }
