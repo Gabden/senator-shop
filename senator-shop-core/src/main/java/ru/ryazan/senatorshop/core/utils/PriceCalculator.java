@@ -32,8 +32,8 @@ public class PriceCalculator {
             updateItemPrice(priceAfterSale, cartItem, 10);
         } else if (quantity >= 3 && quantity < 6 && discount < 15) {
             updateItemPrice(priceAfterSale, cartItem, 15);
-        } else if (quantity >= 6 && discount < 25) {
-            updateItemPrice(priceAfterSale, cartItem, 25);
+        } else if (quantity >= 6 && discount < 20) {
+            updateItemPrice(priceAfterSale, cartItem, 20);
         }
     }
 

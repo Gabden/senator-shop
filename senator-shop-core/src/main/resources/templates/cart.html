@@ -26,7 +26,7 @@
                     <p>При заказе от <span class="text-danger font-weight-bold text-uppercase">3 единиц товара</span> из
                         категории алкоголь действует скидка <span class="text-danger font-weight-bold">15%</span></p>
                     <p>При заказе от <span class="text-danger font-weight-bold text-uppercase">6 единиц товара</span> из
-                        категории алкоголь действует скидка <span class="text-danger font-weight-bold">25%</span></p>
+                        категории алкоголь действует скидка <span class="text-danger font-weight-bold">20%</span></p>
                     <hr style="max-width: 60vw">
                     <p class="mb-0">Скидка активируется автоматически при выполнении условий описанных
                         выше.</p>
@@ -116,10 +116,8 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th th:if="${quantity < 3}" th:text="'ИТОГО со скидкой 10%'"></th>
-                            <th th:if="${quantity >= 3 && quantity < 6}" th:text="'ИТОГО со скидкой 15%'"></th>
-                            <th th:if="${quantity > 5}" th:text="'ИТОГО со скидкой 25%'"></th>
-                            <th th:text="${grandTotal}"></th>
+                            <th class="text-danger">ИТОГО со скидкой</th>
+                            <th th:text="${grandTotal}" class="text-danger"></th>
                             <th></th>
                         </tr>
                     </table>
