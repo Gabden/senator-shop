@@ -14,6 +14,7 @@ import ru.ryazan.senatorshop.core.service.CustomerOrderService;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
     private CustomerOrderRepository customerOrderRepository;
@@ -35,8 +36,8 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public int getGrantTotal(Long cartId) {
         int total = 0;
         Optional<Cart> cart = cartService.read(cartId);
-        if (cart.isPresent()){
-            for (CartItem item : cart.get().getCartItems()){
+        if (cart.isPresent()) {
+            for (CartItem item : cart.get().getCartItems()) {
                 total += item.getTotalPrice();
             }
         }
@@ -54,19 +55,16 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     @Override
-    public void sendEmailToAdmin(Cart cart){
+    public void sendEmailToAdmin(Cart cart) {
         System.out.println("Sending Email...");
 
         List<CustomerOrder> orders = customerOrderRepository.findCustomerOrderByCart(cart);
         Long orderId = orders.get(orders.size() - 1).getCustomerOrderId();
-//        try {
-
-        mailSender.sendEmail(cart, orderId);
-//            mailSender.sendEmailWithAttachment();
-
-//        } catch (MessagingException | IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            mailSender.sendEmail(cart, orderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Done");
     }
