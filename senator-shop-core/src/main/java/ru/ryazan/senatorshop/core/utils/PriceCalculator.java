@@ -32,11 +32,16 @@ public class PriceCalculator {
             updateItemPrice(priceAfterSale, cartItem, discount);
         }
 
+        if (!additionDiscount) {
+            updateItemPrice(priceAfterSale, cartItem, 10);
+            return;
+        }
+
         if (quantity > 0 && quantity < 3 && discount == 10) {
             updateItemPrice(priceAfterSale, cartItem, 10);
-        } else if (quantity >= 3 && quantity < 6 && discount < 15 && additionDiscount) {
+        } else if (quantity >= 3 && quantity < 6 && discount < 15) {
             updateItemPrice(priceAfterSale, cartItem, 15);
-        } else if (quantity >= 6 && discount < 20 && additionDiscount) {
+        } else if (quantity >= 6 && discount < 20) {
             updateItemPrice(priceAfterSale, cartItem, 20);
         }
     }
