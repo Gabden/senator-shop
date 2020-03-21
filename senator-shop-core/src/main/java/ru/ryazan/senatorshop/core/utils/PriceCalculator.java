@@ -1,5 +1,6 @@
 package ru.ryazan.senatorshop.core.utils;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.ryazan.senatorshop.core.domain.Product;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
@@ -8,6 +9,9 @@ import ru.ryazan.senatorshop.core.service.CartItemService;
 @Component
 public class PriceCalculator {
     private CartItemService cartItemService;
+
+    @Value("${addition.discount}")
+    private boolean additionDiscount;
 
     public PriceCalculator(CartItemService cartItemService) {
         this.cartItemService = cartItemService;
@@ -30,9 +34,9 @@ public class PriceCalculator {
 
         if (quantity > 0 && quantity < 3 && discount == 10) {
             updateItemPrice(priceAfterSale, cartItem, 10);
-        } else if (quantity >= 3 && quantity < 6 && discount < 15) {
+        } else if (quantity >= 3 && quantity < 6 && discount < 15 && additionDiscount) {
             updateItemPrice(priceAfterSale, cartItem, 15);
-        } else if (quantity >= 6 && discount < 20) {
+        } else if (quantity >= 6 && discount < 20 && additionDiscount) {
             updateItemPrice(priceAfterSale, cartItem, 20);
         }
     }

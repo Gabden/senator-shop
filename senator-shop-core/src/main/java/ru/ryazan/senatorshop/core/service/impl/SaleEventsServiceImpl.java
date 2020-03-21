@@ -18,7 +18,7 @@ public class SaleEventsServiceImpl implements SaleEventsService {
 
     @Override
     public List<SalesEvents> findAll() {
-        return repository.findAll(Sort.by("id").ascending());
+        return repository.findAll(Sort.by("id").descending());
     }
 
     @Override

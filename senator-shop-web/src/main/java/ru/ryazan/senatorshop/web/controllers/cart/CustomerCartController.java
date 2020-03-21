@@ -1,5 +1,6 @@
 package ru.ryazan.senatorshop.web.controllers.cart;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class CustomerCartController {
     private CartService cartService;
     private PriceCalculator priceCalculator;
 
+    @Value("${addition.discount}")
+    private boolean additionDiscount;
+
     public CustomerCartController(CustomerService customerService, CartService cartService, PriceCalculator priceCalculator) {
         this.customerService = customerService;
         this.cartService = cartService;
@@ -33,7 +37,7 @@ public class CustomerCartController {
     }
 
     @RequestMapping
-    public String getCustomerCart (@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
+    public String getCustomerCart(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
         if (userDetails != null) {
             Customer customer = customerService.findCustomerByCustomerName(userDetails.getUsername());
             Cart customerCart = customer.getCart();
@@ -75,6 +79,7 @@ public class CustomerCartController {
 
         model.addAttribute("grandTotal", grandTotal);
         model.addAttribute("grandTotalFull", grandTotalFull);
+        model.addAttribute("additionalDiscount", additionDiscount);
         model.addAttribute("cartId", id);
         return "cart";
     }
@@ -99,6 +104,7 @@ public class CustomerCartController {
 
         model.addAttribute("grandTotal", grandTotal);
         model.addAttribute("grandTotalFull", grandTotalFull);
+        model.addAttribute("additionalDiscount", additionDiscount);
         model.addAttribute("cartId", id);
         return "cart";
     }

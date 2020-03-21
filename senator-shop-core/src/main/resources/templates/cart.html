@@ -33,6 +33,14 @@
                     <p class="mb-0">Дополнительная скидка не применяется на товары по акции.</p>
                     <p class="mb-0">Зарезервированный товар вы сможете получить в магазине Сенатор.</p>
                 </div>
+                <div class="alert alert-danger d-block text-center my-3" th:if="${!additionalDiscount}">
+                    <h4 class="alert-heading">Внимание!</h4>
+                    <p>В связи с приостановкой отгрузки товара импортерами,</p>
+                    <p>дополнительные скидки <span class="text-danger font-weight-bold">ВРЕМЕННО</span> не действуют.
+                    </p>
+                    <p>Приносим извинения</p>
+                    <p>Ваш Сенатор</p>
+                </div>
             </section>
 
             <section class="container my-2" ng-app="cartApp">
