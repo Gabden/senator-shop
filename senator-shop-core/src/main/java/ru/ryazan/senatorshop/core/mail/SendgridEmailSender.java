@@ -34,7 +34,7 @@ public class SendgridEmailSender implements EmailService {
 
     @Override
     public void sendRegistrationEmail(String mailTo) {
-        sendMail(mailRegistrationTemplateId, mailTo);
+        sendMail(mailRegistrationTemplateId, mailTo, "");
     }
 
     @Override
@@ -44,13 +44,13 @@ public class SendgridEmailSender implements EmailService {
 
     @Override
     public void sendRestoreMail(String mail, String password) {
-
+        sendMail(mailChangePasswordTemplateId, mail, password);
     }
 
 
-    public void sendMail(String templateId, String mailTo) {
+    public void sendMail(String templateId, String mailTo, String newPassword) {
         SendGrid sendGrid = new SendGrid(apiKey);
-        Mail mail = prepareMail(templateId, mailTo);
+        Mail mail = prepareMail(templateId, mailTo, newPassword);
         Request request = new Request();
         request.setMethod(Method.POST);
         request.setEndpoint("mail/send");
@@ -65,13 +65,13 @@ public class SendgridEmailSender implements EmailService {
 
     }
 
-    private Mail prepareMail(String templateId, String mailTo) {
+    private Mail prepareMail(String templateId, String mailTo, String newPassword) {
         Mail mail = new Mail();
         Email from = new Email("senator24a@gmail.com");
         Email to = new Email(mailTo);
         mail.setFrom(from);
         Personalization personalization = new Personalization();
-        personalization.addDynamicTemplateData("orderId", "4125");
+        personalization.addDynamicTemplateData("password", newPassword);
         personalization.addTo(to);
         mail.addPersonalization(personalization);
 

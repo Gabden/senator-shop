@@ -78,7 +78,6 @@ public class RestorePasswordController {
             Customer customer = customerService.findCustomerByCustomerName(user.getUsername());
             customer.setCustomerPassword(passwordEncoder.encode(newpwd));
             customerService.addCustomer(customer);
-            emailService.sendRestoreMail(user.getUsername(), newpwd);
             return "changer-password/success-new-password";
         }
     }
