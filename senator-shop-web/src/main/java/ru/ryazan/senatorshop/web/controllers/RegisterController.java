@@ -20,6 +20,7 @@ import ru.ryazan.senatorshop.core.domain.User;
 import ru.ryazan.senatorshop.core.domain.address.BillingAddress;
 import ru.ryazan.senatorshop.core.domain.address.ShippingAddress;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
+import ru.ryazan.senatorshop.core.mail.EmailService;
 import ru.ryazan.senatorshop.core.service.*;
 
 import javax.validation.Valid;
@@ -37,8 +38,11 @@ public class RegisterController {
     private ShippingAddressService shippingAddressService;
     private PasswordEncoder passwordEncoder;
     private CustomerOrderService customerOrderService;
+    private EmailService emailService;
 
-    public RegisterController(CustomerOrderService customerOrderService, CustomerService customerService, UserService userService, CartService cartService, BillingAddressService billingAddressService, ShippingAddressService shippingAddressService, PasswordEncoder passwordEncoder) {
+    public RegisterController(CustomerOrderService customerOrderService, CustomerService customerService
+            , UserService userService, CartService cartService, BillingAddressService billingAddressService
+            , ShippingAddressService shippingAddressService, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.customerService = customerService;
         this.userService = userService;
         this.cartService = cartService;
@@ -46,6 +50,7 @@ public class RegisterController {
         this.shippingAddressService = shippingAddressService;
         this.passwordEncoder = passwordEncoder;
         this.customerOrderService = customerOrderService;
+        this.emailService = emailService;
     }
 
     @RequestMapping("/profile")
@@ -139,6 +144,7 @@ public class RegisterController {
             customer.setFIOlast("noname");
         }
         createUser(customer, "USER");
+        emailService.sendRegistrationEmail(customer.getCustomerName());
 
         return "registrationSuccess";
     }

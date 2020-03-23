@@ -7,7 +7,7 @@ import ru.ryazan.senatorshop.core.domain.Customer;
 import ru.ryazan.senatorshop.core.domain.CustomerOrder;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 import ru.ryazan.senatorshop.core.domain.cart.CartItem;
-import ru.ryazan.senatorshop.core.mail.EmailServiceImpl;
+import ru.ryazan.senatorshop.core.mail.EmailService;
 import ru.ryazan.senatorshop.core.repository.CustomerOrderRepository;
 import ru.ryazan.senatorshop.core.service.CartService;
 import ru.ryazan.senatorshop.core.service.CustomerOrderService;
@@ -19,9 +19,9 @@ import java.util.Optional;
 public class CustomerOrderServiceImpl implements CustomerOrderService {
     private CustomerOrderRepository customerOrderRepository;
     private CartService cartService;
-    private EmailServiceImpl mailSender;
+    private EmailService mailSender;
 
-    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository, CartService cartService, EmailServiceImpl mailSender) {
+    public CustomerOrderServiceImpl(CustomerOrderRepository customerOrderRepository, CartService cartService, EmailService mailSender) {
         this.customerOrderRepository = customerOrderRepository;
         this.cartService = cartService;
         this.mailSender = mailSender;
@@ -61,7 +61,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         List<CustomerOrder> orders = customerOrderRepository.findCustomerOrderByCart(cart);
         Long orderId = orders.get(orders.size() - 1).getCustomerOrderId();
         try {
-            mailSender.sendEmail(cart, orderId);
+            mailSender.sendOrderEmail(cart, orderId);
         } catch (Exception e) {
             e.printStackTrace();
         }
