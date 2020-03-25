@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import ru.ryazan.senatorshop.core.domain.cart.Cart;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class SendgridEmailSender implements EmailService {
@@ -34,23 +36,24 @@ public class SendgridEmailSender implements EmailService {
 
     @Override
     public void sendRegistrationEmail(String mailTo) {
-        sendMail(mailRegistrationTemplateId, mailTo, "");
+        sendMail(mailRegistrationTemplateId, mailTo, "", null, 0L);
     }
 
     @Override
     public void sendOrderEmail(Cart cart, Long orderId) {
-
+        sendMail(mailOrderTemplateId, cart.getCustomer().getCustomerName(), "", cart, orderId);
+        sendMail(mailOrderTemplateId, adminMail, "", cart, orderId);
     }
 
     @Override
     public void sendRestoreMail(String mail, String password) {
-        sendMail(mailChangePasswordTemplateId, mail, password);
+        sendMail(mailChangePasswordTemplateId, mail, password, null, 0L);
     }
 
 
-    public void sendMail(String templateId, String mailTo, String newPassword) {
+    public void sendMail(String templateId, String mailTo, String newPassword, Cart cart, Long orderId) {
         SendGrid sendGrid = new SendGrid(apiKey);
-        Mail mail = prepareMail(templateId, mailTo, newPassword);
+        Mail mail = prepareMail(templateId, mailTo, newPassword, cart, orderId);
         Request request = new Request();
         request.setMethod(Method.POST);
         request.setEndpoint("mail/send");
@@ -65,13 +68,31 @@ public class SendgridEmailSender implements EmailService {
 
     }
 
-    private Mail prepareMail(String templateId, String mailTo, String newPassword) {
+    private Mail prepareMail(String templateId, String mailTo, String newPassword, Cart cart, Long orderId) {
         Mail mail = new Mail();
-        Email from = new Email("senator24a@gmail.com");
+        if (mailTo.equals(adminMail)) {
+            Email from = new Email("service@senator-wine.ru");
+            mail.setFrom(from);
+        } else {
+            Email from = new Email(adminMail);
+            mail.setFrom(from);
+        }
+
         Email to = new Email(mailTo);
-        mail.setFrom(from);
+
         Personalization personalization = new Personalization();
         personalization.addDynamicTemplateData("password", newPassword);
+        if (cart != null) {
+            List<OrderItem> orderItems = new ArrayList<>();
+            cart.getCartItems().forEach(cartItem -> {
+                OrderItem orderItem = new OrderItem(cartItem.getProduct().getId(), cartItem.getCartItemFinalPrice(), cartItem.getQuantity(), cartItem.getProduct().getProductName());
+                orderItems.add(orderItem);
+            });
+            personalization.addDynamicTemplateData("orderItems", orderItems);
+            personalization.addDynamicTemplateData("grandTotal", cart.getGrandTotal());
+            personalization.addDynamicTemplateData("orderId", orderId);
+            personalization.addDynamicTemplateData("phone", cart.getCustomer().getCustomerPhone());
+        }
         personalization.addTo(to);
         mail.addPersonalization(personalization);
 
