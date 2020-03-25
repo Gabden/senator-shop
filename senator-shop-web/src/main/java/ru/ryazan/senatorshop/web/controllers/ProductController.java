@@ -3,6 +3,7 @@ package ru.ryazan.senatorshop.web.controllers;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,10 +43,26 @@ public class ProductController {
 
     @RequestMapping("/productList/product/api/{id}")
     @ResponseBody
-    public   Product productApi(@PathVariable Long id){
+    public Product productApi(@PathVariable Long id) {
         Optional<Product> productFromDB = Optional.ofNullable(productService.findById(id)
                 .filter(product -> product.getId().equals(id))
                 .orElseThrow(MyFileNotFoundException::new));
         return productFromDB.get();
+    }
+
+    @RequestMapping("/productList/product/image/{id}")
+    @ResponseBody
+    public ResponseEntity<byte[]> productImage(@PathVariable Long id) {
+        Optional<Product> product = productService.findById(id);
+        if (product.isPresent()) {
+            byte[] imageByteArray = product.get().getByteArrayImage();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
+            httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(imageByteArray, httpHeaders, HttpStatus.OK);
+        } else {
+            throw new MyFileNotFoundException("Image with id" + id + " doesn`t exist");
+        }
+
     }
 }

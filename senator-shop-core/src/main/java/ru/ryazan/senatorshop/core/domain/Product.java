@@ -118,6 +118,11 @@ public class Product implements Serializable {
         return dataImg;
     }
 
+    public byte[] getByteArrayImage() {
+        List<ProductImage> images = new ArrayList<>(productImageSet);
+        return images.get(0).getFileData();
+    }
+
     public void setDataImg() {
         List<ProductImage> images = new ArrayList<>(productImageSet);
         if (images.size() != 0) {
