@@ -19,11 +19,11 @@
                 <form name="f" th:action="@{/login}" method="post">
                     <fieldset>
                         <!-- Thymeleaf + Spring Security error display -->
-                        <div th:if="${param.error}" class="alert alert-danger">
-                            Invalid username and password.
+                        <div th:if="${param.error}" class="alert-danger p-2 text-center text-dark mb-3" role="alert">
+                            Неправильный адрес почты или пароль.
                         </div>
 
-                        <div th:if="${param.logout}" class="alert alert-success">
+                        <div th:if="${param.logout}" class="alert-danger p-2 text-center text-dark">
                             You have been logged out.
                         </div>
 
