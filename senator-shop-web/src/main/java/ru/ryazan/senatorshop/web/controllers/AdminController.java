@@ -101,11 +101,11 @@ public class AdminController {
         if (category.contains("all") && description == null) {
             products = productService.findAll(pageable);
         } else if (category.contains("all") && description != null) {
-            products = productService.findProductsByProductDescriptionContains(description, pageable);
+            products = productService.findProductsByProductDescriptionContainsOrProductNameContains(description, description, pageable);
         } else if (!category.contains("all") && (description == null || description.length() == 0)) {
             products = productService.findProductsByProductCategoryContains(category, pageable);
         } else if (!category.contains("all") && (description != null && description.length() > 0)) {
-            products = productService.findProductsByProductCategoryContainsAndProductDescriptionContains(category, description, pageable);
+            products = productService.findProductsByProductCategoryContainsAndProductDescriptionContainsOrProductNameContains(category, description, description, pageable);
         }
 
         int totalPages = products.getTotalPages();

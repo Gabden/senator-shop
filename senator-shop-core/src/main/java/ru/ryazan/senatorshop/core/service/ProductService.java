@@ -26,6 +26,10 @@ public interface ProductService {
 
     Page<Product> findProductsByProductDescriptionContains(String description, Pageable pageable);
 
+    Page<Product> findProductsByProductDescriptionContainsOrProductNameContains(String description, String name, Pageable pageable);
+
+    Page<Product> findProductsByProductCategoryContainsAndProductDescriptionContainsOrProductNameContains(String category, String description, String productName, Pageable pageable);
+
     List<Product> findAll();
 
     List<Product> findProductsByProductCategoryContains(String category);
