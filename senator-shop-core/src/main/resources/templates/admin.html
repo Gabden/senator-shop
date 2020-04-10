@@ -13,6 +13,13 @@
 <main role="main" class="mx-1">
     <div class="container py-3" id="wrapper">
         <div class="container">
+            <div th:if="${clearSuccess}" class="alert-success p-2 text-center text-dark mb-3" role="alert">
+                Очистка временных данных выполнена успешно.
+            </div>
+
+            <div th:if="${clearError}" class="alert-danger p-2 text-center text-dark mb-3" role="alert">
+                Ошибка очистки временных данных.
+            </div>
             <div class="page-header">
                 <h1 class="title">Администратор</h1>
                 <p class="lead">Страница управления </p>
@@ -47,6 +54,7 @@
                 </h3>
                 <p>Здесь вы можете просматривать и редактировать события</p>
 
+                <button id="clearTempData" type="submit" class="btn btn-info">Очистка временных данных</button>
 
             </div>
 
@@ -72,8 +80,9 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="js/controller.js"></script>
-<script src="js/home.js"></script>
+<script src="../../js/controller.js" th:src="@{/js/controller.js}"></script>
+<script src="../../js/home.js" th:src="@{/js/home.js}"></script>
+<script src="../../js/admin.js" th:src="@{/js/admin.js}"></script>
 </body>
 
 </body>

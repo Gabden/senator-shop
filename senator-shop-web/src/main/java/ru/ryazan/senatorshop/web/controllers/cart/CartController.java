@@ -209,48 +209,13 @@ public class CartController {
         }
     }
 
-    @RequestMapping(value = "/ajax/clearCartTemp", method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeAllTempCart(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
+    @RequestMapping(value = "/ajax/clearCartTemp", method = RequestMethod.POST)
+    public void removeAllTempCart() {
         List<Cart> cartsTemp = cartService.findAllBySessionIdIsNotNull();
         if (cartsTemp != null && cartsTemp.size() > 0) {
             cartsTemp.forEach(cart -> cartService.delete(cart.getCartId()));
         }
     }
-//    @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
-//    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-//    public void addItem(@PathVariable(value = "productId") Long productId, @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request){
-//        String sessionId = request.getSession(true).getId();
-//        Cart cart = cartService.read(sessionId);
-//        if (cart == null){
-//            cart = new Cart(sessionId);
-//            cartService.create(cart);
-//        }
-//        Optional<Product> product = productService.findById(productId);
-//        if (product.get() == null){
-//            throw new IllegalArgumentException(new Exception());
-//        }
-//        cart.addCartItem(new CartItem(product.get()));
-//        cartService.update(sessionId, cart);
-//
-//    }
-//
-//    @RequestMapping(value = "/delete/{productId}", method = RequestMethod.DELETE)
-//    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-//    public void removeItem(@PathVariable(value = "productId") Long productId, HttpServletRequest request){
-//        String sessionId = request.getSession(true).getId();
-//        Cart cart = cartService.read(sessionId);
-//        if (cart == null){
-//            cart = new Cart(sessionId);
-//
-//        }
-//        Optional<Product> product = productService.findById(productId);
-//        if (product.get() == null){
-//            throw new IllegalArgumentException(new Exception());
-//        }
-//        cart.removeCartItem(new CartItem(product.get()));
-//        cartService.update(sessionId, cart);
-//    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal request, please verify your payload")

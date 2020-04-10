@@ -35,6 +35,19 @@ $(document).ready(function () {
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
 
+    $('#clearTempData').on('click', function () {
+        $.ajax({
+            url: '/restCart/cart/ajax/clearCartTemp',
+            method: 'POST',
+            success: function (data) {
+                document.location.href = '/admin/clearSuccess'
+            },
+            error: function (request, msg, error) {
+                document.location.href = '/admin/clearError'
+            }
+        });
+    });
+
 
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
