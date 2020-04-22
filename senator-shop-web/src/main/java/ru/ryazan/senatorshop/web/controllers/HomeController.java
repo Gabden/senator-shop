@@ -39,6 +39,9 @@ public class HomeController {
 
     @RequestMapping({"", "/", "/index"})
     public String main(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
         Page<Product> products = productService.findAll(pageable);
         int totalPages = products.getTotalPages();

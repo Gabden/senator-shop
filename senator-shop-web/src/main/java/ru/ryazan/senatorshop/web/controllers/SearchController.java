@@ -62,6 +62,9 @@ public class SearchController {
                          @RequestParam(name = "description", required = false) String description,
                          @RequestParam(name = "page", defaultValue = "0") int page, Model model,
                          HttpServletRequest request) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);
 
@@ -109,6 +112,9 @@ public class SearchController {
                          @RequestParam(name = "types", required = false) String[] types,
                          HttpServletRequest request,
                          Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Product> products = productService.findAll(pageable);
 

@@ -62,6 +62,9 @@ public class AdminController {
 
     @RequestMapping("/productInventory")
     public String productInventory(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
         Page<Product> allProducts = productService.findAll(pageable);
         int totalPages = allProducts.getTotalPages();
@@ -80,6 +83,9 @@ public class AdminController {
     @RequestMapping("/searchById")
     public String productInventory(@RequestParam(name = "id", required = false) long id, @RequestParam(name = "description", required = false) String description,
                                    @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         if (id > 0) {
             Optional<Product> product = productService.findById(id);
             if (product.isPresent()) {
@@ -99,6 +105,9 @@ public class AdminController {
     public String search(@RequestParam(name = "category", defaultValue = "all") String category,
                          @RequestParam(name = "description", required = false) String description,
                          @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 7, Sort.by("id").descending());
         Page<Product> products = new PageImpl<>(new ArrayList<>(), pageable, 0);
         if (category.contains("all") && description == null) {
@@ -182,6 +191,9 @@ public class AdminController {
 
     @RequestMapping("/customers")
     public String customerManagement(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 7, Sort.by("customerId").descending());
         Page<Customer> customers = customerService.getAllCustomers(pageable);
 
@@ -201,8 +213,7 @@ public class AdminController {
     }
 
     @RequestMapping("/searchUserById")
-    public String searchUser(@RequestParam(name = "id", required = true) long id, @RequestParam(name = "description", required = false) String description,
-                             @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+    public String searchUser(@RequestParam(name = "id", required = true) long id, Model model) {
         if (id > 0) {
             Optional<Customer> customer = customerService.getCustomerById(id);
             if (customer.isPresent()) {
@@ -222,6 +233,9 @@ public class AdminController {
     @RequestMapping("/searchUserByPhone")
     public String searchUser(@RequestParam(name = "phone", required = true) String phone,
                              @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 7, Sort.by("customerId").descending());
         List<Customer> filteredList = new ArrayList<>();
         Page<Customer> customers = customerService.getAllCustomers(pageable);
@@ -245,6 +259,9 @@ public class AdminController {
     @RequestMapping("/searchUserByMail")
     public String searchUserByMail(@RequestParam(name = "email", required = true) String email,
                                    @RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 7, Sort.by("customerId").descending());
         List<Customer> filteredList = new ArrayList<>();
         Page<Customer> customers = customerService.getAllCustomers(pageable);
@@ -269,6 +286,9 @@ public class AdminController {
     // USER PROFILE EDIT
     @RequestMapping("/user-profile/{id}")
     public String profile(@PathVariable(name = "id") long id, Model model, @RequestParam(name = "page") int page) {
+        if (page < 0) {
+            page = 0;
+        }
 
         Optional<Customer> customer = customerService.getCustomerById(id);
 
@@ -317,6 +337,9 @@ public class AdminController {
     // ORDER EDIT
     @RequestMapping("/customerOrder")
     public String customerOrdersManagement(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         Pageable pageable = PageRequest.of(page, 7, Sort.by("customerOrderId").descending());
         Page<CustomerOrder> customerOrders = customerOrderService.findAll(pageable);
 
