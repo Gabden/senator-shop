@@ -41,11 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().deleteCookies("JSESSIONID").logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(604800)
-                .and()
-                .requiresChannel()
-                .anyRequest()
-                .requiresSecure();
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(604800);
     }
 
     @Bean
