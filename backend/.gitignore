@@ -4,7 +4,7 @@ HELP.md
 !**/src/main/**
 !**/src/test/**
 target/
-backend/src/main/resources/public/
+src/main/resources/public/
 ### STS ###
 .apt_generated
 .classpath
@@ -30,7 +30,5 @@ build/
 
 ### VS Code ###
 .vscode/
-/.idea/
-/backend/src/main/resources/public/
-/backend/src/main/resources/public/
-/backend/target/
+/src/main/resources/public/
+/target/
