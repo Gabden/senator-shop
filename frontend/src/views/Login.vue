@@ -32,9 +32,9 @@ export default {
   data() {
     return {
       showPassword: false
-    };
+    }
   }
-};
+}
 </script>
 
 <style></style>

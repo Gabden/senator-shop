@@ -9,15 +9,15 @@
 </template>
 
 <script>
-import Login from "@/views/Login.vue";
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
+import Login from '@/views/Login.vue'
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Login,
     Navbar,
     Footer
   }
-};
+}
 </script>
