@@ -5,11 +5,13 @@
     </v-card-title>
     <p class="red--text text-center mt-3" v-if="error">{{ errorMsg }}</p>
     <v-card-text>
-      <v-form>
+      <v-form @submit.prevent="login" v-model="formValidity">
         <v-text-field
           label="Username"
           prepend-icon="mdi-account-circle"
           v-model="username"
+          :rules="usernameRules"
+          required
         ></v-text-field>
         <v-text-field
           label="Password"
@@ -17,16 +19,19 @@
           prepend-icon="mdi-lock"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           v-model="password"
+          :rules="passwordRules"
           @click:append="showPassword = !showPassword"
+          required
         ></v-text-field>
+        <v-card-actions>
+          <v-btn color="success" type="submit" :disabled="!formValidity"
+            >Login</v-btn
+          >
+          <v-spacer></v-spacer>
+          <v-btn color="info">Register</v-btn>
+        </v-card-actions>
       </v-form>
     </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <v-btn color="success" @click="login">Login</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn color="info">Register</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -34,11 +39,25 @@
 export default {
   data() {
     return {
+      formValidity: false,
       showPassword: false,
       username: '',
       password: '',
       error: false,
-      errorMsg: 'Неправильный адрес электронной почты или пароль'
+      errorMsg: 'Неправильный адрес электронной почты или пароль',
+      usernameRules: [
+        value => !!value || 'Email is required.',
+        value => value.indexOf('@') !== 0 || 'Email should have a username.',
+        value => value.includes('@') || 'Email should include an @ symbol.',
+        value =>
+          value.indexOf('.') - value.indexOf('@') > 1 ||
+          'Email should contain a valid domain.',
+        value => value.includes('.') || 'Email should include a period symbol.',
+        value =>
+          value.indexOf('.') <= value.length - 3 ||
+          'Email should contain a valid domain extension.'
+      ],
+      passwordRules: [value => !!value || 'Email is required.']
     }
   },
   methods: {
