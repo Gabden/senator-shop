@@ -1,14 +1,17 @@
 module.exports = {
   devServer: {
     proxy: {
-      "/api": {
-        target: "http://localhost:8098",
-        ws: true,
-        changeOrigin: true
+      // proxy all requests starting with /api to jsonplaceholder
+      '/api': {
+        target: 'http://localhost:8098',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     }
   },
-  outputDir: "target/dist",
-  assetsDir: "static",
-  transpileDependencies: ["vuetify"]
-};
+  outputDir: 'target/dist',
+  assetsDir: 'static',
+  transpileDependencies: ['vuetify']
+}

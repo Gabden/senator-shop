@@ -35,6 +35,10 @@ public class UserPrincipal implements UserDetails {
         return authorities;
     }
 
+    public List<String> getRoleList(){
+        return user.getRoleList();
+    }
+
     @Override
     public String getPassword() {
         return this.user.getPassword();
