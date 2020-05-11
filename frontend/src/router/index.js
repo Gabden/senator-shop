@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Secured from '@/views/Secured.vue'
-import SecuredAdmin from '@/views/SecuredAdmin.vue'
 import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
@@ -21,7 +20,7 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: SecuredAdmin,
+    component: () => import('@/views/SecuredAdmin.vue'),
     meta: { requiresAuth: true, requiresAuthAdmin: true }
   }
 ]

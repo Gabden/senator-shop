@@ -46,18 +46,19 @@ export default {
       error: false,
       errorMsg: 'Неправильный адрес электронной почты или пароль',
       usernameRules: [
-        value => !!value || 'Email is required.',
-        value => value.indexOf('@') !== 0 || 'Email should have a username.',
-        value => value.includes('@') || 'Email should include an @ symbol.',
+        value => !!value || 'Необходимо ввести адрес электронной почты',
+        value => value.indexOf('@') !== 0 || 'Email должен содержать имя',
+        value => value.includes('@') || 'Email должен включать @ символ',
         value =>
           value.indexOf('.') - value.indexOf('@') > 1 ||
-          'Email should contain a valid domain.',
-        value => value.includes('.') || 'Email should include a period symbol.',
+          'Email должен содержать имя домена',
+        value =>
+          value.includes('.') || 'Email должен содержать точку после домена',
         value =>
           value.indexOf('.') <= value.length - 3 ||
-          'Email should contain a valid domain extension.'
+          'Email должен содержать доменную зону'
       ],
-      passwordRules: [value => !!value || 'Email is required.']
+      passwordRules: [value => !!value || 'Необходимо ввести пароль']
     }
   },
   methods: {
