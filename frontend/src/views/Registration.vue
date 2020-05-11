@@ -5,10 +5,6 @@
         <v-col>
           <v-card-title cols="12">
             <h1 class="display-1 mx-auto">Регистрация</h1>
-          </v-card-title>
-        </v-col>
-        <v-col cols="12">
-          <v-card-title>
             <h3 class="title font-weight-light mx-auto text-justify">
               Необходимо заполнить поля с информацией о себе
             </h3>
@@ -26,12 +22,6 @@
                 prepend-icon="mdi-email"
                 v-model="username"
                 :rules="usernameRules"
-                required
-              ></v-text-field>
-              <v-text-field
-                label="Телефон"
-                prepend-icon="mdi-cellphone"
-                :rules="passwordRules"
                 required
               ></v-text-field>
               <v-text-field
@@ -53,7 +43,11 @@
                 :rules="passwordRules"
                 @click:append="showPassword = !showPassword"
                 required
-              ></v-text-field
+              ></v-text-field>
+              <vue-tel-input
+                v-model="phone"
+                placeholder="Номер телефона"
+              ></vue-tel-input
             ></v-col>
             <v-spacer></v-spacer>
             <v-col cols="12" md="6">
@@ -78,22 +72,35 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col>
+            <v-col cols="12">
               <v-checkbox
-                label="Agree to terms & conditions"
+                label="Принять 'Пользовательское соглашение' и 'Политику конфиденциальности'"
                 v-model="agreeToTerms"
                 :rules="agreeToTermsRules"
                 required
               ></v-checkbox>
+              <p class="caption">
+                Ознакомиться с
+                <router-link router to="/"
+                  >Пользовательским соглашением</router-link
+                >
+                и
+                <router-link router to="/"
+                  >Политикой конфиденциальности</router-link
+                >
+              </p>
             </v-col>
           </v-row>
-          <v-card-actions>
-            <v-btn color="success" type="submit" :disabled="!formValidity"
-              >Login</v-btn
-            >
-            <v-spacer></v-spacer>
-            <v-btn color="info">Register</v-btn>
-          </v-card-actions>
+          <v-divider></v-divider>
+          <v-row justify="center">
+            <v-col cols="7" sm="5">
+              <v-card-actions class="mt-3 mx-auto">
+                <v-btn color="success" type="submit" :disabled="!formValidity"
+                  >Зарегистрироваться</v-btn
+                >
+              </v-card-actions>
+            </v-col>
+          </v-row>
         </v-form>
       </v-card-text>
     </v-card>
@@ -104,13 +111,14 @@
 export default {
   data() {
     return {
+      phone: {},
       formValidity: false,
       showPassword: false,
       username: '',
       password: '',
       secondPassword: '',
       error: false,
-      errorMsg: 'Неправильный адрес электронной почты или пароль',
+      errorMsg: 'Ошибка регистрации, обратитесь в службу поддержки',
       usernameRules: [
         value => !!value || 'Необходимо ввести адрес электронной почты',
         value => value.indexOf('@') !== 0 || 'Email должен содержать имя',
@@ -129,7 +137,7 @@ export default {
       agreeToTermsRules: [
         value =>
           !!value ||
-          'You must agree to the terms and conditions to sign up for an account.'
+          "Вам необходимо принять 'Пользовательское соглашение' и 'Политику конфиденциальности', чтобы создать аккаунт"
       ]
     }
   },
@@ -151,4 +159,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

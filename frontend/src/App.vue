@@ -19,3 +19,12 @@ export default {
   }
 }
 </script>
+<style>
+.vue-tel-input {
+  font-size: 1rem;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid #bbb !important;
+}
+</style>

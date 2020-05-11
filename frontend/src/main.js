@@ -4,8 +4,10 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import axios from 'axios'
+import VueTelInput from 'vue-tel-input'
 
 Vue.config.productionTip = false
+Vue.use(VueTelInput)
 
 new Vue({
   router,
