@@ -9,6 +9,7 @@
       >Logout</v-btn
     >
     <v-btn v-else text rounded to="/">Login</v-btn>
+    <v-btn rounded to="/registration">Регистрация</v-btn>
   </v-app-bar>
 </template>
 
