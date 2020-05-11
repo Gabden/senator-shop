@@ -1,37 +1,45 @@
 <template>
   <v-card width="400" class="mx-auto mt-5">
-    <v-card-title>
-      <h1 class="display-1">Login</h1>
+    <v-card-title class="grey lighten-4">
+      <h1 class="display-1 mx-auto">Личный кабинет</h1>
     </v-card-title>
     <p class="red--text text-center mt-3" v-if="error">{{ errorMsg }}</p>
     <v-card-text>
       <v-form @submit.prevent="login" v-model="formValidity">
         <v-text-field
-          label="Username"
+          label="Email"
           prepend-icon="mdi-account-circle"
           v-model="username"
           :rules="usernameRules"
+          class="mt-3"
           required
         ></v-text-field>
         <v-text-field
-          label="Password"
+          label="Пароль"
           :type="showPassword ? 'text' : 'password'"
           prepend-icon="mdi-lock"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           v-model="password"
           :rules="passwordRules"
           @click:append="showPassword = !showPassword"
+          class="mb-3"
           required
         ></v-text-field>
         <v-card-actions>
           <v-btn color="success" type="submit" :disabled="!formValidity"
-            >Login</v-btn
+            >Войти</v-btn
           >
           <v-spacer></v-spacer>
-          <v-btn color="info">Register</v-btn>
+          <router-link router to="/">Забыли пароль?</router-link>
         </v-card-actions>
       </v-form>
     </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions class="caption grey lighten-4">
+      <span>Еще нет аккаунта?</span>
+      <v-spacer></v-spacer>
+      <router-link router to="/">Зарегистрироваться</router-link>
+    </v-card-actions>
   </v-card>
 </template>
 
