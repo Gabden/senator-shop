@@ -25,6 +25,14 @@
                 required
               ></v-text-field>
               <v-text-field
+                v-model="phone"
+                label="Телефон "
+                prepend-icon="mdi-phone"
+                required
+                v-mask="'7-(###)###-##-##'"
+                :rules="phoneRules"
+              ></v-text-field>
+              <v-text-field
                 label="Пароль"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-icon="mdi-lock"
@@ -44,11 +52,7 @@
                 @click:append="showPassword = !showPassword"
                 required
               ></v-text-field>
-              <vue-tel-input
-                v-model="phone"
-                placeholder="Номер телефона"
-              ></vue-tel-input
-            ></v-col>
+            </v-col>
             <v-spacer></v-spacer>
             <v-col cols="12" md="6">
               <v-text-field
@@ -133,6 +137,12 @@ export default {
           'Email должен содержать доменную зону'
       ],
       passwordRules: [value => !!value || 'Необходимо заполнить поле'],
+      phoneRules: [
+        value =>
+          value.length == 3 ||
+          value.length - 16 >= 0 ||
+          'Неправильный формат номера телефона'
+      ],
       agreeToTerms: false,
       agreeToTermsRules: [
         value =>

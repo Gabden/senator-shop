@@ -5,9 +5,11 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import axios from 'axios'
 import VueTelInput from 'vue-tel-input'
+import VueMask from 'v-mask'
 
 Vue.config.productionTip = false
 Vue.use(VueTelInput)
+Vue.use(VueMask)
 
 new Vue({
   router,
