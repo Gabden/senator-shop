@@ -8,7 +8,24 @@
           </p>
           <p class="white--text text-center">
             Компания работающая в сегменте <br />
-            алкоголя премиум класса с 2005 года.
+            алкоголя премиум класса с 2005 года
+          </p>
+          <p class="white--text text-center">
+            Мы в социальных сетях
+          </p>
+          <p class="white--text text-center">
+            <a href="https://www.facebook.com/senator24/">
+              <v-icon class="blue--text social">mdi-facebook</v-icon>
+            </a>
+            <a
+              class="mx-5"
+              href="https://www.instagram.com/senatorwine24/?igshid=1vk88vyuoxkq"
+            >
+              <v-icon class="pink--text social">mdi-instagram</v-icon>
+            </a>
+            <a href="https://wa.me/79209551894">
+              <v-icon class="green--text social">mdi-whatsapp</v-icon>
+            </a>
           </p>
         </v-col>
         <v-col cols="12" md="3">
@@ -145,5 +162,8 @@ a {
 }
 a span {
   text-decoration: underline;
+}
+.social {
+  font-size: 2.5rem;
 }
 </style>
