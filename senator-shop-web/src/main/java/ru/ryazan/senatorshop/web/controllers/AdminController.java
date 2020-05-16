@@ -7,6 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ryazan.senatorshop.core.domain.*;
+import ru.ryazan.senatorshop.core.domain.details.Country;
+import ru.ryazan.senatorshop.core.domain.details.Manufacturer;
+import ru.ryazan.senatorshop.core.domain.details.ProductType;
 import ru.ryazan.senatorshop.core.service.*;
 import ru.ryazan.senatorshop.web.pagination.PaginationNumbers;
 
@@ -29,11 +32,14 @@ public class AdminController {
     private PasswordEncoder passwordEncoder;
     private UserService userService;
     private PaginationNumbers paginationNumbers;
+    private CountryService countryService;
+    private ProductTypeService productTypeService;
+    private ManufacturerService manufacturerService;
 
     public AdminController(ProductService productService, ProductImageService DBFileStorageService
             , PasswordEncoder passwordEncoder, CustomerService customerService,
                            UserService userService, CustomerOrderService customerOrderService
-            , PaginationNumbers paginationNumbers) {
+            , PaginationNumbers paginationNumbers, CountryService countryService, ProductTypeService productTypeService, ManufacturerService manufacturerService) {
         this.productService = productService;
         this.DBFileStorageService = DBFileStorageService;
         this.customerService = customerService;
@@ -41,6 +47,9 @@ public class AdminController {
         this.customerOrderService = customerOrderService;
         this.userService = userService;
         this.paginationNumbers = paginationNumbers;
+        this.countryService = countryService;
+        this.productTypeService = productTypeService;
+        this.manufacturerService = manufacturerService;
     }
 
     @RequestMapping({"", "/"})
@@ -148,6 +157,34 @@ public class AdminController {
         if (product.getProductCategory() == null) {
             product.setProductCategory("alcohol");
         }
+
+        if (product.getProductCountry() != null) {
+            List<Country> listCountry = countryService.findCountriesByCountryEquals(product.getProductCountry().trim());
+            if (listCountry.size() == 0) {
+                Country country = new Country();
+                country.setCountry(product.getProductCountry().trim());
+                countryService.create(country);
+            }
+        }
+
+        if (product.getProductManufacturer() != null) {
+            List<Manufacturer> manufacturerList = manufacturerService.findManufacturersByManufacturerEquals(product.getProductManufacturer().trim());
+            if (manufacturerList.size() == 0) {
+                Manufacturer manufacturer = new Manufacturer();
+                manufacturer.setManufacturer(product.getProductManufacturer().trim());
+                manufacturerService.create(manufacturer);
+            }
+        }
+
+        if (product.getProductType() != null) {
+            List<ProductType> productTypeList = productTypeService.findProductTypesByTypeEquals(product.getProductType().trim());
+            if (productTypeList.size() == 0) {
+                ProductType productType = new ProductType();
+                productType.setType(product.getProductType().trim());
+                productTypeService.create(productType);
+            }
+        }
+
         productService.addProduct(product);
         ProductImage dbFile = DBFileStorageService.storeFile(file, product);
 

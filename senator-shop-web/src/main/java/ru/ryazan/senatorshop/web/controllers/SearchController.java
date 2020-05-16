@@ -6,7 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryazan.senatorshop.core.domain.Product;
+import ru.ryazan.senatorshop.core.service.CountryService;
+import ru.ryazan.senatorshop.core.service.ManufacturerService;
 import ru.ryazan.senatorshop.core.service.ProductService;
+import ru.ryazan.senatorshop.core.service.ProductTypeService;
 import ru.ryazan.senatorshop.web.pagination.PaginationNumbers;
 
 import javax.annotation.PostConstruct;
@@ -21,31 +24,26 @@ public class SearchController {
     private Set<String> countriesNames;
     private Set<String> manufacturersNames;
     private Set<String> productTypes;
-    private List<Product> all;
+    private CountryService countryService;
+    private ProductTypeService productTypeService;
+    private ManufacturerService manufacturerService;
 
-    public SearchController(ProductService productService, PaginationNumbers paginationNumbers) {
+    public SearchController(ProductService productService, PaginationNumbers paginationNumbers, CountryService countryService, ProductTypeService productTypeService, ManufacturerService manufacturerService) {
         this.productService = productService;
         this.paginationNumbers = paginationNumbers;
+        this.countryService = countryService;
+        this.productTypeService = productTypeService;
+        this.manufacturerService = manufacturerService;
         countriesNames = new TreeSet<>();
         manufacturersNames = new TreeSet<>();
         productTypes = new TreeSet<>();
-        all = new ArrayList<>();
     }
 
     @PostConstruct
     public void init() {
-        all = productService.findAll();
-        all.forEach(product -> {
-            if (product.getProductCountry() != null && product.getProductCountry().length() > 0) {
-                countriesNames.add(capitalizeFirstLetter(product.getProductCountry().trim()));
-            }
-            if (product.getProductManufacturer() != null && product.getProductManufacturer().length() > 0) {
-                manufacturersNames.add(capitalizeFirstLetter(product.getProductManufacturer().trim()));
-            }
-            if (product.getProductType() != null && product.getProductType().length() > 0) {
-                productTypes.add(capitalizeFirstLetter(product.getProductType().trim()));
-            }
-        });
+        countryService.findAll().forEach(country -> countriesNames.add(capitalizeFirstLetter(country.getCountry())));
+        manufacturerService.findAll().forEach(manufacturer -> manufacturersNames.add(capitalizeFirstLetter(manufacturer.getManufacturer())));
+        productTypeService.findAll().forEach(productType -> productTypes.add(capitalizeFirstLetter(productType.getType())));
     }
 
     private String capitalizeFirstLetter(String str) {
@@ -124,7 +122,7 @@ public class SearchController {
 
         try {
             if (categories != null && categories.length > 0 && !categories[0].equals("all")) {
-                filterProducts = all.stream().filter(product -> Arrays.stream(categories).parallel().anyMatch(category -> {
+                filterProducts = productService.findAll().stream().filter(product -> Arrays.stream(categories).parallel().anyMatch(category -> {
                     if (product.getProductCategory() != null) {
                         return product.getProductCategory().toLowerCase().contains(category.toLowerCase());
                     } else {
@@ -133,7 +131,7 @@ public class SearchController {
                 })).collect(Collectors.toList());
 
             } else {
-                filterProducts.addAll(all);
+                filterProducts.addAll(productService.findAll());
             }
         } catch (Exception e) {
             e.printStackTrace();
