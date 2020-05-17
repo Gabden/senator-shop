@@ -1,16 +1,26 @@
 package ru.gabdulindv.senatorshop.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import ru.gabdulindv.senatorshop.model.User;
+import ru.gabdulindv.senatorshop.repository.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/public")
 public class HomeController {
+    private UserRepository repository;
+
+    public HomeController(UserRepository repository) {
+        this.repository = repository;
+    }
+
     @RequestMapping("/hello")
     @ResponseStatus(HttpStatus.OK)
     public Map<String, String> hello() {
@@ -35,4 +45,9 @@ public class HomeController {
         return map;
     }
 
+    @RequestMapping("/user")
+    public User getUser(Authentication auth, HttpServletRequest request) {
+        System.out.println(request);
+        return repository.findByUsername(auth.getName());
+    }
 }
