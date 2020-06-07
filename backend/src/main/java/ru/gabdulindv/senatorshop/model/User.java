@@ -24,6 +24,9 @@ public class User {
 
     private String permissions = "";
 
+    @Transient
+    private String token;
+
     public User(String username, String password, String roles, String permissions) {
         this.username = username;
         this.password = password;
@@ -59,6 +62,14 @@ public class User {
         return permissions;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public List<String> getRoleList() {
         if (this.roles.length() > 0) {
             return Arrays.asList(this.roles.split(","));
@@ -71,5 +82,17 @@ public class User {
             return Arrays.asList(this.permissions.split(","));
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", active=" + active +
+                ", roles='" + roles + '\'' +
+                ", permissions='" + permissions + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

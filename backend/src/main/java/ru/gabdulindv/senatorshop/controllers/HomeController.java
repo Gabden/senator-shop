@@ -47,7 +47,10 @@ public class HomeController {
 
     @RequestMapping("/user")
     public User getUser(Authentication auth, HttpServletRequest request) {
-        System.out.println(request);
-        return repository.findByUsername(auth.getName());
+        System.out.println("--------------------");
+        System.out.println(request.getHeader("Authorization"));
+        User user = repository.findByUsername(auth.getName());
+        user.setToken(request.getHeader("Authorization"));
+        return user;
     }
 }
