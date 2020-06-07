@@ -100,6 +100,25 @@ public class GroupSaleController {
         return "admin/change-group-discount";
     }
 
+    @RequestMapping(value = "/edit/wineType", method = RequestMethod.POST)
+    public String editGroupDiscountWineType(@RequestParam("color") String color, @RequestParam("discount") Integer discount, Model model) {
+        if (discount == null || discount < 10 || discount > 100) {
+            model.addAttribute("error", "Значение скидки должно быть в пределах от 10 до 100");
+            return "admin/change-group-discount";
+        }
+
+        List<Product> productsByType = productService.findProductsByProductAlcoholColorContains(color.toLowerCase());
+        productsByType.forEach(product -> {
+            product.setDiscount(discount);
+            productService.update(Optional.of(product));
+        });
+        model.addAttribute("updateSuccess", "Скидка успешно обновлена");
+        model.addAttribute("types", productTypes);
+        model.addAttribute("manufacturers", manufacturersNames);
+        model.addAttribute("countries", countriesNames);
+        return "admin/change-group-discount";
+    }
+
     @RequestMapping(value = "/edit/manufacturer", method = RequestMethod.POST)
     public String editGroupDiscountManufacturer(@RequestParam("manufacturer") String manufacturer, @RequestParam("discount") Integer discount, Model model) {
         if (discount == null || discount < 10 || discount > 100) {

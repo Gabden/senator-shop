@@ -49,6 +49,40 @@
             </div>
         </div>
 
+
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <h4 class="text-center">Тип вина</h4>
+                <form class="my-3" th:action="@{/admin/group-discount/edit/wineType}" method="post">
+                    <div class="d-inline-flex flex-row no-gutters">
+                        <div class="col-5 p-0">
+                            <select class="form-control" name="color" style="min-width: 10vw">
+                                <option value="красное">Красное</option>
+                                <option value="белое">Белое</option>
+                                <option value="розовое">Розовое</option>
+                                <option value="шампанское">Шампанское</option>
+                            </select>
+                        </div>
+                        <div class="col-5 p-0">
+                            <input type="number" class="form-control d-inline w-100" name="discount">
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="input-group-text h-100" style="cursor: text"><i
+                                    class="fas fa-percent"></i></button>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-1">
+                            <button type="submit" class="input-group-text h-100"><span class="far fa-edit"></span>
+                                Обновить
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <hr style="max-width: 50vw">
+            </div>
+        </div>
+
+
         <div class="row">
             <div class="col-6 mx-auto">
                 <h4 class="text-center">Тип</h4>

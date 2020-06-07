@@ -27,4 +27,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
     List<Product> findProductsByProductCountryContains(String country);
 
+    List<Product> findProductsByProductAlcoholColorContains(String color);
+
 }
