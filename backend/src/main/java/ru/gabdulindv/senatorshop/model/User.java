@@ -1,5 +1,9 @@
 package ru.gabdulindv.senatorshop.model;
 
+import ru.gabdulindv.senatorshop.model.address.ShippingAddress;
+import ru.gabdulindv.senatorshop.model.cart.Cart;
+import ru.gabdulindv.senatorshop.model.favorites.Favorite;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +28,21 @@ public class User {
 
     private String permissions = "";
 
+    @OneToOne(cascade = {CascadeType.ALL})
+    private UserDetailsDescription userDetailsDescription;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private ShippingAddress shippingAddress;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private ShippingAddress billingAddress;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Favorite> favorites;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Cart cart;
+
     @Transient
     private String token;
 
@@ -36,6 +55,62 @@ public class User {
     }
 
     protected User() {
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+
+    public UserDetailsDescription getUserDetailsDescription() {
+        return userDetailsDescription;
+    }
+
+    public void setUserDetailsDescription(UserDetailsDescription userDetailsDescription) {
+        this.userDetailsDescription = userDetailsDescription;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public ShippingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(ShippingAddress billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public long getId() {
@@ -82,6 +157,14 @@ public class User {
             return Arrays.asList(this.permissions.split(","));
         }
         return new ArrayList<>();
+    }
+
+    public List<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorite> favorites) {
+        this.favorites = favorites;
     }
 
     @Override
