@@ -1,17 +1,15 @@
 package ru.gabdulindv.senatorshop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "user_details_description")
 public class UserDetailsDescription implements Serializable {
     private static final long serialVersionUID = 7692196695514198213L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String phone;

@@ -1,8 +1,10 @@
 package ru.gabdulindv.senatorshop.model;
 
+import ru.gabdulindv.senatorshop.model.address.BillingAddress;
 import ru.gabdulindv.senatorshop.model.address.ShippingAddress;
 import ru.gabdulindv.senatorshop.model.cart.Cart;
 import ru.gabdulindv.senatorshop.model.favorites.Favorite;
+import ru.gabdulindv.senatorshop.model.order.Order;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,10 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -29,19 +32,26 @@ public class User {
     private String permissions = "";
 
     @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "details_id")
     private UserDetailsDescription userDetailsDescription;
 
     @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    private ShippingAddress billingAddress;
+    @JoinColumn(name = "billing_address_id")
+    private BillingAddress billingAddress;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    private List<Favorite> favorites;
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    private List<Favorite> favorite;
 
     @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    private List<Order> orderTable;
 
     @Transient
     private String token;
@@ -54,7 +64,15 @@ public class User {
         this.active = 1;
     }
 
-    protected User() {
+    public User() {
+    }
+
+    public List<Order> getOrderTable() {
+        return orderTable;
+    }
+
+    public void setOrderTable(List<Order> orderTable) {
+        this.orderTable = orderTable;
     }
 
     public void setId(long id) {
@@ -97,11 +115,11 @@ public class User {
         this.shippingAddress = shippingAddress;
     }
 
-    public ShippingAddress getBillingAddress() {
+    public BillingAddress getBillingAddress() {
         return billingAddress;
     }
 
-    public void setBillingAddress(ShippingAddress billingAddress) {
+    public void setBillingAddress(BillingAddress billingAddress) {
         this.billingAddress = billingAddress;
     }
 
@@ -160,11 +178,11 @@ public class User {
     }
 
     public List<Favorite> getFavorites() {
-        return favorites;
+        return this.favorite;
     }
 
     public void setFavorites(List<Favorite> favorites) {
-        this.favorites = favorites;
+        this.favorite = favorites;
     }
 
     @Override

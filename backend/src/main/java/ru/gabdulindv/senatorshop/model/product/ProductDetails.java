@@ -4,51 +4,41 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "product_details")
 public class ProductDetails implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "product_type")
     private String productType;
-
+    @Column(name = "product_country")
     private String productCountry;
-
+    @Column(name = "product_region")
     private String productRegion;
-
+    @Column(name = "product_alcohol_degree")
     private String productAlcoholDegree;
-
+    @Column(name = "product_alcohol_color")
     private String productAlcoholColor;
-
+    @Column(name = "product_alcohol_sugar")
     private String productAlcoholSugar;
-
+    @Column(name = "product_alcohol_temperature")
     private String productAlcoholTemperature;
-
+    @Column(name = "product_alcohol_sort")
     private String productAlcoholSort;
-
+    @Column(name = "product_manufacturer")
     private String productManufacturer;
-
+    @Column(name = "product_volume")
     private String productVolume;
-
+    @Column(name = "product_mature")
     private String productMature;
-
+    @Column(name = "product_taste", length = 5000)
     private String productTaste;
-
+    @Column(name = "product_unit_in_stock")
     private String productUnitInStock;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "productId")
-    private Product product;
-
     public ProductDetails() {
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public Long getId() {

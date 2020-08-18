@@ -14,7 +14,7 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 5906767062695827006L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderId;
 
     @OneToOne(cascade = CascadeType.ALL)

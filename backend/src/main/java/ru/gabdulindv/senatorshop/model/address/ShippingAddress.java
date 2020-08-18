@@ -1,37 +1,34 @@
 package ru.gabdulindv.senatorshop.model.address;
 
-import ru.gabdulindv.senatorshop.model.User;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "shipping_address")
 public class ShippingAddress implements Serializable {
 
     private static final long serialVersionUID = -173270705219326818L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shipping_address_id")
     private long shippingAddressId;
+    @Column(name = "street_name")
     private String streetName;
+
+    @Column(name = "apartment_number")
     private String apartmentNumber;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "zip_code")
     private String zipCode;
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "id")
-    private User user;
-
     public ShippingAddress() {
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public long getShippingAddressId() {

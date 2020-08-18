@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class ReservedCartItem implements Serializable {
     private static final long serialVersionUID = 7934178160948239055L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservedProductId;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -17,7 +17,7 @@ public class ReservedCartItem implements Serializable {
     private ReservedCart cart;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     private int quantity;

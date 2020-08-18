@@ -1,27 +1,24 @@
 package ru.gabdulindv.senatorshop.model.cart;
 
-import ru.gabdulindv.senatorshop.model.User;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "cart")
 public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1154447935307492308L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id")
     private long cartId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartItem> cartItems;
 
+    @Column(name = "grand_total")
     private Integer grandTotal;
-
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "id")
-    private User user;
 
     public Cart() {
         grandTotal = 0;
@@ -32,13 +29,6 @@ public class Cart implements Serializable {
         this.cartId = cartId;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Long getCartId() {
         return cartId;
@@ -70,7 +60,6 @@ public class Cart implements Serializable {
                 "cartId=" + cartId +
                 ", cartItems=" + cartItems +
                 ", grandTotal=" + grandTotal +
-                ", user=" + user +
                 '}';
     }
 }

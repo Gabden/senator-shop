@@ -6,10 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "cart_item")
 public class CartItem implements Serializable {
     private static final long serialVersionUID = 7934178160948239055L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -17,7 +18,7 @@ public class CartItem implements Serializable {
     private Cart cart;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     private int quantity;

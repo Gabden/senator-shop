@@ -8,7 +8,7 @@ import java.util.Set;
 public class ReservedCart implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long cartId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
