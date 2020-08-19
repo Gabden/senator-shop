@@ -40,6 +40,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Optional<Product> findProductByName(String name) {
+        return productRepository.findProductByProductName(name);
+    }
+
+    @Override
     public void delete(Product product) {
         productRepository.delete(product);
     }
