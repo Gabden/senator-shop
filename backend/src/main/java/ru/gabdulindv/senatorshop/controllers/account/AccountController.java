@@ -1,10 +1,9 @@
 package ru.gabdulindv.senatorshop.controllers.account;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.User;
 import ru.gabdulindv.senatorshop.model.account.FioModel;
 import ru.gabdulindv.senatorshop.service.UserService;
@@ -15,12 +14,14 @@ import java.util.Optional;
 @RequestMapping("/account")
 public class AccountController {
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
-    public AccountController(UserService userService) {
+    public AccountController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/update/fio/{id}")
+    @RequestMapping(value = "/update/fio/{id}", method = RequestMethod.POST)
     public ResponseEntity updateFio(@PathVariable Long id, @RequestBody FioModel fioModel) {
         Optional<User> user = userService.findById(id);
         if (user.isPresent()) {
@@ -33,7 +34,7 @@ public class AccountController {
         return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping("/update/phone/{id}")
+    @RequestMapping(value = "/update/phone/{id}", method = RequestMethod.POST)
     public ResponseEntity updatePhone(@PathVariable Long id, @RequestBody FioModel fioModel) {
         Optional<User> user = userService.findById(id);
         if (user.isPresent()) {
@@ -44,11 +45,28 @@ public class AccountController {
         return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping("/update/username/{id}")
+    @RequestMapping(value = "/update/username/{id}", method = RequestMethod.POST)
     public ResponseEntity updateUsername(@PathVariable Long id, @RequestBody FioModel fioModel) {
         Optional<User> user = userService.findById(id);
         if (user.isPresent()) {
             user.get().setUsername(fioModel.getUsername());
+            userService.save(user.get());
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(value = "/update/password/{id}", method = RequestMethod.POST)
+    public ResponseEntity updatePassword(@PathVariable Long id, @RequestBody FioModel fioModel) {
+        Optional<User> user = userService.findById(id);
+
+        if (user.isPresent()) {
+            String oldPass = user.get().getPassword();
+            String oldPassFromUser = fioModel.getOldPassword();
+            if (!passwordEncoder.matches(oldPassFromUser, oldPass)) {
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Старый пароль не совпадает с текущим");
+            }
+            user.get().setPassword(passwordEncoder.encode(oldPassFromUser));
             userService.save(user.get());
             return ResponseEntity.ok().build();
         }

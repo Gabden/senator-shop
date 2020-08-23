@@ -6,16 +6,20 @@ public class FioModel {
     private String fiolast;
     private String phone;
     private String username;
+    private String oldPassword;
+    private String newPassword;
 
     public FioModel() {
     }
 
-    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone, String username) {
+    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone, String username, String oldPassword, String newPassword) {
         this.fiofirst = fiofirst;
         this.fiomiddle = fiomiddle;
         this.fiolast = fiolast;
         this.phone = phone;
         this.username = username;
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
     }
 
     public String getFiofirst() {
@@ -56,6 +60,22 @@ public class FioModel {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     @Override
