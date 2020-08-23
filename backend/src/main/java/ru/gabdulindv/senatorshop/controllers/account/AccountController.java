@@ -32,4 +32,15 @@ public class AccountController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @RequestMapping("/update/phone/{id}")
+    public ResponseEntity updatePhone(@PathVariable Long id, @RequestBody FioModel fioModel) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            user.get().getUserDetailsDescription().setPhone(fioModel.getPhone());
+            userService.save(user.get());
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

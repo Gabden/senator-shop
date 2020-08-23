@@ -4,14 +4,16 @@ public class FioModel {
     private String fiofirst;
     private String fiomiddle;
     private String fiolast;
+    private String phone;
 
     public FioModel() {
     }
 
-    public FioModel(String fiofirst, String fiomiddle, String fiolast) {
+    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone) {
         this.fiofirst = fiofirst;
         this.fiomiddle = fiomiddle;
         this.fiolast = fiolast;
+        this.phone = phone;
     }
 
     public String getFiofirst() {
@@ -38,12 +40,21 @@ public class FioModel {
         this.fiolast = fiolast;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "FioModel{" +
                 "fiofirst='" + fiofirst + '\'' +
                 ", fiomiddle='" + fiomiddle + '\'' +
                 ", fiolast='" + fiolast + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }
