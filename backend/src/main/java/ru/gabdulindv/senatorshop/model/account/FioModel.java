@@ -5,15 +5,17 @@ public class FioModel {
     private String fiomiddle;
     private String fiolast;
     private String phone;
+    private String username;
 
     public FioModel() {
     }
 
-    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone) {
+    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone, String username) {
         this.fiofirst = fiofirst;
         this.fiomiddle = fiomiddle;
         this.fiolast = fiolast;
         this.phone = phone;
+        this.username = username;
     }
 
     public String getFiofirst() {
@@ -48,6 +50,14 @@ public class FioModel {
         this.phone = phone;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "FioModel{" +
@@ -55,6 +65,7 @@ public class FioModel {
                 ", fiomiddle='" + fiomiddle + '\'' +
                 ", fiolast='" + fiolast + '\'' +
                 ", phone='" + phone + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

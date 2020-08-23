@@ -43,4 +43,15 @@ public class AccountController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @RequestMapping("/update/username/{id}")
+    public ResponseEntity updateUsername(@PathVariable Long id, @RequestBody FioModel fioModel) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            user.get().setUsername(fioModel.getUsername());
+            userService.save(user.get());
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
