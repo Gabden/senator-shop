@@ -38,7 +38,7 @@ public class Product implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_image_id")
-    private ProductImage productImageSet;
+    private ProductImage productImage;
 
     public Product() {
     }
@@ -108,10 +108,10 @@ public class Product implements Serializable {
     }
 
     public ProductImage getProductImage() {
-        return productImageSet;
+        return productImage;
     }
 
     public void setProductImage(ProductImage productImageSet) {
-        this.productImageSet = productImageSet;
+        this.productImage = productImageSet;
     }
 }

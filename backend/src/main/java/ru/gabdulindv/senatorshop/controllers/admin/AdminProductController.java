@@ -4,12 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import ru.gabdulindv.senatorshop.model.product.Product;
+import ru.gabdulindv.senatorshop.model.product.ProductImage;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
 import java.util.Optional;
@@ -53,5 +53,27 @@ public class AdminProductController {
         Page<Product> products = productService.findProductsByProductDescriptionContainsOrProductNameContains(textForFind, textForFind, pageable);
 
         return ResponseEntity.ok(products);
+    }
+
+    @RequestMapping(value = "/product/create", method = RequestMethod.POST)
+    public ResponseEntity createProduct(@RequestBody Product product) {
+        productService.addProduct(product);
+        return ResponseEntity.ok(product.getProductId());
+    }
+
+    @RequestMapping(value = "/product/update/image/{id}", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    public ResponseEntity updateImage(@PathVariable("id") Long id, @RequestParam("file") CommonsMultipartFile file) {
+        Optional<Product> product = productService.findById(id);
+        if (product.isPresent()) {
+            ProductImage productImage = new ProductImage();
+            productImage.setFileType(file.getContentType());
+            productImage.setFileName(file.getName());
+            productImage.setFileData(file.getBytes());
+            product.get().setProductImage(productImage);
+            productService.addProduct(product.get());
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }
