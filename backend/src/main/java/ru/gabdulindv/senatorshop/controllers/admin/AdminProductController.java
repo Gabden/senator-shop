@@ -42,4 +42,16 @@ public class AdminProductController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @RequestMapping("/product/search")
+    public ResponseEntity getProduct(@RequestParam(name = "text") String description, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String textForFind = description.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDescriptionContainsOrProductNameContains(textForFind, textForFind, pageable);
+
+        return ResponseEntity.ok(products);
+    }
 }
