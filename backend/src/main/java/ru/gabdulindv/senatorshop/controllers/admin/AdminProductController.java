@@ -76,4 +76,10 @@ public class AdminProductController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    @RequestMapping(value = "/product/delete/{id}", method = RequestMethod.POST)
+    public ResponseEntity deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteById(id);
+        return ResponseEntity.ok("Deleted");
+    }
 }
