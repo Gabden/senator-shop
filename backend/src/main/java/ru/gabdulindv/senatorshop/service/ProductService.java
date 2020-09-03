@@ -36,4 +36,8 @@ public interface ProductService {
 
     List<Product> findProductsByProductCategoryContains(String category);
 
+    List<Product> findProductsByProductDetails_ProductTypeContains(String type);
+
+    List<Product> findProductsByProductDetails_ProductAlcoholColorContains(String color);
+
 }
