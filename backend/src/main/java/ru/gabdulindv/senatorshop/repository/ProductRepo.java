@@ -26,8 +26,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     List<Product> findProductsByProductDetails_ProductAlcoholColorContains(String color);
 
-
-
     Optional<Product> findProductByProductName(String name);
 
 }

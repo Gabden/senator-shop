@@ -45,6 +45,20 @@ public class GroupSaleController {
             product.setDiscount(discount);
             productService.update(Optional.of(product));
         });
+        return ResponseEntity.ok("Color sale successfully updated");
+    }
+
+    @RequestMapping(value = "/edit/type", method = RequestMethod.POST)
+    public ResponseEntity editGroupDiscountType(@RequestParam("type") String type, @RequestParam("discount") Integer discount) {
+        if (discount == null || discount < 10 || discount > 100) {
+            return ResponseEntity.badRequest().body("Значение скидки должно быть в пределах от 10 до 100");
+        }
+
+        List<Product> productsByType = productService.findProductsByProductDetails_ProductTypeContains(type);
+        productsByType.forEach(product -> {
+            product.setDiscount(discount);
+            productService.update(Optional.of(product));
+        });
         return ResponseEntity.ok("Type sale successfully updated");
     }
 }
