@@ -18,4 +18,14 @@ public class ProductDetailsImpl implements ProductDetailsService {
     public Set<String> findAllTypes() {
         return productDetailsRepo.findAllTypes();
     }
+
+    @Override
+    public Set<String> findAllManufacturers() {
+        return productDetailsRepo.findAllManufacturers();
+    }
+
+    @Override
+    public Set<String> findAllCountries() {
+        return productDetailsRepo.findAllCountries();
+    }
 }

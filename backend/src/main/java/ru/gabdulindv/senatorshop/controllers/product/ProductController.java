@@ -34,6 +34,18 @@ public class ProductController {
     @RequestMapping("/all/types")
     public ResponseEntity getAllTypes() {
         Set<String> allTypes = productDetailsService.findAllTypes();
-        return ResponseEntity.ok(allTypes);
+        return ResponseEntity.ok(allTypes.stream().map(String::toLowerCase).sorted());
+    }
+
+    @RequestMapping("/all/manufacturers")
+    public ResponseEntity getAllManufacturers() {
+        Set<String> manufacturers = productDetailsService.findAllManufacturers();
+        return ResponseEntity.ok(manufacturers.stream().map(String::toLowerCase).sorted());
+    }
+
+    @RequestMapping("/all/countries")
+    public ResponseEntity getAllCountries() {
+        Set<String> countries = productDetailsService.findAllCountries();
+        return ResponseEntity.ok(countries.stream().map(String::toLowerCase).sorted());
     }
 }

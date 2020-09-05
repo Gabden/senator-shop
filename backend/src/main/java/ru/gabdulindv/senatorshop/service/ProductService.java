@@ -40,4 +40,8 @@ public interface ProductService {
 
     List<Product> findProductsByProductDetails_ProductAlcoholColorContains(String color);
 
+    List<Product> findProductsByProductDetails_ProductManufacturerContains(String manufacturer);
+
+    List<Product> findProductsByProductDetails_ProductCountryContains(String country);
+
 }

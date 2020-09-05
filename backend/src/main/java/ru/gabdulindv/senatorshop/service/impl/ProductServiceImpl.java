@@ -99,5 +99,15 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findProductsByProductDetails_ProductAlcoholColorContains(color);
     }
 
+    @Override
+    public List<Product> findProductsByProductDetails_ProductManufacturerContains(String manufacturer) {
+        return productRepository.findProductsByProductDetails_ProductManufacturerContains(manufacturer);
+    }
+
+    @Override
+    public List<Product> findProductsByProductDetails_ProductCountryContains(String country) {
+        return productRepository.findProductsByProductDetails_ProductCountryContains(country);
+    }
+
 
 }

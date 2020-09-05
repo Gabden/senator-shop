@@ -10,4 +10,10 @@ import java.util.Set;
 public interface ProductDetailsRepo extends JpaRepository<ProductDetails, Long> {
     @Query("select p.productType from ProductDetails p")
     Set<String> findAllTypes();
+
+    @Query("select p.productManufacturer from ProductDetails p")
+    Set<String> findAllManufacturers();
+
+    @Query("select p.productCountry from ProductDetails p")
+    Set<String> findAllCountries();
 }

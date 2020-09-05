@@ -61,4 +61,32 @@ public class GroupSaleController {
         });
         return ResponseEntity.ok("Type sale successfully updated");
     }
+
+    @RequestMapping(value = "/edit/manufacturer", method = RequestMethod.POST)
+    public ResponseEntity editGroupDiscountManufacturer(@RequestParam("manufacturer") String manufacturer, @RequestParam("discount") Integer discount) {
+        if (discount == null || discount < 10 || discount > 100) {
+            return ResponseEntity.badRequest().body("Значение скидки должно быть в пределах от 10 до 100");
+        }
+
+        List<Product> productsByManufacturer = productService.findProductsByProductDetails_ProductManufacturerContains(manufacturer);
+        productsByManufacturer.forEach(product -> {
+            product.setDiscount(discount);
+            productService.update(Optional.of(product));
+        });
+        return ResponseEntity.ok("Type sale successfully updated");
+    }
+
+    @RequestMapping(value = "/edit/country", method = RequestMethod.POST)
+    public ResponseEntity editGroupDiscountCountry(@RequestParam("country") String country, @RequestParam("discount") Integer discount) {
+        if (discount == null || discount < 10 || discount > 100) {
+            return ResponseEntity.badRequest().body("Значение скидки должно быть в пределах от 10 до 100");
+        }
+
+        List<Product> productsByCountry = productService.findProductsByProductDetails_ProductCountryContains(country);
+        productsByCountry.forEach(product -> {
+            product.setDiscount(discount);
+            productService.update(Optional.of(product));
+        });
+        return ResponseEntity.ok("Type sale successfully updated");
+    }
 }
