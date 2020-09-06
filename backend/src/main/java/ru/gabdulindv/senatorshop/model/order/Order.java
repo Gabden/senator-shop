@@ -105,7 +105,6 @@ public class Order implements Serializable {
         return "Order{" +
                 "customerOrderId=" + orderId +
                 ", reservedCart=" + reservedCart +
-                ", user=" + user +
                 ", billingAddress=" + billingAddress +
                 ", shippingAddress=" + shippingAddress +
                 ", timestamp=" + timestamp +

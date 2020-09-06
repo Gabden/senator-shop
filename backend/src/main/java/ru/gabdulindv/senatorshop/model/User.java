@@ -1,5 +1,6 @@
 package ru.gabdulindv.senatorshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.gabdulindv.senatorshop.model.address.BillingAddress;
 import ru.gabdulindv.senatorshop.model.address.ShippingAddress;
 import ru.gabdulindv.senatorshop.model.cart.Cart;
@@ -51,6 +52,7 @@ public class User {
     private Cart cart;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
+    @JsonIgnore
     private List<Order> orderTable;
 
     @Transient

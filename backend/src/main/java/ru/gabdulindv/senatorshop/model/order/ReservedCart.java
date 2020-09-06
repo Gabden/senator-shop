@@ -1,5 +1,7 @@
 package ru.gabdulindv.senatorshop.model.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class ReservedCart implements Serializable {
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "orderId")
+    @JsonIgnore
     private Order order;
 
     public ReservedCart() {
@@ -62,7 +65,6 @@ public class ReservedCart implements Serializable {
                 "cartId=" + cartId +
                 ", cartItems=" + reservedCartItems +
                 ", grandTotal=" + grandTotal +
-                ", order=" + order +
                 '}';
     }
 }

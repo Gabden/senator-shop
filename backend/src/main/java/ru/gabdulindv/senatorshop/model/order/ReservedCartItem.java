@@ -1,5 +1,6 @@
 package ru.gabdulindv.senatorshop.model.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.gabdulindv.senatorshop.model.product.Product;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class ReservedCartItem implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "cartId")
+    @JsonIgnore
     private ReservedCart cart;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -97,7 +99,6 @@ public class ReservedCartItem implements Serializable {
     public String toString() {
         return "ReservedCartItem{" +
                 "id=" + reservedProductId +
-                ", cart=" + cart +
                 ", product=" + product +
                 ", quantity=" + quantity +
                 ", cartItemPrice='" + cartItemPrice + '\'' +
