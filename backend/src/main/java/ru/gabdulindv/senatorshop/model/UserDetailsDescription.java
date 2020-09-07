@@ -1,5 +1,7 @@
 package ru.gabdulindv.senatorshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,12 +14,25 @@ public class UserDetailsDescription implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
     private String phone;
     private String FIOfirst;
     private String FIOmiddle;
     private String FIOlast;
 
     public UserDetailsDescription() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
