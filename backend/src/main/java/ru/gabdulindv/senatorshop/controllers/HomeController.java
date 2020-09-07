@@ -70,6 +70,7 @@ public class HomeController {
         order.setBillingAddress(user.getBillingAddress());
         order.setShippingAddress(user.getShippingAddress());
         order.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        order.setStatus("canceled");
         order.setUser(user);
 
         ReservedCart reservedCart = new ReservedCart();
