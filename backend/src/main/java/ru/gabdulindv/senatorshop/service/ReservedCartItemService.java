@@ -8,4 +8,6 @@ public interface ReservedCartItemService {
     Optional<ReservedCartItem> findById(Long id);
 
     void deleteById(Long id);
+
+    void saveOrUpdate(ReservedCartItem reservedCartItem);
 }

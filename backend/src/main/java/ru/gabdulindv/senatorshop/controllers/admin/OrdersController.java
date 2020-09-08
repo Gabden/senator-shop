@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.order.Order;
+import ru.gabdulindv.senatorshop.model.order.ReservedCartItem;
 import ru.gabdulindv.senatorshop.service.OrderService;
 import ru.gabdulindv.senatorshop.service.ReservedCartItemService;
 
@@ -75,5 +76,16 @@ public class OrdersController {
     public ResponseEntity deleteItemById(@PathVariable("id") Long id) {
         reservedCartItemService.deleteById(id);
         return ResponseEntity.ok("Deleted");
+    }
+
+    @RequestMapping(value = "/order/update/quantity/{id}", method = RequestMethod.POST)
+    public ResponseEntity updateQuantity(@PathVariable("id") Long id, @RequestParam("quantity") int quantity) {
+        Optional<ReservedCartItem> reservedCartItem = reservedCartItemService.findById(id);
+        if (reservedCartItem.isPresent()) {
+            reservedCartItem.get().setQuantity(quantity);
+            reservedCartItemService.saveOrUpdate(reservedCartItem.get());
+            return ResponseEntity.ok("Quantity has been updated");
+        }
+        return ResponseEntity.notFound().build();
     }
 }

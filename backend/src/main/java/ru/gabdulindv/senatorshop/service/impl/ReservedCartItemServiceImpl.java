@@ -24,4 +24,9 @@ public class ReservedCartItemServiceImpl implements ReservedCartItemService {
     public void deleteById(Long id) {
         reservedCartItemRepository.deleteById(id);
     }
+
+    @Override
+    public void saveOrUpdate(ReservedCartItem reservedCartItem) {
+        reservedCartItemRepository.save(reservedCartItem);
+    }
 }
