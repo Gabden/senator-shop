@@ -36,4 +36,9 @@ public class OrderServiceImpl implements OrderService {
     public Page<Order> findOrdersByUser_UsernameContains(String email, Pageable pageable) {
         return orderRepository.findOrdersByUser_UsernameContains(email, pageable);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        orderRepository.deleteById(id);
+    }
 }

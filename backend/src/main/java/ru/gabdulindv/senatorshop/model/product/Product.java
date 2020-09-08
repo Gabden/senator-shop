@@ -1,7 +1,12 @@
 package ru.gabdulindv.senatorshop.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ru.gabdulindv.senatorshop.model.cart.CartItem;
+import ru.gabdulindv.senatorshop.model.order.ReservedCartItem;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -39,6 +44,14 @@ public class Product implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_image_id")
     private ProductImage productImage;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private Set<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private Set<ReservedCartItem> reservedCartItems;
 
     public Product() {
     }
@@ -113,5 +126,21 @@ public class Product implements Serializable {
 
     public void setProductImage(ProductImage productImageSet) {
         this.productImage = productImageSet;
+    }
+
+    public Set<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public Set<ReservedCartItem> getReservedCartItems() {
+        return reservedCartItems;
+    }
+
+    public void setReservedCartItems(Set<ReservedCartItem> reservedCartItems) {
+        this.reservedCartItems = reservedCartItems;
     }
 }

@@ -14,4 +14,6 @@ public interface OrderService {
     Page<Order> findOrdersByUser_UserDetailsDescription_Phone(String phone, Pageable pageable);
 
     Page<Order> findOrdersByUser_UsernameContains(String email, Pageable pageable);
+
+    void deleteById(Long id);
 }

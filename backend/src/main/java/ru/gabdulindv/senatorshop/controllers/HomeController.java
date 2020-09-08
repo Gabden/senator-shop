@@ -76,11 +76,11 @@ public class HomeController {
         ReservedCart reservedCart = new ReservedCart();
         reservedCart.setOrder(order);
 
-        Optional<Product> product = productRepo.findById(958L);
-        Optional<Product> product2 = productRepo.findById(957L);
+        Optional<Product> product = productRepo.findById(954L);
+        Optional<Product> product2 = productRepo.findById(955L);
 
         ReservedCartItem reservedCartItem = new ReservedCartItem();
-        reservedCartItem.setCart(reservedCart);
+//        reservedCartItem.setCart(reservedCart);
         reservedCartItem.setProduct(product.get());
         reservedCartItem.setQuantity(1);
         reservedCartItem.setCartItemFinalPrice(product.get().getProductPrice());
@@ -88,7 +88,7 @@ public class HomeController {
         reservedCartItem.setTotalPrice(1360);
 
         ReservedCartItem reservedCartItem2 = new ReservedCartItem();
-        reservedCartItem2.setCart(reservedCart);
+//        reservedCartItem2.setCart(reservedCart);
         reservedCartItem2.setProduct(product2.get());
         reservedCartItem2.setQuantity(2);
         reservedCartItem2.setCartItemFinalPrice(product2.get().getProductPrice());

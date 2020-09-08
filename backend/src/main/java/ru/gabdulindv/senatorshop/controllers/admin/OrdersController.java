@@ -5,12 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.order.Order;
 import ru.gabdulindv.senatorshop.service.OrderService;
+import ru.gabdulindv.senatorshop.service.ReservedCartItemService;
 
 import java.util.Optional;
 
@@ -18,9 +16,11 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class OrdersController {
     private OrderService orderService;
+    private ReservedCartItemService reservedCartItemService;
 
-    public OrdersController(OrderService orderService) {
+    public OrdersController(OrderService orderService, ReservedCartItemService reservedCartItemService) {
         this.orderService = orderService;
+        this.reservedCartItemService = reservedCartItemService;
     }
 
     @RequestMapping("/orders/all")
@@ -52,5 +52,17 @@ public class OrdersController {
             return ResponseEntity.ok(order.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(value = "/order/delete/{id}", method = RequestMethod.POST)
+    public ResponseEntity deleteOrderById(@PathVariable("id") Long id) {
+        orderService.deleteById(id);
+        return ResponseEntity.ok("Order deleted");
+    }
+
+    @RequestMapping(value = "/order/cartItem/delete/{id}", method = RequestMethod.POST)
+    public ResponseEntity deleteItemById(@PathVariable("id") Long id) {
+        reservedCartItemService.deleteById(id);
+        return ResponseEntity.ok("Deleted");
     }
 }
