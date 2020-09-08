@@ -54,6 +54,17 @@ public class OrdersController {
         return ResponseEntity.notFound().build();
     }
 
+    @RequestMapping("/order/update/status/{id}")
+    public ResponseEntity updateOrderStatus(@PathVariable("id") Long id, @RequestParam("status") String status) {
+        Optional<Order> order = orderService.findById(id);
+        if (order.isPresent()) {
+            order.get().setStatus(status);
+            orderService.saveOrUpdate(order.get());
+            return ResponseEntity.ok("Status has been updated");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @RequestMapping(value = "/order/delete/{id}", method = RequestMethod.POST)
     public ResponseEntity deleteOrderById(@PathVariable("id") Long id) {
         orderService.deleteById(id);
