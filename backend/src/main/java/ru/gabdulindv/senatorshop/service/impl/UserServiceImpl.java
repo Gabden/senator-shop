@@ -1,11 +1,12 @@
 package ru.gabdulindv.senatorshop.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.gabdulindv.senatorshop.model.User;
 import ru.gabdulindv.senatorshop.repository.UserRepository;
 import ru.gabdulindv.senatorshop.service.UserService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override

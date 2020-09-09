@@ -1,14 +1,15 @@
 package ru.gabdulindv.senatorshop.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.gabdulindv.senatorshop.model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
     void save(User user);
 
-    List<User> findAll();
+    Page<User> findAll(Pageable pageable);
 
     Optional<User> findById(Long id);
 
