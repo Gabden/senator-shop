@@ -41,4 +41,18 @@ public class AdminUsersController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @RequestMapping("/account/search")
+    public ResponseEntity findUser(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "phone", required = false) String phone) {
+        if (phone != null && phone.length() > 0) {
+            String plusPhone = "+" + phone.trim();
+            Optional<User> user = userService.findUserByUserDetailsDescription_PhoneContains(plusPhone);
+            return ResponseEntity.ok(user.orElseThrow(RuntimeException::new));
+        } else if (email != null && email.length() > 0) {
+            Optional<User> user = userService.findUserByUsernameContains(email);
+            return ResponseEntity.ok(user.orElseThrow(RuntimeException::new));
+        }
+
+        return ResponseEntity.noContent().build();
+    }
 }

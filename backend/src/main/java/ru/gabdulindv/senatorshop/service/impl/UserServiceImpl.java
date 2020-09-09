@@ -42,6 +42,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findUserByUserDetailsDescription_PhoneContains(String phone) {
+        return userRepository.findUserByUserDetailsDescription_PhoneContains(phone);
+    }
+
+    @Override
+    public Optional<User> findUserByUsernameContains(String username) {
+        return userRepository.findUserByUsernameContains(username);
+    }
+
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }
