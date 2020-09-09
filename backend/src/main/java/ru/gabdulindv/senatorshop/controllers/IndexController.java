@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gabdulindv.senatorshop.model.product.Product;
+import ru.gabdulindv.senatorshop.model.sales.Banner;
+import ru.gabdulindv.senatorshop.service.BannerService;
 import ru.gabdulindv.senatorshop.service.ProductService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/home")
 public class IndexController {
     private ProductService productService;
+    private BannerService bannerService;
 
-    public IndexController(ProductService productService) {
+    public IndexController(ProductService productService, BannerService bannerService) {
         this.productService = productService;
+        this.bannerService = bannerService;
     }
 
     @RequestMapping("/notifications")
@@ -29,5 +35,11 @@ public class IndexController {
         Page<Product> products = productService.findAll(pageable);
 
         return ResponseEntity.ok(products);
+    }
+
+    @RequestMapping("/banners/all")
+    public ResponseEntity getAllBanners() {
+        List<Banner> banners = bannerService.findAll();
+        return ResponseEntity.ok(banners);
     }
 }

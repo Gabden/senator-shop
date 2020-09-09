@@ -50,4 +50,10 @@ public class AdminBannersController {
         }
         return ResponseEntity.badRequest().build();
     }
+
+    @RequestMapping(value = "/banner/delete/{id}", method = RequestMethod.POST)
+    public ResponseEntity deleteBanner(@PathVariable("id") Long id) {
+        bannerService.deleteById(id);
+        return ResponseEntity.ok("Banner has been deleted");
+    }
 }
