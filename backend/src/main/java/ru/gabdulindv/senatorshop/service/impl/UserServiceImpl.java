@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<User> findUsersByUserDetailsDescription_FIOfirstContainsOrUserDetailsDescription_FIOlastContainsOrUserDetailsDescription_FIOmiddleContains(String first, String second, String last, Pageable pageable) {
+        return userRepository.findUsersByUserDetailsDescription_FIOfirstContainsOrUserDetailsDescription_FIOlastContainsOrUserDetailsDescription_FIOmiddleContains(first, second, last, pageable);
+    }
+
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }

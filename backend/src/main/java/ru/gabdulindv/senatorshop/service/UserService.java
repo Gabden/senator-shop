@@ -20,4 +20,6 @@ public interface UserService {
     Optional<User> findUserByUserDetailsDescription_PhoneContains(String phone);
 
     Optional<User> findUserByUsernameContains(String username);
+
+    Page<User> findUsersByUserDetailsDescription_FIOfirstContainsOrUserDetailsDescription_FIOlastContainsOrUserDetailsDescription_FIOmiddleContains(String first, String second, String last, Pageable pageable);
 }

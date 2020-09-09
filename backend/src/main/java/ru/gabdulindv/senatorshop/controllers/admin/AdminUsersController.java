@@ -55,4 +55,11 @@ public class AdminUsersController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping("/account/search/fio")
+    public ResponseEntity findByFio(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam("name") String name) {
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("id").descending());
+        Page<User> users = userService.findUsersByUserDetailsDescription_FIOfirstContainsOrUserDetailsDescription_FIOlastContainsOrUserDetailsDescription_FIOmiddleContains(name, name, name, pageable);
+        return ResponseEntity.ok(users);
+    }
 }
