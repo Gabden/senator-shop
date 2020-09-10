@@ -17,6 +17,12 @@ public class AdminBannersController {
         this.bannerService = bannerService;
     }
 
+    @RequestMapping("/banner/{id}")
+    public ResponseEntity getBanner(@PathVariable("id") Long id) {
+        Optional<Banner> banner = bannerService.findById(id);
+        return ResponseEntity.ok(banner.orElseThrow(RuntimeException::new));
+    }
+
     @RequestMapping(value = "/banner/create/img", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity createBanner(@RequestParam("file") CommonsMultipartFile file) {
         Banner banner = new Banner();

@@ -57,6 +57,11 @@ public class AdminProductController {
 
     @RequestMapping(value = "/product/create", method = RequestMethod.POST)
     public ResponseEntity createProduct(@RequestBody Product product) {
+        if (product.getProductId() != null) {
+            Optional<Product> oldProduct = productService.findById(product.getProductId());
+            product.setReservedCartItems(oldProduct.get().getReservedCartItems());
+            product.setCartItems(oldProduct.get().getCartItems());
+        }
         productService.addProduct(product);
         return ResponseEntity.ok(product.getProductId());
     }
