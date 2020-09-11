@@ -144,5 +144,45 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findProductsByProductCategoryInAndProductDetails_ProductTypeInAndProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(categories, types, country, manufacturer, pageable);
     }
 
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductTypeIn(List<String> types, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductTypeIn(types, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductManufacturerContains(String manufacturer, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductManufacturerContains(manufacturer, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductCountryContains(String country, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductCountryContains(country, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(String country, String manufacturer, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(country, manufacturer, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductTypeInAndProductDetails_ProductCountryContains(List<String> types, String country, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductTypeInAndProductDetails_ProductCountryContains(types, country, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductTypeInAndProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(List<String> types, String country, String manufacturer, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductTypeInAndProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(types, country, manufacturer, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductDetails_ProductTypeInAndProductDetails_ProductManufacturerContains(List<String> types, String manufacturer, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductTypeInAndProductDetails_ProductManufacturerContains(types, manufacturer, pageable);
+    }
+
+    @Override
+    public Page<Product> findProductsByProductCategoryInAndProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(List<String> categories, String country, String manufacturer, Pageable pageable) {
+        return productRepository.findProductsByProductCategoryInAndProductDetails_ProductCountryContainsAndProductDetails_ProductManufacturerContains(categories, country, manufacturer, pageable);
+    }
+
 
 }
