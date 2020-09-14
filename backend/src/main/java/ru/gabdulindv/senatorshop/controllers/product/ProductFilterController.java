@@ -9,6 +9,7 @@ import ru.gabdulindv.senatorshop.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/product")
@@ -31,6 +32,8 @@ public class ProductFilterController {
         boolean hasType = filter.getSelectedTypes() != null && filter.getSelectedTypes().size() > 0;
         boolean hasCountry = filter.getSelectedCountry() != null && filter.getSelectedCountry().length() > 0;
         boolean hasManufacturer = filter.getSelectedManufacturer() != null && filter.getSelectedManufacturer().length() > 0;
+        boolean hasMinPrice = filter.getMinPrice() > 0;
+        boolean hasMaxPrice = filter.getMaxPrice() > 0;
 
         List<Product> filterProducts = new ArrayList<>();
         if (hasCategory && !hasType && !hasCountry && !hasManufacturer) {
@@ -41,42 +44,44 @@ public class ProductFilterController {
         }
 
         if (hasCategory && hasType && !hasCountry && !hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
 
+            List<Product> foundedProductsTypes = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
-                filterProducts.addAll(foundedProducts);
+                List<Product> foundedProductsType = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductType().equalsIgnoreCase(type)).collect(Collectors.toList());
+                foundedProductsTypes.addAll(foundedProductsType);
             }
+            filterProducts.addAll(foundedProductsTypes);
         }
 
         if (hasCategory && !hasType && hasCountry && !hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            filterProducts.addAll(countryProducts);
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductCountry().equalsIgnoreCase(filter.getSelectedCountry())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (hasCategory && !hasType && !hasCountry && hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(manufacturerProducts);
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (!hasCategory && hasType && hasCountry && !hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductDetails_ProductTypeContains(type));
             }
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            filterProducts.addAll(countryProducts);
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductCountry().equalsIgnoreCase(filter.getSelectedCountry())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (!hasCategory && hasType && !hasCountry && !hasManufacturer) {
@@ -87,12 +92,13 @@ public class ProductFilterController {
         }
 
         if (!hasCategory && hasType && !hasCountry && hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
+                foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
                 filterProducts.addAll(foundedProducts);
             }
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(manufacturerProducts);
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (!hasCategory && !hasType && hasCountry && !hasManufacturer) {
@@ -101,10 +107,9 @@ public class ProductFilterController {
         }
 
         if (!hasCategory && !hasType && hasCountry && hasManufacturer) {
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(countryProducts);
-            filterProducts.addAll(manufacturerProducts);
+            List<Product> foundedProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (!hasCategory && !hasType && !hasCountry && hasManufacturer) {
@@ -113,77 +118,108 @@ public class ProductFilterController {
         }
 
         if (hasCategory && hasType && hasCountry && !hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
 
+            List<Product> foundedProductsTypes = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
-                filterProducts.addAll(foundedProducts);
+                List<Product> foundedProductsType = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductType().equalsIgnoreCase(type)).collect(Collectors.toList());
+                foundedProductsTypes.addAll(foundedProductsType);
             }
 
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            filterProducts.addAll(countryProducts);
+            foundedProducts = foundedProductsTypes.parallelStream().filter(product -> product.getProductDetails().getProductCountry().equalsIgnoreCase(filter.getSelectedCountry())).collect(Collectors.toList());
+
+            filterProducts.addAll(foundedProducts);
         }
 
         if (hasCategory && hasType && !hasCountry && hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
-
+            List<Product> foundedProductsTypes = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
-                filterProducts.addAll(foundedProducts);
+                List<Product> foundedProductsType = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductType().equalsIgnoreCase(type)).collect(Collectors.toList());
+                foundedProductsTypes.addAll(foundedProductsType);
             }
-
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(manufacturerProducts);
+            foundedProducts = foundedProductsTypes.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (hasCategory && !hasType && hasCountry && hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
 
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            filterProducts.addAll(countryProducts);
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductCountry().equalsIgnoreCase(filter.getSelectedCountry())).collect(Collectors.toList());
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
 
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(manufacturerProducts);
+            filterProducts.addAll(foundedProducts);
         }
 
         if (!hasCategory && hasType && hasCountry && hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductDetails_ProductTypeContains(type));
             }
-
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            filterProducts.addAll(countryProducts);
-
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(manufacturerProducts);
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductCountry().equalsIgnoreCase(filter.getSelectedCountry())).collect(Collectors.toList());
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
         }
 
         if (hasCategory && hasType && hasCountry && hasManufacturer) {
+            List<Product> foundedProducts = new ArrayList<>();
             for (String category : filter.getSelectedCategories()) {
-                List<Product> foundedProducts = productService.findProductsByProductCategoryContains(category);
-                filterProducts.addAll(foundedProducts);
+                foundedProducts.addAll(productService.findProductsByProductCategoryContains(category));
             }
-
+            List<Product> foundedProductsTypes = new ArrayList<>();
             for (String type : filter.getSelectedTypes()) {
-                List<Product> foundedProducts = productService.findProductsByProductDetails_ProductTypeContains(type);
-                filterProducts.addAll(foundedProducts);
+                List<Product> foundedProductsType = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductType().equalsIgnoreCase(type)).collect(Collectors.toList());
+                foundedProductsTypes.addAll(foundedProductsType);
             }
+            foundedProducts = foundedProductsTypes.parallelStream().filter(product -> product.getProductDetails().getProductCountry().equalsIgnoreCase(filter.getSelectedCountry())).collect(Collectors.toList());
+            foundedProducts = foundedProducts.parallelStream().filter(product -> product.getProductDetails().getProductManufacturer().equalsIgnoreCase(filter.getSelectedManufacturer())).collect(Collectors.toList());
+            filterProducts.addAll(foundedProducts);
+        }
 
-            List<Product> countryProducts = productService.findProductsByProductDetails_ProductCountryContains(filter.getSelectedCountry());
-            filterProducts.addAll(countryProducts);
-
-            List<Product> manufacturerProducts = productService.findProductsByProductDetails_ProductManufacturerContains(filter.getSelectedManufacturer());
-            filterProducts.addAll(manufacturerProducts);
+        if (filterProducts.size() == 0 && (hasMinPrice || hasMaxPrice)) {
+            filterProducts = productService.findAll();
+        }
+        if (hasMinPrice && hasMaxPrice) {
+            filterProducts = filterProducts.parallelStream().filter(product -> {
+                int price = 0;
+                try {
+                    price = Integer.parseInt(product.getProductPrice());
+                } catch (Exception e) {
+                    System.out.println("bad price");
+                }
+                return price >= filter.getMinPrice() && price <= filter.getMaxPrice();
+            }).collect(Collectors.toList());
+        }
+        if (!hasMinPrice && hasMaxPrice) {
+            filterProducts = filterProducts.parallelStream().filter(product -> {
+                int price = 0;
+                try {
+                    price = Integer.parseInt(product.getProductPrice());
+                } catch (Exception e) {
+                    System.out.println("bad price");
+                }
+                return price <= filter.getMaxPrice();
+            }).collect(Collectors.toList());
+        }
+        if (hasMinPrice && !hasMaxPrice) {
+            filterProducts = filterProducts.parallelStream().filter(product -> {
+                int price = 0;
+                try {
+                    price = Integer.parseInt(product.getProductPrice());
+                } catch (Exception e) {
+                    System.out.println("bad price");
+                }
+                return price >= filter.getMinPrice();
+            }).collect(Collectors.toList());
         }
 
 

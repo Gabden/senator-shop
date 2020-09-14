@@ -7,8 +7,26 @@ public class Filter {
     private List<String> selectedTypes;
     private String selectedCountry;
     private String selectedManufacturer;
+    private int minPrice;
+    private int maxPrice;
 
     public Filter() {
+    }
+
+    public int getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(int minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
     public List<String> getSelectedCategories() {
@@ -50,6 +68,8 @@ public class Filter {
                 ", selectedTypes=" + selectedTypes +
                 ", selectedCountry='" + selectedCountry + '\'' +
                 ", selectedManufacturer='" + selectedManufacturer + '\'' +
+                ", minPrice=" + minPrice +
+                ", maxPrice=" + maxPrice +
                 '}';
     }
 }
