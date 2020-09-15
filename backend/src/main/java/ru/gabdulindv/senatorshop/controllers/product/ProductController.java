@@ -1,8 +1,13 @@
 package ru.gabdulindv.senatorshop.controllers.product;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gabdulindv.senatorshop.model.product.Product;
 import ru.gabdulindv.senatorshop.service.ProductDetailsService;
@@ -69,5 +74,27 @@ public class ProductController {
             return "Франция";
         }).collect(Collectors.toSet());
         return ResponseEntity.ok(countriesSorted.stream().sorted());
+    }
+
+    @RequestMapping("/search")
+    public ResponseEntity getProduct(@RequestParam(name = "text") String description, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String textForFind = description.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDescriptionContainsOrProductNameContains(textForFind, textForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
+
+    @RequestMapping("/search/category")
+    public ResponseEntity getProductByCategory(@RequestParam(name = "name") String category, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String categoryForFind = category.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductCategoryContains(categoryForFind, pageable);
+        return ResponseEntity.ok(products);
     }
 }

@@ -26,12 +26,12 @@ public class IndexController {
         this.bannerService = bannerService;
     }
 
-    @RequestMapping("/notifications")
+    @RequestMapping("/all/products")
     public ResponseEntity getStartPageNotifications(@RequestParam(name = "page", defaultValue = "0") int page) {
         if (page < 0) {
             page = 0;
         }
-        Pageable pageable = PageRequest.of(page, 6, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
         Page<Product> products = productService.findAll(pageable);
 
         return ResponseEntity.ok(products);
