@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.User;
 import ru.gabdulindv.senatorshop.model.account.FioModel;
+import ru.gabdulindv.senatorshop.model.address.BillingAddress;
+import ru.gabdulindv.senatorshop.model.address.ShippingAddress;
+import ru.gabdulindv.senatorshop.model.cart.Cart;
 import ru.gabdulindv.senatorshop.model.order.Order;
 import ru.gabdulindv.senatorshop.service.OrderService;
 import ru.gabdulindv.senatorshop.service.UserService;
@@ -86,5 +89,40 @@ public class AccountController {
         Pageable pageable = PageRequest.of(page, 6, Sort.by("orderId").descending());
         Page<Order> orders = orderService.findOrdersByUser_UsernameContains(email, pageable);
         return ResponseEntity.ok(orders);
+    }
+
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ResponseEntity createAccount(@RequestBody User user) {
+        Optional<User> oldUser = userService.findUserByUsernameContains(user.getUsername());
+        if (oldUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
+        user.setRoles("USER");
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        BillingAddress billingAddress = new BillingAddress();
+        billingAddress.setCountry("Россия");
+        billingAddress.setCity("Рязань");
+        billingAddress.setZipCode("390000");
+        billingAddress.setStreetName("Свободы");
+        billingAddress.setApartmentNumber("24a");
+
+        ShippingAddress shippingAddress = new ShippingAddress();
+        shippingAddress.setCountry("Россия");
+        shippingAddress.setCity("Рязань");
+        shippingAddress.setZipCode("390000");
+        shippingAddress.setStreetName("Свободы");
+        shippingAddress.setApartmentNumber("24a");
+
+        Cart cart = new Cart();
+        user.getUserDetailsDescription().setUser(user);
+
+        user.setCart(cart);
+        user.setBillingAddress(billingAddress);
+        user.setShippingAddress(shippingAddress);
+
+        userService.save(user);
+
+        return ResponseEntity.ok("Created");
     }
 }

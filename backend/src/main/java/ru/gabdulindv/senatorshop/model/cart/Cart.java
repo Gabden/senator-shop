@@ -29,13 +29,8 @@ public class Cart implements Serializable {
         this.cartId = cartId;
     }
 
-
     public Long getCartId() {
         return cartId;
-    }
-
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
     }
 
     public List<CartItem> getCartItems() {
