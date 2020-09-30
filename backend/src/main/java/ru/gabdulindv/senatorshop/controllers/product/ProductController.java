@@ -108,4 +108,15 @@ public class ProductController {
         Page<Product> products = productService.findProductsByProductDetails_ProductVolumeContains(volumeForFind, pageable);
         return ResponseEntity.ok(products);
     }
+
+    @RequestMapping("/search/color")
+    public ResponseEntity getProductByColor(@RequestParam(name = "value") String color, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String colorForFind = color.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholColorContains(colorForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
 }

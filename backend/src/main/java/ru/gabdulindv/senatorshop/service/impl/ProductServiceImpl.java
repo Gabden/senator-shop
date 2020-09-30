@@ -115,6 +115,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> findProductsByProductDetails_ProductAlcoholColorContains(String color, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductAlcoholColorContains(color, pageable);
+    }
+
+    @Override
     public Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable) {
         return productRepository.findProductsByProductCategoryIn(categories, pageable);
     }
