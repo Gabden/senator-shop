@@ -32,6 +32,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Optional<Product> findProductByProductName(String name);
 
+    Page<Product> findProductsByProductDetails_ProductVolumeContains(String volume, Pageable pageable);
+
     // FILTER requests
     Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable);
 

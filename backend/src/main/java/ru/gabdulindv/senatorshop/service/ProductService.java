@@ -44,6 +44,8 @@ public interface ProductService {
 
     List<Product> findProductsByProductDetails_ProductCountryContains(String country);
 
+    Page<Product> findProductsByProductDetails_ProductVolumeContains(String volume, Pageable pageable);
+
     // FILTER requests
     Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable);
 

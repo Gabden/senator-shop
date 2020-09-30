@@ -97,4 +97,15 @@ public class ProductController {
         Page<Product> products = productService.findProductsByProductCategoryContains(categoryForFind, pageable);
         return ResponseEntity.ok(products);
     }
+
+    @RequestMapping("/search/volume")
+    public ResponseEntity getProductByVolume(@RequestParam(name = "value") String volume, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String volumeForFind = volume.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDetails_ProductVolumeContains(volumeForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
 }
