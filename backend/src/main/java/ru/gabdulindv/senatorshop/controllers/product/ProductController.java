@@ -174,4 +174,15 @@ public class ProductController {
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholSugarContains(sugarForFind, pageable);
         return ResponseEntity.ok(products);
     }
+
+    @RequestMapping("/search/manufacturer")
+    public ResponseEntity getProductByManufacturer(@RequestParam(name = "value") String manufacturer, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String manufacturerForFind = manufacturer.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDetails_ProductManufacturerContains(manufacturerForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
 }
