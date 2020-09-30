@@ -50,6 +50,8 @@ public interface ProductService {
 
     Page<Product> findProductsByProductDetails_ProductRegionContains(String region, Pageable pageable);
 
+    Page<Product> findProductsByProductDetails_ProductAlcoholDegreeContains(String degree, Pageable pageable);
+
     // FILTER requests
     Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable);
 

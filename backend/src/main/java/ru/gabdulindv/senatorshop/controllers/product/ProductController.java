@@ -130,4 +130,15 @@ public class ProductController {
         Page<Product> products = productService.findProductsByProductDetails_ProductRegionContains(regionForFind, pageable);
         return ResponseEntity.ok(products);
     }
+
+    @RequestMapping("/search/degree")
+    public ResponseEntity getProductByDegree(@RequestParam(name = "value") String degree, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String degreeForFind = degree.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholDegreeContains(degreeForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
 }
