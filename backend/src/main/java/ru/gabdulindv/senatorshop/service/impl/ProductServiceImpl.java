@@ -140,6 +140,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> findProductsByProductDetails_ProductAlcoholTemperatureContains(String temperature, Pageable pageable) {
+        return productRepository.findProductsByProductDetails_ProductAlcoholTemperatureContains(temperature, pageable);
+    }
+
+    @Override
     public Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable) {
         return productRepository.findProductsByProductCategoryIn(categories, pageable);
     }

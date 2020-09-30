@@ -185,4 +185,15 @@ public class ProductController {
         Page<Product> products = productService.findProductsByProductDetails_ProductManufacturerContains(manufacturerForFind, pageable);
         return ResponseEntity.ok(products);
     }
+
+    @RequestMapping("/search/temperature")
+    public ResponseEntity getProductByTemperature(@RequestParam(name = "value") String temperature, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String temperatureForFind = temperature.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholTemperatureContains(temperatureForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
 }
