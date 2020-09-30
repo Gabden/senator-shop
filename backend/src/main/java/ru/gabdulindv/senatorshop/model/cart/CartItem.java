@@ -1,5 +1,6 @@
 package ru.gabdulindv.senatorshop.model.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.gabdulindv.senatorshop.model.product.Product;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class CartItem implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "cartId")
+    @JsonIgnore
     private Cart cart;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
