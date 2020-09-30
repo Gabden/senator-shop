@@ -46,6 +46,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Page<Product> findProductsByProductDetails_ProductAlcoholTemperatureContains(String temperature, Pageable pageable);
 
+    Page<Product> findProductsByProductDetails_ProductMatureContains(String mature, Pageable pageable);
+
     // FILTER requests
     Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable);
 
