@@ -40,6 +40,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Page<Product> findProductsByProductDetails_ProductAlcoholDegreeContains(String degree, Pageable pageable);
 
+    Page<Product> findProductsByProductDetails_ProductAlcoholSortContains(String sort, Pageable pageable);
+
     // FILTER requests
     Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable);
 
