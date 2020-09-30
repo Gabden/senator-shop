@@ -14,7 +14,7 @@ public class Cart implements Serializable {
     @Column(name = "cart_id")
     private long cartId;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<CartItem> cartItems;
 
     @Column(name = "grand_total")

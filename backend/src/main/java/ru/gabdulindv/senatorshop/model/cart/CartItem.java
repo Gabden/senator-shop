@@ -27,6 +27,7 @@ public class CartItem implements Serializable {
 
     private String cartItemPrice;
     private String cartItemFinalPrice;
+    private int discount;
 
     private Integer totalPrice;
 
@@ -35,6 +36,13 @@ public class CartItem implements Serializable {
         this.totalPrice = 0;
     }
 
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
 
     public String getCartItemPrice() {
         return cartItemPrice;
@@ -85,11 +93,11 @@ public class CartItem implements Serializable {
     }
 
     public int getTotalPrice() {
-        return Integer.parseInt(cartItemFinalPrice) * quantity;
+        return totalPrice;
     }
 
     public int getTotalPriceFull() {
-        return Integer.parseInt(cartItemPrice) * quantity;
+        return totalPrice * quantity;
     }
 
     public void setTotalPrice(Integer totalPrice) {
@@ -102,6 +110,7 @@ public class CartItem implements Serializable {
                 "cartItemId=" + cartItemId +
                 ", cart=" + cart +
                 ", product=" + product +
+                ", discount=" + discount +
                 ", quantity=" + quantity +
                 ", cartItemPrice='" + cartItemPrice + '\'' +
                 ", cartItemFinalPrice='" + cartItemFinalPrice + '\'' +

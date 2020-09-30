@@ -47,4 +47,10 @@ public class CartController {
         });
         return ResponseEntity.ok("Ok");
     }
+
+    @RequestMapping(value = "/update/{cartId}", method = RequestMethod.POST)
+    private ResponseEntity updateCart(@PathVariable Long cartId, @RequestBody Cart cart) {
+        cartService.saveOrUpdate(cart);
+        return ResponseEntity.ok("Cart was updated");
+    }
 }
