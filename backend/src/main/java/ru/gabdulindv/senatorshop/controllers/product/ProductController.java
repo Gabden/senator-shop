@@ -152,4 +152,15 @@ public class ProductController {
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholSortContains(sortForFind, pageable);
         return ResponseEntity.ok(products);
     }
+
+    @RequestMapping("/search/country")
+    public ResponseEntity getProductByCountry(@RequestParam(name = "value") String country, @RequestParam(name = "page", defaultValue = "0") int page) {
+        if (page < 0) {
+            page = 0;
+        }
+        String countryForFind = country.toLowerCase().trim();
+        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Page<Product> products = productService.findProductsByProductDetails_ProductCountryContains(countryForFind, pageable);
+        return ResponseEntity.ok(products);
+    }
 }
