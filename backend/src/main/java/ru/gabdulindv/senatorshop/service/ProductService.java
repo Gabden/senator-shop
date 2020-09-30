@@ -54,6 +54,8 @@ public interface ProductService {
 
     Page<Product> findProductsByProductDetails_ProductAlcoholSortContains(String sort, Pageable pageable);
 
+    Page<Product> findProductsByProductDetails_ProductAlcoholSugarContains(String sugar, Pageable pageable);
+
     // FILTER requests
     Page<Product> findProductsByProductCategoryIn(List<String> categories, Pageable pageable);
 
