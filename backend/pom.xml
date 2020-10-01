@@ -86,23 +86,10 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus -->
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-core</artifactId>
-            <version>1.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-bom</artifactId>
-            <version>1.5.1</version>
-            <type>pom</type>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.4.6</version>
         </dependency>
     </dependencies>
 

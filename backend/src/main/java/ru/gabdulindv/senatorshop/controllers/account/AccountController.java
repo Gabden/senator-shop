@@ -16,6 +16,7 @@ import ru.gabdulindv.senatorshop.model.cart.Cart;
 import ru.gabdulindv.senatorshop.model.order.Order;
 import ru.gabdulindv.senatorshop.service.OrderService;
 import ru.gabdulindv.senatorshop.service.UserService;
+import ru.gabdulindv.senatorshop.service.mail.EmailService;
 
 import java.util.Optional;
 
@@ -25,11 +26,13 @@ public class AccountController {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
     private OrderService orderService;
+    private EmailService emailService;
 
-    public AccountController(UserService userService, PasswordEncoder passwordEncoder, OrderService orderService) {
+    public AccountController(UserService userService, PasswordEncoder passwordEncoder, OrderService orderService, EmailService emailService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.orderService = orderService;
+        this.emailService = emailService;
     }
 
     @RequestMapping(value = "/update/fio/{id}", method = RequestMethod.POST)
@@ -122,6 +125,8 @@ public class AccountController {
         user.setShippingAddress(shippingAddress);
 
         userService.save(user);
+
+        emailService.sendRegistrationEmail(user.getUsername());
 
         return ResponseEntity.ok("Created");
     }
