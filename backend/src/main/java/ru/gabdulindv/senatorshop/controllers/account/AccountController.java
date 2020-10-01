@@ -80,7 +80,7 @@ public class AccountController {
             if (!passwordEncoder.matches(oldPassFromUser, oldPass)) {
                 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Старый пароль не совпадает с текущим");
             }
-            user.get().setPassword(passwordEncoder.encode(oldPassFromUser));
+            user.get().setPassword(passwordEncoder.encode(fioModel.getNewPassword()));
             userService.save(user.get());
             return ResponseEntity.ok().build();
         }
@@ -129,5 +129,43 @@ public class AccountController {
         emailService.sendRegistrationEmail(user.getUsername());
 
         return ResponseEntity.ok("Created");
+    }
+
+    @RequestMapping(value = "/restore-password", method = RequestMethod.POST)
+    public ResponseEntity newPassword(@RequestParam(name = "name") String name) {
+        Optional<User> user = userService.findUserByUsernameContains(name);
+        if (!user.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        } else {
+            String newPassword = getAlphaNumericString(5);
+            user.get().setPassword(passwordEncoder.encode(newPassword));
+            userService.save(user.get());
+            emailService.sendRestoreMail(name, newPassword);
+            return ResponseEntity.ok("Password was changed");
+        }
+    }
+
+    private String getAlphaNumericString(int n) {
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int) (AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
     }
 }
