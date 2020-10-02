@@ -9,8 +9,9 @@ import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.gabdulindv.senatorshop.model.cart.Cart;
+import ru.gabdulindv.senatorshop.model.order.Order;
 import ru.gabdulindv.senatorshop.model.order.OrderItem;
+import ru.gabdulindv.senatorshop.model.order.ReservedCart;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,24 +37,24 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendRegistrationEmail(String mailTo) {
-        sendMail(mailRegistrationTemplateId, mailTo, "", null, 0L);
+        sendMail(mailRegistrationTemplateId, mailTo, "", null);
     }
 
     @Override
-    public void sendOrderEmail(Cart cart, Long orderId) {
-//        sendMail(mailOrderTemplateId, cart.getCustomer().getCustomerName(), "", cart, orderId);
-        sendMail(mailOrderTemplateId, adminMail, "", cart, orderId);
+    public void sendOrderEmail(Order order) {
+        sendMail(mailOrderTemplateId, order.getUser().getUsername(), "", order.getReservedCart());
+        sendMail(mailOrderTemplateId, adminMail, "", order.getReservedCart());
     }
 
     @Override
     public void sendRestoreMail(String mail, String password) {
-        sendMail(mailChangePasswordTemplateId, mail, password, null, 0L);
+        sendMail(mailChangePasswordTemplateId, mail, password, null);
     }
 
 
-    public void sendMail(String templateId, String mailTo, String newPassword, Cart cart, Long orderId) {
+    private void sendMail(String templateId, String mailTo, String newPassword, ReservedCart cart) {
         SendGrid sendGrid = new SendGrid(apiKey);
-        Mail mail = prepareMail(templateId, mailTo, newPassword, cart, orderId);
+        Mail mail = prepareMail(templateId, mailTo, newPassword, cart);
         Request request = new Request();
         request.setMethod(Method.POST);
         request.setEndpoint("mail/send");
@@ -68,7 +69,7 @@ public class EmailServiceImpl implements EmailService {
 
     }
 
-    private Mail prepareMail(String templateId, String mailTo, String newPassword, Cart cart, Long orderId) {
+    private Mail prepareMail(String templateId, String mailTo, String newPassword, ReservedCart cart) {
         Mail mail = new Mail();
         if (mailTo.equals(adminMail)) {
             Email from = new Email("service@senator-wine.ru");
@@ -84,14 +85,14 @@ public class EmailServiceImpl implements EmailService {
         personalization.addDynamicTemplateData("password", newPassword);
         if (cart != null) {
             List<OrderItem> orderItems = new ArrayList<>();
-            cart.getCartItems().forEach(cartItem -> {
+            cart.getReservedCartItems().forEach(cartItem -> {
                 OrderItem orderItem = new OrderItem(cartItem.getProduct().getProductId(), cartItem.getCartItemFinalPrice(), cartItem.getQuantity(), cartItem.getProduct().getProductName());
                 orderItems.add(orderItem);
             });
             personalization.addDynamicTemplateData("orderItems", orderItems);
             personalization.addDynamicTemplateData("grandTotal", cart.getGrandTotal());
-            personalization.addDynamicTemplateData("orderId", orderId);
-//            personalization.addDynamicTemplateData("phone", cart.getCustomer().getCustomerPhone());
+            personalization.addDynamicTemplateData("orderId", cart.getOrder().getOrderId());
+            personalization.addDynamicTemplateData("phone", cart.getOrder().getUser().getUserDetailsDescription().getPhone());
         }
         personalization.addTo(to);
         mail.addPersonalization(personalization);

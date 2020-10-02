@@ -1,5 +1,6 @@
 package ru.gabdulindv.senatorshop.model.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.gabdulindv.senatorshop.model.product.Product;
 
 import javax.persistence.*;
@@ -12,12 +13,12 @@ public class ReservedCartItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservedProductId;
 
-    //    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    @JoinColumn(name = "cartId")
-//    @JsonIgnore
-//    private ReservedCart cart;
-//
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "cartId")
+    @JsonIgnore
+    private ReservedCart cart;
+    //
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -33,6 +34,21 @@ public class ReservedCartItem implements Serializable {
         this.totalPrice = 0;
     }
 
+    public Long getReservedProductId() {
+        return reservedProductId;
+    }
+
+    public void setReservedProductId(Long reservedProductId) {
+        this.reservedProductId = reservedProductId;
+    }
+
+    public ReservedCart getCart() {
+        return cart;
+    }
+
+    public void setCart(ReservedCart cart) {
+        this.cart = cart;
+    }
 
     public String getCartItemPrice() {
         return cartItemPrice;

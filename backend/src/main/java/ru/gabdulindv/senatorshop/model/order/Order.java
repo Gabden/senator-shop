@@ -44,6 +44,14 @@ public class Order implements Serializable {
         this.status = "created";
     }
 
+    public long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
     public String getStatus() {
         return status;
     }

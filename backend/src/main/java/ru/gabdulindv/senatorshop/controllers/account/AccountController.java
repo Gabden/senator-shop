@@ -14,11 +14,17 @@ import ru.gabdulindv.senatorshop.model.address.BillingAddress;
 import ru.gabdulindv.senatorshop.model.address.ShippingAddress;
 import ru.gabdulindv.senatorshop.model.cart.Cart;
 import ru.gabdulindv.senatorshop.model.order.Order;
+import ru.gabdulindv.senatorshop.model.order.ReservedCart;
+import ru.gabdulindv.senatorshop.model.order.ReservedCartItem;
 import ru.gabdulindv.senatorshop.service.OrderService;
 import ru.gabdulindv.senatorshop.service.UserService;
 import ru.gabdulindv.senatorshop.service.mail.EmailService;
 
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/account")
@@ -143,6 +149,47 @@ public class AccountController {
             emailService.sendRestoreMail(name, newPassword);
             return ResponseEntity.ok("Password was changed");
         }
+    }
+
+    @RequestMapping(value = "/create/order/{id}", method = RequestMethod.POST)
+    public ResponseEntity createOrder(@PathVariable("id") Long id, @RequestBody Cart cart) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            Order order = new Order();
+            order.setBillingAddress(user.get().getBillingAddress());
+            order.setShippingAddress(user.get().getShippingAddress());
+            order.setTimestamp(new Timestamp(System.currentTimeMillis()));
+            order.setUser(user.get());
+
+            ReservedCart reservedCart = new ReservedCart();
+            reservedCart.setOrder(order);
+
+            Set<ReservedCartItem> reservedCartItems = new HashSet<>();
+
+            cart.getCartItems().forEach(cartItem -> {
+                ReservedCartItem reservedCartItem = new ReservedCartItem();
+                reservedCartItem.setProduct(cartItem.getProduct());
+                reservedCartItem.setQuantity(cartItem.getQuantity());
+                reservedCartItem.setCartItemFinalPrice(cartItem.getCartItemFinalPrice());
+                reservedCartItem.setCartItemPrice(cartItem.getCartItemPrice());
+                reservedCartItem.setTotalPrice(cartItem.getTotalPrice());
+                reservedCartItem.setCart(reservedCart);
+                reservedCartItems.add(reservedCartItem);
+            });
+
+            reservedCart.setReservedCartItems(reservedCartItems);
+            reservedCart.setGrandTotal(cart.getGrandTotal());
+            order.setReservedCart(reservedCart);
+            List<Order> orders = user.get().getOrderTable();
+            orders.add(order);
+            user.get().setOrderTable(orders);
+            userService.save(user.get());
+            Order createdOrder = user.get().getOrderTable().get(user.get().getOrderTable().size() - 1);
+            emailService.sendOrderEmail(createdOrder);
+
+            return ResponseEntity.ok("Ok");
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     private String getAlphaNumericString(int n) {
