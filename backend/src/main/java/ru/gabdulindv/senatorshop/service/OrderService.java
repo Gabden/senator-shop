@@ -18,4 +18,6 @@ public interface OrderService {
     void deleteById(Long id);
 
     void saveOrUpdate(Order order);
+
+    Long countOrdersByStatusContains(String status);
 }

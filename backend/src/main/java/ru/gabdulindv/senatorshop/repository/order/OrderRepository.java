@@ -9,4 +9,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findOrdersByUser_UserDetailsDescription_PhoneContains(String phone, Pageable pageable);
 
     Page<Order> findOrdersByUser_UsernameContains(String email, Pageable pageable);
+
+    Long countOrdersByStatusContains(String status);
 }

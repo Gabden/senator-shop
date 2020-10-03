@@ -88,4 +88,10 @@ public class OrdersController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @RequestMapping("/orders/new")
+    public ResponseEntity getNewOrders() {
+        long quantity = orderService.countOrdersByStatusContains("created");
+        return ResponseEntity.ok(quantity);
+    }
 }

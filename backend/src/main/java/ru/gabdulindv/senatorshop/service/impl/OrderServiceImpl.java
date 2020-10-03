@@ -46,4 +46,9 @@ public class OrderServiceImpl implements OrderService {
     public void saveOrUpdate(Order order) {
         orderRepository.save(order);
     }
+
+    @Override
+    public Long countOrdersByStatusContains(String status) {
+        return orderRepository.countOrdersByStatusContains(status);
+    }
 }
