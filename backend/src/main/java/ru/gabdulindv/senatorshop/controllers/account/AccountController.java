@@ -16,7 +16,9 @@ import ru.gabdulindv.senatorshop.model.cart.Cart;
 import ru.gabdulindv.senatorshop.model.order.Order;
 import ru.gabdulindv.senatorshop.model.order.ReservedCart;
 import ru.gabdulindv.senatorshop.model.order.ReservedCartItem;
+import ru.gabdulindv.senatorshop.model.product.Product;
 import ru.gabdulindv.senatorshop.service.OrderService;
+import ru.gabdulindv.senatorshop.service.ProductService;
 import ru.gabdulindv.senatorshop.service.UserService;
 import ru.gabdulindv.senatorshop.service.mail.EmailService;
 
@@ -33,12 +35,14 @@ public class AccountController {
     private PasswordEncoder passwordEncoder;
     private OrderService orderService;
     private EmailService emailService;
+    private ProductService productService;
 
-    public AccountController(UserService userService, PasswordEncoder passwordEncoder, OrderService orderService, EmailService emailService) {
+    public AccountController(UserService userService, PasswordEncoder passwordEncoder, OrderService orderService, EmailService emailService, ProductService productService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.orderService = orderService;
         this.emailService = emailService;
+        this.productService = productService;
     }
 
     @RequestMapping(value = "/update/fio/{id}", method = RequestMethod.POST)
@@ -175,6 +179,19 @@ public class AccountController {
                 reservedCartItem.setTotalPrice(cartItem.getTotalPrice());
                 reservedCartItem.setCart(reservedCart);
                 reservedCartItems.add(reservedCartItem);
+                //Update product quantity
+                try {
+                    int newQuantity = Integer.parseInt(cartItem.getProduct().getProductDetails().getProductUnitInStock()) - cartItem.getQuantity();
+                    if (newQuantity < 0){
+                        newQuantity = 0;
+                    }
+                    Product product = cartItem.getProduct();
+                    product.getProductDetails().setProductUnitInStock(String.valueOf(newQuantity));
+                    productService.addProduct(product);
+                } catch (Exception e){
+                    System.out.println("Error while updating quantity");
+                }
+                //
             });
 
             reservedCart.setReservedCartItems(reservedCartItems);
