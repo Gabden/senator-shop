@@ -89,4 +89,20 @@ public class GroupSaleController {
         });
         return ResponseEntity.ok("Type sale successfully updated");
     }
+
+    @RequestMapping(value = "/edit/all", method = RequestMethod.POST)
+    public ResponseEntity editGroupDiscountAll(@RequestParam("discount") Integer discount) {
+        List<Product> products = productService.findAll();
+        products.forEach(product -> {
+            try {
+                int newPrice = Integer.parseInt(product.getProductPrice()) + Integer.parseInt(product.getProductPrice()) * discount / 100;
+                product.setProductPrice(String.valueOf(newPrice));
+                productService.update(Optional.of(product));
+            } catch (Exception e) {
+                System.out.println("error changing price" + e);
+            }
+
+        });
+        return ResponseEntity.ok("Type sale successfully updated");
+    }
 }
