@@ -52,6 +52,7 @@ public class AccountController {
             user.get().getUserDetailsDescription().setFIOfirst(fioModel.getFiofirst());
             user.get().getUserDetailsDescription().setFIOmiddle(fioModel.getFiomiddle());
             user.get().getUserDetailsDescription().setFIOlast(fioModel.getFiolast());
+            user.get().getUserDetailsDescription().setBirthDate(fioModel.getBirthDate());
             userService.save(user.get());
             return ResponseEntity.ok().build();
         }

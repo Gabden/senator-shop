@@ -23,6 +23,7 @@ public class UserDetailsDescription implements Serializable {
     private String FIOfirst;
     private String FIOmiddle;
     private String FIOlast;
+    private String birthDate;
 
     public UserDetailsDescription() {
     }
@@ -75,6 +76,14 @@ public class UserDetailsDescription implements Serializable {
         this.FIOlast = FIOlast;
     }
 
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public String toString() {
         return "UserDetailsDescription{" +
@@ -83,6 +92,7 @@ public class UserDetailsDescription implements Serializable {
                 ", FIOfirst='" + FIOfirst + '\'' +
                 ", FIOmiddle='" + FIOmiddle + '\'' +
                 ", FIOlast='" + FIOlast + '\'' +
+                ", birthDate='" + birthDate + '\'' +
                 '}';
     }
 }

@@ -8,11 +8,11 @@ public class FioModel {
     private String username;
     private String oldPassword;
     private String newPassword;
-
+    private String birthDate;
     public FioModel() {
     }
 
-    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone, String username, String oldPassword, String newPassword) {
+    public FioModel(String fiofirst, String fiomiddle, String fiolast, String phone, String username, String oldPassword, String newPassword, String birthDate) {
         this.fiofirst = fiofirst;
         this.fiomiddle = fiomiddle;
         this.fiolast = fiolast;
@@ -20,6 +20,7 @@ public class FioModel {
         this.username = username;
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
+        this.birthDate = birthDate;
     }
 
     public String getFiofirst() {
@@ -78,6 +79,14 @@ public class FioModel {
         this.newPassword = newPassword;
     }
 
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
     @Override
     public String toString() {
         return "FioModel{" +
@@ -86,6 +95,7 @@ public class FioModel {
                 ", fiolast='" + fiolast + '\'' +
                 ", phone='" + phone + '\'' +
                 ", username='" + username + '\'' +
+                ", birthDate='" + birthDate + '\'' +
                 '}';
     }
 }
