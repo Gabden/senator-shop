@@ -49,21 +49,26 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 .replace(JwtProperties.TOKEN_PREFIX, "");
 
         if (token != null) {
-            // parse the token and validate it
-            String userName = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
-                    .build()
-                    .verify(token)
-                    .getSubject();
+            try {
+                // parse the token and validate it
+                String userName = JWT.require(HMAC512(JwtProperties.SECRET.getBytes()))
+                        .build()
+                        .verify(token)
+                        .getSubject();
 
-            // Search in the DB if we find the user by token subject (username)
-            // If so, then grab user details and create spring auth token using username, pass, authorities/roles
-            if (userName != null) {
-                User user = userService.findByUsername(userName);
-                UserPrincipal principal = new UserPrincipal(user);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
-                return auth;
+                // Search in the DB if we find the user by token subject (username)
+                // If so, then grab user details and create spring auth token using username, pass, authorities/roles
+                if (userName != null) {
+                    User user = userService.findByUsername(userName);
+                    UserPrincipal principal = new UserPrincipal(user);
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userName, null, principal.getAuthorities());
+                    return auth;
+                }
+                return null;
+            } catch (Exception e) {
+                return null;
             }
-            return null;
+
         }
         return null;
     }
