@@ -4,16 +4,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.product.Product;
 import ru.gabdulindv.senatorshop.model.sales.Banner;
 import ru.gabdulindv.senatorshop.service.BannerService;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/home")
@@ -41,5 +40,20 @@ public class IndexController {
     public ResponseEntity getAllBanners() {
         List<Banner> banners = bannerService.findAll();
         return ResponseEntity.ok(banners);
+    }
+
+    @RequestMapping("/banners/{id}")
+    @ResponseBody
+    public ResponseEntity<byte[]> productImage(@PathVariable Long id) {
+        Optional<Banner> banner = bannerService.findById(id);
+        if (banner.isPresent()) {
+            byte[] imageByteArray = banner.get().getFileData();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
+            httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(imageByteArray, httpHeaders, HttpStatus.OK);
+        } else {
+            throw new RuntimeException("Banner with id" + id + " doesn`t exist");
+        }
     }
 }

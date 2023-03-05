@@ -218,6 +218,5 @@ public class ProductController {
         } else {
             throw new RuntimeException("Image with id" + id + " doesn`t exist");
         }
-
     }
 }

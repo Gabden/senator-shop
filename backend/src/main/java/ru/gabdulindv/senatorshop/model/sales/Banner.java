@@ -1,5 +1,7 @@
 package ru.gabdulindv.senatorshop.model.sales;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,6 +23,7 @@ public class Banner implements Serializable {
 
     @Lob
     @Column(name = "file_data")
+    @JsonIgnore
     private byte[] fileData;
 
     @Column(name = "banner_url")
