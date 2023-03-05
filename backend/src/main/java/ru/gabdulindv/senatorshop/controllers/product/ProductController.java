@@ -10,6 +10,7 @@ import ru.gabdulindv.senatorshop.model.product.Product;
 import ru.gabdulindv.senatorshop.service.ProductDetailsService;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
+import java.time.Duration;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -212,7 +213,9 @@ public class ProductController {
         if (product.isPresent()) {
             byte[] imageByteArray = product.get().getProductImage().getFileData();
             HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setCacheControl(CacheControl.noCache().getHeaderValue());
+            CacheControl cc = CacheControl.maxAge(Duration.ofDays(15552000));
+            cc.cachePublic();
+            httpHeaders.setCacheControl(cc.getHeaderValue());
             httpHeaders.setContentType(MediaType.IMAGE_JPEG);
             return new ResponseEntity<>(imageByteArray, httpHeaders, HttpStatus.OK);
         } else {
