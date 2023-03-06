@@ -11,6 +11,8 @@ import ru.gabdulindv.senatorshop.service.ProductDetailsService;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,10 +22,17 @@ import java.util.stream.Collectors;
 public class ProductController {
     private ProductService productService;
     private ProductDetailsService productDetailsService;
+    private List<Sort.Order> sortOrder;
 
     public ProductController(ProductService productService, ProductDetailsService productDetailsService) {
         this.productService = productService;
         this.productDetailsService = productDetailsService;
+        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        Sort.Order orderOutOfStock = new Sort.Order(Sort.Direction.ASC, "productDetails.isOutOfStock");
+        Sort.Order orderId = new Sort.Order(Sort.Direction.DESC, "productId");
+        orders.add(orderOutOfStock);
+        orders.add(orderId);
+        sortOrder = orders;
     }
 
     @RequestMapping("/{id}")
@@ -80,7 +89,7 @@ public class ProductController {
             page = 0;
         }
         String textForFind = description.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 10, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDescriptionContainsOrProductNameContains(textForFind, textForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -91,7 +100,7 @@ public class ProductController {
             page = 0;
         }
         String categoryForFind = category.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductCategoryContains(categoryForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -102,7 +111,7 @@ public class ProductController {
             page = 0;
         }
         String volumeForFind = volume.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductVolumeContains(volumeForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -113,7 +122,7 @@ public class ProductController {
             page = 0;
         }
         String colorForFind = color.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholColorContains(colorForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -124,7 +133,7 @@ public class ProductController {
             page = 0;
         }
         String regionForFind = region.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductRegionContains(regionForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -135,7 +144,7 @@ public class ProductController {
             page = 0;
         }
         String degreeForFind = degree.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholDegreeContains(degreeForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -146,7 +155,7 @@ public class ProductController {
             page = 0;
         }
         String sortForFind = sort.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholSortContains(sortForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -157,7 +166,7 @@ public class ProductController {
             page = 0;
         }
         String countryForFind = country.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductCountryContains(countryForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -168,7 +177,7 @@ public class ProductController {
             page = 0;
         }
         String sugarForFind = sugar.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholSugarContains(sugarForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -179,7 +188,7 @@ public class ProductController {
             page = 0;
         }
         String manufacturerForFind = manufacturer.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductManufacturerContains(manufacturerForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -190,7 +199,7 @@ public class ProductController {
             page = 0;
         }
         String temperatureForFind = temperature.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductAlcoholTemperatureContains(temperatureForFind, pageable);
         return ResponseEntity.ok(products);
     }
@@ -201,7 +210,7 @@ public class ProductController {
             page = 0;
         }
         String matureForFind = mature.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 8, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 8, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDetails_ProductMatureContains(matureForFind, pageable);
         return ResponseEntity.ok(products);
     }

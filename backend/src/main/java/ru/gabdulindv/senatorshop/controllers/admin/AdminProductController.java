@@ -12,15 +12,24 @@ import ru.gabdulindv.senatorshop.model.product.Product;
 import ru.gabdulindv.senatorshop.model.product.ProductImage;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminProductController {
     private ProductService productService;
+    private List<Sort.Order> sortOrder;
 
     public AdminProductController(ProductService productService) {
         this.productService = productService;
+        List<Sort.Order> orders = new ArrayList<Sort.Order>();
+        Sort.Order orderOutOfStock = new Sort.Order(Sort.Direction.ASC, "productDetails.isOutOfStock");
+        Sort.Order orderId = new Sort.Order(Sort.Direction.DESC, "productId");
+        orders.add(orderOutOfStock);
+        orders.add(orderId);
+        sortOrder = orders;
     }
 
     @RequestMapping("/products")
@@ -28,7 +37,7 @@ public class AdminProductController {
         if (page < 0) {
             page = 0;
         }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortOrder));
         Page<Product> allProducts = productService.findAll(pageable);
 
         return ResponseEntity.ok(allProducts);
@@ -49,7 +58,7 @@ public class AdminProductController {
             page = 0;
         }
         String textForFind = description.toLowerCase().trim();
-        Pageable pageable = PageRequest.of(page, 10, Sort.by("productId").descending());
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortOrder));
         Page<Product> products = productService.findProductsByProductDescriptionContainsOrProductNameContains(textForFind, textForFind, pageable);
 
         return ResponseEntity.ok(products);
@@ -62,6 +71,8 @@ public class AdminProductController {
             product.setReservedCartItems(oldProduct.get().getReservedCartItems());
             product.setCartItems(oldProduct.get().getCartItems());
         }
+
+        product.getProductDetails().setOutOfStock(product.getProductDetails().getProductUnitInStock().equals("0"));
         productService.addProduct(product);
         return ResponseEntity.ok(product.getProductId());
     }

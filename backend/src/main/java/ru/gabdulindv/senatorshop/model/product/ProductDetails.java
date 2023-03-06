@@ -38,6 +38,9 @@ public class ProductDetails implements Serializable {
     @Column(name = "product_unit_in_stock")
     private String productUnitInStock;
 
+    @Column(name = "product_is_out_of_stock")
+    private Boolean isOutOfStock;
+
 //    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @JoinColumn(name = "product_id")
 //    private Product product;
@@ -157,14 +160,13 @@ public class ProductDetails implements Serializable {
         this.productUnitInStock = productUnitInStock;
     }
 
-//    public Product getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(Product product) {
-//        this.product = product;
-//    }
+    public Boolean getOutOfStock() {
+        return isOutOfStock;
+    }
 
+    public void setOutOfStock(Boolean outOfStock) {
+        isOutOfStock = outOfStock;
+    }
     @Override
     public String toString() {
         return "ProductDetails{" +

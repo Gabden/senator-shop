@@ -188,6 +188,8 @@ public class AccountController {
                     }
                     Product product = cartItem.getProduct();
                     product.getProductDetails().setProductUnitInStock(String.valueOf(newQuantity));
+                    product.getProductDetails().setOutOfStock(product.getProductDetails().getProductUnitInStock().equals("0"));
+
                     productService.addProduct(product);
                 } catch (Exception e){
                     System.out.println("Error while updating quantity");
