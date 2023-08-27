@@ -70,6 +70,7 @@ public class AdminProductController {
             Optional<Product> oldProduct = productService.findById(product.getProductId());
             product.setReservedCartItems(oldProduct.get().getReservedCartItems());
             product.setCartItems(oldProduct.get().getCartItems());
+            product.setProductImage(oldProduct.get().getProductImage());
         }
 
         product.getProductDetails().setOutOfStock(product.getProductDetails().getProductUnitInStock().equals("0"));

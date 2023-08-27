@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.product.Product;
+import ru.gabdulindv.senatorshop.model.product.ProductImage;
 import ru.gabdulindv.senatorshop.service.ProductDetailsService;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
@@ -220,12 +221,17 @@ public class ProductController {
     public ResponseEntity<byte[]> productImage(@PathVariable Long id) {
         Optional<Product> product = productService.findById(id);
         if (product.isPresent()) {
-            byte[] imageByteArray = product.get().getProductImage().getFileData();
+            ProductImage image = product.get().getProductImage();
+            if (image == null) {
+                throw new RuntimeException("Image with id" + id + " doesn`t exist");
+            }
+            byte[] imageByteArray = image.getFileData();
             HttpHeaders httpHeaders = new HttpHeaders();
             CacheControl cc = CacheControl.maxAge(Duration.ofDays(15552000));
             cc.cachePublic();
             httpHeaders.setCacheControl(cc.getHeaderValue());
-            httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+            String imageType = image.getFileType().split("/")[1];
+            httpHeaders.setContentType(new MediaType("image", imageType));
             return new ResponseEntity<>(imageByteArray, httpHeaders, HttpStatus.OK);
         } else {
             throw new RuntimeException("Image with id" + id + " doesn`t exist");

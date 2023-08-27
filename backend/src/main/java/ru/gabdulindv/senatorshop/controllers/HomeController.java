@@ -58,6 +58,9 @@ public class HomeController {
 
     @RequestMapping("/user")
     public User getUser(Authentication auth, HttpServletRequest request) {
+        if (auth == null) {
+            return null;
+        }
         User user = repository.findUserByUsername(auth.getName());
         user.setToken(request.getHeader("Authorization"));
         return user;
