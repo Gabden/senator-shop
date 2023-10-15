@@ -50,10 +50,11 @@ public class IndexController {
         if (banner.isPresent()) {
             byte[] imageByteArray = banner.get().getFileData();
             HttpHeaders httpHeaders = new HttpHeaders();
-            CacheControl cc = CacheControl.maxAge(Duration.ofDays(15552000));
+            CacheControl cc = CacheControl.noCache();
             cc.cachePublic();
             httpHeaders.setCacheControl(cc.getHeaderValue());
-            httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+            String imageType = banner.get().getFileType().split("/")[1];
+            httpHeaders.setContentType(new MediaType("image", imageType));
             return new ResponseEntity<>(imageByteArray, httpHeaders, HttpStatus.OK);
         } else {
             throw new RuntimeException("Banner with id" + id + " doesn`t exist");

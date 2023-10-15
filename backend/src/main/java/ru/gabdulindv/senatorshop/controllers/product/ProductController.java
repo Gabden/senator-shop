@@ -227,7 +227,7 @@ public class ProductController {
             }
             byte[] imageByteArray = image.getFileData();
             HttpHeaders httpHeaders = new HttpHeaders();
-            CacheControl cc = CacheControl.maxAge(Duration.ofDays(15552000));
+            CacheControl cc = CacheControl.noCache();
             cc.cachePublic();
             httpHeaders.setCacheControl(cc.getHeaderValue());
             String imageType = image.getFileType().split("/")[1];
