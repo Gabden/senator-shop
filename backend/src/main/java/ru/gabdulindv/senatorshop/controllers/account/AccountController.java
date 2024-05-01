@@ -20,7 +20,7 @@ import ru.gabdulindv.senatorshop.model.product.Product;
 import ru.gabdulindv.senatorshop.service.OrderService;
 import ru.gabdulindv.senatorshop.service.ProductService;
 import ru.gabdulindv.senatorshop.service.UserService;
-import ru.gabdulindv.senatorshop.service.mail.EmailService;
+import ru.gabdulindv.senatorshop.service.WebclientService;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -34,15 +34,15 @@ public class AccountController {
     private UserService userService;
     private PasswordEncoder passwordEncoder;
     private OrderService orderService;
-    private EmailService emailService;
     private ProductService productService;
+    private WebclientService webclientService;
 
-    public AccountController(UserService userService, PasswordEncoder passwordEncoder, OrderService orderService, EmailService emailService, ProductService productService) {
+    public AccountController(UserService userService, PasswordEncoder passwordEncoder, OrderService orderService, ProductService productService, WebclientService webclientService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.orderService = orderService;
-        this.emailService = emailService;
         this.productService = productService;
+        this.webclientService = webclientService;
     }
 
     @RequestMapping(value = "/update/fio/{id}", method = RequestMethod.POST)
@@ -137,23 +137,23 @@ public class AccountController {
 
         userService.save(user);
 
-        emailService.sendRegistrationEmail(user.getUsername());
-
         return ResponseEntity.ok("Created");
     }
 
     @RequestMapping(value = "/restore-password", method = RequestMethod.POST)
     public ResponseEntity newPassword(@RequestParam(name = "name") String name) {
         Optional<User> user = userService.findUserByUsernameContains(name);
+
         if (!user.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-        } else {
-            String newPassword = getAlphaNumericString(5);
-            user.get().setPassword(passwordEncoder.encode(newPassword));
-            userService.save(user.get());
-            emailService.sendRestoreMail(name, newPassword);
-            return ResponseEntity.ok("Password was changed");
         }
+
+        String newPassword = getAlphaNumericString(5);
+        user.get().setPassword(passwordEncoder.encode(newPassword));
+        userService.save(user.get());
+        webclientService.resetPasswordRequest(name,user.get().getUserDetailsDescription().getFIOfirst(), newPassword);
+        return ResponseEntity.ok("Password was changed");
+
     }
 
     @RequestMapping(value = "/create/order/{id}", method = RequestMethod.POST)
@@ -183,7 +183,7 @@ public class AccountController {
                 //Update product quantity
                 try {
                     int newQuantity = Integer.parseInt(cartItem.getProduct().getProductDetails().getProductUnitInStock()) - cartItem.getQuantity();
-                    if (newQuantity < 0){
+                    if (newQuantity < 0) {
                         newQuantity = 0;
                     }
                     Product product = cartItem.getProduct();
@@ -191,7 +191,7 @@ public class AccountController {
                     product.getProductDetails().setOutOfStock(product.getProductDetails().getProductUnitInStock().equals("0"));
 
                     productService.addProduct(product);
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Error while updating quantity");
                 }
                 //
@@ -205,7 +205,8 @@ public class AccountController {
             user.get().setOrderTable(orders);
             userService.save(user.get());
             Order createdOrder = user.get().getOrderTable().get(user.get().getOrderTable().size() - 1);
-            emailService.sendOrderEmail(createdOrder);
+
+            webclientService.createOrderRequest(user.get().getUsername(), user.get().getUserDetailsDescription().getFIOfirst(), createdOrder);
 
             return ResponseEntity.ok("Ok");
         }
