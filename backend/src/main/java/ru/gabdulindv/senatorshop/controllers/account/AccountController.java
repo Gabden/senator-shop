@@ -173,7 +173,8 @@ public class AccountController {
 
             cart.getCartItems().forEach(cartItem -> {
                 ReservedCartItem reservedCartItem = new ReservedCartItem();
-                reservedCartItem.setProduct(cartItem.getProduct());
+                Optional<Product> product = productService.findById(cartItem.getProduct().getProductId());
+                product.ifPresent(reservedCartItem::setProduct);
                 reservedCartItem.setQuantity(cartItem.getQuantity());
                 reservedCartItem.setCartItemFinalPrice(cartItem.getCartItemFinalPrice());
                 reservedCartItem.setCartItemPrice(cartItem.getCartItemPrice());
@@ -186,11 +187,12 @@ public class AccountController {
                     if (newQuantity < 0) {
                         newQuantity = 0;
                     }
-                    Product product = cartItem.getProduct();
-                    product.getProductDetails().setProductUnitInStock(String.valueOf(newQuantity));
-                    product.getProductDetails().setOutOfStock(product.getProductDetails().getProductUnitInStock().equals("0"));
+                    if (product.isPresent()) {
+                        product.get().getProductDetails().setProductUnitInStock(String.valueOf(newQuantity));
+                        product.get().getProductDetails().setOutOfStock(product.get().getProductDetails().getProductUnitInStock().equals("0"));
 
-                    productService.addProduct(product);
+                        productService.addProduct(product.get());
+                    }
                 } catch (Exception e) {
                     System.out.println("Error while updating quantity");
                 }
