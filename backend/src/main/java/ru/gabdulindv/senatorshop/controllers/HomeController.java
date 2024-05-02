@@ -1,12 +1,10 @@
 package ru.gabdulindv.senatorshop.controllers;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gabdulindv.senatorshop.model.User;
 import ru.gabdulindv.senatorshop.model.order.Order;
 import ru.gabdulindv.senatorshop.model.order.ReservedCart;
@@ -16,6 +14,8 @@ import ru.gabdulindv.senatorshop.repository.ProductRepo;
 import ru.gabdulindv.senatorshop.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -24,12 +24,10 @@ import java.util.*;
 public class HomeController {
     private UserRepository repository;
     private ProductRepo productRepo;
-    private UserRepository userService;
 
-    public HomeController(UserRepository repository, ProductRepo productRepo, UserRepository userService) {
+    public HomeController(UserRepository repository, ProductRepo productRepo) {
         this.repository = repository;
         this.productRepo = productRepo;
-        this.userService = userService;
     }
 
     @RequestMapping("/hello")
@@ -110,15 +108,15 @@ public class HomeController {
         return user;
     }
 
-    @RequestMapping("/product/1")
-    public ResponseEntity getProduct() {
-        Optional<Product> product = productRepo.findById(1L);
-        return ResponseEntity.ok(product.get());
-    }
 
-    @RequestMapping("/user/1")
-    public ResponseEntity getUser() {
-        User user = userService.findUserByUsername("gabden5545@gmail.com");
-        return ResponseEntity.ok(user);
+    @RequestMapping(
+            value = "/images/logo",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
+    @ResponseBody
+    public byte[] getImageWithMediaType() throws IOException {
+        InputStream in = getClass()
+                .getResourceAsStream("/ru/gabdulindv/senatorshop/assets/senator-logo.png");
+        return IOUtils.toByteArray(in);
     }
 }

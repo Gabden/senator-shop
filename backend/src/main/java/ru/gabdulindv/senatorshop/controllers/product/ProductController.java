@@ -11,7 +11,6 @@ import ru.gabdulindv.senatorshop.model.product.ProductImage;
 import ru.gabdulindv.senatorshop.service.ProductDetailsService;
 import ru.gabdulindv.senatorshop.service.ProductService;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
