@@ -3,6 +3,7 @@ package ru.gabdulindv.senatorshop.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.gabdulindv.senatorshop.model.product.Product;
 
@@ -20,15 +21,15 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Page<Product> findProductsByProductDescriptionContainsOrProductNameContains(String description, String productName, Pageable pageable);
 
-    List<Product> findProductsByProductCategoryContains(String category);
+    List<Product> findProductsByProductCategoryContains(String category, Sort by);
 
-    List<Product> findProductsByProductDetails_ProductTypeContains(String type);
+    List<Product> findProductsByProductDetails_ProductTypeContains(String type, Sort by);
 
-    List<Product> findProductsByProductDetails_ProductAlcoholColorContains(String color);
+    List<Product> findProductsByProductDetails_ProductAlcoholColorContains(String color, Sort by);
 
-    List<Product> findProductsByProductDetails_ProductManufacturerContains(String manufacturer);
+    List<Product> findProductsByProductDetails_ProductManufacturerContains(String manufacturer, Sort by);
 
-    List<Product> findProductsByProductDetails_ProductCountryContains(String country);
+    List<Product> findProductsByProductDetails_ProductCountryContains(String country, Sort by);
 
     Optional<Product> findProductByProductName(String name);
 
